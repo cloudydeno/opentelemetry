@@ -186,6 +186,12 @@ function createLogLevelDiagLogger(maxLevel, logger) {
 
 const API_NAME$4 = 'diag';
 class DiagAPI {
+	static instance() {
+		if (!this._instance) {
+			this._instance = new DiagAPI();
+		}
+		return this._instance;
+	}
 	constructor() {
 		function _logProxy(funcName) {
 			return function (...args) {
@@ -228,12 +234,6 @@ class DiagAPI {
 		self.info = _logProxy('info');
 		self.warn = _logProxy('warn');
 		self.error = _logProxy('error');
-	}
-	static instance() {
-		if (!this._instance) {
-			this._instance = new DiagAPI();
-		}
-		return this._instance;
 	}
 }
 
