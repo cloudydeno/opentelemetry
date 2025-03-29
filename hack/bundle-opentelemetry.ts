@@ -352,15 +352,6 @@ export function createHttpExporterTransport(parameters: OtlpHttpConfiguration): 
   await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/package.json', JSON.stringify(json, null, 2));
 }
 
-// tsconfig doesn't allow module/target overrides in build mode, so we patch
-await Deno.writeTextFile('hack/opentelemetry-js/tsconfig.base.esnext.json',
-  await Deno.readTextFile('hack/opentelemetry-js/tsconfig.base.esnext.json').then(text => text
-    .replace('esnext', 'es2020') // module
-    .replace('es2017', 'es2021'))); // target
-await Deno.writeTextFile('hack/opentelemetry-js/tsconfig.base.json',
-  await Deno.readTextFile('hack/opentelemetry-js/tsconfig.base.json').then(text => text
-    .replace('es2017', 'es2021'))); // target
-
 // from upstream tsconfig.esnext.json
 const packagePaths = [
   "api",
@@ -386,7 +377,13 @@ const packagePaths = [
   "experimental/packages/sdk-logs",
 ]
 
-console.error(`Writing new tsconfig...`);
+console.error(`Writing new tsconfigs...`);
+// patch the project for each module
+for (const path of packagePaths) {
+  await Deno.writeTextFile('hack/opentelemetry-js/'+path+'/tsconfig.esnext.json',
+    await Deno.readTextFile('hack/opentelemetry-js/'+path+'/tsconfig.esnext.json').then(text => text
+      .replaceAll('es2017', 'es2021'))); // target
+}
 // create tsconfig project with the subset of modules we care about
 await Deno.writeTextFile('hack/opentelemetry-js/tsconfig.esnext.deno.json', JSON.stringify({
   "extends": "./tsconfig.base.esnext.json",
