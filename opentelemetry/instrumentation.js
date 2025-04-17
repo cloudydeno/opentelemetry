@@ -17,7 +17,7 @@
 
 import { trace, metrics, diag } from './api.js';
 import { logs } from './api-logs.js';
-import * as shimmer from 'https://esm.sh/shimmer@1.2.1';
+import * as shimmer from 'jsr:@cloudydeno/shimmer@1.2.1';
 
 function enableInstrumentations(instrumentations, tracerProvider, meterProvider, loggerProvider) {
 	for (let i = 0, j = instrumentations.length; i < j; i++) {

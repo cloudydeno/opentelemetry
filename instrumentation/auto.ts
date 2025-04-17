@@ -5,7 +5,7 @@ import { DenoKvInstrumentation } from "./deno-kv.ts";
 import { DenoRuntimeInstrumentation } from "./deno-runtime.ts";
 import { FetchInstrumentation } from "./fetch.ts";
 
-export function getDenoAutoInstrumentations() {
+export function getDenoAutoInstrumentations(): Array<InstrumentationBase> {
   const instrs: InstrumentationBase[] = [
     new FetchInstrumentation(),
   ];

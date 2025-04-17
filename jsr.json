@@ -1,0 +1,47 @@
+{
+  "name": "@cloudydeno/opentelemetry",
+  "version": "0.10.0",
+  "license": "MPL",
+  "exports": {
+
+    "./instrumentation/async.ts": "./instrumentation/async.ts",
+    "./instrumentation/auto.ts": "./instrumentation/auto.ts",
+    "./instrumentation/deno-command.ts": "./instrumentation/deno-command.ts",
+    "./instrumentation/deno-kv.ts": "./instrumentation/deno-kv.ts",
+    "./instrumentation/deno-runtime.ts": "./instrumentation/deno-runtime.ts",
+    "./instrumentation/fetch.ts": "./instrumentation/fetch.ts",
+    "./instrumentation/http-server.ts": "./instrumentation/http-server.ts",
+
+    "./pkg/api": "./opentelemetry/api.d.ts",
+    "./pkg/api-events": "./opentelemetry/api-events.js",
+    "./pkg/api-logs": "./opentelemetry/api-logs.js",
+    "./pkg/core": "./opentelemetry/core.js",
+    "./pkg/exporter-logs-otlp-http": "./opentelemetry/exporter-logs-otlp-http.js",
+    "./pkg/exporter-metrics-otlp-http": "./opentelemetry/exporter-metrics-otlp-http.js",
+    "./pkg/exporter-trace-otlp-http": "./opentelemetry/exporter-trace-otlp-http.js",
+    "./pkg/instrumentation": "./opentelemetry/instrumentation.js",
+    "./pkg/otlp-exporter-base": "./opentelemetry/otlp-exporter-base.js",
+    "./pkg/otlp-transformer": "./opentelemetry/otlp-transformer.js",
+    "./pkg/propagator-b3": "./opentelemetry/propagator-b3.js",
+    "./pkg/propagator-jaeger": "./opentelemetry/propagator-jaeger.js",
+    "./pkg/resources": "./opentelemetry/resources.js",
+    "./pkg/sdk-logs": "./opentelemetry/sdk-logs.js",
+    "./pkg/sdk-metrics": "./opentelemetry/sdk-metrics.js",
+    "./pkg/sdk-trace-base": "./opentelemetry/sdk-trace-base.js",
+    "./pkg/semantic-conventions": "./opentelemetry/semantic-conventions.js",
+
+    "./register": "./preconfigured/from-environment.ts",
+    "./register/datadog": "./preconfigured/datadog-agent.ts",
+
+    "./sdk": "./sdk.ts",
+    ".": "./mod.ts"
+  },
+  "publish": {
+    "exclude": [
+      ".github",
+      ".gitignore",
+      ".gitmodules",
+      "hack"
+    ]
+  }
+}

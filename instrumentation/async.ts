@@ -11,7 +11,7 @@ import {
 
 const tracer = trace.getTracer('async_func');
 
-export async function traceAsyncFunc<T>(spanName: string, func: (span: Span) => Promise<T>) {
+export async function traceAsyncFunc<T>(spanName: string, func: (span: Span) => Promise<T>): Promise<T> {
   const span = tracer.startSpan(spanName, {
     kind: SpanKind.INTERNAL,
   });
@@ -20,8 +20,9 @@ export async function traceAsyncFunc<T>(spanName: string, func: (span: Span) => 
     const result = await context.with(spanContext, () => func(span));
     span.end();
     return result;
-  } catch (err) {
-    span.recordException(err as Error);
+  } catch (thrown: unknown) {
+    const err = thrown as Error;
+    span.recordException(err);
     span.setStatus({
       code: SpanStatusCode.ERROR,
       message: err.message,

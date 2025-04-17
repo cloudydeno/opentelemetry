@@ -43,8 +43,7 @@ function recordChildFailed(span: Span, err: Error) {
 }
 
 export class DenoCommandInstrumentation extends InstrumentationBase {
-  readonly component: string = 'Deno.Command';
-  moduleName = this.component;
+  readonly moduleName: string = 'Deno.Command';
 
   constructor(config: InstrumentationConfig = {}) {
     super('Deno.Command', '0.1.0', config);

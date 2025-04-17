@@ -1,3 +1,3 @@
 import { DenoTelemetrySdk } from "../sdk.ts";
 
-export const sdk = new DenoTelemetrySdk();
+export const sdk: DenoTelemetrySdk = new DenoTelemetrySdk();

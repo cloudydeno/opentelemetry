@@ -94,8 +94,7 @@ export interface FetchInstrumentationConfig extends InstrumentationConfig {
  * This class represents a fetch plugin for auto instrumentation
  */
 export class FetchInstrumentation extends InstrumentationBase {
-  readonly component: string = 'fetch';
-  moduleName = this.component;
+  readonly moduleName: string = 'fetch';
 
   constructor(config: InstrumentationConfig = {}) {
     super('fetch', '0.1.0', config);

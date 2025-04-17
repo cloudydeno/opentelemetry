@@ -14,8 +14,7 @@ import {
 const listSpans = new WeakMap<Deno.KvListIterator<unknown>, {span: Span, docCount: number}>();
 
 export class DenoKvInstrumentation extends InstrumentationBase {
-  readonly component: string = 'deno-kv';
-  moduleName = this.component;
+  readonly moduleName: string = 'deno-kv';
   atomicOpClass?: typeof Deno.AtomicOperation.constructor;
 
   constructor(config: InstrumentationConfig = {}) {

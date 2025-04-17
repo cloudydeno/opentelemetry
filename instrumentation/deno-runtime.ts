@@ -10,8 +10,7 @@ import {
 } from "../opentelemetry/instrumentation.js";
 
 export class DenoRuntimeInstrumentation extends InstrumentationBase {
-  readonly component: string = 'deno-runtime';
-  moduleName = this.component;
+  readonly moduleName: string = 'deno-runtime';
 
   constructor(config: InstrumentationConfig = {}) {
     super('deno-runtime', '0.1.0', {enabled: false});
