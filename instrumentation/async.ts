@@ -155,3 +155,11 @@ export const syncSpan: LogicTracer['syncSpan'] = defaultTracer.syncSpan.bind(def
 export const wrapAsyncWithSpan: LogicTracer['wrapAsyncWithSpan'] = defaultTracer.wrapAsyncWithSpan.bind(defaultTracer);
 export const tracedInterval: LogicTracer['tracedInterval'] = defaultTracer.tracedInterval.bind(defaultTracer);
 export const tracedTimeout: LogicTracer['tracedTimeout'] = defaultTracer.tracedTimeout.bind(defaultTracer);
+
+/** @deprecated Switch to asyncSpan() or possibly wrapAsyncWithSpan() */
+export async function traceAsyncFunc<Tret>(
+  spanName: string,
+  func: (span: Span | null) => Promise<Tret> | Tret,
+): Promise<Tret> {
+  return await asyncSpan(spanName, {}, func);
+}
