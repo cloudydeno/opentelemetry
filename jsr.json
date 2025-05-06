@@ -12,7 +12,7 @@
     "./instrumentation/fetch.ts": "./instrumentation/fetch.ts",
     "./instrumentation/http-server.ts": "./instrumentation/http-server.ts",
 
-    "./pkg/api": "./opentelemetry/api.d.ts",
+    "./pkg/api": "./opentelemetry/api.js",
     "./pkg/api-events": "./opentelemetry/api-events.js",
     "./pkg/api-logs": "./opentelemetry/api-logs.js",
     "./pkg/core": "./opentelemetry/core.js",
