@@ -3,6 +3,7 @@ import {
   type SpanOptions,
   type Tracer,
   SpanKind,
+  SpanStatusCode,
   context,
   trace,
 } from "../opentelemetry/api.js";
@@ -59,8 +60,13 @@ export class LogicTracer {
     try {
       const spanContext = trace.setSpan(context.active(), span);
       return await context.with(spanContext, () => func(span));
-    } catch (err) {
-      span.recordException(err as Error);
+    } catch (thrown: unknown) {
+      const err = thrown as Error;
+      span.setStatus({
+        code: SpanStatusCode.ERROR,
+        message: err.message,
+      });
+      span.recordException(err);
       throw err;
     } finally {
       span.end();
@@ -91,8 +97,13 @@ export class LogicTracer {
     try {
       const spanContext = trace.setSpan(context.active(), span);
       return context.with(spanContext, () => func(span));
-    } catch (err) {
-      span.recordException(err as Error);
+    } catch (thrown: unknown) {
+      const err = thrown as Error;
+      span.setStatus({
+        code: opentelemetry.SpanStatusCode.ERROR,
+        message: err.message,
+      })
+      span.recordException(err);
       throw err;
     } finally {
       span.end();
