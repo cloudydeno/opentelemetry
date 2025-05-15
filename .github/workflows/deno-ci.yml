@@ -51,7 +51,23 @@ jobs:
     #   run: time deno test --allow-net=localhost --allow-read=/proc/self
 
 
-  bundle:
+  publish-dry-run:
+    runs-on: ubuntu-latest
+    name: Check JSR rules
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Set up Deno
+      uses: denoland/setup-deno@v2
+      with:
+        deno-version: v2.3
+
+    - name: Check publish rules
+      run: time deno publish --dry-run
+
+  rebundle-otel:
     runs-on: ubuntu-latest
     name: Rebundle OpenTelemetry
 
@@ -64,7 +80,7 @@ jobs:
     - name: Set up Deno
       uses: denoland/setup-deno@v2
       with:
-        deno-version: v2.1
+        deno-version: v2.3
 
     # "https" cache: code from the Internet
     # External sources won't change much so we use less precise keys
@@ -97,12 +113,12 @@ jobs:
     - name: Check demo.ts
       run: time deno check --unstable demo.ts
 
-    - name: Check publish rules
-      run: time deno publish --dry-run
-
   publish:
     runs-on: ubuntu-latest
-    needs: check
+    needs:
+    - check
+    - publish-dry-run
+    - rebundle-otel
     if: github.event_name == 'push'
 
     permissions:
