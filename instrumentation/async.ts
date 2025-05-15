@@ -100,7 +100,7 @@ export class LogicTracer {
     } catch (thrown: unknown) {
       const err = thrown as Error;
       span.setStatus({
-        code: opentelemetry.SpanStatusCode.ERROR,
+        code: SpanStatusCode.ERROR,
         message: err.message,
       })
       span.recordException(err);

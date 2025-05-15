@@ -97,6 +97,9 @@ jobs:
     - name: Check demo.ts
       run: time deno check --unstable demo.ts
 
+    - name: Check publish rules
+      run: time deno publish --dry-run
+
   publish:
     runs-on: ubuntu-latest
     needs: check
