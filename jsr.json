@@ -33,6 +33,8 @@
     "./register": "./preconfigured/from-environment.ts",
     "./register/datadog": "./preconfigured/datadog-agent.ts",
 
+    "./util/datadog-logs": "./util/datadog-logs.ts",
+
     "./sdk": "./sdk.ts",
     ".": "./mod.ts"
   },
