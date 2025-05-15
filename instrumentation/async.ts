@@ -163,3 +163,35 @@ export async function traceAsyncFunc<Tret>(
 ): Promise<Tret> {
   return await asyncSpan(spanName, {}, func);
 }
+
+type AsyncMethodDecorator<
+  Tthis,
+  Targs extends unknown[],
+  Tret extends unknown,
+> = (
+  originalMethod: (...args: Targs) => Promise<Tret>,
+  context: ClassMethodDecoratorContext<Tthis, (this: Tthis, ...args: Targs) => Promise<Tret>>,
+) => (...args: Targs) => Promise<Tret>;
+
+type WrapSpanOptions = SpanOptions & { name?: string };
+
+/**
+ * Decorator, wraps an asyncronuous method with an OpenTelemetry span.
+ * Optionally accepts SpanOptions e.g. name or attributes to be attached to every created span.
+ */
+export function WrapWithSpan<
+  Tthis,
+  Targs extends unknown[],
+  Tret extends unknown,
+>(
+  opts: WrapSpanOptions = {},
+): AsyncMethodDecorator<Tthis, Targs, Tret> {
+  return (originalMethod, context) => {
+    return function (this: Tthis, ...args: Targs): Promise<Tret> {
+      return asyncSpan(
+        opts.name ?? context.name.toString(),
+        opts,
+        () => originalMethod.apply(this, args));
+    };
+  }
+}
