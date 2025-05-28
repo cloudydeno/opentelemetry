@@ -4139,20 +4139,20 @@ declare const TelemetrySdkLanguageValues: TelemetrySdkLanguageValues;
  */
 declare const ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT: "aspnetcore.diagnostics.exception.result";
 /**
-* Enum value "aborted" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
-*/
+ * Enum value "aborted" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
+ */
 declare const ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_ABORTED: "aborted";
 /**
-* Enum value "handled" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
-*/
+ * Enum value "handled" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
+ */
 declare const ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_HANDLED: "handled";
 /**
-* Enum value "skipped" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
-*/
+ * Enum value "skipped" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
+ */
 declare const ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_SKIPPED: "skipped";
 /**
-* Enum value "unhandled" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
-*/
+ * Enum value "unhandled" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
+ */
 declare const ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_UNHANDLED: "unhandled";
 /**
  * Full type name of the [`IExceptionHandler`](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.diagnostics.iexceptionhandler) implementation that handled the exception.
@@ -4176,20 +4176,20 @@ declare const ATTR_ASPNETCORE_RATE_LIMITING_POLICY: "aspnetcore.rate_limiting.po
  */
 declare const ATTR_ASPNETCORE_RATE_LIMITING_RESULT: "aspnetcore.rate_limiting.result";
 /**
-* Enum value "acquired" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
-*/
+ * Enum value "acquired" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
+ */
 declare const ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ACQUIRED: "acquired";
 /**
-* Enum value "endpoint_limiter" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
-*/
+ * Enum value "endpoint_limiter" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
+ */
 declare const ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ENDPOINT_LIMITER: "endpoint_limiter";
 /**
-* Enum value "global_limiter" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
-*/
+ * Enum value "global_limiter" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
+ */
 declare const ASPNETCORE_RATE_LIMITING_RESULT_VALUE_GLOBAL_LIMITER: "global_limiter";
 /**
-* Enum value "request_canceled" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
-*/
+ * Enum value "request_canceled" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
+ */
 declare const ASPNETCORE_RATE_LIMITING_RESULT_VALUE_REQUEST_CANCELED: "request_canceled";
 /**
  * Flag indicating if request was handled by the application pipeline.
@@ -4211,12 +4211,12 @@ declare const ATTR_ASPNETCORE_ROUTING_IS_FALLBACK: "aspnetcore.routing.is_fallba
  */
 declare const ATTR_ASPNETCORE_ROUTING_MATCH_STATUS: "aspnetcore.routing.match_status";
 /**
-* Enum value "failure" for attribute {@link ATTR_ASPNETCORE_ROUTING_MATCH_STATUS}.
-*/
+ * Enum value "failure" for attribute {@link ATTR_ASPNETCORE_ROUTING_MATCH_STATUS}.
+ */
 declare const ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_FAILURE: "failure";
 /**
-* Enum value "success" for attribute {@link ATTR_ASPNETCORE_ROUTING_MATCH_STATUS}.
-*/
+ * Enum value "success" for attribute {@link ATTR_ASPNETCORE_ROUTING_MATCH_STATUS}.
+ */
 declare const ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_SUCCESS: "success";
 /**
  * Client address - domain name if available without reverse DNS lookup; otherwise, IP address or Unix domain socket name.
@@ -4405,169 +4405,21 @@ declare const ATTR_DB_STORED_PROCEDURE_NAME: "db.stored_procedure.name";
  */
 declare const ATTR_DB_SYSTEM_NAME: "db.system.name";
 /**
-* Enum value "actian.ingres" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_ACTIAN_INGRES: "actian.ingres";
-/**
-* Enum value "aws.dynamodb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_AWS_DYNAMODB: "aws.dynamodb";
-/**
-* Enum value "aws.redshift" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_AWS_REDSHIFT: "aws.redshift";
-/**
-* Enum value "azure.cosmosdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_AZURE_COSMOSDB: "azure.cosmosdb";
-/**
-* Enum value "cassandra" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_CASSANDRA: "cassandra";
-/**
-* Enum value "clickhouse" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_CLICKHOUSE: "clickhouse";
-/**
-* Enum value "cockroachdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_COCKROACHDB: "cockroachdb";
-/**
-* Enum value "couchbase" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_COUCHBASE: "couchbase";
-/**
-* Enum value "couchdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_COUCHDB: "couchdb";
-/**
-* Enum value "derby" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_DERBY: "derby";
-/**
-* Enum value "elasticsearch" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_ELASTICSEARCH: "elasticsearch";
-/**
-* Enum value "firebirdsql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_FIREBIRDSQL: "firebirdsql";
-/**
-* Enum value "gcp.spanner" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_GCP_SPANNER: "gcp.spanner";
-/**
-* Enum value "geode" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_GEODE: "geode";
-/**
-* Enum value "h2database" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_H2DATABASE: "h2database";
-/**
-* Enum value "hbase" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_HBASE: "hbase";
-/**
-* Enum value "hive" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_HIVE: "hive";
-/**
-* Enum value "hsqldb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_HSQLDB: "hsqldb";
-/**
-* Enum value "ibm.db2" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_IBM_DB2: "ibm.db2";
-/**
-* Enum value "ibm.informix" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_IBM_INFORMIX: "ibm.informix";
-/**
-* Enum value "ibm.netezza" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_IBM_NETEZZA: "ibm.netezza";
-/**
-* Enum value "influxdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_INFLUXDB: "influxdb";
-/**
-* Enum value "instantdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_INSTANTDB: "instantdb";
-/**
-* Enum value "intersystems.cache" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_INTERSYSTEMS_CACHE: "intersystems.cache";
-/**
-* Enum value "mariadb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
+ * Enum value "mariadb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
 declare const DB_SYSTEM_NAME_VALUE_MARIADB: "mariadb";
 /**
-* Enum value "memcached" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_MEMCACHED: "memcached";
-/**
-* Enum value "microsoft.sql_server" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
+ * Enum value "microsoft.sql_server" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
 declare const DB_SYSTEM_NAME_VALUE_MICROSOFT_SQL_SERVER: "microsoft.sql_server";
 /**
-* Enum value "mongodb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_MONGODB: "mongodb";
-/**
-* Enum value "mysql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
+ * Enum value "mysql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
 declare const DB_SYSTEM_NAME_VALUE_MYSQL: "mysql";
 /**
-* Enum value "neo4j" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_NEO4J: "neo4j";
-/**
-* Enum value "opensearch" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_OPENSEARCH: "opensearch";
-/**
-* Enum value "oracle.db" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_ORACLE_DB: "oracle.db";
-/**
-* Enum value "other_sql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_OTHER_SQL: "other_sql";
-/**
-* Enum value "postgresql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
+ * Enum value "postgresql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
 declare const DB_SYSTEM_NAME_VALUE_POSTGRESQL: "postgresql";
-/**
-* Enum value "redis" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_REDIS: "redis";
-/**
-* Enum value "sap.hana" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_SAP_HANA: "sap.hana";
-/**
-* Enum value "sap.maxdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_SAP_MAXDB: "sap.maxdb";
-/**
-* Enum value "softwareag.adabas" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_SOFTWAREAG_ADABAS: "softwareag.adabas";
-/**
-* Enum value "sqlite" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_SQLITE: "sqlite";
-/**
-* Enum value "teradata" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_TERADATA: "teradata";
-/**
-* Enum value "trino" for attribute {@link ATTR_DB_SYSTEM_NAME}.
-*/
-declare const DB_SYSTEM_NAME_VALUE_TRINO: "trino";
 /**
  * Name of the garbage collector managed heap generation.
  *
@@ -4577,24 +4429,24 @@ declare const DB_SYSTEM_NAME_VALUE_TRINO: "trino";
  */
 declare const ATTR_DOTNET_GC_HEAP_GENERATION: "dotnet.gc.heap.generation";
 /**
-* Enum value "gen0" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
-*/
+ * Enum value "gen0" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
+ */
 declare const DOTNET_GC_HEAP_GENERATION_VALUE_GEN0: "gen0";
 /**
-* Enum value "gen1" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
-*/
+ * Enum value "gen1" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
+ */
 declare const DOTNET_GC_HEAP_GENERATION_VALUE_GEN1: "gen1";
 /**
-* Enum value "gen2" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
-*/
+ * Enum value "gen2" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
+ */
 declare const DOTNET_GC_HEAP_GENERATION_VALUE_GEN2: "gen2";
 /**
-* Enum value "loh" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
-*/
+ * Enum value "loh" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
+ */
 declare const DOTNET_GC_HEAP_GENERATION_VALUE_LOH: "loh";
 /**
-* Enum value "poh" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
-*/
+ * Enum value "poh" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
+ */
 declare const DOTNET_GC_HEAP_GENERATION_VALUE_POH: "poh";
 /**
  * Describes a class of error the operation ended with.
@@ -4626,8 +4478,8 @@ declare const DOTNET_GC_HEAP_GENERATION_VALUE_POH: "poh";
  */
 declare const ATTR_ERROR_TYPE: "error.type";
 /**
-* Enum value "_OTHER" for attribute {@link ATTR_ERROR_TYPE}.
-*/
+ * Enum value "_OTHER" for attribute {@link ATTR_ERROR_TYPE}.
+ */
 declare const ERROR_TYPE_VALUE_OTHER: "_OTHER";
 /**
  * Indicates that the exception is escaping the scope of the span.
@@ -4703,44 +4555,44 @@ declare const ATTR_HTTP_REQUEST_HEADER: (key: string) => string;
  */
 declare const ATTR_HTTP_REQUEST_METHOD: "http.request.method";
 /**
-* Enum value "_OTHER" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
-*/
+ * Enum value "_OTHER" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ */
 declare const HTTP_REQUEST_METHOD_VALUE_OTHER: "_OTHER";
 /**
-* Enum value "CONNECT" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
-*/
+ * Enum value "CONNECT" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ */
 declare const HTTP_REQUEST_METHOD_VALUE_CONNECT: "CONNECT";
 /**
-* Enum value "DELETE" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
-*/
+ * Enum value "DELETE" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ */
 declare const HTTP_REQUEST_METHOD_VALUE_DELETE: "DELETE";
 /**
-* Enum value "GET" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
-*/
+ * Enum value "GET" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ */
 declare const HTTP_REQUEST_METHOD_VALUE_GET: "GET";
 /**
-* Enum value "HEAD" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
-*/
+ * Enum value "HEAD" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ */
 declare const HTTP_REQUEST_METHOD_VALUE_HEAD: "HEAD";
 /**
-* Enum value "OPTIONS" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
-*/
+ * Enum value "OPTIONS" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ */
 declare const HTTP_REQUEST_METHOD_VALUE_OPTIONS: "OPTIONS";
 /**
-* Enum value "PATCH" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
-*/
+ * Enum value "PATCH" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ */
 declare const HTTP_REQUEST_METHOD_VALUE_PATCH: "PATCH";
 /**
-* Enum value "POST" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
-*/
+ * Enum value "POST" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ */
 declare const HTTP_REQUEST_METHOD_VALUE_POST: "POST";
 /**
-* Enum value "PUT" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
-*/
+ * Enum value "PUT" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ */
 declare const HTTP_REQUEST_METHOD_VALUE_PUT: "PUT";
 /**
-* Enum value "TRACE" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
-*/
+ * Enum value "TRACE" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ */
 declare const HTTP_REQUEST_METHOD_VALUE_TRACE: "TRACE";
 /**
  * Original HTTP method sent by the client in the request line.
@@ -4833,12 +4685,12 @@ declare const ATTR_JVM_MEMORY_POOL_NAME: "jvm.memory.pool.name";
  */
 declare const ATTR_JVM_MEMORY_TYPE: "jvm.memory.type";
 /**
-* Enum value "heap" for attribute {@link ATTR_JVM_MEMORY_TYPE}.
-*/
+ * Enum value "heap" for attribute {@link ATTR_JVM_MEMORY_TYPE}.
+ */
 declare const JVM_MEMORY_TYPE_VALUE_HEAP: "heap";
 /**
-* Enum value "non_heap" for attribute {@link ATTR_JVM_MEMORY_TYPE}.
-*/
+ * Enum value "non_heap" for attribute {@link ATTR_JVM_MEMORY_TYPE}.
+ */
 declare const JVM_MEMORY_TYPE_VALUE_NON_HEAP: "non_heap";
 /**
  * Whether the thread is daemon or not.
@@ -4852,28 +4704,28 @@ declare const ATTR_JVM_THREAD_DAEMON: "jvm.thread.daemon";
  */
 declare const ATTR_JVM_THREAD_STATE: "jvm.thread.state";
 /**
-* Enum value "blocked" for attribute {@link ATTR_JVM_THREAD_STATE}.
-*/
+ * Enum value "blocked" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ */
 declare const JVM_THREAD_STATE_VALUE_BLOCKED: "blocked";
 /**
-* Enum value "new" for attribute {@link ATTR_JVM_THREAD_STATE}.
-*/
+ * Enum value "new" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ */
 declare const JVM_THREAD_STATE_VALUE_NEW: "new";
 /**
-* Enum value "runnable" for attribute {@link ATTR_JVM_THREAD_STATE}.
-*/
+ * Enum value "runnable" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ */
 declare const JVM_THREAD_STATE_VALUE_RUNNABLE: "runnable";
 /**
-* Enum value "terminated" for attribute {@link ATTR_JVM_THREAD_STATE}.
-*/
+ * Enum value "terminated" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ */
 declare const JVM_THREAD_STATE_VALUE_TERMINATED: "terminated";
 /**
-* Enum value "timed_waiting" for attribute {@link ATTR_JVM_THREAD_STATE}.
-*/
+ * Enum value "timed_waiting" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ */
 declare const JVM_THREAD_STATE_VALUE_TIMED_WAITING: "timed_waiting";
 /**
-* Enum value "waiting" for attribute {@link ATTR_JVM_THREAD_STATE}.
-*/
+ * Enum value "waiting" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ */
 declare const JVM_THREAD_STATE_VALUE_WAITING: "waiting";
 /**
  * Local address of the network connection - IP address or Unix domain socket name.
@@ -4934,24 +4786,24 @@ declare const ATTR_NETWORK_PROTOCOL_VERSION: "network.protocol.version";
  */
 declare const ATTR_NETWORK_TRANSPORT: "network.transport";
 /**
-* Enum value "pipe" for attribute {@link ATTR_NETWORK_TRANSPORT}.
-*/
+ * Enum value "pipe" for attribute {@link ATTR_NETWORK_TRANSPORT}.
+ */
 declare const NETWORK_TRANSPORT_VALUE_PIPE: "pipe";
 /**
-* Enum value "quic" for attribute {@link ATTR_NETWORK_TRANSPORT}.
-*/
+ * Enum value "quic" for attribute {@link ATTR_NETWORK_TRANSPORT}.
+ */
 declare const NETWORK_TRANSPORT_VALUE_QUIC: "quic";
 /**
-* Enum value "tcp" for attribute {@link ATTR_NETWORK_TRANSPORT}.
-*/
+ * Enum value "tcp" for attribute {@link ATTR_NETWORK_TRANSPORT}.
+ */
 declare const NETWORK_TRANSPORT_VALUE_TCP: "tcp";
 /**
-* Enum value "udp" for attribute {@link ATTR_NETWORK_TRANSPORT}.
-*/
+ * Enum value "udp" for attribute {@link ATTR_NETWORK_TRANSPORT}.
+ */
 declare const NETWORK_TRANSPORT_VALUE_UDP: "udp";
 /**
-* Enum value "unix" for attribute {@link ATTR_NETWORK_TRANSPORT}.
-*/
+ * Enum value "unix" for attribute {@link ATTR_NETWORK_TRANSPORT}.
+ */
 declare const NETWORK_TRANSPORT_VALUE_UNIX: "unix";
 /**
  * [OSI network layer](https://wikipedia.org/wiki/Network_layer) or non-OSI equivalent.
@@ -4963,12 +4815,12 @@ declare const NETWORK_TRANSPORT_VALUE_UNIX: "unix";
  */
 declare const ATTR_NETWORK_TYPE: "network.type";
 /**
-* Enum value "ipv4" for attribute {@link ATTR_NETWORK_TYPE}.
-*/
+ * Enum value "ipv4" for attribute {@link ATTR_NETWORK_TYPE}.
+ */
 declare const NETWORK_TYPE_VALUE_IPV4: "ipv4";
 /**
-* Enum value "ipv6" for attribute {@link ATTR_NETWORK_TYPE}.
-*/
+ * Enum value "ipv6" for attribute {@link ATTR_NETWORK_TYPE}.
+ */
 declare const NETWORK_TYPE_VALUE_IPV6: "ipv6";
 /**
  * The name of the instrumentation scope - (`InstrumentationScope.Name` in OTLP).
@@ -4987,12 +4839,12 @@ declare const ATTR_OTEL_SCOPE_VERSION: "otel.scope.version";
  */
 declare const ATTR_OTEL_STATUS_CODE: "otel.status_code";
 /**
-* Enum value "ERROR" for attribute {@link ATTR_OTEL_STATUS_CODE}.
-*/
+ * Enum value "ERROR" for attribute {@link ATTR_OTEL_STATUS_CODE}.
+ */
 declare const OTEL_STATUS_CODE_VALUE_ERROR: "ERROR";
 /**
-* Enum value "OK" for attribute {@link ATTR_OTEL_STATUS_CODE}.
-*/
+ * Enum value "OK" for attribute {@link ATTR_OTEL_STATUS_CODE}.
+ */
 declare const OTEL_STATUS_CODE_VALUE_OK: "OK";
 /**
  * Description of the Status if it has a value, otherwise not set.
@@ -5043,16 +4895,16 @@ declare const ATTR_SERVICE_VERSION: "service.version";
  */
 declare const ATTR_SIGNALR_CONNECTION_STATUS: "signalr.connection.status";
 /**
-* Enum value "app_shutdown" for attribute {@link ATTR_SIGNALR_CONNECTION_STATUS}.
-*/
+ * Enum value "app_shutdown" for attribute {@link ATTR_SIGNALR_CONNECTION_STATUS}.
+ */
 declare const SIGNALR_CONNECTION_STATUS_VALUE_APP_SHUTDOWN: "app_shutdown";
 /**
-* Enum value "normal_closure" for attribute {@link ATTR_SIGNALR_CONNECTION_STATUS}.
-*/
+ * Enum value "normal_closure" for attribute {@link ATTR_SIGNALR_CONNECTION_STATUS}.
+ */
 declare const SIGNALR_CONNECTION_STATUS_VALUE_NORMAL_CLOSURE: "normal_closure";
 /**
-* Enum value "timeout" for attribute {@link ATTR_SIGNALR_CONNECTION_STATUS}.
-*/
+ * Enum value "timeout" for attribute {@link ATTR_SIGNALR_CONNECTION_STATUS}.
+ */
 declare const SIGNALR_CONNECTION_STATUS_VALUE_TIMEOUT: "timeout";
 /**
  * [SignalR transport type](https://github.com/dotnet/aspnetcore/blob/main/src/SignalR/docs/specs/TransportProtocols.md)
@@ -5062,68 +4914,68 @@ declare const SIGNALR_CONNECTION_STATUS_VALUE_TIMEOUT: "timeout";
  */
 declare const ATTR_SIGNALR_TRANSPORT: "signalr.transport";
 /**
-* Enum value "long_polling" for attribute {@link ATTR_SIGNALR_TRANSPORT}.
-*/
+ * Enum value "long_polling" for attribute {@link ATTR_SIGNALR_TRANSPORT}.
+ */
 declare const SIGNALR_TRANSPORT_VALUE_LONG_POLLING: "long_polling";
 /**
-* Enum value "server_sent_events" for attribute {@link ATTR_SIGNALR_TRANSPORT}.
-*/
+ * Enum value "server_sent_events" for attribute {@link ATTR_SIGNALR_TRANSPORT}.
+ */
 declare const SIGNALR_TRANSPORT_VALUE_SERVER_SENT_EVENTS: "server_sent_events";
 /**
-* Enum value "web_sockets" for attribute {@link ATTR_SIGNALR_TRANSPORT}.
-*/
+ * Enum value "web_sockets" for attribute {@link ATTR_SIGNALR_TRANSPORT}.
+ */
 declare const SIGNALR_TRANSPORT_VALUE_WEB_SOCKETS: "web_sockets";
 /**
  * The language of the telemetry SDK.
  */
 declare const ATTR_TELEMETRY_SDK_LANGUAGE: "telemetry.sdk.language";
 /**
-* Enum value "cpp" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "cpp" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_CPP: "cpp";
 /**
-* Enum value "dotnet" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "dotnet" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_DOTNET: "dotnet";
 /**
-* Enum value "erlang" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "erlang" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_ERLANG: "erlang";
 /**
-* Enum value "go" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "go" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_GO: "go";
 /**
-* Enum value "java" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "java" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_JAVA: "java";
 /**
-* Enum value "nodejs" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "nodejs" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS: "nodejs";
 /**
-* Enum value "php" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "php" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_PHP: "php";
 /**
-* Enum value "python" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "python" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_PYTHON: "python";
 /**
-* Enum value "ruby" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "ruby" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_RUBY: "ruby";
 /**
-* Enum value "rust" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "rust" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_RUST: "rust";
 /**
-* Enum value "swift" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "swift" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_SWIFT: "swift";
 /**
-* Enum value "webjs" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
-*/
+ * Enum value "webjs" for attribute {@link ATTR_TELEMETRY_SDK_LANGUAGE}.
+ */
 declare const TELEMETRY_SDK_LANGUAGE_VALUE_WEBJS: "webjs";
 /**
  * The name of the telemetry SDK as defined above.
@@ -5546,16 +5398,16 @@ declare const METRIC_SIGNALR_SERVER_CONNECTION_DURATION: "signalr.server.connect
  */
 declare const ATTR_ANDROID_APP_STATE: "android.app.state";
 /**
-* Enum value "background" for attribute {@link ATTR_ANDROID_APP_STATE}.
-*/
+ * Enum value "background" for attribute {@link ATTR_ANDROID_APP_STATE}.
+ */
 declare const ANDROID_APP_STATE_VALUE_BACKGROUND: "background";
 /**
-* Enum value "created" for attribute {@link ATTR_ANDROID_APP_STATE}.
-*/
+ * Enum value "created" for attribute {@link ATTR_ANDROID_APP_STATE}.
+ */
 declare const ANDROID_APP_STATE_VALUE_CREATED: "created";
 /**
-* Enum value "foreground" for attribute {@link ATTR_ANDROID_APP_STATE}.
-*/
+ * Enum value "foreground" for attribute {@link ATTR_ANDROID_APP_STATE}.
+ */
 declare const ANDROID_APP_STATE_VALUE_FOREGROUND: "foreground";
 /**
  * Uniquely identifies the framework API revision offered by a version (`os.version`) of the android operating system. More information can be found [here](https://developer.android.com/guide/topics/manifest/uses-sdk-element#ApiLevels).
@@ -5567,26 +5419,24 @@ declare const ANDROID_APP_STATE_VALUE_FOREGROUND: "foreground";
  */
 declare const ATTR_ANDROID_OS_API_LEVEL: "android.os.api_level";
 /**
- * Deprecated. Use `android.app.state` instead.
- *
- * @note The Android lifecycle states are defined in [Activity lifecycle callbacks](https://developer.android.com/guide/components/activities/activity-lifecycle#lc), and from which the `OS identifiers` are derived.
+ * Deprecated. Use `android.app.state` body field instead.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Renamed to `android.app.state`
+ * @deprecated Use `android.app.state` body field instead.
  */
 declare const ATTR_ANDROID_STATE: "android.state";
 /**
-* Enum value "background" for attribute {@link ATTR_ANDROID_STATE}.
-*/
+ * Enum value "background" for attribute {@link ATTR_ANDROID_STATE}.
+ */
 declare const ANDROID_STATE_VALUE_BACKGROUND: "background";
 /**
-* Enum value "created" for attribute {@link ATTR_ANDROID_STATE}.
-*/
+ * Enum value "created" for attribute {@link ATTR_ANDROID_STATE}.
+ */
 declare const ANDROID_STATE_VALUE_CREATED: "created";
 /**
-* Enum value "foreground" for attribute {@link ATTR_ANDROID_STATE}.
-*/
+ * Enum value "foreground" for attribute {@link ATTR_ANDROID_STATE}.
+ */
 declare const ANDROID_STATE_VALUE_FOREGROUND: "foreground";
 /**
  * A unique identifier representing the installation of an application on a specific device
@@ -5734,6 +5584,22 @@ declare const ATTR_ARTIFACT_PURL: "artifact.purl";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_ARTIFACT_VERSION: "artifact.version";
+/**
+ * The unique identifier of the AWS Bedrock Guardrail. A [guardrail](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html) helps safeguard and prevent unwanted behavior from model responses or user messages.
+ *
+ * @example sgi5gkybzqak
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_AWS_BEDROCK_GUARDRAIL_ID: "aws.bedrock.guardrail.id";
+/**
+ * The unique identifier of the AWS Bedrock Knowledge base. A [knowledge base](https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html) is a bank of information that can be queried by models to generate more relevant responses and augment prompts.
+ *
+ * @example XFWUPB9PAW
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_AWS_BEDROCK_KNOWLEDGE_BASE_ID: "aws.bedrock.knowledge_base.id";
 /**
  * The JSON-serialized value of each item in the `AttributeDefinitions` request field.
  *
@@ -5935,12 +5801,12 @@ declare const ATTR_AWS_ECS_CONTAINER_ARN: "aws.ecs.container.arn";
  */
 declare const ATTR_AWS_ECS_LAUNCHTYPE: "aws.ecs.launchtype";
 /**
-* Enum value "ec2" for attribute {@link ATTR_AWS_ECS_LAUNCHTYPE}.
-*/
+ * Enum value "ec2" for attribute {@link ATTR_AWS_ECS_LAUNCHTYPE}.
+ */
 declare const AWS_ECS_LAUNCHTYPE_VALUE_EC2: "ec2";
 /**
-* Enum value "fargate" for attribute {@link ATTR_AWS_ECS_LAUNCHTYPE}.
-*/
+ * Enum value "fargate" for attribute {@link ATTR_AWS_ECS_LAUNCHTYPE}.
+ */
 declare const AWS_ECS_LAUNCHTYPE_VALUE_FARGATE: "fargate";
 /**
  * The ARN of a running [ECS task](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids).
@@ -5994,6 +5860,14 @@ declare const ATTR_AWS_EKS_CLUSTER_ARN: "aws.eks.cluster.arn";
  */
 declare const ATTR_AWS_EXTENDED_REQUEST_ID: "aws.extended_request_id";
 /**
+ * The name of the AWS Kinesis [stream](https://docs.aws.amazon.com/streams/latest/dev/introduction.html) the request refers to. Corresponds to the `--stream-name` parameter of the Kinesis [describe-stream](https://docs.aws.amazon.com/cli/latest/reference/kinesis/describe-stream.html) operation.
+ *
+ * @example some-stream-name
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_AWS_KINESIS_STREAM_NAME: "aws.kinesis.stream_name";
+/**
  * The full invoked ARN as provided on the `Context` passed to the function (`Lambda-Runtime-Invoked-Function-Arn` header on the `/runtime/invocation/next` applicable).
  *
  * @example arn:aws:lambda:us-east-1:123456:function:myfunction:myalias
@@ -6002,6 +5876,14 @@ declare const ATTR_AWS_EXTENDED_REQUEST_ID: "aws.extended_request_id";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_AWS_LAMBDA_INVOKED_ARN: "aws.lambda.invoked_arn";
+/**
+ * The UUID of the [AWS Lambda EvenSource Mapping](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-eventsourcemapping.html). An event source is mapped to a lambda function. It's contents are read by Lambda and used to trigger a function. This isn't available in the lambda execution context or the lambda runtime environtment. This is going to be populated by the AWS SDK for each language when that UUID is present. Some of these operations are Create/Delete/Get/List/Update EventSourceMapping.
+ *
+ * @example 587ad24b-03b9-4413-8202-bbd56b36e5b7
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_AWS_LAMBDA_RESOURCE_MAPPING_ID: "aws.lambda.resource_mapping.id";
 /**
  * The Amazon Resource Name(s) (ARN) of the AWS log group(s).
  *
@@ -6144,6 +6026,46 @@ declare const ATTR_AWS_S3_PART_NUMBER: "aws.s3.part_number";
  */
 declare const ATTR_AWS_S3_UPLOAD_ID: "aws.s3.upload_id";
 /**
+ * The ARN of the Secret stored in the Secrets Mangger
+ *
+ * @example arn:aws:secretsmanager:us-east-1:123456789012:secret:SecretName-6RandomCharacters
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_AWS_SECRETSMANAGER_SECRET_ARN: "aws.secretsmanager.secret.arn";
+/**
+ * The ARN of the AWS SNS Topic. An Amazon SNS [topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html) is a logical access point that acts as a communication channel.
+ *
+ * @example arn:aws:sns:us-east-1:123456789012:mystack-mytopic-NZJ5JSMVGFIE
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_AWS_SNS_TOPIC_ARN: "aws.sns.topic.arn";
+/**
+ * The URL of the AWS SQS Queue. It's a unique identifier for a queue in Amazon Simple Queue Service (SQS) and is used to access the queue and perform actions on it.
+ *
+ * @example https://sqs.us-east-1.amazonaws.com/123456789012/MyQueue
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_AWS_SQS_QUEUE_URL: "aws.sqs.queue.url";
+/**
+ * The ARN of the AWS Step Functions Activity.
+ *
+ * @example arn:aws:states:us-east-1:123456789012:activity:get-greeting
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_AWS_STEP_FUNCTIONS_ACTIVITY_ARN: "aws.step_functions.activity.arn";
+/**
+ * The ARN of the AWS Step Functions State Machine.
+ *
+ * @example arn:aws:states:us-east-1:123456789012:stateMachine:myStateMachine:1
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_AWS_STEP_FUNCTIONS_STATE_MACHINE_ARN: "aws.step_functions.state_machine.arn";
+/**
  * [Azure Resource Provider Namespace](https://learn.microsoft.com/azure/azure-resource-manager/management/azure-services-resource-providers) as recognized by the client.
  *
  * @example Microsoft.Storage
@@ -6177,12 +6099,12 @@ declare const ATTR_AZURE_CLIENT_ID: "azure.client.id";
  */
 declare const ATTR_AZURE_COSMOSDB_CONNECTION_MODE: "azure.cosmosdb.connection.mode";
 /**
-* Enum value "direct" for attribute {@link ATTR_AZURE_COSMOSDB_CONNECTION_MODE}.
-*/
+ * Enum value "direct" for attribute {@link ATTR_AZURE_COSMOSDB_CONNECTION_MODE}.
+ */
 declare const AZURE_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT: "direct";
 /**
-* Enum value "gateway" for attribute {@link ATTR_AZURE_COSMOSDB_CONNECTION_MODE}.
-*/
+ * Enum value "gateway" for attribute {@link ATTR_AZURE_COSMOSDB_CONNECTION_MODE}.
+ */
 declare const AZURE_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY: "gateway";
 /**
  * Account or request [consistency level](https://learn.microsoft.com/azure/cosmos-db/consistency-levels).
@@ -6197,24 +6119,24 @@ declare const AZURE_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY: "gateway";
  */
 declare const ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL: "azure.cosmosdb.consistency.level";
 /**
-* Enum value "BoundedStaleness" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "BoundedStaleness" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
+ */
 declare const AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS: "BoundedStaleness";
 /**
-* Enum value "ConsistentPrefix" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "ConsistentPrefix" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
+ */
 declare const AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX: "ConsistentPrefix";
 /**
-* Enum value "Eventual" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "Eventual" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
+ */
 declare const AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL: "Eventual";
 /**
-* Enum value "Session" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "Session" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
+ */
 declare const AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION: "Session";
 /**
-* Enum value "Strong" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "Strong" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
+ */
 declare const AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG: "Strong";
 /**
  * List of regions contacted during operation in the order that they were contacted. If there is more than one region listed, it indicates that the operation was performed on multiple regions i.e. cross-regional call.
@@ -6301,48 +6223,48 @@ declare const ATTR_BROWSER_PLATFORM: "browser.platform";
  */
 declare const ATTR_CASSANDRA_CONSISTENCY_LEVEL: "cassandra.consistency.level";
 /**
-* Enum value "all" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "all" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL: "all";
 /**
-* Enum value "any" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "any" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY: "any";
 /**
-* Enum value "each_quorum" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "each_quorum" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM: "each_quorum";
 /**
-* Enum value "local_one" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "local_one" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE: "local_one";
 /**
-* Enum value "local_quorum" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "local_quorum" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM: "local_quorum";
 /**
-* Enum value "local_serial" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "local_serial" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL: "local_serial";
 /**
-* Enum value "one" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "one" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE: "one";
 /**
-* Enum value "quorum" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "quorum" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM: "quorum";
 /**
-* Enum value "serial" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "serial" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL: "serial";
 /**
-* Enum value "three" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "three" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE: "three";
 /**
-* Enum value "two" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "two" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO: "two";
 /**
  * The data center of the coordinating node for a query.
@@ -6394,16 +6316,16 @@ declare const ATTR_CASSANDRA_SPECULATIVE_EXECUTION_COUNT: "cassandra.speculative
  */
 declare const ATTR_CICD_PIPELINE_ACTION_NAME: "cicd.pipeline.action.name";
 /**
-* Enum value "BUILD" for attribute {@link ATTR_CICD_PIPELINE_ACTION_NAME}.
-*/
+ * Enum value "BUILD" for attribute {@link ATTR_CICD_PIPELINE_ACTION_NAME}.
+ */
 declare const CICD_PIPELINE_ACTION_NAME_VALUE_BUILD: "BUILD";
 /**
-* Enum value "RUN" for attribute {@link ATTR_CICD_PIPELINE_ACTION_NAME}.
-*/
+ * Enum value "RUN" for attribute {@link ATTR_CICD_PIPELINE_ACTION_NAME}.
+ */
 declare const CICD_PIPELINE_ACTION_NAME_VALUE_RUN: "RUN";
 /**
-* Enum value "SYNC" for attribute {@link ATTR_CICD_PIPELINE_ACTION_NAME}.
-*/
+ * Enum value "SYNC" for attribute {@link ATTR_CICD_PIPELINE_ACTION_NAME}.
+ */
 declare const CICD_PIPELINE_ACTION_NAME_VALUE_SYNC: "SYNC";
 /**
  * The human readable name of the pipeline within a CI/CD system.
@@ -6428,28 +6350,28 @@ declare const ATTR_CICD_PIPELINE_NAME: "cicd.pipeline.name";
  */
 declare const ATTR_CICD_PIPELINE_RESULT: "cicd.pipeline.result";
 /**
-* Enum value "cancellation" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
-*/
+ * Enum value "cancellation" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ */
 declare const CICD_PIPELINE_RESULT_VALUE_CANCELLATION: "cancellation";
 /**
-* Enum value "error" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
-*/
+ * Enum value "error" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ */
 declare const CICD_PIPELINE_RESULT_VALUE_ERROR: "error";
 /**
-* Enum value "failure" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
-*/
+ * Enum value "failure" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ */
 declare const CICD_PIPELINE_RESULT_VALUE_FAILURE: "failure";
 /**
-* Enum value "skip" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
-*/
+ * Enum value "skip" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ */
 declare const CICD_PIPELINE_RESULT_VALUE_SKIP: "skip";
 /**
-* Enum value "success" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
-*/
+ * Enum value "success" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ */
 declare const CICD_PIPELINE_RESULT_VALUE_SUCCESS: "success";
 /**
-* Enum value "timeout" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
-*/
+ * Enum value "timeout" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ */
 declare const CICD_PIPELINE_RESULT_VALUE_TIMEOUT: "timeout";
 /**
  * The unique identifier of a pipeline run within a CI/CD system.
@@ -6470,16 +6392,16 @@ declare const ATTR_CICD_PIPELINE_RUN_ID: "cicd.pipeline.run.id";
  */
 declare const ATTR_CICD_PIPELINE_RUN_STATE: "cicd.pipeline.run.state";
 /**
-* Enum value "executing" for attribute {@link ATTR_CICD_PIPELINE_RUN_STATE}.
-*/
+ * Enum value "executing" for attribute {@link ATTR_CICD_PIPELINE_RUN_STATE}.
+ */
 declare const CICD_PIPELINE_RUN_STATE_VALUE_EXECUTING: "executing";
 /**
-* Enum value "finalizing" for attribute {@link ATTR_CICD_PIPELINE_RUN_STATE}.
-*/
+ * Enum value "finalizing" for attribute {@link ATTR_CICD_PIPELINE_RUN_STATE}.
+ */
 declare const CICD_PIPELINE_RUN_STATE_VALUE_FINALIZING: "finalizing";
 /**
-* Enum value "pending" for attribute {@link ATTR_CICD_PIPELINE_RUN_STATE}.
-*/
+ * Enum value "pending" for attribute {@link ATTR_CICD_PIPELINE_RUN_STATE}.
+ */
 declare const CICD_PIPELINE_RUN_STATE_VALUE_PENDING: "pending";
 /**
  * The [URL](https://wikipedia.org/wiki/URL) of the pipeline run, providing the complete address in order to locate and identify the pipeline run.
@@ -6520,28 +6442,28 @@ declare const ATTR_CICD_PIPELINE_TASK_RUN_ID: "cicd.pipeline.task.run.id";
  */
 declare const ATTR_CICD_PIPELINE_TASK_RUN_RESULT: "cicd.pipeline.task.run.result";
 /**
-* Enum value "cancellation" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
-*/
+ * Enum value "cancellation" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_CANCELLATION: "cancellation";
 /**
-* Enum value "error" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
-*/
+ * Enum value "error" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_ERROR: "error";
 /**
-* Enum value "failure" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
-*/
+ * Enum value "failure" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_FAILURE: "failure";
 /**
-* Enum value "skip" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
-*/
+ * Enum value "skip" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SKIP: "skip";
 /**
-* Enum value "success" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
-*/
+ * Enum value "success" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SUCCESS: "success";
 /**
-* Enum value "timeout" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
-*/
+ * Enum value "timeout" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_TIMEOUT: "timeout";
 /**
  * The [URL](https://wikipedia.org/wiki/URL) of the pipeline task run, providing the complete address in order to locate and identify the pipeline task run.
@@ -6562,16 +6484,16 @@ declare const ATTR_CICD_PIPELINE_TASK_RUN_URL_FULL: "cicd.pipeline.task.run.url.
  */
 declare const ATTR_CICD_PIPELINE_TASK_TYPE: "cicd.pipeline.task.type";
 /**
-* Enum value "build" for attribute {@link ATTR_CICD_PIPELINE_TASK_TYPE}.
-*/
+ * Enum value "build" for attribute {@link ATTR_CICD_PIPELINE_TASK_TYPE}.
+ */
 declare const CICD_PIPELINE_TASK_TYPE_VALUE_BUILD: "build";
 /**
-* Enum value "deploy" for attribute {@link ATTR_CICD_PIPELINE_TASK_TYPE}.
-*/
+ * Enum value "deploy" for attribute {@link ATTR_CICD_PIPELINE_TASK_TYPE}.
+ */
 declare const CICD_PIPELINE_TASK_TYPE_VALUE_DEPLOY: "deploy";
 /**
-* Enum value "test" for attribute {@link ATTR_CICD_PIPELINE_TASK_TYPE}.
-*/
+ * Enum value "test" for attribute {@link ATTR_CICD_PIPELINE_TASK_TYPE}.
+ */
 declare const CICD_PIPELINE_TASK_TYPE_VALUE_TEST: "test";
 /**
  * The name of a component of the CICD system.
@@ -6614,16 +6536,16 @@ declare const ATTR_CICD_WORKER_NAME: "cicd.worker.name";
  */
 declare const ATTR_CICD_WORKER_STATE: "cicd.worker.state";
 /**
-* Enum value "available" for attribute {@link ATTR_CICD_WORKER_STATE}.
-*/
+ * Enum value "available" for attribute {@link ATTR_CICD_WORKER_STATE}.
+ */
 declare const CICD_WORKER_STATE_VALUE_AVAILABLE: "available";
 /**
-* Enum value "busy" for attribute {@link ATTR_CICD_WORKER_STATE}.
-*/
+ * Enum value "busy" for attribute {@link ATTR_CICD_WORKER_STATE}.
+ */
 declare const CICD_WORKER_STATE_VALUE_BUSY: "busy";
 /**
-* Enum value "offline" for attribute {@link ATTR_CICD_WORKER_STATE}.
-*/
+ * Enum value "offline" for attribute {@link ATTR_CICD_WORKER_STATE}.
+ */
 declare const CICD_WORKER_STATE_VALUE_OFFLINE: "offline";
 /**
  * The [URL](https://wikipedia.org/wiki/URL) of the worker, providing the complete address in order to locate and identify the worker.
@@ -6661,124 +6583,124 @@ declare const ATTR_CLOUD_AVAILABILITY_ZONE: "cloud.availability_zone";
  */
 declare const ATTR_CLOUD_PLATFORM: "cloud.platform";
 /**
-* Enum value "alibaba_cloud_ecs" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "alibaba_cloud_ecs" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_ECS: "alibaba_cloud_ecs";
 /**
-* Enum value "alibaba_cloud_fc" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "alibaba_cloud_fc" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_FC: "alibaba_cloud_fc";
 /**
-* Enum value "alibaba_cloud_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "alibaba_cloud_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_OPENSHIFT: "alibaba_cloud_openshift";
 /**
-* Enum value "aws_app_runner" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "aws_app_runner" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AWS_APP_RUNNER: "aws_app_runner";
 /**
-* Enum value "aws_ec2" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "aws_ec2" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AWS_EC2: "aws_ec2";
 /**
-* Enum value "aws_ecs" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "aws_ecs" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AWS_ECS: "aws_ecs";
 /**
-* Enum value "aws_eks" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "aws_eks" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AWS_EKS: "aws_eks";
 /**
-* Enum value "aws_elastic_beanstalk" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "aws_elastic_beanstalk" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AWS_ELASTIC_BEANSTALK: "aws_elastic_beanstalk";
 /**
-* Enum value "aws_lambda" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "aws_lambda" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AWS_LAMBDA: "aws_lambda";
 /**
-* Enum value "aws_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "aws_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AWS_OPENSHIFT: "aws_openshift";
 /**
-* Enum value "azure_aks" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "azure_aks" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AZURE_AKS: "azure_aks";
 /**
-* Enum value "azure_app_service" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "azure_app_service" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AZURE_APP_SERVICE: "azure_app_service";
 /**
-* Enum value "azure_container_apps" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "azure_container_apps" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_APPS: "azure_container_apps";
 /**
-* Enum value "azure_container_instances" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "azure_container_instances" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_INSTANCES: "azure_container_instances";
 /**
-* Enum value "azure_functions" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "azure_functions" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AZURE_FUNCTIONS: "azure_functions";
 /**
-* Enum value "azure_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "azure_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AZURE_OPENSHIFT: "azure_openshift";
 /**
-* Enum value "azure_vm" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "azure_vm" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_AZURE_VM: "azure_vm";
 /**
-* Enum value "gcp_app_engine" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "gcp_app_engine" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_GCP_APP_ENGINE: "gcp_app_engine";
 /**
-* Enum value "gcp_bare_metal_solution" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "gcp_bare_metal_solution" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_GCP_BARE_METAL_SOLUTION: "gcp_bare_metal_solution";
 /**
-* Enum value "gcp_cloud_functions" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "gcp_cloud_functions" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_GCP_CLOUD_FUNCTIONS: "gcp_cloud_functions";
 /**
-* Enum value "gcp_cloud_run" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "gcp_cloud_run" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_GCP_CLOUD_RUN: "gcp_cloud_run";
 /**
-* Enum value "gcp_compute_engine" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "gcp_compute_engine" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_GCP_COMPUTE_ENGINE: "gcp_compute_engine";
 /**
-* Enum value "gcp_kubernetes_engine" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "gcp_kubernetes_engine" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_GCP_KUBERNETES_ENGINE: "gcp_kubernetes_engine";
 /**
-* Enum value "gcp_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "gcp_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_GCP_OPENSHIFT: "gcp_openshift";
 /**
-* Enum value "ibm_cloud_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "ibm_cloud_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_IBM_CLOUD_OPENSHIFT: "ibm_cloud_openshift";
 /**
-* Enum value "oracle_cloud_compute" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "oracle_cloud_compute" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_COMPUTE: "oracle_cloud_compute";
 /**
-* Enum value "oracle_cloud_oke" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "oracle_cloud_oke" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_OKE: "oracle_cloud_oke";
 /**
-* Enum value "tencent_cloud_cvm" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "tencent_cloud_cvm" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_CVM: "tencent_cloud_cvm";
 /**
-* Enum value "tencent_cloud_eks" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "tencent_cloud_eks" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_EKS: "tencent_cloud_eks";
 /**
-* Enum value "tencent_cloud_scf" for attribute {@link ATTR_CLOUD_PLATFORM}.
-*/
+ * Enum value "tencent_cloud_scf" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ */
 declare const CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_SCF: "tencent_cloud_scf";
 /**
  * Name of the cloud provider.
@@ -6787,39 +6709,39 @@ declare const CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_SCF: "tencent_cloud_scf";
  */
 declare const ATTR_CLOUD_PROVIDER: "cloud.provider";
 /**
-* Enum value "alibaba_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
-*/
+ * Enum value "alibaba_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ */
 declare const CLOUD_PROVIDER_VALUE_ALIBABA_CLOUD: "alibaba_cloud";
 /**
-* Enum value "aws" for attribute {@link ATTR_CLOUD_PROVIDER}.
-*/
+ * Enum value "aws" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ */
 declare const CLOUD_PROVIDER_VALUE_AWS: "aws";
 /**
-* Enum value "azure" for attribute {@link ATTR_CLOUD_PROVIDER}.
-*/
+ * Enum value "azure" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ */
 declare const CLOUD_PROVIDER_VALUE_AZURE: "azure";
 /**
-* Enum value "gcp" for attribute {@link ATTR_CLOUD_PROVIDER}.
-*/
+ * Enum value "gcp" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ */
 declare const CLOUD_PROVIDER_VALUE_GCP: "gcp";
 /**
-* Enum value "heroku" for attribute {@link ATTR_CLOUD_PROVIDER}.
-*/
+ * Enum value "heroku" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ */
 declare const CLOUD_PROVIDER_VALUE_HEROKU: "heroku";
 /**
-* Enum value "ibm_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
-*/
+ * Enum value "ibm_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ */
 declare const CLOUD_PROVIDER_VALUE_IBM_CLOUD: "ibm_cloud";
 /**
-* Enum value "oracle_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
-*/
+ * Enum value "oracle_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ */
 declare const CLOUD_PROVIDER_VALUE_ORACLE_CLOUD: "oracle_cloud";
 /**
-* Enum value "tencent_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
-*/
+ * Enum value "tencent_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ */
 declare const CLOUD_PROVIDER_VALUE_TENCENT_CLOUD: "tencent_cloud";
 /**
- * The geographical region the resource is running.
+ * The geographical region within a cloud provider. When associated with a resource, this attribute specifies the region where the resource operates. When calling services or APIs deployed on a cloud, this attribute identifies the region where the called destination is deployed.
  *
  * @example us-central1
  * @example us-east-1
@@ -7056,7 +6978,7 @@ declare const ATTR_CLOUDFOUNDRY_SYSTEM_INSTANCE_ID: "cloudfoundry.system.instanc
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `code.column.number`
+ * @deprecated Replaced by `code.column.number`.
  */
 declare const ATTR_CODE_COLUMN: "code.column";
 /**
@@ -7066,7 +6988,7 @@ declare const ATTR_CODE_COLUMN: "code.column";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `code.file.path`
+ * @deprecated Replaced by `code.file.path`.
  */
 declare const ATTR_CODE_FILEPATH: "code.filepath";
 /**
@@ -7076,7 +6998,7 @@ declare const ATTR_CODE_FILEPATH: "code.filepath";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `code.function.name`
+ * @deprecated Value should be included in `code.function.name` which is expected to be a fully-qualified name.
  */
 declare const ATTR_CODE_FUNCTION: "code.function";
 /**
@@ -7086,7 +7008,7 @@ declare const ATTR_CODE_FUNCTION: "code.function";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `code.line.number`
+ * @deprecated Replaced by `code.line.number`.
  */
 declare const ATTR_CODE_LINENO: "code.lineno";
 /**
@@ -7133,20 +7055,20 @@ declare const ATTR_CONTAINER_COMMAND_LINE: "container.command_line";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `cpu.mode`
+ * @deprecated Replaced by `cpu.mode`.
  */
 declare const ATTR_CONTAINER_CPU_STATE: "container.cpu.state";
 /**
-* Enum value "kernel" for attribute {@link ATTR_CONTAINER_CPU_STATE}.
-*/
+ * Enum value "kernel" for attribute {@link ATTR_CONTAINER_CPU_STATE}.
+ */
 declare const CONTAINER_CPU_STATE_VALUE_KERNEL: "kernel";
 /**
-* Enum value "system" for attribute {@link ATTR_CONTAINER_CPU_STATE}.
-*/
+ * Enum value "system" for attribute {@link ATTR_CONTAINER_CPU_STATE}.
+ */
 declare const CONTAINER_CPU_STATE_VALUE_SYSTEM: "system";
 /**
-* Enum value "user" for attribute {@link ATTR_CONTAINER_CPU_STATE}.
-*/
+ * Enum value "user" for attribute {@link ATTR_CONTAINER_CPU_STATE}.
+ */
 declare const CONTAINER_CPU_STATE_VALUE_USER: "user";
 /**
  * The name of the CSI ([Container Storage Interface](https://github.com/container-storage-interface/spec)) plugin used by the volume.
@@ -7270,36 +7192,36 @@ declare const ATTR_CPU_LOGICAL_NUMBER: "cpu.logical_number";
  */
 declare const ATTR_CPU_MODE: "cpu.mode";
 /**
-* Enum value "idle" for attribute {@link ATTR_CPU_MODE}.
-*/
+ * Enum value "idle" for attribute {@link ATTR_CPU_MODE}.
+ */
 declare const CPU_MODE_VALUE_IDLE: "idle";
 /**
-* Enum value "interrupt" for attribute {@link ATTR_CPU_MODE}.
-*/
+ * Enum value "interrupt" for attribute {@link ATTR_CPU_MODE}.
+ */
 declare const CPU_MODE_VALUE_INTERRUPT: "interrupt";
 /**
-* Enum value "iowait" for attribute {@link ATTR_CPU_MODE}.
-*/
+ * Enum value "iowait" for attribute {@link ATTR_CPU_MODE}.
+ */
 declare const CPU_MODE_VALUE_IOWAIT: "iowait";
 /**
-* Enum value "kernel" for attribute {@link ATTR_CPU_MODE}.
-*/
+ * Enum value "kernel" for attribute {@link ATTR_CPU_MODE}.
+ */
 declare const CPU_MODE_VALUE_KERNEL: "kernel";
 /**
-* Enum value "nice" for attribute {@link ATTR_CPU_MODE}.
-*/
+ * Enum value "nice" for attribute {@link ATTR_CPU_MODE}.
+ */
 declare const CPU_MODE_VALUE_NICE: "nice";
 /**
-* Enum value "steal" for attribute {@link ATTR_CPU_MODE}.
-*/
+ * Enum value "steal" for attribute {@link ATTR_CPU_MODE}.
+ */
 declare const CPU_MODE_VALUE_STEAL: "steal";
 /**
-* Enum value "system" for attribute {@link ATTR_CPU_MODE}.
-*/
+ * Enum value "system" for attribute {@link ATTR_CPU_MODE}.
+ */
 declare const CPU_MODE_VALUE_SYSTEM: "system";
 /**
-* Enum value "user" for attribute {@link ATTR_CPU_MODE}.
-*/
+ * Enum value "user" for attribute {@link ATTR_CPU_MODE}.
+ */
 declare const CPU_MODE_VALUE_USER: "user";
 /**
  * Value of the garbage collector collection generation.
@@ -7312,16 +7234,16 @@ declare const CPU_MODE_VALUE_USER: "user";
  */
 declare const ATTR_CPYTHON_GC_GENERATION: "cpython.gc.generation";
 /**
-* Enum value 0 for attribute {@link ATTR_CPYTHON_GC_GENERATION}.
-*/
+ * Enum value 0 for attribute {@link ATTR_CPYTHON_GC_GENERATION}.
+ */
 declare const CPYTHON_GC_GENERATION_VALUE_GENERATION_0: 0;
 /**
-* Enum value 1 for attribute {@link ATTR_CPYTHON_GC_GENERATION}.
-*/
+ * Enum value 1 for attribute {@link ATTR_CPYTHON_GC_GENERATION}.
+ */
 declare const CPYTHON_GC_GENERATION_VALUE_GENERATION_1: 1;
 /**
-* Enum value 2 for attribute {@link ATTR_CPYTHON_GC_GENERATION}.
-*/
+ * Enum value 2 for attribute {@link ATTR_CPYTHON_GC_GENERATION}.
+ */
 declare const CPYTHON_GC_GENERATION_VALUE_GENERATION_2: 2;
 /**
  * Deprecated, use `cassandra.consistency.level` instead.
@@ -7332,48 +7254,48 @@ declare const CPYTHON_GC_GENERATION_VALUE_GENERATION_2: 2;
  */
 declare const ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL: "db.cassandra.consistency_level";
 /**
-* Enum value "all" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "all" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL: "all";
 /**
-* Enum value "any" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "any" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY: "any";
 /**
-* Enum value "each_quorum" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "each_quorum" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM: "each_quorum";
 /**
-* Enum value "local_one" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "local_one" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE: "local_one";
 /**
-* Enum value "local_quorum" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "local_quorum" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM: "local_quorum";
 /**
-* Enum value "local_serial" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "local_serial" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL: "local_serial";
 /**
-* Enum value "one" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "one" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE: "one";
 /**
-* Enum value "quorum" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "quorum" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM: "quorum";
 /**
-* Enum value "serial" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "serial" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL: "serial";
 /**
-* Enum value "three" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "three" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE: "three";
 /**
-* Enum value "two" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "two" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO: "two";
 /**
  * Deprecated, use `cassandra.coordinator.dc` instead.
@@ -7451,12 +7373,12 @@ declare const ATTR_DB_CLIENT_CONNECTION_POOL_NAME: "db.client.connection.pool.na
  */
 declare const ATTR_DB_CLIENT_CONNECTION_STATE: "db.client.connection.state";
 /**
-* Enum value "idle" for attribute {@link ATTR_DB_CLIENT_CONNECTION_STATE}.
-*/
+ * Enum value "idle" for attribute {@link ATTR_DB_CLIENT_CONNECTION_STATE}.
+ */
 declare const DB_CLIENT_CONNECTION_STATE_VALUE_IDLE: "idle";
 /**
-* Enum value "used" for attribute {@link ATTR_DB_CLIENT_CONNECTION_STATE}.
-*/
+ * Enum value "used" for attribute {@link ATTR_DB_CLIENT_CONNECTION_STATE}.
+ */
 declare const DB_CLIENT_CONNECTION_STATE_VALUE_USED: "used";
 /**
  * Deprecated, use `db.client.connection.pool.name` instead.
@@ -7479,12 +7401,12 @@ declare const ATTR_DB_CLIENT_CONNECTIONS_POOL_NAME: "db.client.connections.pool.
  */
 declare const ATTR_DB_CLIENT_CONNECTIONS_STATE: "db.client.connections.state";
 /**
-* Enum value "idle" for attribute {@link ATTR_DB_CLIENT_CONNECTIONS_STATE}.
-*/
+ * Enum value "idle" for attribute {@link ATTR_DB_CLIENT_CONNECTIONS_STATE}.
+ */
 declare const DB_CLIENT_CONNECTIONS_STATE_VALUE_IDLE: "idle";
 /**
-* Enum value "used" for attribute {@link ATTR_DB_CLIENT_CONNECTIONS_STATE}.
-*/
+ * Enum value "used" for attribute {@link ATTR_DB_CLIENT_CONNECTIONS_STATE}.
+ */
 declare const DB_CLIENT_CONNECTIONS_STATE_VALUE_USED: "used";
 /**
  * Deprecated, use `server.address`, `server.port` attributes instead.
@@ -7515,12 +7437,12 @@ declare const ATTR_DB_COSMOSDB_CLIENT_ID: "db.cosmosdb.client_id";
  */
 declare const ATTR_DB_COSMOSDB_CONNECTION_MODE: "db.cosmosdb.connection_mode";
 /**
-* Enum value "direct" for attribute {@link ATTR_DB_COSMOSDB_CONNECTION_MODE}.
-*/
+ * Enum value "direct" for attribute {@link ATTR_DB_COSMOSDB_CONNECTION_MODE}.
+ */
 declare const DB_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT: "direct";
 /**
-* Enum value "gateway" for attribute {@link ATTR_DB_COSMOSDB_CONNECTION_MODE}.
-*/
+ * Enum value "gateway" for attribute {@link ATTR_DB_COSMOSDB_CONNECTION_MODE}.
+ */
 declare const DB_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY: "gateway";
 /**
  * Deprecated, use `cosmosdb.consistency.level` instead.
@@ -7537,24 +7459,24 @@ declare const DB_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY: "gateway";
  */
 declare const ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL: "db.cosmosdb.consistency_level";
 /**
-* Enum value "BoundedStaleness" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "BoundedStaleness" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
+ */
 declare const DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS: "BoundedStaleness";
 /**
-* Enum value "ConsistentPrefix" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "ConsistentPrefix" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
+ */
 declare const DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX: "ConsistentPrefix";
 /**
-* Enum value "Eventual" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "Eventual" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
+ */
 declare const DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL: "Eventual";
 /**
-* Enum value "Session" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "Session" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
+ */
 declare const DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION: "Session";
 /**
-* Enum value "Strong" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
-*/
+ * Enum value "Strong" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
+ */
 declare const DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG: "Strong";
 /**
  * Deprecated, use `db.collection.name` instead.
@@ -7571,68 +7493,68 @@ declare const ATTR_DB_COSMOSDB_CONTAINER: "db.cosmosdb.container";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated No replacement at this time.
+ * @deprecated Removed, no replacement at this time.
  */
 declare const ATTR_DB_COSMOSDB_OPERATION_TYPE: "db.cosmosdb.operation_type";
 /**
-* Enum value "batch" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "batch" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_BATCH: "batch";
 /**
-* Enum value "create" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "create" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_CREATE: "create";
 /**
-* Enum value "delete" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "delete" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_DELETE: "delete";
 /**
-* Enum value "execute" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "execute" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE: "execute";
 /**
-* Enum value "execute_javascript" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "execute_javascript" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE_JAVASCRIPT: "execute_javascript";
 /**
-* Enum value "head" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "head" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD: "head";
 /**
-* Enum value "head_feed" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "head_feed" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD_FEED: "head_feed";
 /**
-* Enum value "invalid" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "invalid" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_INVALID: "invalid";
 /**
-* Enum value "patch" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "patch" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_PATCH: "patch";
 /**
-* Enum value "query" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "query" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY: "query";
 /**
-* Enum value "query_plan" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "query_plan" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY_PLAN: "query_plan";
 /**
-* Enum value "read" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "read" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_READ: "read";
 /**
-* Enum value "read_feed" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "read_feed" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_READ_FEED: "read_feed";
 /**
-* Enum value "replace" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "replace" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_REPLACE: "replace";
 /**
-* Enum value "upsert" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
-*/
+ * Enum value "upsert" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_UPSERT: "upsert";
 /**
  * Deprecated, use `azure.cosmosdb.operation.contacted_regions` instead.
@@ -7723,7 +7645,7 @@ declare const ATTR_DB_ELASTICSEARCH_PATH_PARTS: (key: string) => string;
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Deprecated, no general replacement at this time. For Elasticsearch, use `db.elasticsearch.node.name` instead.
+ * @deprecated Removed, no general replacement at this time. For Elasticsearch, use `db.elasticsearch.node.name` instead.
  */
 declare const ATTR_DB_INSTANCE_ID: "db.instance.id";
 /**
@@ -7734,7 +7656,7 @@ declare const ATTR_DB_INSTANCE_ID: "db.instance.id";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Removed as not used.
+ * @deprecated Removed, no replacement at this time.
  */
 declare const ATTR_DB_JDBC_DRIVER_CLASSNAME: "db.jdbc.driver_classname";
 /**
@@ -7754,7 +7676,7 @@ declare const ATTR_DB_MONGODB_COLLECTION: "db.mongodb.collection";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Deprecated, no replacement at this time.
+ * @deprecated Removed, no replacement at this time.
  */
 declare const ATTR_DB_MSSQL_INSTANCE_NAME: "db.mssql.instance_name";
 /**
@@ -7842,7 +7764,7 @@ declare const ATTR_DB_REDIS_DATABASE_INDEX: "db.redis.database_index";
  */
 declare const ATTR_DB_RESPONSE_RETURNED_ROWS: "db.response.returned_rows";
 /**
- * Deprecated, use `db.collection.name` instead, but only if not extracting the value from `db.query.text`.
+ * Deprecated, use `db.collection.name` instead.
  *
  * @example "mytable"
  *
@@ -7871,221 +7793,369 @@ declare const ATTR_DB_STATEMENT: "db.statement";
  */
 declare const ATTR_DB_SYSTEM: "db.system";
 /**
-* Enum value "adabas" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "adabas" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_ADABAS: "adabas";
 /**
-* Enum value "cache" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "cache" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_CACHE: "cache";
 /**
-* Enum value "cassandra" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "cassandra" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_CASSANDRA: "cassandra";
 /**
-* Enum value "clickhouse" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "clickhouse" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_CLICKHOUSE: "clickhouse";
 /**
-* Enum value "cloudscape" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "cloudscape" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_CLOUDSCAPE: "cloudscape";
 /**
-* Enum value "cockroachdb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "cockroachdb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_COCKROACHDB: "cockroachdb";
 /**
-* Enum value "coldfusion" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "coldfusion" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_COLDFUSION: "coldfusion";
 /**
-* Enum value "cosmosdb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "cosmosdb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_COSMOSDB: "cosmosdb";
 /**
-* Enum value "couchbase" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "couchbase" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_COUCHBASE: "couchbase";
 /**
-* Enum value "couchdb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "couchdb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_COUCHDB: "couchdb";
 /**
-* Enum value "db2" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "db2" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_DB2: "db2";
 /**
-* Enum value "derby" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "derby" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_DERBY: "derby";
 /**
-* Enum value "dynamodb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "dynamodb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_DYNAMODB: "dynamodb";
 /**
-* Enum value "edb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "edb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_EDB: "edb";
 /**
-* Enum value "elasticsearch" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "elasticsearch" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_ELASTICSEARCH: "elasticsearch";
 /**
-* Enum value "filemaker" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "filemaker" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_FILEMAKER: "filemaker";
 /**
-* Enum value "firebird" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "firebird" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_FIREBIRD: "firebird";
 /**
-* Enum value "firstsql" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "firstsql" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_FIRSTSQL: "firstsql";
 /**
-* Enum value "geode" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "geode" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_GEODE: "geode";
 /**
-* Enum value "h2" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "h2" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_H2: "h2";
 /**
-* Enum value "hanadb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "hanadb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_HANADB: "hanadb";
 /**
-* Enum value "hbase" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "hbase" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_HBASE: "hbase";
 /**
-* Enum value "hive" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "hive" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_HIVE: "hive";
 /**
-* Enum value "hsqldb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "hsqldb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_HSQLDB: "hsqldb";
 /**
-* Enum value "influxdb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "influxdb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_INFLUXDB: "influxdb";
 /**
-* Enum value "informix" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "informix" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_INFORMIX: "informix";
 /**
-* Enum value "ingres" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "ingres" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_INGRES: "ingres";
 /**
-* Enum value "instantdb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "instantdb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_INSTANTDB: "instantdb";
 /**
-* Enum value "interbase" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "interbase" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_INTERBASE: "interbase";
 /**
-* Enum value "intersystems_cache" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "intersystems_cache" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_INTERSYSTEMS_CACHE: "intersystems_cache";
 /**
-* Enum value "mariadb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "mariadb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_MARIADB: "mariadb";
 /**
-* Enum value "maxdb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "maxdb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_MAXDB: "maxdb";
 /**
-* Enum value "memcached" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "memcached" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_MEMCACHED: "memcached";
 /**
-* Enum value "mongodb" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "mongodb" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_MONGODB: "mongodb";
 /**
-* Enum value "mssql" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "mssql" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_MSSQL: "mssql";
 /**
-* Enum value "mssqlcompact" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "mssqlcompact" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_MSSQLCOMPACT: "mssqlcompact";
 /**
-* Enum value "mysql" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "mysql" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_MYSQL: "mysql";
 /**
-* Enum value "neo4j" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "neo4j" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_NEO4J: "neo4j";
 /**
-* Enum value "netezza" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "netezza" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_NETEZZA: "netezza";
 /**
-* Enum value "opensearch" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "opensearch" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_OPENSEARCH: "opensearch";
 /**
-* Enum value "oracle" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "oracle" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_ORACLE: "oracle";
 /**
-* Enum value "other_sql" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "other_sql" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_OTHER_SQL: "other_sql";
 /**
-* Enum value "pervasive" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "pervasive" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_PERVASIVE: "pervasive";
 /**
-* Enum value "pointbase" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "pointbase" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_POINTBASE: "pointbase";
 /**
-* Enum value "postgresql" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "postgresql" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_POSTGRESQL: "postgresql";
 /**
-* Enum value "progress" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "progress" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_PROGRESS: "progress";
 /**
-* Enum value "redis" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "redis" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_REDIS: "redis";
 /**
-* Enum value "redshift" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "redshift" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_REDSHIFT: "redshift";
 /**
-* Enum value "spanner" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "spanner" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_SPANNER: "spanner";
 /**
-* Enum value "sqlite" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "sqlite" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_SQLITE: "sqlite";
 /**
-* Enum value "sybase" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "sybase" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_SYBASE: "sybase";
 /**
-* Enum value "teradata" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "teradata" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_TERADATA: "teradata";
 /**
-* Enum value "trino" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "trino" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_TRINO: "trino";
 /**
-* Enum value "vertica" for attribute {@link ATTR_DB_SYSTEM}.
-*/
+ * Enum value "vertica" for attribute {@link ATTR_DB_SYSTEM}.
+ */
 declare const DB_SYSTEM_VALUE_VERTICA: "vertica";
+/**
+ * Enum value "actian.ingres" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_ACTIAN_INGRES: "actian.ingres";
+/**
+ * Enum value "aws.dynamodb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_AWS_DYNAMODB: "aws.dynamodb";
+/**
+ * Enum value "aws.redshift" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_AWS_REDSHIFT: "aws.redshift";
+/**
+ * Enum value "azure.cosmosdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_AZURE_COSMOSDB: "azure.cosmosdb";
+/**
+ * Enum value "cassandra" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_CASSANDRA: "cassandra";
+/**
+ * Enum value "clickhouse" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_CLICKHOUSE: "clickhouse";
+/**
+ * Enum value "cockroachdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_COCKROACHDB: "cockroachdb";
+/**
+ * Enum value "couchbase" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_COUCHBASE: "couchbase";
+/**
+ * Enum value "couchdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_COUCHDB: "couchdb";
+/**
+ * Enum value "derby" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_DERBY: "derby";
+/**
+ * Enum value "elasticsearch" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_ELASTICSEARCH: "elasticsearch";
+/**
+ * Enum value "firebirdsql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_FIREBIRDSQL: "firebirdsql";
+/**
+ * Enum value "gcp.spanner" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_GCP_SPANNER: "gcp.spanner";
+/**
+ * Enum value "geode" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_GEODE: "geode";
+/**
+ * Enum value "h2database" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_H2DATABASE: "h2database";
+/**
+ * Enum value "hbase" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_HBASE: "hbase";
+/**
+ * Enum value "hive" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_HIVE: "hive";
+/**
+ * Enum value "hsqldb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_HSQLDB: "hsqldb";
+/**
+ * Enum value "ibm.db2" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_IBM_DB2: "ibm.db2";
+/**
+ * Enum value "ibm.informix" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_IBM_INFORMIX: "ibm.informix";
+/**
+ * Enum value "ibm.netezza" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_IBM_NETEZZA: "ibm.netezza";
+/**
+ * Enum value "influxdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_INFLUXDB: "influxdb";
+/**
+ * Enum value "instantdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_INSTANTDB: "instantdb";
+/**
+ * Enum value "intersystems.cache" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_INTERSYSTEMS_CACHE: "intersystems.cache";
+/**
+ * Enum value "memcached" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_MEMCACHED: "memcached";
+/**
+ * Enum value "mongodb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_MONGODB: "mongodb";
+/**
+ * Enum value "neo4j" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_NEO4J: "neo4j";
+/**
+ * Enum value "opensearch" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_OPENSEARCH: "opensearch";
+/**
+ * Enum value "oracle.db" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_ORACLE_DB: "oracle.db";
+/**
+ * Enum value "other_sql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_OTHER_SQL: "other_sql";
+/**
+ * Enum value "redis" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_REDIS: "redis";
+/**
+ * Enum value "sap.hana" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_SAP_HANA: "sap.hana";
+/**
+ * Enum value "sap.maxdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_SAP_MAXDB: "sap.maxdb";
+/**
+ * Enum value "softwareag.adabas" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_SOFTWAREAG_ADABAS: "softwareag.adabas";
+/**
+ * Enum value "sqlite" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_SQLITE: "sqlite";
+/**
+ * Enum value "teradata" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_TERADATA: "teradata";
+/**
+ * Enum value "trino" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ */
+declare const DB_SYSTEM_NAME_VALUE_TRINO: "trino";
 /**
  * Deprecated, no replacement at this time.
  *
@@ -8094,7 +8164,7 @@ declare const DB_SYSTEM_VALUE_VERTICA: "vertica";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated No replacement at this time.
+ * @deprecated Removed, no replacement at this time.
  */
 declare const ATTR_DB_USER: "db.user";
 /**
@@ -8105,7 +8175,7 @@ declare const ATTR_DB_USER: "db.user";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Deprecated, use `deployment.environment.name` instead.
+ * @deprecated Replaced by `deployment.environment.name`.
  */
 declare const ATTR_DEPLOYMENT_ENVIRONMENT: "deployment.environment";
 /**
@@ -8149,12 +8219,12 @@ declare const ATTR_DEPLOYMENT_NAME: "deployment.name";
  */
 declare const ATTR_DEPLOYMENT_STATUS: "deployment.status";
 /**
-* Enum value "failed" for attribute {@link ATTR_DEPLOYMENT_STATUS}.
-*/
+ * Enum value "failed" for attribute {@link ATTR_DEPLOYMENT_STATUS}.
+ */
 declare const DEPLOYMENT_STATUS_VALUE_FAILED: "failed";
 /**
-* Enum value "succeeded" for attribute {@link ATTR_DEPLOYMENT_STATUS}.
-*/
+ * Enum value "succeeded" for attribute {@link ATTR_DEPLOYMENT_STATUS}.
+ */
 declare const DEPLOYMENT_STATUS_VALUE_SUCCEEDED: "succeeded";
 /**
  * Destination address - domain name if available without reverse DNS lookup; otherwise, IP address or Unix domain socket name.
@@ -8192,7 +8262,7 @@ declare const ATTR_DESTINATION_PORT: "destination.port";
  * > [!WARNING]> This attribute may contain sensitive (PII) information. Caution should be taken when storing personal data or anything which can identify a user. GDPR and data protection laws may apply,
  * > ensure you do your own due diligence.> Due to these reasons, this identifier is not recommended for consumer applications and will likely result in rejection from both Google Play and App Store.
  * > However, it may be appropriate for specific enterprise scenarios, such as kiosk devices or enterprise-managed devices, with appropriate compliance clearance.
- * > Any instrumentation providing this identifier **> MUST**>  implement it as an opt-in feature.> See [`app.installation.id`](/docs/attributes-registry/app.md#app-installation-id)>  for a more privacy-preserving alternative.
+ * > Any instrumentation providing this identifier **> MUST**>  implement it as an opt-in feature.> See [`app.installation.id`](/docs/registry/attributes/app.md#app-installation-id)>  for a more privacy-preserving alternative.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -8239,12 +8309,12 @@ declare const ATTR_DEVICE_MODEL_NAME: "device.model.name";
  */
 declare const ATTR_DISK_IO_DIRECTION: "disk.io.direction";
 /**
-* Enum value "read" for attribute {@link ATTR_DISK_IO_DIRECTION}.
-*/
+ * Enum value "read" for attribute {@link ATTR_DISK_IO_DIRECTION}.
+ */
 declare const DISK_IO_DIRECTION_VALUE_READ: "read";
 /**
-* Enum value "write" for attribute {@link ATTR_DISK_IO_DIRECTION}.
-*/
+ * Enum value "write" for attribute {@link ATTR_DISK_IO_DIRECTION}.
+ */
 declare const DISK_IO_DIRECTION_VALUE_WRITE: "write";
 /**
  * The name being queried.
@@ -8298,7 +8368,7 @@ declare const ATTR_ENDUSER_PSEUDO_ID: "enduser.pseudo.id";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `user.roles` attribute.
+ * @deprecated Use `user.roles` attribute instead.
  */
 declare const ATTR_ENDUSER_ROLE: "enduser.role";
 /**
@@ -8308,7 +8378,7 @@ declare const ATTR_ENDUSER_ROLE: "enduser.role";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Removed.
+ * @deprecated Removed, no replacement at this time.
  */
 declare const ATTR_ENDUSER_SCOPE: "enduser.scope";
 /**
@@ -8334,7 +8404,7 @@ declare const ATTR_ERROR_MESSAGE: "error.message";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by EventName top-level field on the LogRecord
+ * @deprecated Replaced by EventName top-level field on the LogRecord.
  */
 declare const ATTR_EVENT_NAME: "event.name";
 /**
@@ -8376,16 +8446,16 @@ declare const ATTR_FAAS_DOCUMENT_NAME: "faas.document.name";
  */
 declare const ATTR_FAAS_DOCUMENT_OPERATION: "faas.document.operation";
 /**
-* Enum value "delete" for attribute {@link ATTR_FAAS_DOCUMENT_OPERATION}.
-*/
+ * Enum value "delete" for attribute {@link ATTR_FAAS_DOCUMENT_OPERATION}.
+ */
 declare const FAAS_DOCUMENT_OPERATION_VALUE_DELETE: "delete";
 /**
-* Enum value "edit" for attribute {@link ATTR_FAAS_DOCUMENT_OPERATION}.
-*/
+ * Enum value "edit" for attribute {@link ATTR_FAAS_DOCUMENT_OPERATION}.
+ */
 declare const FAAS_DOCUMENT_OPERATION_VALUE_EDIT: "edit";
 /**
-* Enum value "insert" for attribute {@link ATTR_FAAS_DOCUMENT_OPERATION}.
-*/
+ * Enum value "insert" for attribute {@link ATTR_FAAS_DOCUMENT_OPERATION}.
+ */
 declare const FAAS_DOCUMENT_OPERATION_VALUE_INSERT: "insert";
 /**
  * A string containing the time when the data was accessed in the [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format expressed in [UTC](https://www.w3.org/TR/NOTE-datetime).
@@ -8432,24 +8502,24 @@ declare const ATTR_FAAS_INVOKED_NAME: "faas.invoked_name";
  */
 declare const ATTR_FAAS_INVOKED_PROVIDER: "faas.invoked_provider";
 /**
-* Enum value "alibaba_cloud" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
-*/
+ * Enum value "alibaba_cloud" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
+ */
 declare const FAAS_INVOKED_PROVIDER_VALUE_ALIBABA_CLOUD: "alibaba_cloud";
 /**
-* Enum value "aws" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
-*/
+ * Enum value "aws" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
+ */
 declare const FAAS_INVOKED_PROVIDER_VALUE_AWS: "aws";
 /**
-* Enum value "azure" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
-*/
+ * Enum value "azure" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
+ */
 declare const FAAS_INVOKED_PROVIDER_VALUE_AZURE: "azure";
 /**
-* Enum value "gcp" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
-*/
+ * Enum value "gcp" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
+ */
 declare const FAAS_INVOKED_PROVIDER_VALUE_GCP: "gcp";
 /**
-* Enum value "tencent_cloud" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
-*/
+ * Enum value "tencent_cloud" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
+ */
 declare const FAAS_INVOKED_PROVIDER_VALUE_TENCENT_CLOUD: "tencent_cloud";
 /**
  * The cloud region of the invoked function.
@@ -8512,24 +8582,24 @@ declare const ATTR_FAAS_TIME: "faas.time";
  */
 declare const ATTR_FAAS_TRIGGER: "faas.trigger";
 /**
-* Enum value "datasource" for attribute {@link ATTR_FAAS_TRIGGER}.
-*/
+ * Enum value "datasource" for attribute {@link ATTR_FAAS_TRIGGER}.
+ */
 declare const FAAS_TRIGGER_VALUE_DATASOURCE: "datasource";
 /**
-* Enum value "http" for attribute {@link ATTR_FAAS_TRIGGER}.
-*/
+ * Enum value "http" for attribute {@link ATTR_FAAS_TRIGGER}.
+ */
 declare const FAAS_TRIGGER_VALUE_HTTP: "http";
 /**
-* Enum value "other" for attribute {@link ATTR_FAAS_TRIGGER}.
-*/
+ * Enum value "other" for attribute {@link ATTR_FAAS_TRIGGER}.
+ */
 declare const FAAS_TRIGGER_VALUE_OTHER: "other";
 /**
-* Enum value "pubsub" for attribute {@link ATTR_FAAS_TRIGGER}.
-*/
+ * Enum value "pubsub" for attribute {@link ATTR_FAAS_TRIGGER}.
+ */
 declare const FAAS_TRIGGER_VALUE_PUBSUB: "pubsub";
 /**
-* Enum value "timer" for attribute {@link ATTR_FAAS_TRIGGER}.
-*/
+ * Enum value "timer" for attribute {@link ATTR_FAAS_TRIGGER}.
+ */
 declare const FAAS_TRIGGER_VALUE_TIMER: "timer";
 /**
  * The immutable version of the function being executed.
@@ -8582,40 +8652,40 @@ declare const ATTR_FEATURE_FLAG_EVALUATION_ERROR_MESSAGE: "feature_flag.evaluati
  */
 declare const ATTR_FEATURE_FLAG_EVALUATION_REASON: "feature_flag.evaluation.reason";
 /**
-* Enum value "cached" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
-*/
+ * Enum value "cached" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_CACHED: "cached";
 /**
-* Enum value "default" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
-*/
+ * Enum value "default" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_DEFAULT: "default";
 /**
-* Enum value "disabled" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
-*/
+ * Enum value "disabled" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_DISABLED: "disabled";
 /**
-* Enum value "error" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
-*/
+ * Enum value "error" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_ERROR: "error";
 /**
-* Enum value "split" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
-*/
+ * Enum value "split" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_SPLIT: "split";
 /**
-* Enum value "stale" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
-*/
+ * Enum value "stale" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_STALE: "stale";
 /**
-* Enum value "static" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
-*/
+ * Enum value "static" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_STATIC: "static";
 /**
-* Enum value "targeting_match" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
-*/
+ * Enum value "targeting_match" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_TARGETING_MATCH: "targeting_match";
 /**
-* Enum value "unknown" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
-*/
+ * Enum value "unknown" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_UNKNOWN: "unknown";
 /**
  * The lookup key of the feature flag.
@@ -8645,41 +8715,57 @@ declare const ATTR_FEATURE_FLAG_PROVIDER_NAME: "feature_flag.provider.name";
  */
 declare const ATTR_FEATURE_FLAG_RESULT_REASON: "feature_flag.result.reason";
 /**
-* Enum value "cached" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
-*/
+ * Enum value "cached" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_CACHED: "cached";
 /**
-* Enum value "default" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
-*/
+ * Enum value "default" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_DEFAULT: "default";
 /**
-* Enum value "disabled" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
-*/
+ * Enum value "disabled" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_DISABLED: "disabled";
 /**
-* Enum value "error" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
-*/
+ * Enum value "error" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_ERROR: "error";
 /**
-* Enum value "split" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
-*/
+ * Enum value "split" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_SPLIT: "split";
 /**
-* Enum value "stale" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
-*/
+ * Enum value "stale" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_STALE: "stale";
 /**
-* Enum value "static" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
-*/
+ * Enum value "static" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_STATIC: "static";
 /**
-* Enum value "targeting_match" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
-*/
+ * Enum value "targeting_match" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_TARGETING_MATCH: "targeting_match";
 /**
-* Enum value "unknown" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
-*/
+ * Enum value "unknown" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_UNKNOWN: "unknown";
+/**
+ * The evaluated value of the feature flag.
+ *
+ * @example #ff0000
+ * @example true
+ * @example 3
+ *
+ * @note With some feature flag providers, feature flag results can be quite large or contain private or sensitive details.
+ * Because of this, `feature_flag.result.variant` is often the preferred attribute if it is available.
+ *
+ * It may be desirable to redact or otherwise limit the size and scope of `feature_flag.result.value` if possible.
+ * Because the evaluated flag value is unstructured and may be any type, it is left to the instrumentation author to determine how best to achieve this.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_FEATURE_FLAG_RESULT_VALUE: "feature_flag.result.value";
 /**
  * A semantic identifier for an evaluated flag value.
  *
@@ -8918,20 +9004,20 @@ declare const ATTR_GCP_APPHUB_APPLICATION_LOCATION: "gcp.apphub.application.loca
  */
 declare const ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE: "gcp.apphub.service.criticality_type";
 /**
-* Enum value "HIGH" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
-*/
+ * Enum value "HIGH" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
+ */
 declare const GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_HIGH: "HIGH";
 /**
-* Enum value "LOW" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
-*/
+ * Enum value "LOW" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
+ */
 declare const GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_LOW: "LOW";
 /**
-* Enum value "MEDIUM" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
-*/
+ * Enum value "MEDIUM" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
+ */
 declare const GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MEDIUM: "MEDIUM";
 /**
-* Enum value "MISSION_CRITICAL" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
-*/
+ * Enum value "MISSION_CRITICAL" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
+ */
 declare const GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL: "MISSION_CRITICAL";
 /**
  * Environment of a service is the stage of a software lifecycle.
@@ -8942,20 +9028,20 @@ declare const GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL: "MISSI
  */
 declare const ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE: "gcp.apphub.service.environment_type";
 /**
-* Enum value "DEVELOPMENT" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
-*/
+ * Enum value "DEVELOPMENT" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
+ */
 declare const GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT: "DEVELOPMENT";
 /**
-* Enum value "PRODUCTION" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
-*/
+ * Enum value "PRODUCTION" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
+ */
 declare const GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_PRODUCTION: "PRODUCTION";
 /**
-* Enum value "STAGING" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
-*/
+ * Enum value "STAGING" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
+ */
 declare const GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_STAGING: "STAGING";
 /**
-* Enum value "TEST" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
-*/
+ * Enum value "TEST" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
+ */
 declare const GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_TEST: "TEST";
 /**
  * The name of the service as configured in AppHub.
@@ -8974,20 +9060,20 @@ declare const ATTR_GCP_APPHUB_SERVICE_ID: "gcp.apphub.service.id";
  */
 declare const ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE: "gcp.apphub.workload.criticality_type";
 /**
-* Enum value "HIGH" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
-*/
+ * Enum value "HIGH" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
+ */
 declare const GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_HIGH: "HIGH";
 /**
-* Enum value "LOW" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
-*/
+ * Enum value "LOW" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
+ */
 declare const GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_LOW: "LOW";
 /**
-* Enum value "MEDIUM" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
-*/
+ * Enum value "MEDIUM" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
+ */
 declare const GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MEDIUM: "MEDIUM";
 /**
-* Enum value "MISSION_CRITICAL" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
-*/
+ * Enum value "MISSION_CRITICAL" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
+ */
 declare const GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL: "MISSION_CRITICAL";
 /**
  * Environment of a workload is the stage of a software lifecycle.
@@ -8998,20 +9084,20 @@ declare const GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL: "MISS
  */
 declare const ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE: "gcp.apphub.workload.environment_type";
 /**
-* Enum value "DEVELOPMENT" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
-*/
+ * Enum value "DEVELOPMENT" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
+ */
 declare const GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT: "DEVELOPMENT";
 /**
-* Enum value "PRODUCTION" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
-*/
+ * Enum value "PRODUCTION" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
+ */
 declare const GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_PRODUCTION: "PRODUCTION";
 /**
-* Enum value "STAGING" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
-*/
+ * Enum value "STAGING" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
+ */
 declare const GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_STAGING: "STAGING";
 /**
-* Enum value "TEST" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
-*/
+ * Enum value "TEST" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
+ */
 declare const GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_TEST: "TEST";
 /**
  * The name of the workload as configured in AppHub.
@@ -9108,6 +9194,24 @@ declare const ATTR_GEN_AI_AGENT_NAME: "gen_ai.agent.name";
  */
 declare const ATTR_GEN_AI_COMPLETION: "gen_ai.completion";
 /**
+ * The unique identifier for a conversation (session, thread), used to store and correlate messages within this conversation.
+ *
+ * @example conv_5j66UpCpwteGg4YSxUnt7lPY
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_CONVERSATION_ID: "gen_ai.conversation.id";
+/**
+ * The data source identifier.
+ *
+ * @example H7STPQYOND
+ *
+ * @note Data sources are used by AI agents and RAG applications to store grounding data. A data source may be an external database, object store, document collection, website, or any other storage system used by the GenAI agent or application. The `gen_ai.data_source.id` **SHOULD** match the identifier used by the GenAI system rather than a name specific to the external storage, such as a database or object store. Semantic conventions referencing `gen_ai.data_source.id` **MAY** also leverage additional attributes, such as `db.*`, to further identify and describe the data source.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_DATA_SOURCE_ID: "gen_ai.data_source.id";
+/**
  * Deprecated, use `gen_ai.output.type`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
@@ -9116,16 +9220,16 @@ declare const ATTR_GEN_AI_COMPLETION: "gen_ai.completion";
  */
 declare const ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT: "gen_ai.openai.request.response_format";
 /**
-* Enum value "json_object" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT}.
-*/
+ * Enum value "json_object" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT}.
+ */
 declare const GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_OBJECT: "json_object";
 /**
-* Enum value "json_schema" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT}.
-*/
+ * Enum value "json_schema" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT}.
+ */
 declare const GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_SCHEMA: "json_schema";
 /**
-* Enum value "text" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT}.
-*/
+ * Enum value "text" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT}.
+ */
 declare const GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_TEXT: "text";
 /**
  * Deprecated, use `gen_ai.request.seed`.
@@ -9134,7 +9238,7 @@ declare const GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_TEXT: "text";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `gen_ai.request.seed` attribute.
+ * @deprecated Replaced by `gen_ai.request.seed`.
  */
 declare const ATTR_GEN_AI_OPENAI_REQUEST_SEED: "gen_ai.openai.request.seed";
 /**
@@ -9147,12 +9251,12 @@ declare const ATTR_GEN_AI_OPENAI_REQUEST_SEED: "gen_ai.openai.request.seed";
  */
 declare const ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER: "gen_ai.openai.request.service_tier";
 /**
-* Enum value "auto" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER}.
-*/
+ * Enum value "auto" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER}.
+ */
 declare const GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO: "auto";
 /**
-* Enum value "default" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER}.
-*/
+ * Enum value "default" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER}.
+ */
 declare const GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT: "default";
 /**
  * The service tier used for the response.
@@ -9180,32 +9284,32 @@ declare const ATTR_GEN_AI_OPENAI_RESPONSE_SYSTEM_FINGERPRINT: "gen_ai.openai.res
  */
 declare const ATTR_GEN_AI_OPERATION_NAME: "gen_ai.operation.name";
 /**
-* Enum value "chat" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
-*/
+ * Enum value "chat" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ */
 declare const GEN_AI_OPERATION_NAME_VALUE_CHAT: "chat";
 /**
-* Enum value "create_agent" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
-*/
+ * Enum value "create_agent" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ */
 declare const GEN_AI_OPERATION_NAME_VALUE_CREATE_AGENT: "create_agent";
 /**
-* Enum value "embeddings" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
-*/
+ * Enum value "embeddings" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ */
 declare const GEN_AI_OPERATION_NAME_VALUE_EMBEDDINGS: "embeddings";
 /**
-* Enum value "execute_tool" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
-*/
+ * Enum value "execute_tool" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ */
 declare const GEN_AI_OPERATION_NAME_VALUE_EXECUTE_TOOL: "execute_tool";
 /**
-* Enum value "generate_content" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
-*/
+ * Enum value "generate_content" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ */
 declare const GEN_AI_OPERATION_NAME_VALUE_GENERATE_CONTENT: "generate_content";
 /**
-* Enum value "invoke_agent" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
-*/
+ * Enum value "invoke_agent" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ */
 declare const GEN_AI_OPERATION_NAME_VALUE_INVOKE_AGENT: "invoke_agent";
 /**
-* Enum value "text_completion" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
-*/
+ * Enum value "text_completion" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ */
 declare const GEN_AI_OPERATION_NAME_VALUE_TEXT_COMPLETION: "text_completion";
 /**
  * Represents the content type requested by the client.
@@ -9218,20 +9322,20 @@ declare const GEN_AI_OPERATION_NAME_VALUE_TEXT_COMPLETION: "text_completion";
  */
 declare const ATTR_GEN_AI_OUTPUT_TYPE: "gen_ai.output.type";
 /**
-* Enum value "image" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
-*/
+ * Enum value "image" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
+ */
 declare const GEN_AI_OUTPUT_TYPE_VALUE_IMAGE: "image";
 /**
-* Enum value "json" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
-*/
+ * Enum value "json" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
+ */
 declare const GEN_AI_OUTPUT_TYPE_VALUE_JSON: "json";
 /**
-* Enum value "speech" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
-*/
+ * Enum value "speech" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
+ */
 declare const GEN_AI_OUTPUT_TYPE_VALUE_SPEECH: "speech";
 /**
-* Enum value "text" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
-*/
+ * Enum value "text" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
+ */
 declare const GEN_AI_OUTPUT_TYPE_VALUE_TEXT: "text";
 /**
  * Deprecated, use Event API to report prompt contents.
@@ -9380,72 +9484,72 @@ declare const ATTR_GEN_AI_RESPONSE_MODEL: "gen_ai.response.model";
  */
 declare const ATTR_GEN_AI_SYSTEM: "gen_ai.system";
 /**
-* Enum value "anthropic" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "anthropic" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_ANTHROPIC: "anthropic";
 /**
-* Enum value "aws.bedrock" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "aws.bedrock" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_AWS_BEDROCK: "aws.bedrock";
 /**
-* Enum value "az.ai.inference" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "az.ai.inference" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_AZ_AI_INFERENCE: "az.ai.inference";
 /**
-* Enum value "az.ai.openai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "az.ai.openai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_AZ_AI_OPENAI: "az.ai.openai";
 /**
-* Enum value "cohere" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "cohere" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_COHERE: "cohere";
 /**
-* Enum value "deepseek" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "deepseek" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_DEEPSEEK: "deepseek";
 /**
-* Enum value "gcp.gemini" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "gcp.gemini" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_GCP_GEMINI: "gcp.gemini";
 /**
-* Enum value "gcp.gen_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "gcp.gen_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_GCP_GEN_AI: "gcp.gen_ai";
 /**
-* Enum value "gcp.vertex_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "gcp.vertex_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_GCP_VERTEX_AI: "gcp.vertex_ai";
 /**
-* Enum value "gemini" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "gemini" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_GEMINI: "gemini";
 /**
-* Enum value "groq" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "groq" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_GROQ: "groq";
 /**
-* Enum value "ibm.watsonx.ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "ibm.watsonx.ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_IBM_WATSONX_AI: "ibm.watsonx.ai";
 /**
-* Enum value "mistral_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "mistral_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_MISTRAL_AI: "mistral_ai";
 /**
-* Enum value "openai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "openai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_OPENAI: "openai";
 /**
-* Enum value "perplexity" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "perplexity" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_PERPLEXITY: "perplexity";
 /**
-* Enum value "vertex_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "vertex_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_VERTEX_AI: "vertex_ai";
 /**
-* Enum value "xai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
-*/
+ * Enum value "xai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ */
 declare const GEN_AI_SYSTEM_VALUE_XAI: "xai";
 /**
  * The type of token being counted.
@@ -9457,16 +9561,16 @@ declare const GEN_AI_SYSTEM_VALUE_XAI: "xai";
  */
 declare const ATTR_GEN_AI_TOKEN_TYPE: "gen_ai.token.type";
 /**
-* Enum value "input" for attribute {@link ATTR_GEN_AI_TOKEN_TYPE}.
-*/
+ * Enum value "input" for attribute {@link ATTR_GEN_AI_TOKEN_TYPE}.
+ */
 declare const GEN_AI_TOKEN_TYPE_VALUE_INPUT: "input";
 /**
-* Enum value "output" for attribute {@link ATTR_GEN_AI_TOKEN_TYPE}.
-*/
+ * Enum value "output" for attribute {@link ATTR_GEN_AI_TOKEN_TYPE}.
+ */
 declare const GEN_AI_TOKEN_TYPE_VALUE_COMPLETION: "output";
 /**
-* Enum value "output" for attribute {@link ATTR_GEN_AI_TOKEN_TYPE}.
-*/
+ * Enum value "output" for attribute {@link ATTR_GEN_AI_TOKEN_TYPE}.
+ */
 declare const GEN_AI_TOKEN_TYPE_VALUE_OUTPUT: "output";
 /**
  * The tool call identifier.
@@ -9515,7 +9619,7 @@ declare const ATTR_GEN_AI_TOOL_TYPE: "gen_ai.tool.type";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `gen_ai.usage.output_tokens` attribute.
+ * @deprecated Replaced by `gen_ai.usage.output_tokens`.
  */
 declare const ATTR_GEN_AI_USAGE_COMPLETION_TOKENS: "gen_ai.usage.completion_tokens";
 /**
@@ -9541,7 +9645,7 @@ declare const ATTR_GEN_AI_USAGE_OUTPUT_TOKENS: "gen_ai.usage.output_tokens";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `gen_ai.usage.input_tokens` attribute.
+ * @deprecated Replaced by `gen_ai.usage.input_tokens`.
  */
 declare const ATTR_GEN_AI_USAGE_PROMPT_TOKENS: "gen_ai.usage.prompt_tokens";
 /**
@@ -9551,32 +9655,32 @@ declare const ATTR_GEN_AI_USAGE_PROMPT_TOKENS: "gen_ai.usage.prompt_tokens";
  */
 declare const ATTR_GEO_CONTINENT_CODE: "geo.continent.code";
 /**
-* Enum value "AF" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
-*/
+ * Enum value "AF" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ */
 declare const GEO_CONTINENT_CODE_VALUE_AF: "AF";
 /**
-* Enum value "AN" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
-*/
+ * Enum value "AN" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ */
 declare const GEO_CONTINENT_CODE_VALUE_AN: "AN";
 /**
-* Enum value "AS" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
-*/
+ * Enum value "AS" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ */
 declare const GEO_CONTINENT_CODE_VALUE_AS: "AS";
 /**
-* Enum value "EU" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
-*/
+ * Enum value "EU" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ */
 declare const GEO_CONTINENT_CODE_VALUE_EU: "EU";
 /**
-* Enum value "NA" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
-*/
+ * Enum value "NA" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ */
 declare const GEO_CONTINENT_CODE_VALUE_NA: "NA";
 /**
-* Enum value "OC" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
-*/
+ * Enum value "OC" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ */
 declare const GEO_CONTINENT_CODE_VALUE_OC: "OC";
 /**
-* Enum value "SA" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
-*/
+ * Enum value "SA" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ */
 declare const GEO_CONTINENT_CODE_VALUE_SA: "SA";
 /**
  * Two-letter ISO Country Code ([ISO 3166-1 alpha2](https://wikipedia.org/wiki/ISO_3166-1#Codes)).
@@ -9637,12 +9741,12 @@ declare const ATTR_GEO_REGION_ISO_CODE: "geo.region.iso_code";
  */
 declare const ATTR_GO_MEMORY_TYPE: "go.memory.type";
 /**
-* Enum value "other" for attribute {@link ATTR_GO_MEMORY_TYPE}.
-*/
+ * Enum value "other" for attribute {@link ATTR_GO_MEMORY_TYPE}.
+ */
 declare const GO_MEMORY_TYPE_VALUE_OTHER: "other";
 /**
-* Enum value "stack" for attribute {@link ATTR_GO_MEMORY_TYPE}.
-*/
+ * Enum value "stack" for attribute {@link ATTR_GO_MEMORY_TYPE}.
+ */
 declare const GO_MEMORY_TYPE_VALUE_STACK: "stack";
 /**
  * The GraphQL document being executed.
@@ -9672,16 +9776,16 @@ declare const ATTR_GRAPHQL_OPERATION_NAME: "graphql.operation.name";
  */
 declare const ATTR_GRAPHQL_OPERATION_TYPE: "graphql.operation.type";
 /**
-* Enum value "mutation" for attribute {@link ATTR_GRAPHQL_OPERATION_TYPE}.
-*/
+ * Enum value "mutation" for attribute {@link ATTR_GRAPHQL_OPERATION_TYPE}.
+ */
 declare const GRAPHQL_OPERATION_TYPE_VALUE_MUTATION: "mutation";
 /**
-* Enum value "query" for attribute {@link ATTR_GRAPHQL_OPERATION_TYPE}.
-*/
+ * Enum value "query" for attribute {@link ATTR_GRAPHQL_OPERATION_TYPE}.
+ */
 declare const GRAPHQL_OPERATION_TYPE_VALUE_QUERY: "query";
 /**
-* Enum value "subscription" for attribute {@link ATTR_GRAPHQL_OPERATION_TYPE}.
-*/
+ * Enum value "subscription" for attribute {@link ATTR_GRAPHQL_OPERATION_TYPE}.
+ */
 declare const GRAPHQL_OPERATION_TYPE_VALUE_SUBSCRIPTION: "subscription";
 /**
  * Unique identifier for the application
@@ -9714,36 +9818,36 @@ declare const ATTR_HEROKU_RELEASE_CREATION_TIMESTAMP: "heroku.release.creation_t
  */
 declare const ATTR_HOST_ARCH: "host.arch";
 /**
-* Enum value "amd64" for attribute {@link ATTR_HOST_ARCH}.
-*/
+ * Enum value "amd64" for attribute {@link ATTR_HOST_ARCH}.
+ */
 declare const HOST_ARCH_VALUE_AMD64: "amd64";
 /**
-* Enum value "arm32" for attribute {@link ATTR_HOST_ARCH}.
-*/
+ * Enum value "arm32" for attribute {@link ATTR_HOST_ARCH}.
+ */
 declare const HOST_ARCH_VALUE_ARM32: "arm32";
 /**
-* Enum value "arm64" for attribute {@link ATTR_HOST_ARCH}.
-*/
+ * Enum value "arm64" for attribute {@link ATTR_HOST_ARCH}.
+ */
 declare const HOST_ARCH_VALUE_ARM64: "arm64";
 /**
-* Enum value "ia64" for attribute {@link ATTR_HOST_ARCH}.
-*/
+ * Enum value "ia64" for attribute {@link ATTR_HOST_ARCH}.
+ */
 declare const HOST_ARCH_VALUE_IA64: "ia64";
 /**
-* Enum value "ppc32" for attribute {@link ATTR_HOST_ARCH}.
-*/
+ * Enum value "ppc32" for attribute {@link ATTR_HOST_ARCH}.
+ */
 declare const HOST_ARCH_VALUE_PPC32: "ppc32";
 /**
-* Enum value "ppc64" for attribute {@link ATTR_HOST_ARCH}.
-*/
+ * Enum value "ppc64" for attribute {@link ATTR_HOST_ARCH}.
+ */
 declare const HOST_ARCH_VALUE_PPC64: "ppc64";
 /**
-* Enum value "s390x" for attribute {@link ATTR_HOST_ARCH}.
-*/
+ * Enum value "s390x" for attribute {@link ATTR_HOST_ARCH}.
+ */
 declare const HOST_ARCH_VALUE_S390X: "s390x";
 /**
-* Enum value "x86" for attribute {@link ATTR_HOST_ARCH}.
-*/
+ * Enum value "x86" for attribute {@link ATTR_HOST_ARCH}.
+ */
 declare const HOST_ARCH_VALUE_X86: "x86";
 /**
  * The amount of level 2 memory cache available to the processor (in Bytes).
@@ -9887,12 +9991,12 @@ declare const ATTR_HTTP_CLIENT_IP: "http.client_ip";
  */
 declare const ATTR_HTTP_CONNECTION_STATE: "http.connection.state";
 /**
-* Enum value "active" for attribute {@link ATTR_HTTP_CONNECTION_STATE}.
-*/
+ * Enum value "active" for attribute {@link ATTR_HTTP_CONNECTION_STATE}.
+ */
 declare const HTTP_CONNECTION_STATE_VALUE_ACTIVE: "active";
 /**
-* Enum value "idle" for attribute {@link ATTR_HTTP_CONNECTION_STATE}.
-*/
+ * Enum value "idle" for attribute {@link ATTR_HTTP_CONNECTION_STATE}.
+ */
 declare const HTTP_CONNECTION_STATE_VALUE_IDLE: "idle";
 /**
  * Deprecated, use `network.protocol.name` instead.
@@ -9903,28 +10007,28 @@ declare const HTTP_CONNECTION_STATE_VALUE_IDLE: "idle";
  */
 declare const ATTR_HTTP_FLAVOR: "http.flavor";
 /**
-* Enum value "1.0" for attribute {@link ATTR_HTTP_FLAVOR}.
-*/
+ * Enum value "1.0" for attribute {@link ATTR_HTTP_FLAVOR}.
+ */
 declare const HTTP_FLAVOR_VALUE_HTTP_1_0: "1.0";
 /**
-* Enum value "1.1" for attribute {@link ATTR_HTTP_FLAVOR}.
-*/
+ * Enum value "1.1" for attribute {@link ATTR_HTTP_FLAVOR}.
+ */
 declare const HTTP_FLAVOR_VALUE_HTTP_1_1: "1.1";
 /**
-* Enum value "2.0" for attribute {@link ATTR_HTTP_FLAVOR}.
-*/
+ * Enum value "2.0" for attribute {@link ATTR_HTTP_FLAVOR}.
+ */
 declare const HTTP_FLAVOR_VALUE_HTTP_2_0: "2.0";
 /**
-* Enum value "3.0" for attribute {@link ATTR_HTTP_FLAVOR}.
-*/
+ * Enum value "3.0" for attribute {@link ATTR_HTTP_FLAVOR}.
+ */
 declare const HTTP_FLAVOR_VALUE_HTTP_3_0: "3.0";
 /**
-* Enum value "QUIC" for attribute {@link ATTR_HTTP_FLAVOR}.
-*/
+ * Enum value "QUIC" for attribute {@link ATTR_HTTP_FLAVOR}.
+ */
 declare const HTTP_FLAVOR_VALUE_QUIC: "QUIC";
 /**
-* Enum value "SPDY" for attribute {@link ATTR_HTTP_FLAVOR}.
-*/
+ * Enum value "SPDY" for attribute {@link ATTR_HTTP_FLAVOR}.
+ */
 declare const HTTP_FLAVOR_VALUE_SPDY: "SPDY";
 /**
  * Deprecated, use one of `server.address`, `client.address` or `http.request.header.host` instead, depending on the usage.
@@ -9965,13 +10069,13 @@ declare const ATTR_HTTP_REQUEST_BODY_SIZE: "http.request.body.size";
  */
 declare const ATTR_HTTP_REQUEST_SIZE: "http.request.size";
 /**
- * Deprecated, use `http.request.header.<key>` instead.
+ * Deprecated, use `http.request.header.content-length` instead.
  *
  * @example 3495
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `http.request.header.<key>`.
+ * @deprecated Replaced by `http.request.header.content-length`.
  */
 declare const ATTR_HTTP_REQUEST_CONTENT_LENGTH: "http.request_content_length";
 /**
@@ -10001,13 +10105,13 @@ declare const ATTR_HTTP_RESPONSE_BODY_SIZE: "http.response.body.size";
  */
 declare const ATTR_HTTP_RESPONSE_SIZE: "http.response.size";
 /**
- * Deprecated, use `http.response.header.<key>` instead.
+ * Deprecated, use `http.response.header.content-length` instead.
  *
  * @example 3495
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `http.response.header.<key>`.
+ * @deprecated hp.response.header.content-length
  */
 declare const ATTR_HTTP_RESPONSE_CONTENT_LENGTH: "http.response_content_length";
 /**
@@ -10017,7 +10121,7 @@ declare const ATTR_HTTP_RESPONSE_CONTENT_LENGTH: "http.response_content_length";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replace by `http.response.body.size`.
+ * @deprecated Replaced by `http.response.body.size`.
  */
 declare const ATTR_HTTP_RESPONSE_CONTENT_LENGTH_UNCOMPRESSED: "http.response_content_length_uncompressed";
 /**
@@ -10028,7 +10132,7 @@ declare const ATTR_HTTP_RESPONSE_CONTENT_LENGTH_UNCOMPRESSED: "http.response_con
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `url.scheme` instead.
+ * @deprecated Replaced by `url.scheme`.
  */
 declare const ATTR_HTTP_SCHEME: "http.scheme";
 /**
@@ -10058,7 +10162,7 @@ declare const ATTR_HTTP_STATUS_CODE: "http.status_code";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Split to `url.path` and `url.query.
+ * @deprecated Split to `url.path` and `url.query`.
  */
 declare const ATTR_HTTP_TARGET: "http.target";
 /**
@@ -10113,16 +10217,16 @@ declare const ATTR_HW_PARENT: "hw.parent";
  */
 declare const ATTR_HW_STATE: "hw.state";
 /**
-* Enum value "degraded" for attribute {@link ATTR_HW_STATE}.
-*/
+ * Enum value "degraded" for attribute {@link ATTR_HW_STATE}.
+ */
 declare const HW_STATE_VALUE_DEGRADED: "degraded";
 /**
-* Enum value "failed" for attribute {@link ATTR_HW_STATE}.
-*/
+ * Enum value "failed" for attribute {@link ATTR_HW_STATE}.
+ */
 declare const HW_STATE_VALUE_FAILED: "failed";
 /**
-* Enum value "ok" for attribute {@link ATTR_HW_STATE}.
-*/
+ * Enum value "ok" for attribute {@link ATTR_HW_STATE}.
+ */
 declare const HW_STATE_VALUE_OK: "ok";
 /**
  * Type of the component
@@ -10133,60 +10237,60 @@ declare const HW_STATE_VALUE_OK: "ok";
  */
 declare const ATTR_HW_TYPE: "hw.type";
 /**
-* Enum value "battery" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "battery" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_BATTERY: "battery";
 /**
-* Enum value "cpu" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "cpu" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_CPU: "cpu";
 /**
-* Enum value "disk_controller" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "disk_controller" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_DISK_CONTROLLER: "disk_controller";
 /**
-* Enum value "enclosure" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "enclosure" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_ENCLOSURE: "enclosure";
 /**
-* Enum value "fan" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "fan" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_FAN: "fan";
 /**
-* Enum value "gpu" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "gpu" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_GPU: "gpu";
 /**
-* Enum value "logical_disk" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "logical_disk" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_LOGICAL_DISK: "logical_disk";
 /**
-* Enum value "memory" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "memory" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_MEMORY: "memory";
 /**
-* Enum value "network" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "network" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_NETWORK: "network";
 /**
-* Enum value "physical_disk" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "physical_disk" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_PHYSICAL_DISK: "physical_disk";
 /**
-* Enum value "power_supply" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "power_supply" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_POWER_SUPPLY: "power_supply";
 /**
-* Enum value "tape_drive" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "tape_drive" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_TAPE_DRIVE: "tape_drive";
 /**
-* Enum value "temperature" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "temperature" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_TEMPERATURE: "temperature";
 /**
-* Enum value "voltage" for attribute {@link ATTR_HW_TYPE}.
-*/
+ * Enum value "voltage" for attribute {@link ATTR_HW_TYPE}.
+ */
 declare const HW_TYPE_VALUE_VOLTAGE: "voltage";
 /**
  * This attribute represents the state of the application.
@@ -10197,54 +10301,52 @@ declare const HW_TYPE_VALUE_VOLTAGE: "voltage";
  */
 declare const ATTR_IOS_APP_STATE: "ios.app.state";
 /**
-* Enum value "active" for attribute {@link ATTR_IOS_APP_STATE}.
-*/
+ * Enum value "active" for attribute {@link ATTR_IOS_APP_STATE}.
+ */
 declare const IOS_APP_STATE_VALUE_ACTIVE: "active";
 /**
-* Enum value "background" for attribute {@link ATTR_IOS_APP_STATE}.
-*/
+ * Enum value "background" for attribute {@link ATTR_IOS_APP_STATE}.
+ */
 declare const IOS_APP_STATE_VALUE_BACKGROUND: "background";
 /**
-* Enum value "foreground" for attribute {@link ATTR_IOS_APP_STATE}.
-*/
+ * Enum value "foreground" for attribute {@link ATTR_IOS_APP_STATE}.
+ */
 declare const IOS_APP_STATE_VALUE_FOREGROUND: "foreground";
 /**
-* Enum value "inactive" for attribute {@link ATTR_IOS_APP_STATE}.
-*/
+ * Enum value "inactive" for attribute {@link ATTR_IOS_APP_STATE}.
+ */
 declare const IOS_APP_STATE_VALUE_INACTIVE: "inactive";
 /**
-* Enum value "terminate" for attribute {@link ATTR_IOS_APP_STATE}.
-*/
+ * Enum value "terminate" for attribute {@link ATTR_IOS_APP_STATE}.
+ */
 declare const IOS_APP_STATE_VALUE_TERMINATE: "terminate";
 /**
- * Deprecated. use the `ios.app.state` instead.
- *
  * @note The iOS lifecycle states are defined in the [UIApplicationDelegate documentation](https://developer.apple.com/documentation/uikit/uiapplicationdelegate), and from which the `OS terminology` column values are derived.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Renamed to `ios.app.state`
+ * @deprecated Replaced by the `ios.app.state` event body field.
  */
 declare const ATTR_IOS_STATE: "ios.state";
 /**
-* Enum value "active" for attribute {@link ATTR_IOS_STATE}.
-*/
+ * Enum value "active" for attribute {@link ATTR_IOS_STATE}.
+ */
 declare const IOS_STATE_VALUE_ACTIVE: "active";
 /**
-* Enum value "background" for attribute {@link ATTR_IOS_STATE}.
-*/
+ * Enum value "background" for attribute {@link ATTR_IOS_STATE}.
+ */
 declare const IOS_STATE_VALUE_BACKGROUND: "background";
 /**
-* Enum value "foreground" for attribute {@link ATTR_IOS_STATE}.
-*/
+ * Enum value "foreground" for attribute {@link ATTR_IOS_STATE}.
+ */
 declare const IOS_STATE_VALUE_FOREGROUND: "foreground";
 /**
-* Enum value "inactive" for attribute {@link ATTR_IOS_STATE}.
-*/
+ * Enum value "inactive" for attribute {@link ATTR_IOS_STATE}.
+ */
 declare const IOS_STATE_VALUE_INACTIVE: "inactive";
 /**
-* Enum value "terminate" for attribute {@link ATTR_IOS_STATE}.
-*/
+ * Enum value "terminate" for attribute {@link ATTR_IOS_STATE}.
+ */
 declare const IOS_STATE_VALUE_TERMINATE: "terminate";
 /**
  * Name of the buffer pool.
@@ -10551,12 +10653,12 @@ declare const ATTR_K8S_NAMESPACE_NAME: "k8s.namespace.name";
  */
 declare const ATTR_K8S_NAMESPACE_PHASE: "k8s.namespace.phase";
 /**
-* Enum value "active" for attribute {@link ATTR_K8S_NAMESPACE_PHASE}.
-*/
+ * Enum value "active" for attribute {@link ATTR_K8S_NAMESPACE_PHASE}.
+ */
 declare const K8S_NAMESPACE_PHASE_VALUE_ACTIVE: "active";
 /**
-* Enum value "terminating" for attribute {@link ATTR_K8S_NAMESPACE_PHASE}.
-*/
+ * Enum value "terminating" for attribute {@link ATTR_K8S_NAMESPACE_PHASE}.
+ */
 declare const K8S_NAMESPACE_PHASE_VALUE_TERMINATING: "terminating";
 /**
  * The annotation placed on the Node, the `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
@@ -10796,28 +10898,28 @@ declare const ATTR_K8S_VOLUME_NAME: "k8s.volume.name";
  */
 declare const ATTR_K8S_VOLUME_TYPE: "k8s.volume.type";
 /**
-* Enum value "configMap" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
-*/
+ * Enum value "configMap" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ */
 declare const K8S_VOLUME_TYPE_VALUE_CONFIG_MAP: "configMap";
 /**
-* Enum value "downwardAPI" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
-*/
+ * Enum value "downwardAPI" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ */
 declare const K8S_VOLUME_TYPE_VALUE_DOWNWARD_API: "downwardAPI";
 /**
-* Enum value "emptyDir" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
-*/
+ * Enum value "emptyDir" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ */
 declare const K8S_VOLUME_TYPE_VALUE_EMPTY_DIR: "emptyDir";
 /**
-* Enum value "local" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
-*/
+ * Enum value "local" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ */
 declare const K8S_VOLUME_TYPE_VALUE_LOCAL: "local";
 /**
-* Enum value "persistentVolumeClaim" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
-*/
+ * Enum value "persistentVolumeClaim" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ */
 declare const K8S_VOLUME_TYPE_VALUE_PERSISTENT_VOLUME_CLAIM: "persistentVolumeClaim";
 /**
-* Enum value "secret" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
-*/
+ * Enum value "secret" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ */
 declare const K8S_VOLUME_TYPE_VALUE_SECRET: "secret";
 /**
  * The Linux Slab memory state
@@ -10829,12 +10931,12 @@ declare const K8S_VOLUME_TYPE_VALUE_SECRET: "secret";
  */
 declare const ATTR_LINUX_MEMORY_SLAB_STATE: "linux.memory.slab.state";
 /**
-* Enum value "reclaimable" for attribute {@link ATTR_LINUX_MEMORY_SLAB_STATE}.
-*/
+ * Enum value "reclaimable" for attribute {@link ATTR_LINUX_MEMORY_SLAB_STATE}.
+ */
 declare const LINUX_MEMORY_SLAB_STATE_VALUE_RECLAIMABLE: "reclaimable";
 /**
-* Enum value "unreclaimable" for attribute {@link ATTR_LINUX_MEMORY_SLAB_STATE}.
-*/
+ * Enum value "unreclaimable" for attribute {@link ATTR_LINUX_MEMORY_SLAB_STATE}.
+ */
 declare const LINUX_MEMORY_SLAB_STATE_VALUE_UNRECLAIMABLE: "unreclaimable";
 /**
  * The basename of the file.
@@ -10875,12 +10977,12 @@ declare const ATTR_LOG_FILE_PATH_RESOLVED: "log.file.path_resolved";
  */
 declare const ATTR_LOG_IOSTREAM: "log.iostream";
 /**
-* Enum value "stderr" for attribute {@link ATTR_LOG_IOSTREAM}.
-*/
+ * Enum value "stderr" for attribute {@link ATTR_LOG_IOSTREAM}.
+ */
 declare const LOG_IOSTREAM_VALUE_STDERR: "stderr";
 /**
-* Enum value "stdout" for attribute {@link ATTR_LOG_IOSTREAM}.
-*/
+ * Enum value "stdout" for attribute {@link ATTR_LOG_IOSTREAM}.
+ */
 declare const LOG_IOSTREAM_VALUE_STDOUT: "stdout";
 /**
  * The complete original Log Record.
@@ -10929,12 +11031,12 @@ declare const ATTR_MESSAGE_ID: "message.id";
  */
 declare const ATTR_MESSAGE_TYPE: "message.type";
 /**
-* Enum value "RECEIVED" for attribute {@link ATTR_MESSAGE_TYPE}.
-*/
+ * Enum value "RECEIVED" for attribute {@link ATTR_MESSAGE_TYPE}.
+ */
 declare const MESSAGE_TYPE_VALUE_RECEIVED: "RECEIVED";
 /**
-* Enum value "SENT" for attribute {@link ATTR_MESSAGE_TYPE}.
-*/
+ * Enum value "SENT" for attribute {@link ATTR_MESSAGE_TYPE}.
+ */
 declare const MESSAGE_TYPE_VALUE_SENT: "SENT";
 /**
  * Deprecated, use `rpc.message.uncompressed_size` instead.
@@ -11033,7 +11135,7 @@ declare const ATTR_MESSAGING_DESTINATION_TEMPORARY: "messaging.destination.tempo
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated No replacement at this time.
+ * @deprecated Removed. No replacement at this time.
  */
 declare const ATTR_MESSAGING_DESTINATION_PUBLISH_ANONYMOUS: "messaging.destination_publish.anonymous";
 /**
@@ -11044,7 +11146,7 @@ declare const ATTR_MESSAGING_DESTINATION_PUBLISH_ANONYMOUS: "messaging.destinati
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated No replacement at this time.
+ * @deprecated Removed. No replacement at this time.
  */
 declare const ATTR_MESSAGING_DESTINATION_PUBLISH_NAME: "messaging.destination_publish.name";
 /**
@@ -11219,32 +11321,32 @@ declare const ATTR_MESSAGING_OPERATION_NAME: "messaging.operation.name";
  */
 declare const ATTR_MESSAGING_OPERATION_TYPE: "messaging.operation.type";
 /**
-* Enum value "create" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
-*/
+ * Enum value "create" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ */
 declare const MESSAGING_OPERATION_TYPE_VALUE_CREATE: "create";
 /**
-* Enum value "deliver" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
-*/
+ * Enum value "deliver" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ */
 declare const MESSAGING_OPERATION_TYPE_VALUE_DELIVER: "deliver";
 /**
-* Enum value "process" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
-*/
+ * Enum value "process" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ */
 declare const MESSAGING_OPERATION_TYPE_VALUE_PROCESS: "process";
 /**
-* Enum value "publish" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
-*/
+ * Enum value "publish" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ */
 declare const MESSAGING_OPERATION_TYPE_VALUE_PUBLISH: "publish";
 /**
-* Enum value "receive" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
-*/
+ * Enum value "receive" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ */
 declare const MESSAGING_OPERATION_TYPE_VALUE_RECEIVE: "receive";
 /**
-* Enum value "send" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
-*/
+ * Enum value "send" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ */
 declare const MESSAGING_OPERATION_TYPE_VALUE_SEND: "send";
 /**
-* Enum value "settle" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
-*/
+ * Enum value "settle" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ */
 declare const MESSAGING_OPERATION_TYPE_VALUE_SETTLE: "settle";
 /**
  * RabbitMQ message routing key.
@@ -11279,12 +11381,12 @@ declare const ATTR_MESSAGING_ROCKETMQ_CLIENT_GROUP: "messaging.rocketmq.client_g
  */
 declare const ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL: "messaging.rocketmq.consumption_model";
 /**
-* Enum value "broadcasting" for attribute {@link ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL}.
-*/
+ * Enum value "broadcasting" for attribute {@link ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL}.
+ */
 declare const MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_BROADCASTING: "broadcasting";
 /**
-* Enum value "clustering" for attribute {@link ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL}.
-*/
+ * Enum value "clustering" for attribute {@link ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL}.
+ */
 declare const MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_CLUSTERING: "clustering";
 /**
  * The delay time level for delay message, which determines the message delay time.
@@ -11333,20 +11435,20 @@ declare const ATTR_MESSAGING_ROCKETMQ_MESSAGE_TAG: "messaging.rocketmq.message.t
  */
 declare const ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE: "messaging.rocketmq.message.type";
 /**
-* Enum value "delay" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
-*/
+ * Enum value "delay" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
+ */
 declare const MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_DELAY: "delay";
 /**
-* Enum value "fifo" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
-*/
+ * Enum value "fifo" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
+ */
 declare const MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_FIFO: "fifo";
 /**
-* Enum value "normal" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
-*/
+ * Enum value "normal" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
+ */
 declare const MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_NORMAL: "normal";
 /**
-* Enum value "transaction" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
-*/
+ * Enum value "transaction" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
+ */
 declare const MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_TRANSACTION: "transaction";
 /**
  * Namespace of RocketMQ resources, resources in different namespaces are individual.
@@ -11373,20 +11475,20 @@ declare const ATTR_MESSAGING_SERVICEBUS_DESTINATION_SUBSCRIPTION_NAME: "messagin
  */
 declare const ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS: "messaging.servicebus.disposition_status";
 /**
-* Enum value "abandon" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
-*/
+ * Enum value "abandon" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
+ */
 declare const MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_ABANDON: "abandon";
 /**
-* Enum value "complete" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
-*/
+ * Enum value "complete" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
+ */
 declare const MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_COMPLETE: "complete";
 /**
-* Enum value "dead_letter" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
-*/
+ * Enum value "dead_letter" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
+ */
 declare const MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEAD_LETTER: "dead_letter";
 /**
-* Enum value "defer" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
-*/
+ * Enum value "defer" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
+ */
 declare const MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEFER: "defer";
 /**
  * Number of deliveries that have been attempted for this message.
@@ -11413,48 +11515,48 @@ declare const ATTR_MESSAGING_SERVICEBUS_MESSAGE_ENQUEUED_TIME: "messaging.servic
  */
 declare const ATTR_MESSAGING_SYSTEM: "messaging.system";
 /**
-* Enum value "activemq" for attribute {@link ATTR_MESSAGING_SYSTEM}.
-*/
+ * Enum value "activemq" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ */
 declare const MESSAGING_SYSTEM_VALUE_ACTIVEMQ: "activemq";
 /**
-* Enum value "aws_sqs" for attribute {@link ATTR_MESSAGING_SYSTEM}.
-*/
+ * Enum value "aws_sqs" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ */
 declare const MESSAGING_SYSTEM_VALUE_AWS_SQS: "aws_sqs";
 /**
-* Enum value "eventgrid" for attribute {@link ATTR_MESSAGING_SYSTEM}.
-*/
+ * Enum value "eventgrid" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ */
 declare const MESSAGING_SYSTEM_VALUE_EVENTGRID: "eventgrid";
 /**
-* Enum value "eventhubs" for attribute {@link ATTR_MESSAGING_SYSTEM}.
-*/
+ * Enum value "eventhubs" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ */
 declare const MESSAGING_SYSTEM_VALUE_EVENTHUBS: "eventhubs";
 /**
-* Enum value "gcp_pubsub" for attribute {@link ATTR_MESSAGING_SYSTEM}.
-*/
+ * Enum value "gcp_pubsub" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ */
 declare const MESSAGING_SYSTEM_VALUE_GCP_PUBSUB: "gcp_pubsub";
 /**
-* Enum value "jms" for attribute {@link ATTR_MESSAGING_SYSTEM}.
-*/
+ * Enum value "jms" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ */
 declare const MESSAGING_SYSTEM_VALUE_JMS: "jms";
 /**
-* Enum value "kafka" for attribute {@link ATTR_MESSAGING_SYSTEM}.
-*/
+ * Enum value "kafka" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ */
 declare const MESSAGING_SYSTEM_VALUE_KAFKA: "kafka";
 /**
-* Enum value "pulsar" for attribute {@link ATTR_MESSAGING_SYSTEM}.
-*/
+ * Enum value "pulsar" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ */
 declare const MESSAGING_SYSTEM_VALUE_PULSAR: "pulsar";
 /**
-* Enum value "rabbitmq" for attribute {@link ATTR_MESSAGING_SYSTEM}.
-*/
+ * Enum value "rabbitmq" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ */
 declare const MESSAGING_SYSTEM_VALUE_RABBITMQ: "rabbitmq";
 /**
-* Enum value "rocketmq" for attribute {@link ATTR_MESSAGING_SYSTEM}.
-*/
+ * Enum value "rocketmq" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ */
 declare const MESSAGING_SYSTEM_VALUE_ROCKETMQ: "rocketmq";
 /**
-* Enum value "servicebus" for attribute {@link ATTR_MESSAGING_SYSTEM}.
-*/
+ * Enum value "servicebus" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ */
 declare const MESSAGING_SYSTEM_VALUE_SERVICEBUS: "servicebus";
 /**
  * Deprecated, use `network.local.address`.
@@ -11547,16 +11649,16 @@ declare const ATTR_NET_PROTOCOL_VERSION: "net.protocol.version";
  */
 declare const ATTR_NET_SOCK_FAMILY: "net.sock.family";
 /**
-* Enum value "inet" for attribute {@link ATTR_NET_SOCK_FAMILY}.
-*/
+ * Enum value "inet" for attribute {@link ATTR_NET_SOCK_FAMILY}.
+ */
 declare const NET_SOCK_FAMILY_VALUE_INET: "inet";
 /**
-* Enum value "inet6" for attribute {@link ATTR_NET_SOCK_FAMILY}.
-*/
+ * Enum value "inet6" for attribute {@link ATTR_NET_SOCK_FAMILY}.
+ */
 declare const NET_SOCK_FAMILY_VALUE_INET6: "inet6";
 /**
-* Enum value "unix" for attribute {@link ATTR_NET_SOCK_FAMILY}.
-*/
+ * Enum value "unix" for attribute {@link ATTR_NET_SOCK_FAMILY}.
+ */
 declare const NET_SOCK_FAMILY_VALUE_UNIX: "unix";
 /**
  * Deprecated, use `network.local.address`.
@@ -11595,7 +11697,7 @@ declare const ATTR_NET_SOCK_PEER_ADDR: "net.sock.peer.addr";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Removed.
+ * @deprecated Removed. No replacement at this time.
  */
 declare const ATTR_NET_SOCK_PEER_NAME: "net.sock.peer.name";
 /**
@@ -11617,24 +11719,24 @@ declare const ATTR_NET_SOCK_PEER_PORT: "net.sock.peer.port";
  */
 declare const ATTR_NET_TRANSPORT: "net.transport";
 /**
-* Enum value "inproc" for attribute {@link ATTR_NET_TRANSPORT}.
-*/
+ * Enum value "inproc" for attribute {@link ATTR_NET_TRANSPORT}.
+ */
 declare const NET_TRANSPORT_VALUE_INPROC: "inproc";
 /**
-* Enum value "ip_tcp" for attribute {@link ATTR_NET_TRANSPORT}.
-*/
+ * Enum value "ip_tcp" for attribute {@link ATTR_NET_TRANSPORT}.
+ */
 declare const NET_TRANSPORT_VALUE_IP_TCP: "ip_tcp";
 /**
-* Enum value "ip_udp" for attribute {@link ATTR_NET_TRANSPORT}.
-*/
+ * Enum value "ip_udp" for attribute {@link ATTR_NET_TRANSPORT}.
+ */
 declare const NET_TRANSPORT_VALUE_IP_UDP: "ip_udp";
 /**
-* Enum value "other" for attribute {@link ATTR_NET_TRANSPORT}.
-*/
+ * Enum value "other" for attribute {@link ATTR_NET_TRANSPORT}.
+ */
 declare const NET_TRANSPORT_VALUE_OTHER: "other";
 /**
-* Enum value "pipe" for attribute {@link ATTR_NET_TRANSPORT}.
-*/
+ * Enum value "pipe" for attribute {@link ATTR_NET_TRANSPORT}.
+ */
 declare const NET_TRANSPORT_VALUE_PIPE: "pipe";
 /**
  * The ISO 3166-1 alpha-2 2-character country code associated with the mobile carrier network.
@@ -11678,48 +11780,48 @@ declare const ATTR_NETWORK_CARRIER_NAME: "network.carrier.name";
  */
 declare const ATTR_NETWORK_CONNECTION_STATE: "network.connection.state";
 /**
-* Enum value "close_wait" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
-*/
+ * Enum value "close_wait" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ */
 declare const NETWORK_CONNECTION_STATE_VALUE_CLOSE_WAIT: "close_wait";
 /**
-* Enum value "closed" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
-*/
+ * Enum value "closed" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ */
 declare const NETWORK_CONNECTION_STATE_VALUE_CLOSED: "closed";
 /**
-* Enum value "closing" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
-*/
+ * Enum value "closing" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ */
 declare const NETWORK_CONNECTION_STATE_VALUE_CLOSING: "closing";
 /**
-* Enum value "established" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
-*/
+ * Enum value "established" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ */
 declare const NETWORK_CONNECTION_STATE_VALUE_ESTABLISHED: "established";
 /**
-* Enum value "fin_wait_1" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
-*/
+ * Enum value "fin_wait_1" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ */
 declare const NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_1: "fin_wait_1";
 /**
-* Enum value "fin_wait_2" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
-*/
+ * Enum value "fin_wait_2" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ */
 declare const NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_2: "fin_wait_2";
 /**
-* Enum value "last_ack" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
-*/
+ * Enum value "last_ack" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ */
 declare const NETWORK_CONNECTION_STATE_VALUE_LAST_ACK: "last_ack";
 /**
-* Enum value "listen" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
-*/
+ * Enum value "listen" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ */
 declare const NETWORK_CONNECTION_STATE_VALUE_LISTEN: "listen";
 /**
-* Enum value "syn_received" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
-*/
+ * Enum value "syn_received" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ */
 declare const NETWORK_CONNECTION_STATE_VALUE_SYN_RECEIVED: "syn_received";
 /**
-* Enum value "syn_sent" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
-*/
+ * Enum value "syn_sent" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ */
 declare const NETWORK_CONNECTION_STATE_VALUE_SYN_SENT: "syn_sent";
 /**
-* Enum value "time_wait" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
-*/
+ * Enum value "time_wait" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ */
 declare const NETWORK_CONNECTION_STATE_VALUE_TIME_WAIT: "time_wait";
 /**
  * This describes more details regarding the connection.type. It may be the type of cell technology connection, but it could be used for describing details about a wifi connection.
@@ -11730,88 +11832,88 @@ declare const NETWORK_CONNECTION_STATE_VALUE_TIME_WAIT: "time_wait";
  */
 declare const ATTR_NETWORK_CONNECTION_SUBTYPE: "network.connection.subtype";
 /**
-* Enum value "cdma" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "cdma" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA: "cdma";
 /**
-* Enum value "cdma2000_1xrtt" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "cdma2000_1xrtt" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA2000_1XRTT: "cdma2000_1xrtt";
 /**
-* Enum value "edge" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "edge" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_EDGE: "edge";
 /**
-* Enum value "ehrpd" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "ehrpd" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_EHRPD: "ehrpd";
 /**
-* Enum value "evdo_0" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "evdo_0" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_0: "evdo_0";
 /**
-* Enum value "evdo_a" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "evdo_a" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_A: "evdo_a";
 /**
-* Enum value "evdo_b" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "evdo_b" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_B: "evdo_b";
 /**
-* Enum value "gprs" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "gprs" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_GPRS: "gprs";
 /**
-* Enum value "gsm" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "gsm" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_GSM: "gsm";
 /**
-* Enum value "hsdpa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "hsdpa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_HSDPA: "hsdpa";
 /**
-* Enum value "hspa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "hspa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_HSPA: "hspa";
 /**
-* Enum value "hspap" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "hspap" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_HSPAP: "hspap";
 /**
-* Enum value "hsupa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "hsupa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_HSUPA: "hsupa";
 /**
-* Enum value "iden" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "iden" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_IDEN: "iden";
 /**
-* Enum value "iwlan" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "iwlan" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_IWLAN: "iwlan";
 /**
-* Enum value "lte" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "lte" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_LTE: "lte";
 /**
-* Enum value "lte_ca" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "lte_ca" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_LTE_CA: "lte_ca";
 /**
-* Enum value "nr" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "nr" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_NR: "nr";
 /**
-* Enum value "nrnsa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "nrnsa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_NRNSA: "nrnsa";
 /**
-* Enum value "td_scdma" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "td_scdma" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_TD_SCDMA: "td_scdma";
 /**
-* Enum value "umts" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
-*/
+ * Enum value "umts" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_UMTS: "umts";
 /**
  * The internet connection type.
@@ -11822,24 +11924,24 @@ declare const NETWORK_CONNECTION_SUBTYPE_VALUE_UMTS: "umts";
  */
 declare const ATTR_NETWORK_CONNECTION_TYPE: "network.connection.type";
 /**
-* Enum value "cell" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
-*/
+ * Enum value "cell" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
+ */
 declare const NETWORK_CONNECTION_TYPE_VALUE_CELL: "cell";
 /**
-* Enum value "unavailable" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
-*/
+ * Enum value "unavailable" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
+ */
 declare const NETWORK_CONNECTION_TYPE_VALUE_UNAVAILABLE: "unavailable";
 /**
-* Enum value "unknown" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
-*/
+ * Enum value "unknown" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
+ */
 declare const NETWORK_CONNECTION_TYPE_VALUE_UNKNOWN: "unknown";
 /**
-* Enum value "wifi" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
-*/
+ * Enum value "wifi" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
+ */
 declare const NETWORK_CONNECTION_TYPE_VALUE_WIFI: "wifi";
 /**
-* Enum value "wired" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
-*/
+ * Enum value "wired" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
+ */
 declare const NETWORK_CONNECTION_TYPE_VALUE_WIRED: "wired";
 /**
  * The network interface name.
@@ -11859,12 +11961,12 @@ declare const ATTR_NETWORK_INTERFACE_NAME: "network.interface.name";
  */
 declare const ATTR_NETWORK_IO_DIRECTION: "network.io.direction";
 /**
-* Enum value "receive" for attribute {@link ATTR_NETWORK_IO_DIRECTION}.
-*/
+ * Enum value "receive" for attribute {@link ATTR_NETWORK_IO_DIRECTION}.
+ */
 declare const NETWORK_IO_DIRECTION_VALUE_RECEIVE: "receive";
 /**
-* Enum value "transmit" for attribute {@link ATTR_NETWORK_IO_DIRECTION}.
-*/
+ * Enum value "transmit" for attribute {@link ATTR_NETWORK_IO_DIRECTION}.
+ */
 declare const NETWORK_IO_DIRECTION_VALUE_TRANSMIT: "transmit";
 /**
  * The state of event loop time.
@@ -11873,12 +11975,12 @@ declare const NETWORK_IO_DIRECTION_VALUE_TRANSMIT: "transmit";
  */
 declare const ATTR_NODEJS_EVENTLOOP_STATE: "nodejs.eventloop.state";
 /**
-* Enum value "active" for attribute {@link ATTR_NODEJS_EVENTLOOP_STATE}.
-*/
+ * Enum value "active" for attribute {@link ATTR_NODEJS_EVENTLOOP_STATE}.
+ */
 declare const NODEJS_EVENTLOOP_STATE_VALUE_ACTIVE: "active";
 /**
-* Enum value "idle" for attribute {@link ATTR_NODEJS_EVENTLOOP_STATE}.
-*/
+ * Enum value "idle" for attribute {@link ATTR_NODEJS_EVENTLOOP_STATE}.
+ */
 declare const NODEJS_EVENTLOOP_STATE_VALUE_IDLE: "idle";
 /**
  * The digest of the OCI image manifest. For container images specifically is the digest by which the container image is known.
@@ -11900,12 +12002,12 @@ declare const ATTR_OCI_MANIFEST_DIGEST: "oci.manifest.digest";
  */
 declare const ATTR_OPENTRACING_REF_TYPE: "opentracing.ref_type";
 /**
-* Enum value "child_of" for attribute {@link ATTR_OPENTRACING_REF_TYPE}.
-*/
+ * Enum value "child_of" for attribute {@link ATTR_OPENTRACING_REF_TYPE}.
+ */
 declare const OPENTRACING_REF_TYPE_VALUE_CHILD_OF: "child_of";
 /**
-* Enum value "follows_from" for attribute {@link ATTR_OPENTRACING_REF_TYPE}.
-*/
+ * Enum value "follows_from" for attribute {@link ATTR_OPENTRACING_REF_TYPE}.
+ */
 declare const OPENTRACING_REF_TYPE_VALUE_FOLLOWS_FROM: "follows_from";
 /**
  * Unique identifier for a particular build or compilation of the operating system.
@@ -11943,48 +12045,48 @@ declare const ATTR_OS_NAME: "os.name";
  */
 declare const ATTR_OS_TYPE: "os.type";
 /**
-* Enum value "aix" for attribute {@link ATTR_OS_TYPE}.
-*/
+ * Enum value "aix" for attribute {@link ATTR_OS_TYPE}.
+ */
 declare const OS_TYPE_VALUE_AIX: "aix";
 /**
-* Enum value "darwin" for attribute {@link ATTR_OS_TYPE}.
-*/
+ * Enum value "darwin" for attribute {@link ATTR_OS_TYPE}.
+ */
 declare const OS_TYPE_VALUE_DARWIN: "darwin";
 /**
-* Enum value "dragonflybsd" for attribute {@link ATTR_OS_TYPE}.
-*/
+ * Enum value "dragonflybsd" for attribute {@link ATTR_OS_TYPE}.
+ */
 declare const OS_TYPE_VALUE_DRAGONFLYBSD: "dragonflybsd";
 /**
-* Enum value "freebsd" for attribute {@link ATTR_OS_TYPE}.
-*/
+ * Enum value "freebsd" for attribute {@link ATTR_OS_TYPE}.
+ */
 declare const OS_TYPE_VALUE_FREEBSD: "freebsd";
 /**
-* Enum value "hpux" for attribute {@link ATTR_OS_TYPE}.
-*/
+ * Enum value "hpux" for attribute {@link ATTR_OS_TYPE}.
+ */
 declare const OS_TYPE_VALUE_HPUX: "hpux";
 /**
-* Enum value "linux" for attribute {@link ATTR_OS_TYPE}.
-*/
+ * Enum value "linux" for attribute {@link ATTR_OS_TYPE}.
+ */
 declare const OS_TYPE_VALUE_LINUX: "linux";
 /**
-* Enum value "netbsd" for attribute {@link ATTR_OS_TYPE}.
-*/
+ * Enum value "netbsd" for attribute {@link ATTR_OS_TYPE}.
+ */
 declare const OS_TYPE_VALUE_NETBSD: "netbsd";
 /**
-* Enum value "openbsd" for attribute {@link ATTR_OS_TYPE}.
-*/
+ * Enum value "openbsd" for attribute {@link ATTR_OS_TYPE}.
+ */
 declare const OS_TYPE_VALUE_OPENBSD: "openbsd";
 /**
-* Enum value "solaris" for attribute {@link ATTR_OS_TYPE}.
-*/
+ * Enum value "solaris" for attribute {@link ATTR_OS_TYPE}.
+ */
 declare const OS_TYPE_VALUE_SOLARIS: "solaris";
 /**
-* Enum value "windows" for attribute {@link ATTR_OS_TYPE}.
-*/
+ * Enum value "windows" for attribute {@link ATTR_OS_TYPE}.
+ */
 declare const OS_TYPE_VALUE_WINDOWS: "windows";
 /**
-* Enum value "z_os" for attribute {@link ATTR_OS_TYPE}.
-*/
+ * Enum value "z_os" for attribute {@link ATTR_OS_TYPE}.
+ */
 declare const OS_TYPE_VALUE_Z_OS: "z_os";
 /**
  * The version string of the operating system as defined in [Version Attributes](/docs/resource/README.md#version-attributes).
@@ -12031,60 +12133,60 @@ declare const ATTR_OTEL_COMPONENT_NAME: "otel.component.name";
  */
 declare const ATTR_OTEL_COMPONENT_TYPE: "otel.component.type";
 /**
-* Enum value "batching_log_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "batching_log_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_BATCHING_LOG_PROCESSOR: "batching_log_processor";
 /**
-* Enum value "batching_span_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "batching_span_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_BATCHING_SPAN_PROCESSOR: "batching_span_processor";
 /**
-* Enum value "otlp_grpc_log_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "otlp_grpc_log_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_LOG_EXPORTER: "otlp_grpc_log_exporter";
 /**
-* Enum value "otlp_grpc_metric_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "otlp_grpc_metric_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_METRIC_EXPORTER: "otlp_grpc_metric_exporter";
 /**
-* Enum value "otlp_grpc_span_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "otlp_grpc_span_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_SPAN_EXPORTER: "otlp_grpc_span_exporter";
 /**
-* Enum value "otlp_http_json_log_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "otlp_http_json_log_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_LOG_EXPORTER: "otlp_http_json_log_exporter";
 /**
-* Enum value "otlp_http_json_metric_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "otlp_http_json_metric_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_METRIC_EXPORTER: "otlp_http_json_metric_exporter";
 /**
-* Enum value "otlp_http_json_span_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "otlp_http_json_span_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_SPAN_EXPORTER: "otlp_http_json_span_exporter";
 /**
-* Enum value "otlp_http_log_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "otlp_http_log_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_LOG_EXPORTER: "otlp_http_log_exporter";
 /**
-* Enum value "otlp_http_metric_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "otlp_http_metric_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_METRIC_EXPORTER: "otlp_http_metric_exporter";
 /**
-* Enum value "otlp_http_span_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "otlp_http_span_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_SPAN_EXPORTER: "otlp_http_span_exporter";
 /**
-* Enum value "periodic_metric_reader" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "periodic_metric_reader" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_PERIODIC_METRIC_READER: "periodic_metric_reader";
 /**
-* Enum value "simple_log_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "simple_log_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_SIMPLE_LOG_PROCESSOR: "simple_log_processor";
 /**
-* Enum value "simple_span_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
-*/
+ * Enum value "simple_span_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ */
 declare const OTEL_COMPONENT_TYPE_VALUE_SIMPLE_SPAN_PROCESSOR: "simple_span_processor";
 /**
  * Deprecated. Use the `otel.scope.name` attribute
@@ -12093,7 +12195,7 @@ declare const OTEL_COMPONENT_TYPE_VALUE_SIMPLE_SPAN_PROCESSOR: "simple_span_proc
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Use the `otel.scope.name` attribute.
+ * @deprecated Replaced by `otel.scope.name`.
  */
 declare const ATTR_OTEL_LIBRARY_NAME: "otel.library.name";
 /**
@@ -12103,7 +12205,7 @@ declare const ATTR_OTEL_LIBRARY_NAME: "otel.library.name";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Use the `otel.scope.version` attribute.
+ * @deprecated Replaced by `otel.scope.version`.
  */
 declare const ATTR_OTEL_LIBRARY_VERSION: "otel.library.version";
 /**
@@ -12113,16 +12215,16 @@ declare const ATTR_OTEL_LIBRARY_VERSION: "otel.library.version";
  */
 declare const ATTR_OTEL_SPAN_SAMPLING_RESULT: "otel.span.sampling_result";
 /**
-* Enum value "DROP" for attribute {@link ATTR_OTEL_SPAN_SAMPLING_RESULT}.
-*/
+ * Enum value "DROP" for attribute {@link ATTR_OTEL_SPAN_SAMPLING_RESULT}.
+ */
 declare const OTEL_SPAN_SAMPLING_RESULT_VALUE_DROP: "DROP";
 /**
-* Enum value "RECORD_AND_SAMPLE" for attribute {@link ATTR_OTEL_SPAN_SAMPLING_RESULT}.
-*/
+ * Enum value "RECORD_AND_SAMPLE" for attribute {@link ATTR_OTEL_SPAN_SAMPLING_RESULT}.
+ */
 declare const OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_AND_SAMPLE: "RECORD_AND_SAMPLE";
 /**
-* Enum value "RECORD_ONLY" for attribute {@link ATTR_OTEL_SPAN_SAMPLING_RESULT}.
-*/
+ * Enum value "RECORD_ONLY" for attribute {@link ATTR_OTEL_SPAN_SAMPLING_RESULT}.
+ */
 declare const OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_ONLY: "RECORD_ONLY";
 /**
  * The [`service.name`](/docs/resource/README.md#service) of the remote service. **SHOULD** be equal to the actual `service.name` resource attribute of the remote service if any.
@@ -12161,7 +12263,7 @@ declare const ATTR_PROCESS_ARGS_COUNT: "process.args_count";
  */
 declare const ATTR_PROCESS_COMMAND: "process.command";
 /**
- * All the command arguments (including the command/executable itself) as received by the process. On Linux-based systems (and some other Unixoid systems supporting procfs), can be set according to the list of null-delimited strings extracted from `proc/[pid]/cmdline`. For libc-based executables, this would be the full argv vector passed to `main`.
+ * All the command arguments (including the command/executable itself) as received by the process. On Linux-based systems (and some other Unixoid systems supporting procfs), can be set according to the list of null-delimited strings extracted from `proc/[pid]/cmdline`. For libc-based executables, this would be the full argv vector passed to `main`. **SHOULD NOT** be collected by default unless there is sanitization that excludes sensitive data.
  *
  * @example ["cmd/otecol", "--config=config.yaml"]
  *
@@ -12169,7 +12271,7 @@ declare const ATTR_PROCESS_COMMAND: "process.command";
  */
 declare const ATTR_PROCESS_COMMAND_ARGS: "process.command_args";
 /**
- * The full command used to launch the process as a single string representing the full command. On Windows, can be set to the result of `GetCommandLineW`. Do not set this if you have to assemble it just for monitoring; use `process.command_args` instead.
+ * The full command used to launch the process as a single string representing the full command. On Windows, can be set to the result of `GetCommandLineW`. Do not set this if you have to assemble it just for monitoring; use `process.command_args` instead. **SHOULD NOT** be collected by default unless there is sanitization that excludes sensitive data.
  *
  * @example C:\\cmd\\otecol --config="my directory\\config.yaml"
  *
@@ -12183,32 +12285,32 @@ declare const ATTR_PROCESS_COMMAND_LINE: "process.command_line";
  */
 declare const ATTR_PROCESS_CONTEXT_SWITCH_TYPE: "process.context_switch_type";
 /**
-* Enum value "involuntary" for attribute {@link ATTR_PROCESS_CONTEXT_SWITCH_TYPE}.
-*/
+ * Enum value "involuntary" for attribute {@link ATTR_PROCESS_CONTEXT_SWITCH_TYPE}.
+ */
 declare const PROCESS_CONTEXT_SWITCH_TYPE_VALUE_INVOLUNTARY: "involuntary";
 /**
-* Enum value "voluntary" for attribute {@link ATTR_PROCESS_CONTEXT_SWITCH_TYPE}.
-*/
+ * Enum value "voluntary" for attribute {@link ATTR_PROCESS_CONTEXT_SWITCH_TYPE}.
+ */
 declare const PROCESS_CONTEXT_SWITCH_TYPE_VALUE_VOLUNTARY: "voluntary";
 /**
  * Deprecated, use `cpu.mode` instead.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `cpu.mode`
+ * @deprecated Replaced by `cpu.mode`.
  */
 declare const ATTR_PROCESS_CPU_STATE: "process.cpu.state";
 /**
-* Enum value "system" for attribute {@link ATTR_PROCESS_CPU_STATE}.
-*/
+ * Enum value "system" for attribute {@link ATTR_PROCESS_CPU_STATE}.
+ */
 declare const PROCESS_CPU_STATE_VALUE_SYSTEM: "system";
 /**
-* Enum value "user" for attribute {@link ATTR_PROCESS_CPU_STATE}.
-*/
+ * Enum value "user" for attribute {@link ATTR_PROCESS_CPU_STATE}.
+ */
 declare const PROCESS_CPU_STATE_VALUE_USER: "user";
 /**
-* Enum value "wait" for attribute {@link ATTR_PROCESS_CPU_STATE}.
-*/
+ * Enum value "wait" for attribute {@link ATTR_PROCESS_CPU_STATE}.
+ */
 declare const PROCESS_CPU_STATE_VALUE_WAIT: "wait";
 /**
  * The date and time the process was created, in ISO 8601 format.
@@ -12266,7 +12368,7 @@ declare const ATTR_PROCESS_EXECUTABLE_BUILD_ID_HTLHASH: "process.executable.buil
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `process.executable.build_id.htlhash`
+ * @deprecated Replaced by `process.executable.build_id.htlhash`.
  */
 declare const ATTR_PROCESS_EXECUTABLE_BUILD_ID_PROFILING: "process.executable.build_id.profiling";
 /**
@@ -12341,12 +12443,12 @@ declare const ATTR_PROCESS_OWNER: "process.owner";
  */
 declare const ATTR_PROCESS_PAGING_FAULT_TYPE: "process.paging.fault_type";
 /**
-* Enum value "major" for attribute {@link ATTR_PROCESS_PAGING_FAULT_TYPE}.
-*/
+ * Enum value "major" for attribute {@link ATTR_PROCESS_PAGING_FAULT_TYPE}.
+ */
 declare const PROCESS_PAGING_FAULT_TYPE_VALUE_MAJOR: "major";
 /**
-* Enum value "minor" for attribute {@link ATTR_PROCESS_PAGING_FAULT_TYPE}.
-*/
+ * Enum value "minor" for attribute {@link ATTR_PROCESS_PAGING_FAULT_TYPE}.
+ */
 declare const PROCESS_PAGING_FAULT_TYPE_VALUE_MINOR: "minor";
 /**
  * Parent Process identifier (PPID).
@@ -12483,52 +12585,52 @@ declare const ATTR_PROCESS_WORKING_DIRECTORY: "process.working_directory";
  */
 declare const ATTR_PROFILE_FRAME_TYPE: "profile.frame.type";
 /**
-* Enum value "beam" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "beam" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_BEAM: "beam";
 /**
-* Enum value "cpython" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "cpython" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_CPYTHON: "cpython";
 /**
-* Enum value "dotnet" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "dotnet" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_DOTNET: "dotnet";
 /**
-* Enum value "go" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "go" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_GO: "go";
 /**
-* Enum value "jvm" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "jvm" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_JVM: "jvm";
 /**
-* Enum value "kernel" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "kernel" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_KERNEL: "kernel";
 /**
-* Enum value "native" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "native" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_NATIVE: "native";
 /**
-* Enum value "perl" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "perl" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_PERL: "perl";
 /**
-* Enum value "php" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "php" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_PHP: "php";
 /**
-* Enum value "ruby" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "ruby" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_RUBY: "ruby";
 /**
-* Enum value "rust" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "rust" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_RUST: "rust";
 /**
-* Enum value "v8js" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
-*/
+ * Enum value "v8js" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ */
 declare const PROFILE_FRAME_TYPE_VALUE_V8JS: "v8js";
 /**
  * The [error codes](https://connectrpc.com//docs/protocol/#error-codes) of the Connect request. Error codes are always string values.
@@ -12537,68 +12639,68 @@ declare const PROFILE_FRAME_TYPE_VALUE_V8JS: "v8js";
  */
 declare const ATTR_RPC_CONNECT_RPC_ERROR_CODE: "rpc.connect_rpc.error_code";
 /**
-* Enum value "aborted" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "aborted" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_ABORTED: "aborted";
 /**
-* Enum value "already_exists" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "already_exists" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_ALREADY_EXISTS: "already_exists";
 /**
-* Enum value "cancelled" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "cancelled" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_CANCELLED: "cancelled";
 /**
-* Enum value "data_loss" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "data_loss" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_DATA_LOSS: "data_loss";
 /**
-* Enum value "deadline_exceeded" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "deadline_exceeded" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_DEADLINE_EXCEEDED: "deadline_exceeded";
 /**
-* Enum value "failed_precondition" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "failed_precondition" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_FAILED_PRECONDITION: "failed_precondition";
 /**
-* Enum value "internal" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "internal" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_INTERNAL: "internal";
 /**
-* Enum value "invalid_argument" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "invalid_argument" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_INVALID_ARGUMENT: "invalid_argument";
 /**
-* Enum value "not_found" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "not_found" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_NOT_FOUND: "not_found";
 /**
-* Enum value "out_of_range" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "out_of_range" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_OUT_OF_RANGE: "out_of_range";
 /**
-* Enum value "permission_denied" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "permission_denied" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_PERMISSION_DENIED: "permission_denied";
 /**
-* Enum value "resource_exhausted" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "resource_exhausted" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_RESOURCE_EXHAUSTED: "resource_exhausted";
 /**
-* Enum value "unauthenticated" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "unauthenticated" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAUTHENTICATED: "unauthenticated";
 /**
-* Enum value "unavailable" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "unavailable" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAVAILABLE: "unavailable";
 /**
-* Enum value "unimplemented" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "unimplemented" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNIMPLEMENTED: "unimplemented";
 /**
-* Enum value "unknown" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
-*/
+ * Enum value "unknown" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNKNOWN: "unknown";
 /**
  * Connect request metadata, `<key>` being the normalized Connect Metadata key (lowercase), the value being the metadata values.
@@ -12617,7 +12719,7 @@ declare const ATTR_RPC_CONNECT_RPC_REQUEST_METADATA: (key: string) => string;
 /**
  * Connect response metadata, `<key>` being the normalized Connect Metadata key (lowercase), the value being the metadata values.
  *
- * @example attribute_value
+ * @example ["attribute_value"]
  *
  * @note Instrumentations **SHOULD** require an explicit configuration of which metadata values are to be captured.
  * Including all response metadata values can be a security risk - explicit configuration helps avoid leaking sensitive information.
@@ -12663,72 +12765,72 @@ declare const ATTR_RPC_GRPC_RESPONSE_METADATA: (key: string) => string;
  */
 declare const ATTR_RPC_GRPC_STATUS_CODE: "rpc.grpc.status_code";
 /**
-* Enum value 0 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 0 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_OK: 0;
 /**
-* Enum value 1 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 1 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_CANCELLED: 1;
 /**
-* Enum value 2 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 2 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_UNKNOWN: 2;
 /**
-* Enum value 3 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 3 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_INVALID_ARGUMENT: 3;
 /**
-* Enum value 4 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 4 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_DEADLINE_EXCEEDED: 4;
 /**
-* Enum value 5 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 5 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_NOT_FOUND: 5;
 /**
-* Enum value 6 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 6 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_ALREADY_EXISTS: 6;
 /**
-* Enum value 7 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 7 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_PERMISSION_DENIED: 7;
 /**
-* Enum value 8 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 8 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_RESOURCE_EXHAUSTED: 8;
 /**
-* Enum value 9 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 9 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_FAILED_PRECONDITION: 9;
 /**
-* Enum value 10 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 10 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_ABORTED: 10;
 /**
-* Enum value 11 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 11 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_OUT_OF_RANGE: 11;
 /**
-* Enum value 12 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 12 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_UNIMPLEMENTED: 12;
 /**
-* Enum value 13 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 13 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_INTERNAL: 13;
 /**
-* Enum value 14 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 14 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_UNAVAILABLE: 14;
 /**
-* Enum value 15 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 15 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_DATA_LOSS: 15;
 /**
-* Enum value 16 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
-*/
+ * Enum value 16 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ */
 declare const RPC_GRPC_STATUS_CODE_VALUE_UNAUTHENTICATED: 16;
 /**
  * `error.code` property of response if it is an error response.
@@ -12787,12 +12889,12 @@ declare const ATTR_RPC_MESSAGE_ID: "rpc.message.id";
  */
 declare const ATTR_RPC_MESSAGE_TYPE: "rpc.message.type";
 /**
-* Enum value "RECEIVED" for attribute {@link ATTR_RPC_MESSAGE_TYPE}.
-*/
+ * Enum value "RECEIVED" for attribute {@link ATTR_RPC_MESSAGE_TYPE}.
+ */
 declare const RPC_MESSAGE_TYPE_VALUE_RECEIVED: "RECEIVED";
 /**
-* Enum value "SENT" for attribute {@link ATTR_RPC_MESSAGE_TYPE}.
-*/
+ * Enum value "SENT" for attribute {@link ATTR_RPC_MESSAGE_TYPE}.
+ */
 declare const RPC_MESSAGE_TYPE_VALUE_SENT: "SENT";
 /**
  * Uncompressed size of the message in bytes.
@@ -12827,24 +12929,24 @@ declare const ATTR_RPC_SERVICE: "rpc.service";
  */
 declare const ATTR_RPC_SYSTEM: "rpc.system";
 /**
-* Enum value "apache_dubbo" for attribute {@link ATTR_RPC_SYSTEM}.
-*/
+ * Enum value "apache_dubbo" for attribute {@link ATTR_RPC_SYSTEM}.
+ */
 declare const RPC_SYSTEM_VALUE_APACHE_DUBBO: "apache_dubbo";
 /**
-* Enum value "connect_rpc" for attribute {@link ATTR_RPC_SYSTEM}.
-*/
+ * Enum value "connect_rpc" for attribute {@link ATTR_RPC_SYSTEM}.
+ */
 declare const RPC_SYSTEM_VALUE_CONNECT_RPC: "connect_rpc";
 /**
-* Enum value "dotnet_wcf" for attribute {@link ATTR_RPC_SYSTEM}.
-*/
+ * Enum value "dotnet_wcf" for attribute {@link ATTR_RPC_SYSTEM}.
+ */
 declare const RPC_SYSTEM_VALUE_DOTNET_WCF: "dotnet_wcf";
 /**
-* Enum value "grpc" for attribute {@link ATTR_RPC_SYSTEM}.
-*/
+ * Enum value "grpc" for attribute {@link ATTR_RPC_SYSTEM}.
+ */
 declare const RPC_SYSTEM_VALUE_GRPC: "grpc";
 /**
-* Enum value "java_rmi" for attribute {@link ATTR_RPC_SYSTEM}.
-*/
+ * Enum value "java_rmi" for attribute {@link ATTR_RPC_SYSTEM}.
+ */
 declare const RPC_SYSTEM_VALUE_JAVA_RMI: "java_rmi";
 /**
  * A categorization value keyword used by the entity using the rule for detection of this event
@@ -13006,12 +13108,12 @@ declare const ATTR_SOURCE_PORT: "source.port";
  */
 declare const ATTR_STATE: "state";
 /**
-* Enum value "idle" for attribute {@link ATTR_STATE}.
-*/
+ * Enum value "idle" for attribute {@link ATTR_STATE}.
+ */
 declare const STATE_VALUE_IDLE: "idle";
 /**
-* Enum value "used" for attribute {@link ATTR_STATE}.
-*/
+ * Enum value "used" for attribute {@link ATTR_STATE}.
+ */
 declare const STATE_VALUE_USED: "used";
 /**
  * Deprecated, use `cpu.logical_number` instead.
@@ -13029,36 +13131,36 @@ declare const ATTR_SYSTEM_CPU_LOGICAL_NUMBER: "system.cpu.logical_number";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `cpu.mode`
+ * @deprecated Replaced by `cpu.mode`.
  */
 declare const ATTR_SYSTEM_CPU_STATE: "system.cpu.state";
 /**
-* Enum value "idle" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
-*/
+ * Enum value "idle" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ */
 declare const SYSTEM_CPU_STATE_VALUE_IDLE: "idle";
 /**
-* Enum value "interrupt" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
-*/
+ * Enum value "interrupt" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ */
 declare const SYSTEM_CPU_STATE_VALUE_INTERRUPT: "interrupt";
 /**
-* Enum value "iowait" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
-*/
+ * Enum value "iowait" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ */
 declare const SYSTEM_CPU_STATE_VALUE_IOWAIT: "iowait";
 /**
-* Enum value "nice" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
-*/
+ * Enum value "nice" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ */
 declare const SYSTEM_CPU_STATE_VALUE_NICE: "nice";
 /**
-* Enum value "steal" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
-*/
+ * Enum value "steal" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ */
 declare const SYSTEM_CPU_STATE_VALUE_STEAL: "steal";
 /**
-* Enum value "system" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
-*/
+ * Enum value "system" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ */
 declare const SYSTEM_CPU_STATE_VALUE_SYSTEM: "system";
 /**
-* Enum value "user" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
-*/
+ * Enum value "user" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ */
 declare const SYSTEM_CPU_STATE_VALUE_USER: "user";
 /**
  * The device identifier
@@ -13093,16 +13195,16 @@ declare const ATTR_SYSTEM_FILESYSTEM_MOUNTPOINT: "system.filesystem.mountpoint";
  */
 declare const ATTR_SYSTEM_FILESYSTEM_STATE: "system.filesystem.state";
 /**
-* Enum value "free" for attribute {@link ATTR_SYSTEM_FILESYSTEM_STATE}.
-*/
+ * Enum value "free" for attribute {@link ATTR_SYSTEM_FILESYSTEM_STATE}.
+ */
 declare const SYSTEM_FILESYSTEM_STATE_VALUE_FREE: "free";
 /**
-* Enum value "reserved" for attribute {@link ATTR_SYSTEM_FILESYSTEM_STATE}.
-*/
+ * Enum value "reserved" for attribute {@link ATTR_SYSTEM_FILESYSTEM_STATE}.
+ */
 declare const SYSTEM_FILESYSTEM_STATE_VALUE_RESERVED: "reserved";
 /**
-* Enum value "used" for attribute {@link ATTR_SYSTEM_FILESYSTEM_STATE}.
-*/
+ * Enum value "used" for attribute {@link ATTR_SYSTEM_FILESYSTEM_STATE}.
+ */
 declare const SYSTEM_FILESYSTEM_STATE_VALUE_USED: "used";
 /**
  * The filesystem type
@@ -13113,28 +13215,28 @@ declare const SYSTEM_FILESYSTEM_STATE_VALUE_USED: "used";
  */
 declare const ATTR_SYSTEM_FILESYSTEM_TYPE: "system.filesystem.type";
 /**
-* Enum value "exfat" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
-*/
+ * Enum value "exfat" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_EXFAT: "exfat";
 /**
-* Enum value "ext4" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
-*/
+ * Enum value "ext4" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_EXT4: "ext4";
 /**
-* Enum value "fat32" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
-*/
+ * Enum value "fat32" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_FAT32: "fat32";
 /**
-* Enum value "hfsplus" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
-*/
+ * Enum value "hfsplus" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_HFSPLUS: "hfsplus";
 /**
-* Enum value "ntfs" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
-*/
+ * Enum value "ntfs" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_NTFS: "ntfs";
 /**
-* Enum value "refs" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
-*/
+ * Enum value "refs" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_REFS: "refs";
 /**
  * The memory state
@@ -13146,24 +13248,24 @@ declare const SYSTEM_FILESYSTEM_TYPE_VALUE_REFS: "refs";
  */
 declare const ATTR_SYSTEM_MEMORY_STATE: "system.memory.state";
 /**
-* Enum value "buffers" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
-*/
+ * Enum value "buffers" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
+ */
 declare const SYSTEM_MEMORY_STATE_VALUE_BUFFERS: "buffers";
 /**
-* Enum value "cached" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
-*/
+ * Enum value "cached" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
+ */
 declare const SYSTEM_MEMORY_STATE_VALUE_CACHED: "cached";
 /**
-* Enum value "free" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
-*/
+ * Enum value "free" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
+ */
 declare const SYSTEM_MEMORY_STATE_VALUE_FREE: "free";
 /**
-* Enum value "shared" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
-*/
+ * Enum value "shared" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
+ */
 declare const SYSTEM_MEMORY_STATE_VALUE_SHARED: "shared";
 /**
-* Enum value "used" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
-*/
+ * Enum value "used" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
+ */
 declare const SYSTEM_MEMORY_STATE_VALUE_USED: "used";
 /**
  * Deprecated, use `network.connection.state` instead.
@@ -13172,56 +13274,56 @@ declare const SYSTEM_MEMORY_STATE_VALUE_USED: "used";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Removed, report network connection state with `network.connection.state` attribute
+ * @deprecated Replaced by `network.connection.state`.
  */
 declare const ATTR_SYSTEM_NETWORK_STATE: "system.network.state";
 /**
-* Enum value "close" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "close" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_CLOSE: "close";
 /**
-* Enum value "close_wait" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "close_wait" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_CLOSE_WAIT: "close_wait";
 /**
-* Enum value "closing" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "closing" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_CLOSING: "closing";
 /**
-* Enum value "delete" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "delete" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_DELETE: "delete";
 /**
-* Enum value "established" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "established" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_ESTABLISHED: "established";
 /**
-* Enum value "fin_wait_1" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "fin_wait_1" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_1: "fin_wait_1";
 /**
-* Enum value "fin_wait_2" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "fin_wait_2" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_2: "fin_wait_2";
 /**
-* Enum value "last_ack" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "last_ack" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_LAST_ACK: "last_ack";
 /**
-* Enum value "listen" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "listen" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_LISTEN: "listen";
 /**
-* Enum value "syn_recv" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "syn_recv" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_SYN_RECV: "syn_recv";
 /**
-* Enum value "syn_sent" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "syn_sent" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_SYN_SENT: "syn_sent";
 /**
-* Enum value "time_wait" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
-*/
+ * Enum value "time_wait" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ */
 declare const SYSTEM_NETWORK_STATE_VALUE_TIME_WAIT: "time_wait";
 /**
  * The paging access direction
@@ -13232,12 +13334,12 @@ declare const SYSTEM_NETWORK_STATE_VALUE_TIME_WAIT: "time_wait";
  */
 declare const ATTR_SYSTEM_PAGING_DIRECTION: "system.paging.direction";
 /**
-* Enum value "in" for attribute {@link ATTR_SYSTEM_PAGING_DIRECTION}.
-*/
+ * Enum value "in" for attribute {@link ATTR_SYSTEM_PAGING_DIRECTION}.
+ */
 declare const SYSTEM_PAGING_DIRECTION_VALUE_IN: "in";
 /**
-* Enum value "out" for attribute {@link ATTR_SYSTEM_PAGING_DIRECTION}.
-*/
+ * Enum value "out" for attribute {@link ATTR_SYSTEM_PAGING_DIRECTION}.
+ */
 declare const SYSTEM_PAGING_DIRECTION_VALUE_OUT: "out";
 /**
  * The memory paging state
@@ -13248,12 +13350,12 @@ declare const SYSTEM_PAGING_DIRECTION_VALUE_OUT: "out";
  */
 declare const ATTR_SYSTEM_PAGING_STATE: "system.paging.state";
 /**
-* Enum value "free" for attribute {@link ATTR_SYSTEM_PAGING_STATE}.
-*/
+ * Enum value "free" for attribute {@link ATTR_SYSTEM_PAGING_STATE}.
+ */
 declare const SYSTEM_PAGING_STATE_VALUE_FREE: "free";
 /**
-* Enum value "used" for attribute {@link ATTR_SYSTEM_PAGING_STATE}.
-*/
+ * Enum value "used" for attribute {@link ATTR_SYSTEM_PAGING_STATE}.
+ */
 declare const SYSTEM_PAGING_STATE_VALUE_USED: "used";
 /**
  * The memory paging type
@@ -13264,12 +13366,12 @@ declare const SYSTEM_PAGING_STATE_VALUE_USED: "used";
  */
 declare const ATTR_SYSTEM_PAGING_TYPE: "system.paging.type";
 /**
-* Enum value "major" for attribute {@link ATTR_SYSTEM_PAGING_TYPE}.
-*/
+ * Enum value "major" for attribute {@link ATTR_SYSTEM_PAGING_TYPE}.
+ */
 declare const SYSTEM_PAGING_TYPE_VALUE_MAJOR: "major";
 /**
-* Enum value "minor" for attribute {@link ATTR_SYSTEM_PAGING_TYPE}.
-*/
+ * Enum value "minor" for attribute {@link ATTR_SYSTEM_PAGING_TYPE}.
+ */
 declare const SYSTEM_PAGING_TYPE_VALUE_MINOR: "minor";
 /**
  * The process state, e.g., [Linux Process State Codes](https://man7.org/linux/man-pages/man1/ps.1.html#PROCESS_STATE_CODES)
@@ -13280,20 +13382,20 @@ declare const SYSTEM_PAGING_TYPE_VALUE_MINOR: "minor";
  */
 declare const ATTR_SYSTEM_PROCESS_STATUS: "system.process.status";
 /**
-* Enum value "defunct" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
-*/
+ * Enum value "defunct" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
+ */
 declare const SYSTEM_PROCESS_STATUS_VALUE_DEFUNCT: "defunct";
 /**
-* Enum value "running" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
-*/
+ * Enum value "running" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
+ */
 declare const SYSTEM_PROCESS_STATUS_VALUE_RUNNING: "running";
 /**
-* Enum value "sleeping" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
-*/
+ * Enum value "sleeping" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
+ */
 declare const SYSTEM_PROCESS_STATUS_VALUE_SLEEPING: "sleeping";
 /**
-* Enum value "stopped" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
-*/
+ * Enum value "stopped" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
+ */
 declare const SYSTEM_PROCESS_STATUS_VALUE_STOPPED: "stopped";
 /**
  * Deprecated, use `system.process.status` instead.
@@ -13306,20 +13408,20 @@ declare const SYSTEM_PROCESS_STATUS_VALUE_STOPPED: "stopped";
  */
 declare const ATTR_SYSTEM_PROCESSES_STATUS: "system.processes.status";
 /**
-* Enum value "defunct" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
-*/
+ * Enum value "defunct" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
+ */
 declare const SYSTEM_PROCESSES_STATUS_VALUE_DEFUNCT: "defunct";
 /**
-* Enum value "running" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
-*/
+ * Enum value "running" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
+ */
 declare const SYSTEM_PROCESSES_STATUS_VALUE_RUNNING: "running";
 /**
-* Enum value "sleeping" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
-*/
+ * Enum value "sleeping" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
+ */
 declare const SYSTEM_PROCESSES_STATUS_VALUE_SLEEPING: "sleeping";
 /**
-* Enum value "stopped" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
-*/
+ * Enum value "stopped" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
+ */
 declare const SYSTEM_PROCESSES_STATUS_VALUE_STOPPED: "stopped";
 /**
  * The name of the auto instrumentation agent or distribution, if used.
@@ -13360,12 +13462,12 @@ declare const ATTR_TEST_CASE_NAME: "test.case.name";
  */
 declare const ATTR_TEST_CASE_RESULT_STATUS: "test.case.result.status";
 /**
-* Enum value "fail" for attribute {@link ATTR_TEST_CASE_RESULT_STATUS}.
-*/
+ * Enum value "fail" for attribute {@link ATTR_TEST_CASE_RESULT_STATUS}.
+ */
 declare const TEST_CASE_RESULT_STATUS_VALUE_FAIL: "fail";
 /**
-* Enum value "pass" for attribute {@link ATTR_TEST_CASE_RESULT_STATUS}.
-*/
+ * Enum value "pass" for attribute {@link ATTR_TEST_CASE_RESULT_STATUS}.
+ */
 declare const TEST_CASE_RESULT_STATUS_VALUE_PASS: "pass";
 /**
  * The human readable name of a [test suite](https://wikipedia.org/wiki/Test_suite).
@@ -13389,28 +13491,28 @@ declare const ATTR_TEST_SUITE_NAME: "test.suite.name";
  */
 declare const ATTR_TEST_SUITE_RUN_STATUS: "test.suite.run.status";
 /**
-* Enum value "aborted" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
-*/
+ * Enum value "aborted" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ */
 declare const TEST_SUITE_RUN_STATUS_VALUE_ABORTED: "aborted";
 /**
-* Enum value "failure" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
-*/
+ * Enum value "failure" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ */
 declare const TEST_SUITE_RUN_STATUS_VALUE_FAILURE: "failure";
 /**
-* Enum value "in_progress" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
-*/
+ * Enum value "in_progress" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ */
 declare const TEST_SUITE_RUN_STATUS_VALUE_IN_PROGRESS: "in_progress";
 /**
-* Enum value "skipped" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
-*/
+ * Enum value "skipped" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ */
 declare const TEST_SUITE_RUN_STATUS_VALUE_SKIPPED: "skipped";
 /**
-* Enum value "success" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
-*/
+ * Enum value "success" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ */
 declare const TEST_SUITE_RUN_STATUS_VALUE_SUCCESS: "success";
 /**
-* Enum value "timed_out" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
-*/
+ * Enum value "timed_out" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ */
 declare const TEST_SUITE_RUN_STATUS_VALUE_TIMED_OUT: "timed_out";
 /**
  * Current "managed" thread ID (as opposed to OS thread ID).
@@ -13568,12 +13670,12 @@ declare const ATTR_TLS_NEXT_PROTOCOL: "tls.next_protocol";
  */
 declare const ATTR_TLS_PROTOCOL_NAME: "tls.protocol.name";
 /**
-* Enum value "ssl" for attribute {@link ATTR_TLS_PROTOCOL_NAME}.
-*/
+ * Enum value "ssl" for attribute {@link ATTR_TLS_PROTOCOL_NAME}.
+ */
 declare const TLS_PROTOCOL_NAME_VALUE_SSL: "ssl";
 /**
-* Enum value "tls" for attribute {@link ATTR_TLS_PROTOCOL_NAME}.
-*/
+ * Enum value "tls" for attribute {@link ATTR_TLS_PROTOCOL_NAME}.
+ */
 declare const TLS_PROTOCOL_NAME_VALUE_TLS: "tls";
 /**
  * Numeric part of the version parsed from the original string of the negotiated [SSL/TLS protocol version](https://docs.openssl.org/1.1.1/man3/SSL_get_version/#return-values)
@@ -13852,12 +13954,12 @@ declare const ATTR_USER_AGENT_OS_VERSION: "user_agent.os.version";
  */
 declare const ATTR_USER_AGENT_SYNTHETIC_TYPE: "user_agent.synthetic.type";
 /**
-* Enum value "bot" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
-*/
+ * Enum value "bot" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
+ */
 declare const USER_AGENT_SYNTHETIC_TYPE_VALUE_BOT: "bot";
 /**
-* Enum value "test" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
-*/
+ * Enum value "test" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
+ */
 declare const USER_AGENT_SYNTHETIC_TYPE_VALUE_TEST: "test";
 /**
  * Version of the user-agent extracted from original. Usually refers to the browser's version
@@ -13877,20 +13979,20 @@ declare const ATTR_USER_AGENT_VERSION: "user_agent.version";
  */
 declare const ATTR_V8JS_GC_TYPE: "v8js.gc.type";
 /**
-* Enum value "incremental" for attribute {@link ATTR_V8JS_GC_TYPE}.
-*/
+ * Enum value "incremental" for attribute {@link ATTR_V8JS_GC_TYPE}.
+ */
 declare const V8JS_GC_TYPE_VALUE_INCREMENTAL: "incremental";
 /**
-* Enum value "major" for attribute {@link ATTR_V8JS_GC_TYPE}.
-*/
+ * Enum value "major" for attribute {@link ATTR_V8JS_GC_TYPE}.
+ */
 declare const V8JS_GC_TYPE_VALUE_MAJOR: "major";
 /**
-* Enum value "minor" for attribute {@link ATTR_V8JS_GC_TYPE}.
-*/
+ * Enum value "minor" for attribute {@link ATTR_V8JS_GC_TYPE}.
+ */
 declare const V8JS_GC_TYPE_VALUE_MINOR: "minor";
 /**
-* Enum value "weakcb" for attribute {@link ATTR_V8JS_GC_TYPE}.
-*/
+ * Enum value "weakcb" for attribute {@link ATTR_V8JS_GC_TYPE}.
+ */
 declare const V8JS_GC_TYPE_VALUE_WEAKCB: "weakcb";
 /**
  * The name of the space type of heap memory.
@@ -13901,24 +14003,24 @@ declare const V8JS_GC_TYPE_VALUE_WEAKCB: "weakcb";
  */
 declare const ATTR_V8JS_HEAP_SPACE_NAME: "v8js.heap.space.name";
 /**
-* Enum value "code_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
-*/
+ * Enum value "code_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
+ */
 declare const V8JS_HEAP_SPACE_NAME_VALUE_CODE_SPACE: "code_space";
 /**
-* Enum value "large_object_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
-*/
+ * Enum value "large_object_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
+ */
 declare const V8JS_HEAP_SPACE_NAME_VALUE_LARGE_OBJECT_SPACE: "large_object_space";
 /**
-* Enum value "map_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
-*/
+ * Enum value "map_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
+ */
 declare const V8JS_HEAP_SPACE_NAME_VALUE_MAP_SPACE: "map_space";
 /**
-* Enum value "new_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
-*/
+ * Enum value "new_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
+ */
 declare const V8JS_HEAP_SPACE_NAME_VALUE_NEW_SPACE: "new_space";
 /**
-* Enum value "old_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
-*/
+ * Enum value "old_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
+ */
 declare const V8JS_HEAP_SPACE_NAME_VALUE_OLD_SPACE: "old_space";
 /**
  * The ID of the change (pull request/merge request/changelist) if applicable. This is usually a unique (within repository) identifier generated by the VCS system.
@@ -13939,20 +14041,20 @@ declare const ATTR_VCS_CHANGE_ID: "vcs.change.id";
  */
 declare const ATTR_VCS_CHANGE_STATE: "vcs.change.state";
 /**
-* Enum value "closed" for attribute {@link ATTR_VCS_CHANGE_STATE}.
-*/
+ * Enum value "closed" for attribute {@link ATTR_VCS_CHANGE_STATE}.
+ */
 declare const VCS_CHANGE_STATE_VALUE_CLOSED: "closed";
 /**
-* Enum value "merged" for attribute {@link ATTR_VCS_CHANGE_STATE}.
-*/
+ * Enum value "merged" for attribute {@link ATTR_VCS_CHANGE_STATE}.
+ */
 declare const VCS_CHANGE_STATE_VALUE_MERGED: "merged";
 /**
-* Enum value "open" for attribute {@link ATTR_VCS_CHANGE_STATE}.
-*/
+ * Enum value "open" for attribute {@link ATTR_VCS_CHANGE_STATE}.
+ */
 declare const VCS_CHANGE_STATE_VALUE_OPEN: "open";
 /**
-* Enum value "wip" for attribute {@link ATTR_VCS_CHANGE_STATE}.
-*/
+ * Enum value "wip" for attribute {@link ATTR_VCS_CHANGE_STATE}.
+ */
 declare const VCS_CHANGE_STATE_VALUE_WIP: "wip";
 /**
  * The human readable title of the change (pull request/merge request/changelist). This title is often a brief summary of the change and may get merged in to a ref as the commit summary.
@@ -13974,12 +14076,12 @@ declare const ATTR_VCS_CHANGE_TITLE: "vcs.change.title";
  */
 declare const ATTR_VCS_LINE_CHANGE_TYPE: "vcs.line_change.type";
 /**
-* Enum value "added" for attribute {@link ATTR_VCS_LINE_CHANGE_TYPE}.
-*/
+ * Enum value "added" for attribute {@link ATTR_VCS_LINE_CHANGE_TYPE}.
+ */
 declare const VCS_LINE_CHANGE_TYPE_VALUE_ADDED: "added";
 /**
-* Enum value "removed" for attribute {@link ATTR_VCS_LINE_CHANGE_TYPE}.
-*/
+ * Enum value "removed" for attribute {@link ATTR_VCS_LINE_CHANGE_TYPE}.
+ */
 declare const VCS_LINE_CHANGE_TYPE_VALUE_REMOVED: "removed";
 /**
  * The group owner within the version control system.
@@ -14003,24 +14105,24 @@ declare const ATTR_VCS_OWNER_NAME: "vcs.owner.name";
  */
 declare const ATTR_VCS_PROVIDER_NAME: "vcs.provider.name";
 /**
-* Enum value "bitbucket" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
-*/
+ * Enum value "bitbucket" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
+ */
 declare const VCS_PROVIDER_NAME_VALUE_BITBUCKET: "bitbucket";
 /**
-* Enum value "gitea" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
-*/
+ * Enum value "gitea" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
+ */
 declare const VCS_PROVIDER_NAME_VALUE_GITEA: "gitea";
 /**
-* Enum value "github" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
-*/
+ * Enum value "github" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
+ */
 declare const VCS_PROVIDER_NAME_VALUE_GITHUB: "github";
 /**
-* Enum value "gitlab" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
-*/
+ * Enum value "gitlab" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
+ */
 declare const VCS_PROVIDER_NAME_VALUE_GITLAB: "gitlab";
 /**
-* Enum value "gittea" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
-*/
+ * Enum value "gittea" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
+ */
 declare const VCS_PROVIDER_NAME_VALUE_GITTEA: "gittea";
 /**
  * The name of the [reference](https://git-scm.com/docs/gitglossary#def_ref) such as **branch** or **tag** in the repository.
@@ -14074,12 +14176,12 @@ declare const ATTR_VCS_REF_BASE_REVISION: "vcs.ref.base.revision";
  */
 declare const ATTR_VCS_REF_BASE_TYPE: "vcs.ref.base.type";
 /**
-* Enum value "branch" for attribute {@link ATTR_VCS_REF_BASE_TYPE}.
-*/
+ * Enum value "branch" for attribute {@link ATTR_VCS_REF_BASE_TYPE}.
+ */
 declare const VCS_REF_BASE_TYPE_VALUE_BRANCH: "branch";
 /**
-* Enum value "tag" for attribute {@link ATTR_VCS_REF_BASE_TYPE}.
-*/
+ * Enum value "tag" for attribute {@link ATTR_VCS_REF_BASE_TYPE}.
+ */
 declare const VCS_REF_BASE_TYPE_VALUE_TAG: "tag";
 /**
  * The name of the [reference](https://git-scm.com/docs/gitglossary#def_ref) such as **branch** or **tag** in the repository.
@@ -14129,12 +14231,12 @@ declare const ATTR_VCS_REF_HEAD_REVISION: "vcs.ref.head.revision";
  */
 declare const ATTR_VCS_REF_HEAD_TYPE: "vcs.ref.head.type";
 /**
-* Enum value "branch" for attribute {@link ATTR_VCS_REF_HEAD_TYPE}.
-*/
+ * Enum value "branch" for attribute {@link ATTR_VCS_REF_HEAD_TYPE}.
+ */
 declare const VCS_REF_HEAD_TYPE_VALUE_BRANCH: "branch";
 /**
-* Enum value "tag" for attribute {@link ATTR_VCS_REF_HEAD_TYPE}.
-*/
+ * Enum value "tag" for attribute {@link ATTR_VCS_REF_HEAD_TYPE}.
+ */
 declare const VCS_REF_HEAD_TYPE_VALUE_TAG: "tag";
 /**
  * The type of the [reference](https://git-scm.com/docs/gitglossary#def_ref) in the repository.
@@ -14146,12 +14248,12 @@ declare const VCS_REF_HEAD_TYPE_VALUE_TAG: "tag";
  */
 declare const ATTR_VCS_REF_TYPE: "vcs.ref.type";
 /**
-* Enum value "branch" for attribute {@link ATTR_VCS_REF_TYPE}.
-*/
+ * Enum value "branch" for attribute {@link ATTR_VCS_REF_TYPE}.
+ */
 declare const VCS_REF_TYPE_VALUE_BRANCH: "branch";
 /**
-* Enum value "tag" for attribute {@link ATTR_VCS_REF_TYPE}.
-*/
+ * Enum value "tag" for attribute {@link ATTR_VCS_REF_TYPE}.
+ */
 declare const VCS_REF_TYPE_VALUE_TAG: "tag";
 /**
  * Deprecated, use `vcs.change.id` instead.
@@ -14160,7 +14262,7 @@ declare const VCS_REF_TYPE_VALUE_TAG: "tag";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Deprecated, use `vcs.change.id` instead.
+ * @deprecated Replaced by `vcs.change.id`.
  */
 declare const ATTR_VCS_REPOSITORY_CHANGE_ID: "vcs.repository.change.id";
 /**
@@ -14172,7 +14274,7 @@ declare const ATTR_VCS_REPOSITORY_CHANGE_ID: "vcs.repository.change.id";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Deprecated, use `vcs.change.title` instead.
+ * @deprecated Replaced by `vcs.change.title`.
  */
 declare const ATTR_VCS_REPOSITORY_CHANGE_TITLE: "vcs.repository.change.title";
 /**
@@ -14196,7 +14298,7 @@ declare const ATTR_VCS_REPOSITORY_NAME: "vcs.repository.name";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Deprecated, use `vcs.ref.head.name` instead.
+ * @deprecated Replaced by `vcs.ref.head.name`.
  */
 declare const ATTR_VCS_REPOSITORY_REF_NAME: "vcs.repository.ref.name";
 /**
@@ -14209,7 +14311,7 @@ declare const ATTR_VCS_REPOSITORY_REF_NAME: "vcs.repository.ref.name";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Deprecated, use `vcs.ref.head.revision` instead.
+ * @deprecated Replaced by `vcs.ref.head.revision`.
  */
 declare const ATTR_VCS_REPOSITORY_REF_REVISION: "vcs.repository.ref.revision";
 /**
@@ -14220,16 +14322,16 @@ declare const ATTR_VCS_REPOSITORY_REF_REVISION: "vcs.repository.ref.revision";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Deprecated, use `vcs.ref.head.type` instead.
+ * @deprecated Replaced by `vcs.ref.head.type`.
  */
 declare const ATTR_VCS_REPOSITORY_REF_TYPE: "vcs.repository.ref.type";
 /**
-* Enum value "branch" for attribute {@link ATTR_VCS_REPOSITORY_REF_TYPE}.
-*/
+ * Enum value "branch" for attribute {@link ATTR_VCS_REPOSITORY_REF_TYPE}.
+ */
 declare const VCS_REPOSITORY_REF_TYPE_VALUE_BRANCH: "branch";
 /**
-* Enum value "tag" for attribute {@link ATTR_VCS_REPOSITORY_REF_TYPE}.
-*/
+ * Enum value "tag" for attribute {@link ATTR_VCS_REPOSITORY_REF_TYPE}.
+ */
 declare const VCS_REPOSITORY_REF_TYPE_VALUE_TAG: "tag";
 /**
  * The [canonical URL](https://support.google.com/webmasters/answer/10347851?hl=en#:~:text=A%20canonical%20URL%20is%20the,Google%20chooses%20one%20as%20canonical.) of the repository providing the complete HTTP(S) address in order to locate and identify the repository through a browser.
@@ -14253,12 +14355,12 @@ declare const ATTR_VCS_REPOSITORY_URL_FULL: "vcs.repository.url.full";
  */
 declare const ATTR_VCS_REVISION_DELTA_DIRECTION: "vcs.revision_delta.direction";
 /**
-* Enum value "ahead" for attribute {@link ATTR_VCS_REVISION_DELTA_DIRECTION}.
-*/
+ * Enum value "ahead" for attribute {@link ATTR_VCS_REVISION_DELTA_DIRECTION}.
+ */
 declare const VCS_REVISION_DELTA_DIRECTION_VALUE_AHEAD: "ahead";
 /**
-* Enum value "behind" for attribute {@link ATTR_VCS_REVISION_DELTA_DIRECTION}.
-*/
+ * Enum value "behind" for attribute {@link ATTR_VCS_REVISION_DELTA_DIRECTION}.
+ */
 declare const VCS_REVISION_DELTA_DIRECTION_VALUE_BEHIND: "behind";
 /**
  * Additional description of the web engine (e.g. detailed version and edition information).
@@ -14481,7 +14583,7 @@ declare const METRIC_DB_CLIENT_CONNECTION_WAIT_TIME: "db.client.connection.wait_
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `db.client.connection.create_time`. Note: the unit also changed from `ms` to `s`.
+ * @deprecated Replaced by `db.client.connection.create_time` with unit `s`.
  */
 declare const METRIC_DB_CLIENT_CONNECTIONS_CREATE_TIME: "db.client.connections.create_time";
 /**
@@ -14537,7 +14639,7 @@ declare const METRIC_DB_CLIENT_CONNECTIONS_USAGE: "db.client.connections.usage";
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `db.client.connection.use_time`. Note: the unit also changed from `ms` to `s`.
+ * @deprecated Replaced by `db.client.connection.use_time` with unit `s`.
  */
 declare const METRIC_DB_CLIENT_CONNECTIONS_USE_TIME: "db.client.connections.use_time";
 /**
@@ -14545,7 +14647,7 @@ declare const METRIC_DB_CLIENT_CONNECTIONS_USE_TIME: "db.client.connections.use_
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `db.client.connection.wait_time`. Note: the unit also changed from `ms` to `s`.
+ * @deprecated Replaced by `db.client.connection.wait_time` with unit `s`.
  */
 declare const METRIC_DB_CLIENT_CONNECTIONS_WAIT_TIME: "db.client.connections.wait_time";
 /**
@@ -15216,12 +15318,6 @@ declare const METRIC_K8S_REPLICASET_DESIRED_PODS: "k8s.replicaset.desired_pods";
 /**
  * Deprecated, use `k8s.replicationcontroller.available_pods` instead.
  *
- * @note This metric aligns with the `availableReplicas` field of the
- * [K8s ReplicationControllerStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#replicationcontrollerstatus-v1-core)
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.replicationcontroller`](../resource/k8s.md#replicationcontroller) resource.
- *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
  * @deprecated Replaced by `k8s.replicationcontroller.available_pods`.
@@ -15229,12 +15325,6 @@ declare const METRIC_K8S_REPLICASET_DESIRED_PODS: "k8s.replicaset.desired_pods";
 declare const METRIC_K8S_REPLICATION_CONTROLLER_AVAILABLE_PODS: "k8s.replication_controller.available_pods";
 /**
  * Deprecated, use `k8s.replicationcontroller.desired_pods` instead.
- *
- * @note This metric aligns with the `replicas` field of the
- * [K8s ReplicationControllerSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#replicationcontrollerspec-v1-core)
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.replicationcontroller`](../resource/k8s.md#replicationcontroller) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
@@ -15371,11 +15461,11 @@ declare const METRIC_MESSAGING_PROCESS_MESSAGES: "messaging.process.messages";
  */
 declare const METRIC_MESSAGING_PUBLISH_DURATION: "messaging.publish.duration";
 /**
- * Deprecated. Use `messaging.client.produced.messages` instead.
+ * Deprecated. Use `messaging.client.sent.messages` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `messaging.client.produced.messages`.
+ * @deprecated Replaced by `messaging.client.sent.messages`.
  */
 declare const METRIC_MESSAGING_PUBLISH_MESSAGES: "messaging.publish.messages";
 /**
@@ -15527,7 +15617,7 @@ declare const METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED: "otel.sdk.exporter.span.ex
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Renamed to `otel.sdk.exporter.span.exported`.
+ * @deprecated Replaced by `otel.sdk.exporter.span.exported`.
  */
 declare const METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED_COUNT: "otel.sdk.exporter.span.exported.count";
 /**
@@ -15543,7 +15633,7 @@ declare const METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT: "otel.sdk.exporter.span.in
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Renamed to `otel.sdk.exporter.span.inflight`.
+ * @deprecated Replaced by `otel.sdk.exporter.span.inflight`.
  */
 declare const METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT_COUNT: "otel.sdk.exporter.span.inflight.count";
 /**
@@ -15601,7 +15691,7 @@ declare const METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED: "otel.sdk.processor.span
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Renamed to `otel.sdk.processor.span.processed`.
+ * @deprecated Replaced by `otel.sdk.processor.span.processed`.
  */
 declare const METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED_COUNT: "otel.sdk.processor.span.processed.count";
 /**
@@ -15634,7 +15724,7 @@ declare const METRIC_OTEL_SDK_SPAN_ENDED: "otel.sdk.span.ended";
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Renamed to `otel.sdk.span.ended`.
+ * @deprecated Replaced by `otel.sdk.span.ended`.
  */
 declare const METRIC_OTEL_SDK_SPAN_ENDED_COUNT: "otel.sdk.span.ended.count";
 /**
@@ -15651,7 +15741,7 @@ declare const METRIC_OTEL_SDK_SPAN_LIVE: "otel.sdk.span.live";
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Renamed to `otel.sdk.span.live`.
+ * @deprecated Replaced by `otel.sdk.span.live`.
  */
 declare const METRIC_OTEL_SDK_SPAN_LIVE_COUNT: "otel.sdk.span.live.count";
 /**
@@ -16151,4 +16241,4 @@ declare const METRIC_VCS_REF_TIME: "vcs.ref.time";
  */
 declare const METRIC_VCS_REPOSITORY_COUNT: "vcs.repository.count";
 
-export { ANDROID_APP_STATE_VALUE_BACKGROUND, ANDROID_APP_STATE_VALUE_CREATED, ANDROID_APP_STATE_VALUE_FOREGROUND, ANDROID_STATE_VALUE_BACKGROUND, ANDROID_STATE_VALUE_CREATED, ANDROID_STATE_VALUE_FOREGROUND, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_ABORTED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_HANDLED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_SKIPPED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_UNHANDLED, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ACQUIRED, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ENDPOINT_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_GLOBAL_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_REQUEST_CANCELED, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_FAILURE, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_SUCCESS, ATTR_ANDROID_APP_STATE, ATTR_ANDROID_OS_API_LEVEL, ATTR_ANDROID_STATE, ATTR_APP_INSTALLATION_ID, ATTR_APP_SCREEN_COORDINATE_X, ATTR_APP_SCREEN_COORDINATE_Y, ATTR_APP_WIDGET_ID, ATTR_APP_WIDGET_NAME, ATTR_ARTIFACT_ATTESTATION_FILENAME, ATTR_ARTIFACT_ATTESTATION_HASH, ATTR_ARTIFACT_ATTESTATION_ID, ATTR_ARTIFACT_FILENAME, ATTR_ARTIFACT_HASH, ATTR_ARTIFACT_PURL, ATTR_ARTIFACT_VERSION, ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT, ATTR_ASPNETCORE_DIAGNOSTICS_HANDLER_TYPE, ATTR_ASPNETCORE_RATE_LIMITING_POLICY, ATTR_ASPNETCORE_RATE_LIMITING_RESULT, ATTR_ASPNETCORE_REQUEST_IS_UNHANDLED, ATTR_ASPNETCORE_ROUTING_IS_FALLBACK, ATTR_ASPNETCORE_ROUTING_MATCH_STATUS, ATTR_AWS_DYNAMODB_ATTRIBUTES_TO_GET, ATTR_AWS_DYNAMODB_ATTRIBUTE_DEFINITIONS, ATTR_AWS_DYNAMODB_CONSISTENT_READ, ATTR_AWS_DYNAMODB_CONSUMED_CAPACITY, ATTR_AWS_DYNAMODB_COUNT, ATTR_AWS_DYNAMODB_EXCLUSIVE_START_TABLE, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEX_UPDATES, ATTR_AWS_DYNAMODB_INDEX_NAME, ATTR_AWS_DYNAMODB_ITEM_COLLECTION_METRICS, ATTR_AWS_DYNAMODB_LIMIT, ATTR_AWS_DYNAMODB_LOCAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_PROJECTION, ATTR_AWS_DYNAMODB_PROVISIONED_READ_CAPACITY, ATTR_AWS_DYNAMODB_PROVISIONED_WRITE_CAPACITY, ATTR_AWS_DYNAMODB_SCANNED_COUNT, ATTR_AWS_DYNAMODB_SCAN_FORWARD, ATTR_AWS_DYNAMODB_SEGMENT, ATTR_AWS_DYNAMODB_SELECT, ATTR_AWS_DYNAMODB_TABLE_COUNT, ATTR_AWS_DYNAMODB_TABLE_NAMES, ATTR_AWS_DYNAMODB_TOTAL_SEGMENTS, ATTR_AWS_ECS_CLUSTER_ARN, ATTR_AWS_ECS_CONTAINER_ARN, ATTR_AWS_ECS_LAUNCHTYPE, ATTR_AWS_ECS_TASK_ARN, ATTR_AWS_ECS_TASK_FAMILY, ATTR_AWS_ECS_TASK_ID, ATTR_AWS_ECS_TASK_REVISION, ATTR_AWS_EKS_CLUSTER_ARN, ATTR_AWS_EXTENDED_REQUEST_ID, ATTR_AWS_LAMBDA_INVOKED_ARN, ATTR_AWS_LOG_GROUP_ARNS, ATTR_AWS_LOG_GROUP_NAMES, ATTR_AWS_LOG_STREAM_ARNS, ATTR_AWS_LOG_STREAM_NAMES, ATTR_AWS_REQUEST_ID, ATTR_AWS_S3_BUCKET, ATTR_AWS_S3_COPY_SOURCE, ATTR_AWS_S3_DELETE, ATTR_AWS_S3_KEY, ATTR_AWS_S3_PART_NUMBER, ATTR_AWS_S3_UPLOAD_ID, ATTR_AZURE_CLIENT_ID, ATTR_AZURE_COSMOSDB_CONNECTION_MODE, ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL, ATTR_AZURE_COSMOSDB_OPERATION_CONTACTED_REGIONS, ATTR_AZURE_COSMOSDB_OPERATION_REQUEST_CHARGE, ATTR_AZURE_COSMOSDB_REQUEST_BODY_SIZE, ATTR_AZURE_COSMOSDB_RESPONSE_SUB_STATUS_CODE, ATTR_AZ_NAMESPACE, ATTR_AZ_SERVICE_REQUEST_ID, ATTR_BROWSER_BRANDS, ATTR_BROWSER_LANGUAGE, ATTR_BROWSER_MOBILE, ATTR_BROWSER_PLATFORM, ATTR_CASSANDRA_CONSISTENCY_LEVEL, ATTR_CASSANDRA_COORDINATOR_DC, ATTR_CASSANDRA_COORDINATOR_ID, ATTR_CASSANDRA_PAGE_SIZE, ATTR_CASSANDRA_QUERY_IDEMPOTENT, ATTR_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_CICD_PIPELINE_ACTION_NAME, ATTR_CICD_PIPELINE_NAME, ATTR_CICD_PIPELINE_RESULT, ATTR_CICD_PIPELINE_RUN_ID, ATTR_CICD_PIPELINE_RUN_STATE, ATTR_CICD_PIPELINE_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_NAME, ATTR_CICD_PIPELINE_TASK_RUN_ID, ATTR_CICD_PIPELINE_TASK_RUN_RESULT, ATTR_CICD_PIPELINE_TASK_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_TYPE, ATTR_CICD_SYSTEM_COMPONENT, ATTR_CICD_WORKER_ID, ATTR_CICD_WORKER_NAME, ATTR_CICD_WORKER_STATE, ATTR_CICD_WORKER_URL_FULL, ATTR_CLIENT_ADDRESS, ATTR_CLIENT_PORT, ATTR_CLOUDEVENTS_EVENT_ID, ATTR_CLOUDEVENTS_EVENT_SOURCE, ATTR_CLOUDEVENTS_EVENT_SPEC_VERSION, ATTR_CLOUDEVENTS_EVENT_SUBJECT, ATTR_CLOUDEVENTS_EVENT_TYPE, ATTR_CLOUDFOUNDRY_APP_ID, ATTR_CLOUDFOUNDRY_APP_INSTANCE_ID, ATTR_CLOUDFOUNDRY_APP_NAME, ATTR_CLOUDFOUNDRY_ORG_ID, ATTR_CLOUDFOUNDRY_ORG_NAME, ATTR_CLOUDFOUNDRY_PROCESS_ID, ATTR_CLOUDFOUNDRY_PROCESS_TYPE, ATTR_CLOUDFOUNDRY_SPACE_ID, ATTR_CLOUDFOUNDRY_SPACE_NAME, ATTR_CLOUDFOUNDRY_SYSTEM_ID, ATTR_CLOUDFOUNDRY_SYSTEM_INSTANCE_ID, ATTR_CLOUD_ACCOUNT_ID, ATTR_CLOUD_AVAILABILITY_ZONE, ATTR_CLOUD_PLATFORM, ATTR_CLOUD_PROVIDER, ATTR_CLOUD_REGION, ATTR_CLOUD_RESOURCE_ID, ATTR_CODE_COLUMN, ATTR_CODE_COLUMN_NUMBER, ATTR_CODE_FILEPATH, ATTR_CODE_FILE_PATH, ATTR_CODE_FUNCTION, ATTR_CODE_FUNCTION_NAME, ATTR_CODE_LINENO, ATTR_CODE_LINE_NUMBER, ATTR_CODE_NAMESPACE, ATTR_CODE_STACKTRACE, ATTR_CONTAINER_COMMAND, ATTR_CONTAINER_COMMAND_ARGS, ATTR_CONTAINER_COMMAND_LINE, ATTR_CONTAINER_CPU_STATE, ATTR_CONTAINER_CSI_PLUGIN_NAME, ATTR_CONTAINER_CSI_VOLUME_ID, ATTR_CONTAINER_ID, ATTR_CONTAINER_IMAGE_ID, ATTR_CONTAINER_IMAGE_NAME, ATTR_CONTAINER_IMAGE_REPO_DIGESTS, ATTR_CONTAINER_IMAGE_TAGS, ATTR_CONTAINER_LABEL, ATTR_CONTAINER_LABELS, ATTR_CONTAINER_NAME, ATTR_CONTAINER_RUNTIME, ATTR_CPU_LOGICAL_NUMBER, ATTR_CPU_MODE, ATTR_CPYTHON_GC_GENERATION, ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL, ATTR_DB_CASSANDRA_COORDINATOR_DC, ATTR_DB_CASSANDRA_COORDINATOR_ID, ATTR_DB_CASSANDRA_IDEMPOTENCE, ATTR_DB_CASSANDRA_PAGE_SIZE, ATTR_DB_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_DB_CASSANDRA_TABLE, ATTR_DB_CLIENT_CONNECTIONS_POOL_NAME, ATTR_DB_CLIENT_CONNECTIONS_STATE, ATTR_DB_CLIENT_CONNECTION_POOL_NAME, ATTR_DB_CLIENT_CONNECTION_STATE, ATTR_DB_COLLECTION_NAME, ATTR_DB_CONNECTION_STRING, ATTR_DB_COSMOSDB_CLIENT_ID, ATTR_DB_COSMOSDB_CONNECTION_MODE, ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL, ATTR_DB_COSMOSDB_CONTAINER, ATTR_DB_COSMOSDB_OPERATION_TYPE, ATTR_DB_COSMOSDB_REGIONS_CONTACTED, ATTR_DB_COSMOSDB_REQUEST_CHARGE, ATTR_DB_COSMOSDB_REQUEST_CONTENT_LENGTH, ATTR_DB_COSMOSDB_STATUS_CODE, ATTR_DB_COSMOSDB_SUB_STATUS_CODE, ATTR_DB_ELASTICSEARCH_CLUSTER_NAME, ATTR_DB_ELASTICSEARCH_NODE_NAME, ATTR_DB_ELASTICSEARCH_PATH_PARTS, ATTR_DB_INSTANCE_ID, ATTR_DB_JDBC_DRIVER_CLASSNAME, ATTR_DB_MONGODB_COLLECTION, ATTR_DB_MSSQL_INSTANCE_NAME, ATTR_DB_NAME, ATTR_DB_NAMESPACE, ATTR_DB_OPERATION, ATTR_DB_OPERATION_BATCH_SIZE, ATTR_DB_OPERATION_NAME, ATTR_DB_OPERATION_PARAMETER, ATTR_DB_QUERY_PARAMETER, ATTR_DB_QUERY_SUMMARY, ATTR_DB_QUERY_TEXT, ATTR_DB_REDIS_DATABASE_INDEX, ATTR_DB_RESPONSE_RETURNED_ROWS, ATTR_DB_RESPONSE_STATUS_CODE, ATTR_DB_SQL_TABLE, ATTR_DB_STATEMENT, ATTR_DB_STORED_PROCEDURE_NAME, ATTR_DB_SYSTEM, ATTR_DB_SYSTEM_NAME, ATTR_DB_USER, ATTR_DEPLOYMENT_ENVIRONMENT, ATTR_DEPLOYMENT_ENVIRONMENT_NAME, ATTR_DEPLOYMENT_ID, ATTR_DEPLOYMENT_NAME, ATTR_DEPLOYMENT_STATUS, ATTR_DESTINATION_ADDRESS, ATTR_DESTINATION_PORT, ATTR_DEVICE_ID, ATTR_DEVICE_MANUFACTURER, ATTR_DEVICE_MODEL_IDENTIFIER, ATTR_DEVICE_MODEL_NAME, ATTR_DISK_IO_DIRECTION, ATTR_DNS_QUESTION_NAME, ATTR_DOTNET_GC_HEAP_GENERATION, ATTR_ELASTICSEARCH_NODE_NAME, ATTR_ENDUSER_ID, ATTR_ENDUSER_PSEUDO_ID, ATTR_ENDUSER_ROLE, ATTR_ENDUSER_SCOPE, ATTR_ERROR_MESSAGE, ATTR_ERROR_TYPE, ATTR_EVENT_NAME, ATTR_EXCEPTION_ESCAPED, ATTR_EXCEPTION_MESSAGE, ATTR_EXCEPTION_STACKTRACE, ATTR_EXCEPTION_TYPE, ATTR_FAAS_COLDSTART, ATTR_FAAS_CRON, ATTR_FAAS_DOCUMENT_COLLECTION, ATTR_FAAS_DOCUMENT_NAME, ATTR_FAAS_DOCUMENT_OPERATION, ATTR_FAAS_DOCUMENT_TIME, ATTR_FAAS_INSTANCE, ATTR_FAAS_INVOCATION_ID, ATTR_FAAS_INVOKED_NAME, ATTR_FAAS_INVOKED_PROVIDER, ATTR_FAAS_INVOKED_REGION, ATTR_FAAS_MAX_MEMORY, ATTR_FAAS_NAME, ATTR_FAAS_TIME, ATTR_FAAS_TRIGGER, ATTR_FAAS_VERSION, ATTR_FEATURE_FLAG_CONTEXT_ID, ATTR_FEATURE_FLAG_EVALUATION_ERROR_MESSAGE, ATTR_FEATURE_FLAG_EVALUATION_REASON, ATTR_FEATURE_FLAG_KEY, ATTR_FEATURE_FLAG_PROVIDER_NAME, ATTR_FEATURE_FLAG_RESULT_REASON, ATTR_FEATURE_FLAG_RESULT_VARIANT, ATTR_FEATURE_FLAG_SET_ID, ATTR_FEATURE_FLAG_VARIANT, ATTR_FEATURE_FLAG_VERSION, ATTR_FILE_ACCESSED, ATTR_FILE_ATTRIBUTES, ATTR_FILE_CHANGED, ATTR_FILE_CREATED, ATTR_FILE_DIRECTORY, ATTR_FILE_EXTENSION, ATTR_FILE_FORK_NAME, ATTR_FILE_GROUP_ID, ATTR_FILE_GROUP_NAME, ATTR_FILE_INODE, ATTR_FILE_MODE, ATTR_FILE_MODIFIED, ATTR_FILE_NAME, ATTR_FILE_OWNER_ID, ATTR_FILE_OWNER_NAME, ATTR_FILE_PATH, ATTR_FILE_SIZE, ATTR_FILE_SYMBOLIC_LINK_TARGET_PATH, ATTR_GCP_APPHUB_APPLICATION_CONTAINER, ATTR_GCP_APPHUB_APPLICATION_ID, ATTR_GCP_APPHUB_APPLICATION_LOCATION, ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE, ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_SERVICE_ID, ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ID, ATTR_GCP_CLIENT_SERVICE, ATTR_GCP_CLOUD_RUN_JOB_EXECUTION, ATTR_GCP_CLOUD_RUN_JOB_TASK_INDEX, ATTR_GCP_GCE_INSTANCE_HOSTNAME, ATTR_GCP_GCE_INSTANCE_NAME, ATTR_GEN_AI_AGENT_DESCRIPTION, ATTR_GEN_AI_AGENT_ID, ATTR_GEN_AI_AGENT_NAME, ATTR_GEN_AI_COMPLETION, ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT, ATTR_GEN_AI_OPENAI_REQUEST_SEED, ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SYSTEM_FINGERPRINT, ATTR_GEN_AI_OPERATION_NAME, ATTR_GEN_AI_OUTPUT_TYPE, ATTR_GEN_AI_PROMPT, ATTR_GEN_AI_REQUEST_CHOICE_COUNT, ATTR_GEN_AI_REQUEST_ENCODING_FORMATS, ATTR_GEN_AI_REQUEST_FREQUENCY_PENALTY, ATTR_GEN_AI_REQUEST_MAX_TOKENS, ATTR_GEN_AI_REQUEST_MODEL, ATTR_GEN_AI_REQUEST_PRESENCE_PENALTY, ATTR_GEN_AI_REQUEST_SEED, ATTR_GEN_AI_REQUEST_STOP_SEQUENCES, ATTR_GEN_AI_REQUEST_TEMPERATURE, ATTR_GEN_AI_REQUEST_TOP_K, ATTR_GEN_AI_REQUEST_TOP_P, ATTR_GEN_AI_RESPONSE_FINISH_REASONS, ATTR_GEN_AI_RESPONSE_ID, ATTR_GEN_AI_RESPONSE_MODEL, ATTR_GEN_AI_SYSTEM, ATTR_GEN_AI_TOKEN_TYPE, ATTR_GEN_AI_TOOL_CALL_ID, ATTR_GEN_AI_TOOL_DESCRIPTION, ATTR_GEN_AI_TOOL_NAME, ATTR_GEN_AI_TOOL_TYPE, ATTR_GEN_AI_USAGE_COMPLETION_TOKENS, ATTR_GEN_AI_USAGE_INPUT_TOKENS, ATTR_GEN_AI_USAGE_OUTPUT_TOKENS, ATTR_GEN_AI_USAGE_PROMPT_TOKENS, ATTR_GEO_CONTINENT_CODE, ATTR_GEO_COUNTRY_ISO_CODE, ATTR_GEO_LOCALITY_NAME, ATTR_GEO_LOCATION_LAT, ATTR_GEO_LOCATION_LON, ATTR_GEO_POSTAL_CODE, ATTR_GEO_REGION_ISO_CODE, ATTR_GO_MEMORY_TYPE, ATTR_GRAPHQL_DOCUMENT, ATTR_GRAPHQL_OPERATION_NAME, ATTR_GRAPHQL_OPERATION_TYPE, ATTR_HEROKU_APP_ID, ATTR_HEROKU_RELEASE_COMMIT, ATTR_HEROKU_RELEASE_CREATION_TIMESTAMP, ATTR_HOST_ARCH, ATTR_HOST_CPU_CACHE_L2_SIZE, ATTR_HOST_CPU_FAMILY, ATTR_HOST_CPU_MODEL_ID, ATTR_HOST_CPU_MODEL_NAME, ATTR_HOST_CPU_STEPPING, ATTR_HOST_CPU_VENDOR_ID, ATTR_HOST_ID, ATTR_HOST_IMAGE_ID, ATTR_HOST_IMAGE_NAME, ATTR_HOST_IMAGE_VERSION, ATTR_HOST_IP, ATTR_HOST_MAC, ATTR_HOST_NAME, ATTR_HOST_TYPE, ATTR_HTTP_CLIENT_IP, ATTR_HTTP_CONNECTION_STATE, ATTR_HTTP_FLAVOR, ATTR_HTTP_HOST, ATTR_HTTP_METHOD, ATTR_HTTP_REQUEST_BODY_SIZE, ATTR_HTTP_REQUEST_CONTENT_LENGTH, ATTR_HTTP_REQUEST_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_REQUEST_HEADER, ATTR_HTTP_REQUEST_METHOD, ATTR_HTTP_REQUEST_METHOD_ORIGINAL, ATTR_HTTP_REQUEST_RESEND_COUNT, ATTR_HTTP_REQUEST_SIZE, ATTR_HTTP_RESPONSE_BODY_SIZE, ATTR_HTTP_RESPONSE_CONTENT_LENGTH, ATTR_HTTP_RESPONSE_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_RESPONSE_HEADER, ATTR_HTTP_RESPONSE_SIZE, ATTR_HTTP_RESPONSE_STATUS_CODE, ATTR_HTTP_ROUTE, ATTR_HTTP_SCHEME, ATTR_HTTP_SERVER_NAME, ATTR_HTTP_STATUS_CODE, ATTR_HTTP_TARGET, ATTR_HTTP_URL, ATTR_HTTP_USER_AGENT, ATTR_HW_ID, ATTR_HW_NAME, ATTR_HW_PARENT, ATTR_HW_STATE, ATTR_HW_TYPE, ATTR_IOS_APP_STATE, ATTR_IOS_STATE, ATTR_JVM_BUFFER_POOL_NAME, ATTR_JVM_GC_ACTION, ATTR_JVM_GC_CAUSE, ATTR_JVM_GC_NAME, ATTR_JVM_MEMORY_POOL_NAME, ATTR_JVM_MEMORY_TYPE, ATTR_JVM_THREAD_DAEMON, ATTR_JVM_THREAD_STATE, ATTR_K8S_CLUSTER_NAME, ATTR_K8S_CLUSTER_UID, ATTR_K8S_CONTAINER_NAME, ATTR_K8S_CONTAINER_RESTART_COUNT, ATTR_K8S_CONTAINER_STATUS_LAST_TERMINATED_REASON, ATTR_K8S_CRONJOB_ANNOTATION, ATTR_K8S_CRONJOB_LABEL, ATTR_K8S_CRONJOB_NAME, ATTR_K8S_CRONJOB_UID, ATTR_K8S_DAEMONSET_ANNOTATION, ATTR_K8S_DAEMONSET_LABEL, ATTR_K8S_DAEMONSET_NAME, ATTR_K8S_DAEMONSET_UID, ATTR_K8S_DEPLOYMENT_ANNOTATION, ATTR_K8S_DEPLOYMENT_LABEL, ATTR_K8S_DEPLOYMENT_NAME, ATTR_K8S_DEPLOYMENT_UID, ATTR_K8S_HPA_NAME, ATTR_K8S_HPA_UID, ATTR_K8S_JOB_ANNOTATION, ATTR_K8S_JOB_LABEL, ATTR_K8S_JOB_NAME, ATTR_K8S_JOB_UID, ATTR_K8S_NAMESPACE_ANNOTATION, ATTR_K8S_NAMESPACE_LABEL, ATTR_K8S_NAMESPACE_NAME, ATTR_K8S_NAMESPACE_PHASE, ATTR_K8S_NODE_ANNOTATION, ATTR_K8S_NODE_LABEL, ATTR_K8S_NODE_NAME, ATTR_K8S_NODE_UID, ATTR_K8S_POD_ANNOTATION, ATTR_K8S_POD_LABEL, ATTR_K8S_POD_LABELS, ATTR_K8S_POD_NAME, ATTR_K8S_POD_UID, ATTR_K8S_REPLICASET_ANNOTATION, ATTR_K8S_REPLICASET_LABEL, ATTR_K8S_REPLICASET_NAME, ATTR_K8S_REPLICASET_UID, ATTR_K8S_REPLICATIONCONTROLLER_NAME, ATTR_K8S_REPLICATIONCONTROLLER_UID, ATTR_K8S_RESOURCEQUOTA_NAME, ATTR_K8S_RESOURCEQUOTA_UID, ATTR_K8S_STATEFULSET_ANNOTATION, ATTR_K8S_STATEFULSET_LABEL, ATTR_K8S_STATEFULSET_NAME, ATTR_K8S_STATEFULSET_UID, ATTR_K8S_VOLUME_NAME, ATTR_K8S_VOLUME_TYPE, ATTR_LINUX_MEMORY_SLAB_STATE, ATTR_LOG_FILE_NAME, ATTR_LOG_FILE_NAME_RESOLVED, ATTR_LOG_FILE_PATH, ATTR_LOG_FILE_PATH_RESOLVED, ATTR_LOG_IOSTREAM, ATTR_LOG_RECORD_ORIGINAL, ATTR_LOG_RECORD_UID, ATTR_MESSAGE_COMPRESSED_SIZE, ATTR_MESSAGE_ID, ATTR_MESSAGE_TYPE, ATTR_MESSAGE_UNCOMPRESSED_SIZE, ATTR_MESSAGING_BATCH_MESSAGE_COUNT, ATTR_MESSAGING_CLIENT_ID, ATTR_MESSAGING_CONSUMER_GROUP_NAME, ATTR_MESSAGING_DESTINATION_ANONYMOUS, ATTR_MESSAGING_DESTINATION_NAME, ATTR_MESSAGING_DESTINATION_PARTITION_ID, ATTR_MESSAGING_DESTINATION_PUBLISH_ANONYMOUS, ATTR_MESSAGING_DESTINATION_PUBLISH_NAME, ATTR_MESSAGING_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_DESTINATION_TEMPLATE, ATTR_MESSAGING_DESTINATION_TEMPORARY, ATTR_MESSAGING_EVENTHUBS_CONSUMER_GROUP, ATTR_MESSAGING_EVENTHUBS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_DEADLINE, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_ID, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_DELIVERY_ATTEMPT, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ORDERING_KEY, ATTR_MESSAGING_KAFKA_CONSUMER_GROUP, ATTR_MESSAGING_KAFKA_DESTINATION_PARTITION, ATTR_MESSAGING_KAFKA_MESSAGE_KEY, ATTR_MESSAGING_KAFKA_MESSAGE_OFFSET, ATTR_MESSAGING_KAFKA_MESSAGE_TOMBSTONE, ATTR_MESSAGING_KAFKA_OFFSET, ATTR_MESSAGING_MESSAGE_BODY_SIZE, ATTR_MESSAGING_MESSAGE_CONVERSATION_ID, ATTR_MESSAGING_MESSAGE_ENVELOPE_SIZE, ATTR_MESSAGING_MESSAGE_ID, ATTR_MESSAGING_OPERATION, ATTR_MESSAGING_OPERATION_NAME, ATTR_MESSAGING_OPERATION_TYPE, ATTR_MESSAGING_RABBITMQ_DESTINATION_ROUTING_KEY, ATTR_MESSAGING_RABBITMQ_MESSAGE_DELIVERY_TAG, ATTR_MESSAGING_ROCKETMQ_CLIENT_GROUP, ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELAY_TIME_LEVEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELIVERY_TIMESTAMP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_GROUP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_KEYS, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TAG, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE, ATTR_MESSAGING_ROCKETMQ_NAMESPACE, ATTR_MESSAGING_SERVICEBUS_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS, ATTR_MESSAGING_SERVICEBUS_MESSAGE_DELIVERY_COUNT, ATTR_MESSAGING_SERVICEBUS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_SYSTEM, ATTR_NETWORK_CARRIER_ICC, ATTR_NETWORK_CARRIER_MCC, ATTR_NETWORK_CARRIER_MNC, ATTR_NETWORK_CARRIER_NAME, ATTR_NETWORK_CONNECTION_STATE, ATTR_NETWORK_CONNECTION_SUBTYPE, ATTR_NETWORK_CONNECTION_TYPE, ATTR_NETWORK_INTERFACE_NAME, ATTR_NETWORK_IO_DIRECTION, ATTR_NETWORK_LOCAL_ADDRESS, ATTR_NETWORK_LOCAL_PORT, ATTR_NETWORK_PEER_ADDRESS, ATTR_NETWORK_PEER_PORT, ATTR_NETWORK_PROTOCOL_NAME, ATTR_NETWORK_PROTOCOL_VERSION, ATTR_NETWORK_TRANSPORT, ATTR_NETWORK_TYPE, ATTR_NET_HOST_IP, ATTR_NET_HOST_NAME, ATTR_NET_HOST_PORT, ATTR_NET_PEER_IP, ATTR_NET_PEER_NAME, ATTR_NET_PEER_PORT, ATTR_NET_PROTOCOL_NAME, ATTR_NET_PROTOCOL_VERSION, ATTR_NET_SOCK_FAMILY, ATTR_NET_SOCK_HOST_ADDR, ATTR_NET_SOCK_HOST_PORT, ATTR_NET_SOCK_PEER_ADDR, ATTR_NET_SOCK_PEER_NAME, ATTR_NET_SOCK_PEER_PORT, ATTR_NET_TRANSPORT, ATTR_NODEJS_EVENTLOOP_STATE, ATTR_OCI_MANIFEST_DIGEST, ATTR_OPENTRACING_REF_TYPE, ATTR_OS_BUILD_ID, ATTR_OS_DESCRIPTION, ATTR_OS_NAME, ATTR_OS_TYPE, ATTR_OS_VERSION, ATTR_OTEL_COMPONENT_NAME, ATTR_OTEL_COMPONENT_TYPE, ATTR_OTEL_LIBRARY_NAME, ATTR_OTEL_LIBRARY_VERSION, ATTR_OTEL_SCOPE_NAME, ATTR_OTEL_SCOPE_VERSION, ATTR_OTEL_SPAN_SAMPLING_RESULT, ATTR_OTEL_STATUS_CODE, ATTR_OTEL_STATUS_DESCRIPTION, ATTR_PEER_SERVICE, ATTR_POOL_NAME, ATTR_PROCESS_ARGS_COUNT, ATTR_PROCESS_COMMAND, ATTR_PROCESS_COMMAND_ARGS, ATTR_PROCESS_COMMAND_LINE, ATTR_PROCESS_CONTEXT_SWITCH_TYPE, ATTR_PROCESS_CPU_STATE, ATTR_PROCESS_CREATION_TIME, ATTR_PROCESS_ENVIRONMENT_VARIABLE, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GNU, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GO, ATTR_PROCESS_EXECUTABLE_BUILD_ID_HTLHASH, ATTR_PROCESS_EXECUTABLE_BUILD_ID_PROFILING, ATTR_PROCESS_EXECUTABLE_NAME, ATTR_PROCESS_EXECUTABLE_PATH, ATTR_PROCESS_EXIT_CODE, ATTR_PROCESS_EXIT_TIME, ATTR_PROCESS_GROUP_LEADER_PID, ATTR_PROCESS_INTERACTIVE, ATTR_PROCESS_LINUX_CGROUP, ATTR_PROCESS_OWNER, ATTR_PROCESS_PAGING_FAULT_TYPE, ATTR_PROCESS_PARENT_PID, ATTR_PROCESS_PID, ATTR_PROCESS_REAL_USER_ID, ATTR_PROCESS_REAL_USER_NAME, ATTR_PROCESS_RUNTIME_DESCRIPTION, ATTR_PROCESS_RUNTIME_NAME, ATTR_PROCESS_RUNTIME_VERSION, ATTR_PROCESS_SAVED_USER_ID, ATTR_PROCESS_SAVED_USER_NAME, ATTR_PROCESS_SESSION_LEADER_PID, ATTR_PROCESS_TITLE, ATTR_PROCESS_USER_ID, ATTR_PROCESS_USER_NAME, ATTR_PROCESS_VPID, ATTR_PROCESS_WORKING_DIRECTORY, ATTR_PROFILE_FRAME_TYPE, ATTR_RPC_CONNECT_RPC_ERROR_CODE, ATTR_RPC_CONNECT_RPC_REQUEST_METADATA, ATTR_RPC_CONNECT_RPC_RESPONSE_METADATA, ATTR_RPC_GRPC_REQUEST_METADATA, ATTR_RPC_GRPC_RESPONSE_METADATA, ATTR_RPC_GRPC_STATUS_CODE, ATTR_RPC_JSONRPC_ERROR_CODE, ATTR_RPC_JSONRPC_ERROR_MESSAGE, ATTR_RPC_JSONRPC_REQUEST_ID, ATTR_RPC_JSONRPC_VERSION, ATTR_RPC_MESSAGE_COMPRESSED_SIZE, ATTR_RPC_MESSAGE_ID, ATTR_RPC_MESSAGE_TYPE, ATTR_RPC_MESSAGE_UNCOMPRESSED_SIZE, ATTR_RPC_METHOD, ATTR_RPC_SERVICE, ATTR_RPC_SYSTEM, ATTR_SECURITY_RULE_CATEGORY, ATTR_SECURITY_RULE_DESCRIPTION, ATTR_SECURITY_RULE_LICENSE, ATTR_SECURITY_RULE_NAME, ATTR_SECURITY_RULE_REFERENCE, ATTR_SECURITY_RULE_RULESET_NAME, ATTR_SECURITY_RULE_UUID, ATTR_SECURITY_RULE_VERSION, ATTR_SERVER_ADDRESS, ATTR_SERVER_PORT, ATTR_SERVICE_INSTANCE_ID, ATTR_SERVICE_NAME, ATTR_SERVICE_NAMESPACE, ATTR_SERVICE_VERSION, ATTR_SESSION_ID, ATTR_SESSION_PREVIOUS_ID, ATTR_SIGNALR_CONNECTION_STATUS, ATTR_SIGNALR_TRANSPORT, ATTR_SOURCE_ADDRESS, ATTR_SOURCE_PORT, ATTR_STATE, ATTR_SYSTEM_CPU_LOGICAL_NUMBER, ATTR_SYSTEM_CPU_STATE, ATTR_SYSTEM_DEVICE, ATTR_SYSTEM_FILESYSTEM_MODE, ATTR_SYSTEM_FILESYSTEM_MOUNTPOINT, ATTR_SYSTEM_FILESYSTEM_STATE, ATTR_SYSTEM_FILESYSTEM_TYPE, ATTR_SYSTEM_MEMORY_STATE, ATTR_SYSTEM_NETWORK_STATE, ATTR_SYSTEM_PAGING_DIRECTION, ATTR_SYSTEM_PAGING_STATE, ATTR_SYSTEM_PAGING_TYPE, ATTR_SYSTEM_PROCESSES_STATUS, ATTR_SYSTEM_PROCESS_STATUS, ATTR_TELEMETRY_DISTRO_NAME, ATTR_TELEMETRY_DISTRO_VERSION, ATTR_TELEMETRY_SDK_LANGUAGE, ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_VERSION, ATTR_TEST_CASE_NAME, ATTR_TEST_CASE_RESULT_STATUS, ATTR_TEST_SUITE_NAME, ATTR_TEST_SUITE_RUN_STATUS, ATTR_THREAD_ID, ATTR_THREAD_NAME, ATTR_TLS_CIPHER, ATTR_TLS_CLIENT_CERTIFICATE, ATTR_TLS_CLIENT_CERTIFICATE_CHAIN, ATTR_TLS_CLIENT_HASH_MD5, ATTR_TLS_CLIENT_HASH_SHA1, ATTR_TLS_CLIENT_HASH_SHA256, ATTR_TLS_CLIENT_ISSUER, ATTR_TLS_CLIENT_JA3, ATTR_TLS_CLIENT_NOT_AFTER, ATTR_TLS_CLIENT_NOT_BEFORE, ATTR_TLS_CLIENT_SERVER_NAME, ATTR_TLS_CLIENT_SUBJECT, ATTR_TLS_CLIENT_SUPPORTED_CIPHERS, ATTR_TLS_CURVE, ATTR_TLS_ESTABLISHED, ATTR_TLS_NEXT_PROTOCOL, ATTR_TLS_PROTOCOL_NAME, ATTR_TLS_PROTOCOL_VERSION, ATTR_TLS_RESUMED, ATTR_TLS_SERVER_CERTIFICATE, ATTR_TLS_SERVER_CERTIFICATE_CHAIN, ATTR_TLS_SERVER_HASH_MD5, ATTR_TLS_SERVER_HASH_SHA1, ATTR_TLS_SERVER_HASH_SHA256, ATTR_TLS_SERVER_ISSUER, ATTR_TLS_SERVER_JA3S, ATTR_TLS_SERVER_NOT_AFTER, ATTR_TLS_SERVER_NOT_BEFORE, ATTR_TLS_SERVER_SUBJECT, ATTR_URL_DOMAIN, ATTR_URL_EXTENSION, ATTR_URL_FRAGMENT, ATTR_URL_FULL, ATTR_URL_ORIGINAL, ATTR_URL_PATH, ATTR_URL_PORT, ATTR_URL_QUERY, ATTR_URL_REGISTERED_DOMAIN, ATTR_URL_SCHEME, ATTR_URL_SUBDOMAIN, ATTR_URL_TEMPLATE, ATTR_URL_TOP_LEVEL_DOMAIN, ATTR_USER_AGENT_NAME, ATTR_USER_AGENT_ORIGINAL, ATTR_USER_AGENT_OS_NAME, ATTR_USER_AGENT_OS_VERSION, ATTR_USER_AGENT_SYNTHETIC_TYPE, ATTR_USER_AGENT_VERSION, ATTR_USER_EMAIL, ATTR_USER_FULL_NAME, ATTR_USER_HASH, ATTR_USER_ID, ATTR_USER_NAME, ATTR_USER_ROLES, ATTR_V8JS_GC_TYPE, ATTR_V8JS_HEAP_SPACE_NAME, ATTR_VCS_CHANGE_ID, ATTR_VCS_CHANGE_STATE, ATTR_VCS_CHANGE_TITLE, ATTR_VCS_LINE_CHANGE_TYPE, ATTR_VCS_OWNER_NAME, ATTR_VCS_PROVIDER_NAME, ATTR_VCS_REF_BASE_NAME, ATTR_VCS_REF_BASE_REVISION, ATTR_VCS_REF_BASE_TYPE, ATTR_VCS_REF_HEAD_NAME, ATTR_VCS_REF_HEAD_REVISION, ATTR_VCS_REF_HEAD_TYPE, ATTR_VCS_REF_TYPE, ATTR_VCS_REPOSITORY_CHANGE_ID, ATTR_VCS_REPOSITORY_CHANGE_TITLE, ATTR_VCS_REPOSITORY_NAME, ATTR_VCS_REPOSITORY_REF_NAME, ATTR_VCS_REPOSITORY_REF_REVISION, ATTR_VCS_REPOSITORY_REF_TYPE, ATTR_VCS_REPOSITORY_URL_FULL, ATTR_VCS_REVISION_DELTA_DIRECTION, ATTR_WEBENGINE_DESCRIPTION, ATTR_WEBENGINE_NAME, ATTR_WEBENGINE_VERSION, AWSECSLAUNCHTYPEVALUES_EC2, AWSECSLAUNCHTYPEVALUES_FARGATE, AWS_ECS_LAUNCHTYPE_VALUE_EC2, AWS_ECS_LAUNCHTYPE_VALUE_FARGATE, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, AwsEcsLaunchtypeValues, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, CICD_PIPELINE_ACTION_NAME_VALUE_BUILD, CICD_PIPELINE_ACTION_NAME_VALUE_RUN, CICD_PIPELINE_ACTION_NAME_VALUE_SYNC, CICD_PIPELINE_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_RESULT_VALUE_ERROR, CICD_PIPELINE_RESULT_VALUE_FAILURE, CICD_PIPELINE_RESULT_VALUE_SKIP, CICD_PIPELINE_RESULT_VALUE_SUCCESS, CICD_PIPELINE_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_RUN_STATE_VALUE_EXECUTING, CICD_PIPELINE_RUN_STATE_VALUE_FINALIZING, CICD_PIPELINE_RUN_STATE_VALUE_PENDING, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_ERROR, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_FAILURE, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SKIP, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SUCCESS, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_TASK_TYPE_VALUE_BUILD, CICD_PIPELINE_TASK_TYPE_VALUE_DEPLOY, CICD_PIPELINE_TASK_TYPE_VALUE_TEST, CICD_WORKER_STATE_VALUE_AVAILABLE, CICD_WORKER_STATE_VALUE_BUSY, CICD_WORKER_STATE_VALUE_OFFLINE, CLOUDPLATFORMVALUES_ALIBABA_CLOUD_ECS, CLOUDPLATFORMVALUES_ALIBABA_CLOUD_FC, CLOUDPLATFORMVALUES_AWS_EC2, CLOUDPLATFORMVALUES_AWS_ECS, CLOUDPLATFORMVALUES_AWS_EKS, CLOUDPLATFORMVALUES_AWS_ELASTIC_BEANSTALK, CLOUDPLATFORMVALUES_AWS_LAMBDA, CLOUDPLATFORMVALUES_AZURE_AKS, CLOUDPLATFORMVALUES_AZURE_APP_SERVICE, CLOUDPLATFORMVALUES_AZURE_CONTAINER_INSTANCES, CLOUDPLATFORMVALUES_AZURE_FUNCTIONS, CLOUDPLATFORMVALUES_AZURE_VM, CLOUDPLATFORMVALUES_GCP_APP_ENGINE, CLOUDPLATFORMVALUES_GCP_CLOUD_FUNCTIONS, CLOUDPLATFORMVALUES_GCP_CLOUD_RUN, CLOUDPLATFORMVALUES_GCP_COMPUTE_ENGINE, CLOUDPLATFORMVALUES_GCP_KUBERNETES_ENGINE, CLOUDPROVIDERVALUES_ALIBABA_CLOUD, CLOUDPROVIDERVALUES_AWS, CLOUDPROVIDERVALUES_AZURE, CLOUDPROVIDERVALUES_GCP, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_ECS, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_FC, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_AWS_APP_RUNNER, CLOUD_PLATFORM_VALUE_AWS_EC2, CLOUD_PLATFORM_VALUE_AWS_ECS, CLOUD_PLATFORM_VALUE_AWS_EKS, CLOUD_PLATFORM_VALUE_AWS_ELASTIC_BEANSTALK, CLOUD_PLATFORM_VALUE_AWS_LAMBDA, CLOUD_PLATFORM_VALUE_AWS_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_AKS, CLOUD_PLATFORM_VALUE_AZURE_APP_SERVICE, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_APPS, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_INSTANCES, CLOUD_PLATFORM_VALUE_AZURE_FUNCTIONS, CLOUD_PLATFORM_VALUE_AZURE_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_VM, CLOUD_PLATFORM_VALUE_GCP_APP_ENGINE, CLOUD_PLATFORM_VALUE_GCP_BARE_METAL_SOLUTION, CLOUD_PLATFORM_VALUE_GCP_CLOUD_FUNCTIONS, CLOUD_PLATFORM_VALUE_GCP_CLOUD_RUN, CLOUD_PLATFORM_VALUE_GCP_COMPUTE_ENGINE, CLOUD_PLATFORM_VALUE_GCP_KUBERNETES_ENGINE, CLOUD_PLATFORM_VALUE_GCP_OPENSHIFT, CLOUD_PLATFORM_VALUE_IBM_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_COMPUTE, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_OKE, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_CVM, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_EKS, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_SCF, CLOUD_PROVIDER_VALUE_ALIBABA_CLOUD, CLOUD_PROVIDER_VALUE_AWS, CLOUD_PROVIDER_VALUE_AZURE, CLOUD_PROVIDER_VALUE_GCP, CLOUD_PROVIDER_VALUE_HEROKU, CLOUD_PROVIDER_VALUE_IBM_CLOUD, CLOUD_PROVIDER_VALUE_ORACLE_CLOUD, CLOUD_PROVIDER_VALUE_TENCENT_CLOUD, CONTAINER_CPU_STATE_VALUE_KERNEL, CONTAINER_CPU_STATE_VALUE_SYSTEM, CONTAINER_CPU_STATE_VALUE_USER, CPU_MODE_VALUE_IDLE, CPU_MODE_VALUE_INTERRUPT, CPU_MODE_VALUE_IOWAIT, CPU_MODE_VALUE_KERNEL, CPU_MODE_VALUE_NICE, CPU_MODE_VALUE_STEAL, CPU_MODE_VALUE_SYSTEM, CPU_MODE_VALUE_USER, CPYTHON_GC_GENERATION_VALUE_GENERATION_0, CPYTHON_GC_GENERATION_VALUE_GENERATION_1, CPYTHON_GC_GENERATION_VALUE_GENERATION_2, CloudPlatformValues, CloudProviderValues, DBCASSANDRACONSISTENCYLEVELVALUES_ALL, DBCASSANDRACONSISTENCYLEVELVALUES_ANY, DBCASSANDRACONSISTENCYLEVELVALUES_EACH_QUORUM, DBCASSANDRACONSISTENCYLEVELVALUES_LOCAL_ONE, DBCASSANDRACONSISTENCYLEVELVALUES_LOCAL_QUORUM, DBCASSANDRACONSISTENCYLEVELVALUES_LOCAL_SERIAL, DBCASSANDRACONSISTENCYLEVELVALUES_ONE, DBCASSANDRACONSISTENCYLEVELVALUES_QUORUM, DBCASSANDRACONSISTENCYLEVELVALUES_SERIAL, DBCASSANDRACONSISTENCYLEVELVALUES_THREE, DBCASSANDRACONSISTENCYLEVELVALUES_TWO, DBSYSTEMVALUES_ADABAS, DBSYSTEMVALUES_CACHE, DBSYSTEMVALUES_CASSANDRA, DBSYSTEMVALUES_CLOUDSCAPE, DBSYSTEMVALUES_COCKROACHDB, DBSYSTEMVALUES_COLDFUSION, DBSYSTEMVALUES_COSMOSDB, DBSYSTEMVALUES_COUCHBASE, DBSYSTEMVALUES_COUCHDB, DBSYSTEMVALUES_DB2, DBSYSTEMVALUES_DERBY, DBSYSTEMVALUES_DYNAMODB, DBSYSTEMVALUES_EDB, DBSYSTEMVALUES_ELASTICSEARCH, DBSYSTEMVALUES_FILEMAKER, DBSYSTEMVALUES_FIREBIRD, DBSYSTEMVALUES_FIRSTSQL, DBSYSTEMVALUES_GEODE, DBSYSTEMVALUES_H2, DBSYSTEMVALUES_HANADB, DBSYSTEMVALUES_HBASE, DBSYSTEMVALUES_HIVE, DBSYSTEMVALUES_HSQLDB, DBSYSTEMVALUES_INFORMIX, DBSYSTEMVALUES_INGRES, DBSYSTEMVALUES_INSTANTDB, DBSYSTEMVALUES_INTERBASE, DBSYSTEMVALUES_MARIADB, DBSYSTEMVALUES_MAXDB, DBSYSTEMVALUES_MEMCACHED, DBSYSTEMVALUES_MONGODB, DBSYSTEMVALUES_MSSQL, DBSYSTEMVALUES_MYSQL, DBSYSTEMVALUES_NEO4J, DBSYSTEMVALUES_NETEZZA, DBSYSTEMVALUES_ORACLE, DBSYSTEMVALUES_OTHER_SQL, DBSYSTEMVALUES_PERVASIVE, DBSYSTEMVALUES_POINTBASE, DBSYSTEMVALUES_POSTGRESQL, DBSYSTEMVALUES_PROGRESS, DBSYSTEMVALUES_REDIS, DBSYSTEMVALUES_REDSHIFT, DBSYSTEMVALUES_SQLITE, DBSYSTEMVALUES_SYBASE, DBSYSTEMVALUES_TERADATA, DBSYSTEMVALUES_VERTICA, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, DB_CLIENT_CONNECTIONS_STATE_VALUE_IDLE, DB_CLIENT_CONNECTIONS_STATE_VALUE_USED, DB_CLIENT_CONNECTION_STATE_VALUE_IDLE, DB_CLIENT_CONNECTION_STATE_VALUE_USED, DB_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, DB_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, DB_COSMOSDB_OPERATION_TYPE_VALUE_BATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_CREATE, DB_COSMOSDB_OPERATION_TYPE_VALUE_DELETE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE_JAVASCRIPT, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_INVALID, DB_COSMOSDB_OPERATION_TYPE_VALUE_PATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY_PLAN, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_REPLACE, DB_COSMOSDB_OPERATION_TYPE_VALUE_UPSERT, DB_SYSTEM_NAME_VALUE_ACTIAN_INGRES, DB_SYSTEM_NAME_VALUE_AWS_DYNAMODB, DB_SYSTEM_NAME_VALUE_AWS_REDSHIFT, DB_SYSTEM_NAME_VALUE_AZURE_COSMOSDB, DB_SYSTEM_NAME_VALUE_CASSANDRA, DB_SYSTEM_NAME_VALUE_CLICKHOUSE, DB_SYSTEM_NAME_VALUE_COCKROACHDB, DB_SYSTEM_NAME_VALUE_COUCHBASE, DB_SYSTEM_NAME_VALUE_COUCHDB, DB_SYSTEM_NAME_VALUE_DERBY, DB_SYSTEM_NAME_VALUE_ELASTICSEARCH, DB_SYSTEM_NAME_VALUE_FIREBIRDSQL, DB_SYSTEM_NAME_VALUE_GCP_SPANNER, DB_SYSTEM_NAME_VALUE_GEODE, DB_SYSTEM_NAME_VALUE_H2DATABASE, DB_SYSTEM_NAME_VALUE_HBASE, DB_SYSTEM_NAME_VALUE_HIVE, DB_SYSTEM_NAME_VALUE_HSQLDB, DB_SYSTEM_NAME_VALUE_IBM_DB2, DB_SYSTEM_NAME_VALUE_IBM_INFORMIX, DB_SYSTEM_NAME_VALUE_IBM_NETEZZA, DB_SYSTEM_NAME_VALUE_INFLUXDB, DB_SYSTEM_NAME_VALUE_INSTANTDB, DB_SYSTEM_NAME_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_NAME_VALUE_MARIADB, DB_SYSTEM_NAME_VALUE_MEMCACHED, DB_SYSTEM_NAME_VALUE_MICROSOFT_SQL_SERVER, DB_SYSTEM_NAME_VALUE_MONGODB, DB_SYSTEM_NAME_VALUE_MYSQL, DB_SYSTEM_NAME_VALUE_NEO4J, DB_SYSTEM_NAME_VALUE_OPENSEARCH, DB_SYSTEM_NAME_VALUE_ORACLE_DB, DB_SYSTEM_NAME_VALUE_OTHER_SQL, DB_SYSTEM_NAME_VALUE_POSTGRESQL, DB_SYSTEM_NAME_VALUE_REDIS, DB_SYSTEM_NAME_VALUE_SAP_HANA, DB_SYSTEM_NAME_VALUE_SAP_MAXDB, DB_SYSTEM_NAME_VALUE_SOFTWAREAG_ADABAS, DB_SYSTEM_NAME_VALUE_SQLITE, DB_SYSTEM_NAME_VALUE_TERADATA, DB_SYSTEM_NAME_VALUE_TRINO, DB_SYSTEM_VALUE_ADABAS, DB_SYSTEM_VALUE_CACHE, DB_SYSTEM_VALUE_CASSANDRA, DB_SYSTEM_VALUE_CLICKHOUSE, DB_SYSTEM_VALUE_CLOUDSCAPE, DB_SYSTEM_VALUE_COCKROACHDB, DB_SYSTEM_VALUE_COLDFUSION, DB_SYSTEM_VALUE_COSMOSDB, DB_SYSTEM_VALUE_COUCHBASE, DB_SYSTEM_VALUE_COUCHDB, DB_SYSTEM_VALUE_DB2, DB_SYSTEM_VALUE_DERBY, DB_SYSTEM_VALUE_DYNAMODB, DB_SYSTEM_VALUE_EDB, DB_SYSTEM_VALUE_ELASTICSEARCH, DB_SYSTEM_VALUE_FILEMAKER, DB_SYSTEM_VALUE_FIREBIRD, DB_SYSTEM_VALUE_FIRSTSQL, DB_SYSTEM_VALUE_GEODE, DB_SYSTEM_VALUE_H2, DB_SYSTEM_VALUE_HANADB, DB_SYSTEM_VALUE_HBASE, DB_SYSTEM_VALUE_HIVE, DB_SYSTEM_VALUE_HSQLDB, DB_SYSTEM_VALUE_INFLUXDB, DB_SYSTEM_VALUE_INFORMIX, DB_SYSTEM_VALUE_INGRES, DB_SYSTEM_VALUE_INSTANTDB, DB_SYSTEM_VALUE_INTERBASE, DB_SYSTEM_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_VALUE_MARIADB, DB_SYSTEM_VALUE_MAXDB, DB_SYSTEM_VALUE_MEMCACHED, DB_SYSTEM_VALUE_MONGODB, DB_SYSTEM_VALUE_MSSQL, DB_SYSTEM_VALUE_MSSQLCOMPACT, DB_SYSTEM_VALUE_MYSQL, DB_SYSTEM_VALUE_NEO4J, DB_SYSTEM_VALUE_NETEZZA, DB_SYSTEM_VALUE_OPENSEARCH, DB_SYSTEM_VALUE_ORACLE, DB_SYSTEM_VALUE_OTHER_SQL, DB_SYSTEM_VALUE_PERVASIVE, DB_SYSTEM_VALUE_POINTBASE, DB_SYSTEM_VALUE_POSTGRESQL, DB_SYSTEM_VALUE_PROGRESS, DB_SYSTEM_VALUE_REDIS, DB_SYSTEM_VALUE_REDSHIFT, DB_SYSTEM_VALUE_SPANNER, DB_SYSTEM_VALUE_SQLITE, DB_SYSTEM_VALUE_SYBASE, DB_SYSTEM_VALUE_TERADATA, DB_SYSTEM_VALUE_TRINO, DB_SYSTEM_VALUE_VERTICA, DEPLOYMENT_STATUS_VALUE_FAILED, DEPLOYMENT_STATUS_VALUE_SUCCEEDED, DISK_IO_DIRECTION_VALUE_READ, DISK_IO_DIRECTION_VALUE_WRITE, DOTNET_GC_HEAP_GENERATION_VALUE_GEN0, DOTNET_GC_HEAP_GENERATION_VALUE_GEN1, DOTNET_GC_HEAP_GENERATION_VALUE_GEN2, DOTNET_GC_HEAP_GENERATION_VALUE_LOH, DOTNET_GC_HEAP_GENERATION_VALUE_POH, DbCassandraConsistencyLevelValues, DbSystemValues, ERROR_TYPE_VALUE_OTHER, FAASDOCUMENTOPERATIONVALUES_DELETE, FAASDOCUMENTOPERATIONVALUES_EDIT, FAASDOCUMENTOPERATIONVALUES_INSERT, FAASINVOKEDPROVIDERVALUES_ALIBABA_CLOUD, FAASINVOKEDPROVIDERVALUES_AWS, FAASINVOKEDPROVIDERVALUES_AZURE, FAASINVOKEDPROVIDERVALUES_GCP, FAASTRIGGERVALUES_DATASOURCE, FAASTRIGGERVALUES_HTTP, FAASTRIGGERVALUES_OTHER, FAASTRIGGERVALUES_PUBSUB, FAASTRIGGERVALUES_TIMER, FAAS_DOCUMENT_OPERATION_VALUE_DELETE, FAAS_DOCUMENT_OPERATION_VALUE_EDIT, FAAS_DOCUMENT_OPERATION_VALUE_INSERT, FAAS_INVOKED_PROVIDER_VALUE_ALIBABA_CLOUD, FAAS_INVOKED_PROVIDER_VALUE_AWS, FAAS_INVOKED_PROVIDER_VALUE_AZURE, FAAS_INVOKED_PROVIDER_VALUE_GCP, FAAS_INVOKED_PROVIDER_VALUE_TENCENT_CLOUD, FAAS_TRIGGER_VALUE_DATASOURCE, FAAS_TRIGGER_VALUE_HTTP, FAAS_TRIGGER_VALUE_OTHER, FAAS_TRIGGER_VALUE_PUBSUB, FAAS_TRIGGER_VALUE_TIMER, FEATURE_FLAG_EVALUATION_REASON_VALUE_CACHED, FEATURE_FLAG_EVALUATION_REASON_VALUE_DEFAULT, FEATURE_FLAG_EVALUATION_REASON_VALUE_DISABLED, FEATURE_FLAG_EVALUATION_REASON_VALUE_ERROR, FEATURE_FLAG_EVALUATION_REASON_VALUE_SPLIT, FEATURE_FLAG_EVALUATION_REASON_VALUE_STALE, FEATURE_FLAG_EVALUATION_REASON_VALUE_STATIC, FEATURE_FLAG_EVALUATION_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_EVALUATION_REASON_VALUE_UNKNOWN, FEATURE_FLAG_RESULT_REASON_VALUE_CACHED, FEATURE_FLAG_RESULT_REASON_VALUE_DEFAULT, FEATURE_FLAG_RESULT_REASON_VALUE_DISABLED, FEATURE_FLAG_RESULT_REASON_VALUE_ERROR, FEATURE_FLAG_RESULT_REASON_VALUE_SPLIT, FEATURE_FLAG_RESULT_REASON_VALUE_STALE, FEATURE_FLAG_RESULT_REASON_VALUE_STATIC, FEATURE_FLAG_RESULT_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_RESULT_REASON_VALUE_UNKNOWN, FaasDocumentOperationValues, FaasInvokedProviderValues, FaasTriggerValues, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_TEST, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_TEST, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_OBJECT, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_SCHEMA, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_TEXT, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT, GEN_AI_OPERATION_NAME_VALUE_CHAT, GEN_AI_OPERATION_NAME_VALUE_CREATE_AGENT, GEN_AI_OPERATION_NAME_VALUE_EMBEDDINGS, GEN_AI_OPERATION_NAME_VALUE_EXECUTE_TOOL, GEN_AI_OPERATION_NAME_VALUE_GENERATE_CONTENT, GEN_AI_OPERATION_NAME_VALUE_INVOKE_AGENT, GEN_AI_OPERATION_NAME_VALUE_TEXT_COMPLETION, GEN_AI_OUTPUT_TYPE_VALUE_IMAGE, GEN_AI_OUTPUT_TYPE_VALUE_JSON, GEN_AI_OUTPUT_TYPE_VALUE_SPEECH, GEN_AI_OUTPUT_TYPE_VALUE_TEXT, GEN_AI_SYSTEM_VALUE_ANTHROPIC, GEN_AI_SYSTEM_VALUE_AWS_BEDROCK, GEN_AI_SYSTEM_VALUE_AZ_AI_INFERENCE, GEN_AI_SYSTEM_VALUE_AZ_AI_OPENAI, GEN_AI_SYSTEM_VALUE_COHERE, GEN_AI_SYSTEM_VALUE_DEEPSEEK, GEN_AI_SYSTEM_VALUE_GCP_GEMINI, GEN_AI_SYSTEM_VALUE_GCP_GEN_AI, GEN_AI_SYSTEM_VALUE_GCP_VERTEX_AI, GEN_AI_SYSTEM_VALUE_GEMINI, GEN_AI_SYSTEM_VALUE_GROQ, GEN_AI_SYSTEM_VALUE_IBM_WATSONX_AI, GEN_AI_SYSTEM_VALUE_MISTRAL_AI, GEN_AI_SYSTEM_VALUE_OPENAI, GEN_AI_SYSTEM_VALUE_PERPLEXITY, GEN_AI_SYSTEM_VALUE_VERTEX_AI, GEN_AI_SYSTEM_VALUE_XAI, GEN_AI_TOKEN_TYPE_VALUE_COMPLETION, GEN_AI_TOKEN_TYPE_VALUE_INPUT, GEN_AI_TOKEN_TYPE_VALUE_OUTPUT, GEO_CONTINENT_CODE_VALUE_AF, GEO_CONTINENT_CODE_VALUE_AN, GEO_CONTINENT_CODE_VALUE_AS, GEO_CONTINENT_CODE_VALUE_EU, GEO_CONTINENT_CODE_VALUE_NA, GEO_CONTINENT_CODE_VALUE_OC, GEO_CONTINENT_CODE_VALUE_SA, GO_MEMORY_TYPE_VALUE_OTHER, GO_MEMORY_TYPE_VALUE_STACK, GRAPHQL_OPERATION_TYPE_VALUE_MUTATION, GRAPHQL_OPERATION_TYPE_VALUE_QUERY, GRAPHQL_OPERATION_TYPE_VALUE_SUBSCRIPTION, HOSTARCHVALUES_AMD64, HOSTARCHVALUES_ARM32, HOSTARCHVALUES_ARM64, HOSTARCHVALUES_IA64, HOSTARCHVALUES_PPC32, HOSTARCHVALUES_PPC64, HOSTARCHVALUES_X86, HOST_ARCH_VALUE_AMD64, HOST_ARCH_VALUE_ARM32, HOST_ARCH_VALUE_ARM64, HOST_ARCH_VALUE_IA64, HOST_ARCH_VALUE_PPC32, HOST_ARCH_VALUE_PPC64, HOST_ARCH_VALUE_S390X, HOST_ARCH_VALUE_X86, HTTPFLAVORVALUES_HTTP_1_0, HTTPFLAVORVALUES_HTTP_1_1, HTTPFLAVORVALUES_HTTP_2_0, HTTPFLAVORVALUES_QUIC, HTTPFLAVORVALUES_SPDY, HTTP_CONNECTION_STATE_VALUE_ACTIVE, HTTP_CONNECTION_STATE_VALUE_IDLE, HTTP_FLAVOR_VALUE_HTTP_1_0, HTTP_FLAVOR_VALUE_HTTP_1_1, HTTP_FLAVOR_VALUE_HTTP_2_0, HTTP_FLAVOR_VALUE_HTTP_3_0, HTTP_FLAVOR_VALUE_QUIC, HTTP_FLAVOR_VALUE_SPDY, HTTP_REQUEST_METHOD_VALUE_CONNECT, HTTP_REQUEST_METHOD_VALUE_DELETE, HTTP_REQUEST_METHOD_VALUE_GET, HTTP_REQUEST_METHOD_VALUE_HEAD, HTTP_REQUEST_METHOD_VALUE_OPTIONS, HTTP_REQUEST_METHOD_VALUE_OTHER, HTTP_REQUEST_METHOD_VALUE_PATCH, HTTP_REQUEST_METHOD_VALUE_POST, HTTP_REQUEST_METHOD_VALUE_PUT, HTTP_REQUEST_METHOD_VALUE_TRACE, HW_STATE_VALUE_DEGRADED, HW_STATE_VALUE_FAILED, HW_STATE_VALUE_OK, HW_TYPE_VALUE_BATTERY, HW_TYPE_VALUE_CPU, HW_TYPE_VALUE_DISK_CONTROLLER, HW_TYPE_VALUE_ENCLOSURE, HW_TYPE_VALUE_FAN, HW_TYPE_VALUE_GPU, HW_TYPE_VALUE_LOGICAL_DISK, HW_TYPE_VALUE_MEMORY, HW_TYPE_VALUE_NETWORK, HW_TYPE_VALUE_PHYSICAL_DISK, HW_TYPE_VALUE_POWER_SUPPLY, HW_TYPE_VALUE_TAPE_DRIVE, HW_TYPE_VALUE_TEMPERATURE, HW_TYPE_VALUE_VOLTAGE, HostArchValues, HttpFlavorValues, IOS_APP_STATE_VALUE_ACTIVE, IOS_APP_STATE_VALUE_BACKGROUND, IOS_APP_STATE_VALUE_FOREGROUND, IOS_APP_STATE_VALUE_INACTIVE, IOS_APP_STATE_VALUE_TERMINATE, IOS_STATE_VALUE_ACTIVE, IOS_STATE_VALUE_BACKGROUND, IOS_STATE_VALUE_FOREGROUND, IOS_STATE_VALUE_INACTIVE, IOS_STATE_VALUE_TERMINATE, JVM_MEMORY_TYPE_VALUE_HEAP, JVM_MEMORY_TYPE_VALUE_NON_HEAP, JVM_THREAD_STATE_VALUE_BLOCKED, JVM_THREAD_STATE_VALUE_NEW, JVM_THREAD_STATE_VALUE_RUNNABLE, JVM_THREAD_STATE_VALUE_TERMINATED, JVM_THREAD_STATE_VALUE_TIMED_WAITING, JVM_THREAD_STATE_VALUE_WAITING, K8S_NAMESPACE_PHASE_VALUE_ACTIVE, K8S_NAMESPACE_PHASE_VALUE_TERMINATING, K8S_VOLUME_TYPE_VALUE_CONFIG_MAP, K8S_VOLUME_TYPE_VALUE_DOWNWARD_API, K8S_VOLUME_TYPE_VALUE_EMPTY_DIR, K8S_VOLUME_TYPE_VALUE_LOCAL, K8S_VOLUME_TYPE_VALUE_PERSISTENT_VOLUME_CLAIM, K8S_VOLUME_TYPE_VALUE_SECRET, LINUX_MEMORY_SLAB_STATE_VALUE_RECLAIMABLE, LINUX_MEMORY_SLAB_STATE_VALUE_UNRECLAIMABLE, LOG_IOSTREAM_VALUE_STDERR, LOG_IOSTREAM_VALUE_STDOUT, MESSAGETYPEVALUES_RECEIVED, MESSAGETYPEVALUES_SENT, MESSAGE_TYPE_VALUE_RECEIVED, MESSAGE_TYPE_VALUE_SENT, MESSAGINGDESTINATIONKINDVALUES_QUEUE, MESSAGINGDESTINATIONKINDVALUES_TOPIC, MESSAGINGOPERATIONVALUES_PROCESS, MESSAGINGOPERATIONVALUES_RECEIVE, MESSAGING_OPERATION_TYPE_VALUE_CREATE, MESSAGING_OPERATION_TYPE_VALUE_DELIVER, MESSAGING_OPERATION_TYPE_VALUE_PROCESS, MESSAGING_OPERATION_TYPE_VALUE_PUBLISH, MESSAGING_OPERATION_TYPE_VALUE_RECEIVE, MESSAGING_OPERATION_TYPE_VALUE_SEND, MESSAGING_OPERATION_TYPE_VALUE_SETTLE, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_BROADCASTING, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_CLUSTERING, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_DELAY, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_FIFO, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_NORMAL, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_TRANSACTION, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_ABANDON, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_COMPLETE, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEAD_LETTER, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEFER, MESSAGING_SYSTEM_VALUE_ACTIVEMQ, MESSAGING_SYSTEM_VALUE_AWS_SQS, MESSAGING_SYSTEM_VALUE_EVENTGRID, MESSAGING_SYSTEM_VALUE_EVENTHUBS, MESSAGING_SYSTEM_VALUE_GCP_PUBSUB, MESSAGING_SYSTEM_VALUE_JMS, MESSAGING_SYSTEM_VALUE_KAFKA, MESSAGING_SYSTEM_VALUE_PULSAR, MESSAGING_SYSTEM_VALUE_RABBITMQ, MESSAGING_SYSTEM_VALUE_ROCKETMQ, MESSAGING_SYSTEM_VALUE_SERVICEBUS, METRIC_ASPNETCORE_DIAGNOSTICS_EXCEPTIONS, METRIC_ASPNETCORE_RATE_LIMITING_ACTIVE_REQUEST_LEASES, METRIC_ASPNETCORE_RATE_LIMITING_QUEUED_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_LEASE_DURATION, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_TIME_IN_QUEUE, METRIC_ASPNETCORE_ROUTING_MATCH_ATTEMPTS, METRIC_AZURE_COSMOSDB_CLIENT_ACTIVE_INSTANCE_COUNT, METRIC_AZURE_COSMOSDB_CLIENT_OPERATION_REQUEST_CHARGE, METRIC_CICD_PIPELINE_RUN_ACTIVE, METRIC_CICD_PIPELINE_RUN_DURATION, METRIC_CICD_PIPELINE_RUN_ERRORS, METRIC_CICD_SYSTEM_ERRORS, METRIC_CICD_WORKER_COUNT, METRIC_CONTAINER_CPU_TIME, METRIC_CONTAINER_CPU_USAGE, METRIC_CONTAINER_DISK_IO, METRIC_CONTAINER_MEMORY_USAGE, METRIC_CONTAINER_NETWORK_IO, METRIC_CONTAINER_UPTIME, METRIC_CPU_FREQUENCY, METRIC_CPU_TIME, METRIC_CPU_UTILIZATION, METRIC_CPYTHON_GC_COLLECTED_OBJECTS, METRIC_CPYTHON_GC_COLLECTIONS, METRIC_CPYTHON_GC_UNCOLLECTABLE_OBJECTS, METRIC_DB_CLIENT_CONNECTIONS_CREATE_TIME, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MAX, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MIN, METRIC_DB_CLIENT_CONNECTIONS_MAX, METRIC_DB_CLIENT_CONNECTIONS_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTIONS_TIMEOUTS, METRIC_DB_CLIENT_CONNECTIONS_USAGE, METRIC_DB_CLIENT_CONNECTIONS_USE_TIME, METRIC_DB_CLIENT_CONNECTIONS_WAIT_TIME, METRIC_DB_CLIENT_CONNECTION_COUNT, METRIC_DB_CLIENT_CONNECTION_CREATE_TIME, METRIC_DB_CLIENT_CONNECTION_IDLE_MAX, METRIC_DB_CLIENT_CONNECTION_IDLE_MIN, METRIC_DB_CLIENT_CONNECTION_MAX, METRIC_DB_CLIENT_CONNECTION_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTION_TIMEOUTS, METRIC_DB_CLIENT_CONNECTION_USE_TIME, METRIC_DB_CLIENT_CONNECTION_WAIT_TIME, METRIC_DB_CLIENT_COSMOSDB_ACTIVE_INSTANCE_COUNT, METRIC_DB_CLIENT_COSMOSDB_OPERATION_REQUEST_CHARGE, METRIC_DB_CLIENT_OPERATION_DURATION, METRIC_DB_CLIENT_RESPONSE_RETURNED_ROWS, METRIC_DNS_LOOKUP_DURATION, METRIC_DOTNET_ASSEMBLY_COUNT, METRIC_DOTNET_EXCEPTIONS, METRIC_DOTNET_GC_COLLECTIONS, METRIC_DOTNET_GC_HEAP_TOTAL_ALLOCATED, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_FRAGMENTATION_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_MEMORY_COMMITTED_SIZE, METRIC_DOTNET_GC_PAUSE_TIME, METRIC_DOTNET_JIT_COMPILATION_TIME, METRIC_DOTNET_JIT_COMPILED_IL_SIZE, METRIC_DOTNET_JIT_COMPILED_METHODS, METRIC_DOTNET_MONITOR_LOCK_CONTENTIONS, METRIC_DOTNET_PROCESS_CPU_COUNT, METRIC_DOTNET_PROCESS_CPU_TIME, METRIC_DOTNET_PROCESS_MEMORY_WORKING_SET, METRIC_DOTNET_THREAD_POOL_QUEUE_LENGTH, METRIC_DOTNET_THREAD_POOL_THREAD_COUNT, METRIC_DOTNET_THREAD_POOL_WORK_ITEM_COUNT, METRIC_DOTNET_TIMER_COUNT, METRIC_FAAS_COLDSTARTS, METRIC_FAAS_CPU_USAGE, METRIC_FAAS_ERRORS, METRIC_FAAS_INIT_DURATION, METRIC_FAAS_INVOCATIONS, METRIC_FAAS_INVOKE_DURATION, METRIC_FAAS_MEM_USAGE, METRIC_FAAS_NET_IO, METRIC_FAAS_TIMEOUTS, METRIC_GEN_AI_CLIENT_OPERATION_DURATION, METRIC_GEN_AI_CLIENT_TOKEN_USAGE, METRIC_GEN_AI_SERVER_REQUEST_DURATION, METRIC_GEN_AI_SERVER_TIME_PER_OUTPUT_TOKEN, METRIC_GEN_AI_SERVER_TIME_TO_FIRST_TOKEN, METRIC_GO_CONFIG_GOGC, METRIC_GO_GOROUTINE_COUNT, METRIC_GO_MEMORY_ALLOCATED, METRIC_GO_MEMORY_ALLOCATIONS, METRIC_GO_MEMORY_GC_GOAL, METRIC_GO_MEMORY_LIMIT, METRIC_GO_MEMORY_USED, METRIC_GO_PROCESSOR_LIMIT, METRIC_GO_SCHEDULE_DURATION, METRIC_HTTP_CLIENT_ACTIVE_REQUESTS, METRIC_HTTP_CLIENT_CONNECTION_DURATION, METRIC_HTTP_CLIENT_OPEN_CONNECTIONS, METRIC_HTTP_CLIENT_REQUEST_BODY_SIZE, METRIC_HTTP_CLIENT_REQUEST_DURATION, METRIC_HTTP_CLIENT_RESPONSE_BODY_SIZE, METRIC_HTTP_SERVER_ACTIVE_REQUESTS, METRIC_HTTP_SERVER_REQUEST_BODY_SIZE, METRIC_HTTP_SERVER_REQUEST_DURATION, METRIC_HTTP_SERVER_RESPONSE_BODY_SIZE, METRIC_HW_ENERGY, METRIC_HW_ERRORS, METRIC_HW_HOST_AMBIENT_TEMPERATURE, METRIC_HW_HOST_ENERGY, METRIC_HW_HOST_HEATING_MARGIN, METRIC_HW_HOST_POWER, METRIC_HW_POWER, METRIC_HW_STATUS, METRIC_JVM_BUFFER_COUNT, METRIC_JVM_BUFFER_MEMORY_LIMIT, METRIC_JVM_BUFFER_MEMORY_USAGE, METRIC_JVM_BUFFER_MEMORY_USED, METRIC_JVM_CLASS_COUNT, METRIC_JVM_CLASS_LOADED, METRIC_JVM_CLASS_UNLOADED, METRIC_JVM_CPU_COUNT, METRIC_JVM_CPU_RECENT_UTILIZATION, METRIC_JVM_CPU_TIME, METRIC_JVM_FILE_DESCRIPTOR_COUNT, METRIC_JVM_GC_DURATION, METRIC_JVM_MEMORY_COMMITTED, METRIC_JVM_MEMORY_INIT, METRIC_JVM_MEMORY_LIMIT, METRIC_JVM_MEMORY_USED, METRIC_JVM_MEMORY_USED_AFTER_LAST_GC, METRIC_JVM_SYSTEM_CPU_LOAD_1M, METRIC_JVM_SYSTEM_CPU_UTILIZATION, METRIC_JVM_THREAD_COUNT, METRIC_K8S_CRONJOB_ACTIVE_JOBS, METRIC_K8S_DAEMONSET_CURRENT_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_DESIRED_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_MISSCHEDULED_NODES, METRIC_K8S_DAEMONSET_READY_NODES, METRIC_K8S_DEPLOYMENT_AVAILABLE_PODS, METRIC_K8S_DEPLOYMENT_DESIRED_PODS, METRIC_K8S_HPA_CURRENT_PODS, METRIC_K8S_HPA_DESIRED_PODS, METRIC_K8S_HPA_MAX_PODS, METRIC_K8S_HPA_MIN_PODS, METRIC_K8S_JOB_ACTIVE_PODS, METRIC_K8S_JOB_DESIRED_SUCCESSFUL_PODS, METRIC_K8S_JOB_FAILED_PODS, METRIC_K8S_JOB_MAX_PARALLEL_PODS, METRIC_K8S_JOB_SUCCESSFUL_PODS, METRIC_K8S_NAMESPACE_PHASE, METRIC_K8S_NODE_CPU_TIME, METRIC_K8S_NODE_CPU_USAGE, METRIC_K8S_NODE_MEMORY_USAGE, METRIC_K8S_NODE_NETWORK_ERRORS, METRIC_K8S_NODE_NETWORK_IO, METRIC_K8S_NODE_UPTIME, METRIC_K8S_POD_CPU_TIME, METRIC_K8S_POD_CPU_USAGE, METRIC_K8S_POD_MEMORY_USAGE, METRIC_K8S_POD_NETWORK_ERRORS, METRIC_K8S_POD_NETWORK_IO, METRIC_K8S_POD_UPTIME, METRIC_K8S_REPLICASET_AVAILABLE_PODS, METRIC_K8S_REPLICASET_DESIRED_PODS, METRIC_K8S_REPLICATIONCONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATIONCONTROLLER_DESIRED_PODS, METRIC_K8S_REPLICATION_CONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATION_CONTROLLER_DESIRED_PODS, METRIC_K8S_STATEFULSET_CURRENT_PODS, METRIC_K8S_STATEFULSET_DESIRED_PODS, METRIC_K8S_STATEFULSET_READY_PODS, METRIC_K8S_STATEFULSET_UPDATED_PODS, METRIC_KESTREL_ACTIVE_CONNECTIONS, METRIC_KESTREL_ACTIVE_TLS_HANDSHAKES, METRIC_KESTREL_CONNECTION_DURATION, METRIC_KESTREL_QUEUED_CONNECTIONS, METRIC_KESTREL_QUEUED_REQUESTS, METRIC_KESTREL_REJECTED_CONNECTIONS, METRIC_KESTREL_TLS_HANDSHAKE_DURATION, METRIC_KESTREL_UPGRADED_CONNECTIONS, METRIC_MESSAGING_CLIENT_CONSUMED_MESSAGES, METRIC_MESSAGING_CLIENT_OPERATION_DURATION, METRIC_MESSAGING_CLIENT_PUBLISHED_MESSAGES, METRIC_MESSAGING_CLIENT_SENT_MESSAGES, METRIC_MESSAGING_PROCESS_DURATION, METRIC_MESSAGING_PROCESS_MESSAGES, METRIC_MESSAGING_PUBLISH_DURATION, METRIC_MESSAGING_PUBLISH_MESSAGES, METRIC_MESSAGING_RECEIVE_DURATION, METRIC_MESSAGING_RECEIVE_MESSAGES, METRIC_NODEJS_EVENTLOOP_DELAY_MAX, METRIC_NODEJS_EVENTLOOP_DELAY_MEAN, METRIC_NODEJS_EVENTLOOP_DELAY_MIN, METRIC_NODEJS_EVENTLOOP_DELAY_P50, METRIC_NODEJS_EVENTLOOP_DELAY_P90, METRIC_NODEJS_EVENTLOOP_DELAY_P99, METRIC_NODEJS_EVENTLOOP_DELAY_STDDEV, METRIC_NODEJS_EVENTLOOP_TIME, METRIC_NODEJS_EVENTLOOP_UTILIZATION, METRIC_OTEL_SDK_EXPORTER_LOG_EXPORTED, METRIC_OTEL_SDK_EXPORTER_LOG_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_EXPORTED, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_OPERATION_DURATION, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED_COUNT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT_COUNT, METRIC_OTEL_SDK_LOG_CREATED, METRIC_OTEL_SDK_METRIC_READER_COLLECTION_DURATION, METRIC_OTEL_SDK_PROCESSOR_LOG_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_SIZE, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED_COUNT, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_SIZE, METRIC_OTEL_SDK_SPAN_ENDED, METRIC_OTEL_SDK_SPAN_ENDED_COUNT, METRIC_OTEL_SDK_SPAN_LIVE, METRIC_OTEL_SDK_SPAN_LIVE_COUNT, METRIC_PROCESS_CONTEXT_SWITCHES, METRIC_PROCESS_CPU_TIME, METRIC_PROCESS_CPU_UTILIZATION, METRIC_PROCESS_DISK_IO, METRIC_PROCESS_MEMORY_USAGE, METRIC_PROCESS_MEMORY_VIRTUAL, METRIC_PROCESS_NETWORK_IO, METRIC_PROCESS_OPEN_FILE_DESCRIPTOR_COUNT, METRIC_PROCESS_PAGING_FAULTS, METRIC_PROCESS_THREAD_COUNT, METRIC_PROCESS_UPTIME, METRIC_RPC_CLIENT_DURATION, METRIC_RPC_CLIENT_REQUESTS_PER_RPC, METRIC_RPC_CLIENT_REQUEST_SIZE, METRIC_RPC_CLIENT_RESPONSES_PER_RPC, METRIC_RPC_CLIENT_RESPONSE_SIZE, METRIC_RPC_SERVER_DURATION, METRIC_RPC_SERVER_REQUESTS_PER_RPC, METRIC_RPC_SERVER_REQUEST_SIZE, METRIC_RPC_SERVER_RESPONSES_PER_RPC, METRIC_RPC_SERVER_RESPONSE_SIZE, METRIC_SIGNALR_SERVER_ACTIVE_CONNECTIONS, METRIC_SIGNALR_SERVER_CONNECTION_DURATION, METRIC_SYSTEM_CPU_FREQUENCY, METRIC_SYSTEM_CPU_LOGICAL_COUNT, METRIC_SYSTEM_CPU_PHYSICAL_COUNT, METRIC_SYSTEM_CPU_TIME, METRIC_SYSTEM_CPU_UTILIZATION, METRIC_SYSTEM_DISK_IO, METRIC_SYSTEM_DISK_IO_TIME, METRIC_SYSTEM_DISK_LIMIT, METRIC_SYSTEM_DISK_MERGED, METRIC_SYSTEM_DISK_OPERATIONS, METRIC_SYSTEM_DISK_OPERATION_TIME, METRIC_SYSTEM_FILESYSTEM_LIMIT, METRIC_SYSTEM_FILESYSTEM_USAGE, METRIC_SYSTEM_FILESYSTEM_UTILIZATION, METRIC_SYSTEM_LINUX_MEMORY_AVAILABLE, METRIC_SYSTEM_LINUX_MEMORY_SLAB_USAGE, METRIC_SYSTEM_MEMORY_LIMIT, METRIC_SYSTEM_MEMORY_SHARED, METRIC_SYSTEM_MEMORY_USAGE, METRIC_SYSTEM_MEMORY_UTILIZATION, METRIC_SYSTEM_NETWORK_CONNECTIONS, METRIC_SYSTEM_NETWORK_DROPPED, METRIC_SYSTEM_NETWORK_ERRORS, METRIC_SYSTEM_NETWORK_IO, METRIC_SYSTEM_NETWORK_PACKETS, METRIC_SYSTEM_PAGING_FAULTS, METRIC_SYSTEM_PAGING_OPERATIONS, METRIC_SYSTEM_PAGING_USAGE, METRIC_SYSTEM_PAGING_UTILIZATION, METRIC_SYSTEM_PROCESS_COUNT, METRIC_SYSTEM_PROCESS_CREATED, METRIC_SYSTEM_UPTIME, METRIC_V8JS_GC_DURATION, METRIC_V8JS_HEAP_SPACE_AVAILABLE_SIZE, METRIC_V8JS_HEAP_SPACE_PHYSICAL_SIZE, METRIC_V8JS_MEMORY_HEAP_LIMIT, METRIC_V8JS_MEMORY_HEAP_USED, METRIC_VCS_CHANGE_COUNT, METRIC_VCS_CHANGE_DURATION, METRIC_VCS_CHANGE_TIME_TO_APPROVAL, METRIC_VCS_CHANGE_TIME_TO_MERGE, METRIC_VCS_CONTRIBUTOR_COUNT, METRIC_VCS_REF_COUNT, METRIC_VCS_REF_LINES_DELTA, METRIC_VCS_REF_REVISIONS_DELTA, METRIC_VCS_REF_TIME, METRIC_VCS_REPOSITORY_COUNT, MessageTypeValues, MessagingDestinationKindValues, MessagingOperationValues, NETHOSTCONNECTIONSUBTYPEVALUES_CDMA, NETHOSTCONNECTIONSUBTYPEVALUES_CDMA2000_1XRTT, NETHOSTCONNECTIONSUBTYPEVALUES_EDGE, NETHOSTCONNECTIONSUBTYPEVALUES_EHRPD, NETHOSTCONNECTIONSUBTYPEVALUES_EVDO_0, NETHOSTCONNECTIONSUBTYPEVALUES_EVDO_A, NETHOSTCONNECTIONSUBTYPEVALUES_EVDO_B, NETHOSTCONNECTIONSUBTYPEVALUES_GPRS, NETHOSTCONNECTIONSUBTYPEVALUES_GSM, NETHOSTCONNECTIONSUBTYPEVALUES_HSDPA, NETHOSTCONNECTIONSUBTYPEVALUES_HSPA, NETHOSTCONNECTIONSUBTYPEVALUES_HSPAP, NETHOSTCONNECTIONSUBTYPEVALUES_HSUPA, NETHOSTCONNECTIONSUBTYPEVALUES_IDEN, NETHOSTCONNECTIONSUBTYPEVALUES_IWLAN, NETHOSTCONNECTIONSUBTYPEVALUES_LTE, NETHOSTCONNECTIONSUBTYPEVALUES_LTE_CA, NETHOSTCONNECTIONSUBTYPEVALUES_NR, NETHOSTCONNECTIONSUBTYPEVALUES_NRNSA, NETHOSTCONNECTIONSUBTYPEVALUES_TD_SCDMA, NETHOSTCONNECTIONSUBTYPEVALUES_UMTS, NETHOSTCONNECTIONTYPEVALUES_CELL, NETHOSTCONNECTIONTYPEVALUES_UNAVAILABLE, NETHOSTCONNECTIONTYPEVALUES_UNKNOWN, NETHOSTCONNECTIONTYPEVALUES_WIFI, NETHOSTCONNECTIONTYPEVALUES_WIRED, NETTRANSPORTVALUES_INPROC, NETTRANSPORTVALUES_IP, NETTRANSPORTVALUES_IP_TCP, NETTRANSPORTVALUES_IP_UDP, NETTRANSPORTVALUES_OTHER, NETTRANSPORTVALUES_PIPE, NETTRANSPORTVALUES_UNIX, NETWORK_CONNECTION_STATE_VALUE_CLOSED, NETWORK_CONNECTION_STATE_VALUE_CLOSE_WAIT, NETWORK_CONNECTION_STATE_VALUE_CLOSING, NETWORK_CONNECTION_STATE_VALUE_ESTABLISHED, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_1, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_2, NETWORK_CONNECTION_STATE_VALUE_LAST_ACK, NETWORK_CONNECTION_STATE_VALUE_LISTEN, NETWORK_CONNECTION_STATE_VALUE_SYN_RECEIVED, NETWORK_CONNECTION_STATE_VALUE_SYN_SENT, NETWORK_CONNECTION_STATE_VALUE_TIME_WAIT, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA2000_1XRTT, NETWORK_CONNECTION_SUBTYPE_VALUE_EDGE, NETWORK_CONNECTION_SUBTYPE_VALUE_EHRPD, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_0, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_A, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_B, NETWORK_CONNECTION_SUBTYPE_VALUE_GPRS, NETWORK_CONNECTION_SUBTYPE_VALUE_GSM, NETWORK_CONNECTION_SUBTYPE_VALUE_HSDPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPAP, NETWORK_CONNECTION_SUBTYPE_VALUE_HSUPA, NETWORK_CONNECTION_SUBTYPE_VALUE_IDEN, NETWORK_CONNECTION_SUBTYPE_VALUE_IWLAN, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE_CA, NETWORK_CONNECTION_SUBTYPE_VALUE_NR, NETWORK_CONNECTION_SUBTYPE_VALUE_NRNSA, NETWORK_CONNECTION_SUBTYPE_VALUE_TD_SCDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_UMTS, NETWORK_CONNECTION_TYPE_VALUE_CELL, NETWORK_CONNECTION_TYPE_VALUE_UNAVAILABLE, NETWORK_CONNECTION_TYPE_VALUE_UNKNOWN, NETWORK_CONNECTION_TYPE_VALUE_WIFI, NETWORK_CONNECTION_TYPE_VALUE_WIRED, NETWORK_IO_DIRECTION_VALUE_RECEIVE, NETWORK_IO_DIRECTION_VALUE_TRANSMIT, NETWORK_TRANSPORT_VALUE_PIPE, NETWORK_TRANSPORT_VALUE_QUIC, NETWORK_TRANSPORT_VALUE_TCP, NETWORK_TRANSPORT_VALUE_UDP, NETWORK_TRANSPORT_VALUE_UNIX, NETWORK_TYPE_VALUE_IPV4, NETWORK_TYPE_VALUE_IPV6, NET_SOCK_FAMILY_VALUE_INET, NET_SOCK_FAMILY_VALUE_INET6, NET_SOCK_FAMILY_VALUE_UNIX, NET_TRANSPORT_VALUE_INPROC, NET_TRANSPORT_VALUE_IP_TCP, NET_TRANSPORT_VALUE_IP_UDP, NET_TRANSPORT_VALUE_OTHER, NET_TRANSPORT_VALUE_PIPE, NODEJS_EVENTLOOP_STATE_VALUE_ACTIVE, NODEJS_EVENTLOOP_STATE_VALUE_IDLE, NetHostConnectionSubtypeValues, NetHostConnectionTypeValues, NetTransportValues, OPENTRACING_REF_TYPE_VALUE_CHILD_OF, OPENTRACING_REF_TYPE_VALUE_FOLLOWS_FROM, OSTYPEVALUES_AIX, OSTYPEVALUES_DARWIN, OSTYPEVALUES_DRAGONFLYBSD, OSTYPEVALUES_FREEBSD, OSTYPEVALUES_HPUX, OSTYPEVALUES_LINUX, OSTYPEVALUES_NETBSD, OSTYPEVALUES_OPENBSD, OSTYPEVALUES_SOLARIS, OSTYPEVALUES_WINDOWS, OSTYPEVALUES_Z_OS, OS_TYPE_VALUE_AIX, OS_TYPE_VALUE_DARWIN, OS_TYPE_VALUE_DRAGONFLYBSD, OS_TYPE_VALUE_FREEBSD, OS_TYPE_VALUE_HPUX, OS_TYPE_VALUE_LINUX, OS_TYPE_VALUE_NETBSD, OS_TYPE_VALUE_OPENBSD, OS_TYPE_VALUE_SOLARIS, OS_TYPE_VALUE_WINDOWS, OS_TYPE_VALUE_Z_OS, OTEL_COMPONENT_TYPE_VALUE_BATCHING_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_BATCHING_SPAN_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_PERIODIC_METRIC_READER, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_SPAN_PROCESSOR, OTEL_SPAN_SAMPLING_RESULT_VALUE_DROP, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_AND_SAMPLE, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_ONLY, OTEL_STATUS_CODE_VALUE_ERROR, OTEL_STATUS_CODE_VALUE_OK, OsTypeValues, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_INVOLUNTARY, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_VOLUNTARY, PROCESS_CPU_STATE_VALUE_SYSTEM, PROCESS_CPU_STATE_VALUE_USER, PROCESS_CPU_STATE_VALUE_WAIT, PROCESS_PAGING_FAULT_TYPE_VALUE_MAJOR, PROCESS_PAGING_FAULT_TYPE_VALUE_MINOR, PROFILE_FRAME_TYPE_VALUE_BEAM, PROFILE_FRAME_TYPE_VALUE_CPYTHON, PROFILE_FRAME_TYPE_VALUE_DOTNET, PROFILE_FRAME_TYPE_VALUE_GO, PROFILE_FRAME_TYPE_VALUE_JVM, PROFILE_FRAME_TYPE_VALUE_KERNEL, PROFILE_FRAME_TYPE_VALUE_NATIVE, PROFILE_FRAME_TYPE_VALUE_PERL, PROFILE_FRAME_TYPE_VALUE_PHP, PROFILE_FRAME_TYPE_VALUE_RUBY, PROFILE_FRAME_TYPE_VALUE_RUST, PROFILE_FRAME_TYPE_VALUE_V8JS, RPCGRPCSTATUSCODEVALUES_ABORTED, RPCGRPCSTATUSCODEVALUES_ALREADY_EXISTS, RPCGRPCSTATUSCODEVALUES_CANCELLED, RPCGRPCSTATUSCODEVALUES_DATA_LOSS, RPCGRPCSTATUSCODEVALUES_DEADLINE_EXCEEDED, RPCGRPCSTATUSCODEVALUES_FAILED_PRECONDITION, RPCGRPCSTATUSCODEVALUES_INTERNAL, RPCGRPCSTATUSCODEVALUES_INVALID_ARGUMENT, RPCGRPCSTATUSCODEVALUES_NOT_FOUND, RPCGRPCSTATUSCODEVALUES_OK, RPCGRPCSTATUSCODEVALUES_OUT_OF_RANGE, RPCGRPCSTATUSCODEVALUES_PERMISSION_DENIED, RPCGRPCSTATUSCODEVALUES_RESOURCE_EXHAUSTED, RPCGRPCSTATUSCODEVALUES_UNAUTHENTICATED, RPCGRPCSTATUSCODEVALUES_UNAVAILABLE, RPCGRPCSTATUSCODEVALUES_UNIMPLEMENTED, RPCGRPCSTATUSCODEVALUES_UNKNOWN, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ABORTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ALREADY_EXISTS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_CANCELLED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DATA_LOSS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DEADLINE_EXCEEDED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_FAILED_PRECONDITION, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INTERNAL, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INVALID_ARGUMENT, RPC_CONNECT_RPC_ERROR_CODE_VALUE_NOT_FOUND, RPC_CONNECT_RPC_ERROR_CODE_VALUE_OUT_OF_RANGE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_PERMISSION_DENIED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAUTHENTICATED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAVAILABLE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNIMPLEMENTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNKNOWN, RPC_GRPC_STATUS_CODE_VALUE_ABORTED, RPC_GRPC_STATUS_CODE_VALUE_ALREADY_EXISTS, RPC_GRPC_STATUS_CODE_VALUE_CANCELLED, RPC_GRPC_STATUS_CODE_VALUE_DATA_LOSS, RPC_GRPC_STATUS_CODE_VALUE_DEADLINE_EXCEEDED, RPC_GRPC_STATUS_CODE_VALUE_FAILED_PRECONDITION, RPC_GRPC_STATUS_CODE_VALUE_INTERNAL, RPC_GRPC_STATUS_CODE_VALUE_INVALID_ARGUMENT, RPC_GRPC_STATUS_CODE_VALUE_NOT_FOUND, RPC_GRPC_STATUS_CODE_VALUE_OK, RPC_GRPC_STATUS_CODE_VALUE_OUT_OF_RANGE, RPC_GRPC_STATUS_CODE_VALUE_PERMISSION_DENIED, RPC_GRPC_STATUS_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_GRPC_STATUS_CODE_VALUE_UNAUTHENTICATED, RPC_GRPC_STATUS_CODE_VALUE_UNAVAILABLE, RPC_GRPC_STATUS_CODE_VALUE_UNIMPLEMENTED, RPC_GRPC_STATUS_CODE_VALUE_UNKNOWN, RPC_MESSAGE_TYPE_VALUE_RECEIVED, RPC_MESSAGE_TYPE_VALUE_SENT, RPC_SYSTEM_VALUE_APACHE_DUBBO, RPC_SYSTEM_VALUE_CONNECT_RPC, RPC_SYSTEM_VALUE_DOTNET_WCF, RPC_SYSTEM_VALUE_GRPC, RPC_SYSTEM_VALUE_JAVA_RMI, RpcGrpcStatusCodeValues, SEMATTRS_AWS_DYNAMODB_ATTRIBUTES_TO_GET, SEMATTRS_AWS_DYNAMODB_ATTRIBUTE_DEFINITIONS, SEMATTRS_AWS_DYNAMODB_CONSISTENT_READ, SEMATTRS_AWS_DYNAMODB_CONSUMED_CAPACITY, SEMATTRS_AWS_DYNAMODB_COUNT, SEMATTRS_AWS_DYNAMODB_EXCLUSIVE_START_TABLE, SEMATTRS_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEXES, SEMATTRS_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEX_UPDATES, SEMATTRS_AWS_DYNAMODB_INDEX_NAME, SEMATTRS_AWS_DYNAMODB_ITEM_COLLECTION_METRICS, SEMATTRS_AWS_DYNAMODB_LIMIT, SEMATTRS_AWS_DYNAMODB_LOCAL_SECONDARY_INDEXES, SEMATTRS_AWS_DYNAMODB_PROJECTION, SEMATTRS_AWS_DYNAMODB_PROVISIONED_READ_CAPACITY, SEMATTRS_AWS_DYNAMODB_PROVISIONED_WRITE_CAPACITY, SEMATTRS_AWS_DYNAMODB_SCANNED_COUNT, SEMATTRS_AWS_DYNAMODB_SCAN_FORWARD, SEMATTRS_AWS_DYNAMODB_SEGMENT, SEMATTRS_AWS_DYNAMODB_SELECT, SEMATTRS_AWS_DYNAMODB_TABLE_COUNT, SEMATTRS_AWS_DYNAMODB_TABLE_NAMES, SEMATTRS_AWS_DYNAMODB_TOTAL_SEGMENTS, SEMATTRS_AWS_LAMBDA_INVOKED_ARN, SEMATTRS_CODE_FILEPATH, SEMATTRS_CODE_FUNCTION, SEMATTRS_CODE_LINENO, SEMATTRS_CODE_NAMESPACE, SEMATTRS_DB_CASSANDRA_CONSISTENCY_LEVEL, SEMATTRS_DB_CASSANDRA_COORDINATOR_DC, SEMATTRS_DB_CASSANDRA_COORDINATOR_ID, SEMATTRS_DB_CASSANDRA_IDEMPOTENCE, SEMATTRS_DB_CASSANDRA_KEYSPACE, SEMATTRS_DB_CASSANDRA_PAGE_SIZE, SEMATTRS_DB_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, SEMATTRS_DB_CASSANDRA_TABLE, SEMATTRS_DB_CONNECTION_STRING, SEMATTRS_DB_HBASE_NAMESPACE, SEMATTRS_DB_JDBC_DRIVER_CLASSNAME, SEMATTRS_DB_MONGODB_COLLECTION, SEMATTRS_DB_MSSQL_INSTANCE_NAME, SEMATTRS_DB_NAME, SEMATTRS_DB_OPERATION, SEMATTRS_DB_REDIS_DATABASE_INDEX, SEMATTRS_DB_SQL_TABLE, SEMATTRS_DB_STATEMENT, SEMATTRS_DB_SYSTEM, SEMATTRS_DB_USER, SEMATTRS_ENDUSER_ID, SEMATTRS_ENDUSER_ROLE, SEMATTRS_ENDUSER_SCOPE, SEMATTRS_EXCEPTION_ESCAPED, SEMATTRS_EXCEPTION_MESSAGE, SEMATTRS_EXCEPTION_STACKTRACE, SEMATTRS_EXCEPTION_TYPE, SEMATTRS_FAAS_COLDSTART, SEMATTRS_FAAS_CRON, SEMATTRS_FAAS_DOCUMENT_COLLECTION, SEMATTRS_FAAS_DOCUMENT_NAME, SEMATTRS_FAAS_DOCUMENT_OPERATION, SEMATTRS_FAAS_DOCUMENT_TIME, SEMATTRS_FAAS_EXECUTION, SEMATTRS_FAAS_INVOKED_NAME, SEMATTRS_FAAS_INVOKED_PROVIDER, SEMATTRS_FAAS_INVOKED_REGION, SEMATTRS_FAAS_TIME, SEMATTRS_FAAS_TRIGGER, SEMATTRS_HTTP_CLIENT_IP, SEMATTRS_HTTP_FLAVOR, SEMATTRS_HTTP_HOST, SEMATTRS_HTTP_METHOD, SEMATTRS_HTTP_REQUEST_CONTENT_LENGTH, SEMATTRS_HTTP_REQUEST_CONTENT_LENGTH_UNCOMPRESSED, SEMATTRS_HTTP_RESPONSE_CONTENT_LENGTH, SEMATTRS_HTTP_RESPONSE_CONTENT_LENGTH_UNCOMPRESSED, SEMATTRS_HTTP_ROUTE, SEMATTRS_HTTP_SCHEME, SEMATTRS_HTTP_SERVER_NAME, SEMATTRS_HTTP_STATUS_CODE, SEMATTRS_HTTP_TARGET, SEMATTRS_HTTP_URL, SEMATTRS_HTTP_USER_AGENT, SEMATTRS_MESSAGE_COMPRESSED_SIZE, SEMATTRS_MESSAGE_ID, SEMATTRS_MESSAGE_TYPE, SEMATTRS_MESSAGE_UNCOMPRESSED_SIZE, SEMATTRS_MESSAGING_CONSUMER_ID, SEMATTRS_MESSAGING_CONVERSATION_ID, SEMATTRS_MESSAGING_DESTINATION, SEMATTRS_MESSAGING_DESTINATION_KIND, SEMATTRS_MESSAGING_KAFKA_CLIENT_ID, SEMATTRS_MESSAGING_KAFKA_CONSUMER_GROUP, SEMATTRS_MESSAGING_KAFKA_MESSAGE_KEY, SEMATTRS_MESSAGING_KAFKA_PARTITION, SEMATTRS_MESSAGING_KAFKA_TOMBSTONE, SEMATTRS_MESSAGING_MESSAGE_ID, SEMATTRS_MESSAGING_MESSAGE_PAYLOAD_COMPRESSED_SIZE_BYTES, SEMATTRS_MESSAGING_MESSAGE_PAYLOAD_SIZE_BYTES, SEMATTRS_MESSAGING_OPERATION, SEMATTRS_MESSAGING_PROTOCOL, SEMATTRS_MESSAGING_PROTOCOL_VERSION, SEMATTRS_MESSAGING_RABBITMQ_ROUTING_KEY, SEMATTRS_MESSAGING_SYSTEM, SEMATTRS_MESSAGING_TEMP_DESTINATION, SEMATTRS_MESSAGING_URL, SEMATTRS_NET_HOST_CARRIER_ICC, SEMATTRS_NET_HOST_CARRIER_MCC, SEMATTRS_NET_HOST_CARRIER_MNC, SEMATTRS_NET_HOST_CARRIER_NAME, SEMATTRS_NET_HOST_CONNECTION_SUBTYPE, SEMATTRS_NET_HOST_CONNECTION_TYPE, SEMATTRS_NET_HOST_IP, SEMATTRS_NET_HOST_NAME, SEMATTRS_NET_HOST_PORT, SEMATTRS_NET_PEER_IP, SEMATTRS_NET_PEER_NAME, SEMATTRS_NET_PEER_PORT, SEMATTRS_NET_TRANSPORT, SEMATTRS_PEER_SERVICE, SEMATTRS_RPC_GRPC_STATUS_CODE, SEMATTRS_RPC_JSONRPC_ERROR_CODE, SEMATTRS_RPC_JSONRPC_ERROR_MESSAGE, SEMATTRS_RPC_JSONRPC_REQUEST_ID, SEMATTRS_RPC_JSONRPC_VERSION, SEMATTRS_RPC_METHOD, SEMATTRS_RPC_SERVICE, SEMATTRS_RPC_SYSTEM, SEMATTRS_THREAD_ID, SEMATTRS_THREAD_NAME, SEMRESATTRS_AWS_ECS_CLUSTER_ARN, SEMRESATTRS_AWS_ECS_CONTAINER_ARN, SEMRESATTRS_AWS_ECS_LAUNCHTYPE, SEMRESATTRS_AWS_ECS_TASK_ARN, SEMRESATTRS_AWS_ECS_TASK_FAMILY, SEMRESATTRS_AWS_ECS_TASK_REVISION, SEMRESATTRS_AWS_EKS_CLUSTER_ARN, SEMRESATTRS_AWS_LOG_GROUP_ARNS, SEMRESATTRS_AWS_LOG_GROUP_NAMES, SEMRESATTRS_AWS_LOG_STREAM_ARNS, SEMRESATTRS_AWS_LOG_STREAM_NAMES, SEMRESATTRS_CLOUD_ACCOUNT_ID, SEMRESATTRS_CLOUD_AVAILABILITY_ZONE, SEMRESATTRS_CLOUD_PLATFORM, SEMRESATTRS_CLOUD_PROVIDER, SEMRESATTRS_CLOUD_REGION, SEMRESATTRS_CONTAINER_ID, SEMRESATTRS_CONTAINER_IMAGE_NAME, SEMRESATTRS_CONTAINER_IMAGE_TAG, SEMRESATTRS_CONTAINER_NAME, SEMRESATTRS_CONTAINER_RUNTIME, SEMRESATTRS_DEPLOYMENT_ENVIRONMENT, SEMRESATTRS_DEVICE_ID, SEMRESATTRS_DEVICE_MODEL_IDENTIFIER, SEMRESATTRS_DEVICE_MODEL_NAME, SEMRESATTRS_FAAS_ID, SEMRESATTRS_FAAS_INSTANCE, SEMRESATTRS_FAAS_MAX_MEMORY, SEMRESATTRS_FAAS_NAME, SEMRESATTRS_FAAS_VERSION, SEMRESATTRS_HOST_ARCH, SEMRESATTRS_HOST_ID, SEMRESATTRS_HOST_IMAGE_ID, SEMRESATTRS_HOST_IMAGE_NAME, SEMRESATTRS_HOST_IMAGE_VERSION, SEMRESATTRS_HOST_NAME, SEMRESATTRS_HOST_TYPE, SEMRESATTRS_K8S_CLUSTER_NAME, SEMRESATTRS_K8S_CONTAINER_NAME, SEMRESATTRS_K8S_CRONJOB_NAME, SEMRESATTRS_K8S_CRONJOB_UID, SEMRESATTRS_K8S_DAEMONSET_NAME, SEMRESATTRS_K8S_DAEMONSET_UID, SEMRESATTRS_K8S_DEPLOYMENT_NAME, SEMRESATTRS_K8S_DEPLOYMENT_UID, SEMRESATTRS_K8S_JOB_NAME, SEMRESATTRS_K8S_JOB_UID, SEMRESATTRS_K8S_NAMESPACE_NAME, SEMRESATTRS_K8S_NODE_NAME, SEMRESATTRS_K8S_NODE_UID, SEMRESATTRS_K8S_POD_NAME, SEMRESATTRS_K8S_POD_UID, SEMRESATTRS_K8S_REPLICASET_NAME, SEMRESATTRS_K8S_REPLICASET_UID, SEMRESATTRS_K8S_STATEFULSET_NAME, SEMRESATTRS_K8S_STATEFULSET_UID, SEMRESATTRS_OS_DESCRIPTION, SEMRESATTRS_OS_NAME, SEMRESATTRS_OS_TYPE, SEMRESATTRS_OS_VERSION, SEMRESATTRS_PROCESS_COMMAND, SEMRESATTRS_PROCESS_COMMAND_ARGS, SEMRESATTRS_PROCESS_COMMAND_LINE, SEMRESATTRS_PROCESS_EXECUTABLE_NAME, SEMRESATTRS_PROCESS_EXECUTABLE_PATH, SEMRESATTRS_PROCESS_OWNER, SEMRESATTRS_PROCESS_PID, SEMRESATTRS_PROCESS_RUNTIME_DESCRIPTION, SEMRESATTRS_PROCESS_RUNTIME_NAME, SEMRESATTRS_PROCESS_RUNTIME_VERSION, SEMRESATTRS_SERVICE_INSTANCE_ID, SEMRESATTRS_SERVICE_NAME, SEMRESATTRS_SERVICE_NAMESPACE, SEMRESATTRS_SERVICE_VERSION, SEMRESATTRS_TELEMETRY_AUTO_VERSION, SEMRESATTRS_TELEMETRY_SDK_LANGUAGE, SEMRESATTRS_TELEMETRY_SDK_NAME, SEMRESATTRS_TELEMETRY_SDK_VERSION, SEMRESATTRS_WEBENGINE_DESCRIPTION, SEMRESATTRS_WEBENGINE_NAME, SEMRESATTRS_WEBENGINE_VERSION, SIGNALR_CONNECTION_STATUS_VALUE_APP_SHUTDOWN, SIGNALR_CONNECTION_STATUS_VALUE_NORMAL_CLOSURE, SIGNALR_CONNECTION_STATUS_VALUE_TIMEOUT, SIGNALR_TRANSPORT_VALUE_LONG_POLLING, SIGNALR_TRANSPORT_VALUE_SERVER_SENT_EVENTS, SIGNALR_TRANSPORT_VALUE_WEB_SOCKETS, STATE_VALUE_IDLE, STATE_VALUE_USED, SYSTEM_CPU_STATE_VALUE_IDLE, SYSTEM_CPU_STATE_VALUE_INTERRUPT, SYSTEM_CPU_STATE_VALUE_IOWAIT, SYSTEM_CPU_STATE_VALUE_NICE, SYSTEM_CPU_STATE_VALUE_STEAL, SYSTEM_CPU_STATE_VALUE_SYSTEM, SYSTEM_CPU_STATE_VALUE_USER, SYSTEM_FILESYSTEM_STATE_VALUE_FREE, SYSTEM_FILESYSTEM_STATE_VALUE_RESERVED, SYSTEM_FILESYSTEM_STATE_VALUE_USED, SYSTEM_FILESYSTEM_TYPE_VALUE_EXFAT, SYSTEM_FILESYSTEM_TYPE_VALUE_EXT4, SYSTEM_FILESYSTEM_TYPE_VALUE_FAT32, SYSTEM_FILESYSTEM_TYPE_VALUE_HFSPLUS, SYSTEM_FILESYSTEM_TYPE_VALUE_NTFS, SYSTEM_FILESYSTEM_TYPE_VALUE_REFS, SYSTEM_MEMORY_STATE_VALUE_BUFFERS, SYSTEM_MEMORY_STATE_VALUE_CACHED, SYSTEM_MEMORY_STATE_VALUE_FREE, SYSTEM_MEMORY_STATE_VALUE_SHARED, SYSTEM_MEMORY_STATE_VALUE_USED, SYSTEM_NETWORK_STATE_VALUE_CLOSE, SYSTEM_NETWORK_STATE_VALUE_CLOSE_WAIT, SYSTEM_NETWORK_STATE_VALUE_CLOSING, SYSTEM_NETWORK_STATE_VALUE_DELETE, SYSTEM_NETWORK_STATE_VALUE_ESTABLISHED, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_1, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_2, SYSTEM_NETWORK_STATE_VALUE_LAST_ACK, SYSTEM_NETWORK_STATE_VALUE_LISTEN, SYSTEM_NETWORK_STATE_VALUE_SYN_RECV, SYSTEM_NETWORK_STATE_VALUE_SYN_SENT, SYSTEM_NETWORK_STATE_VALUE_TIME_WAIT, SYSTEM_PAGING_DIRECTION_VALUE_IN, SYSTEM_PAGING_DIRECTION_VALUE_OUT, SYSTEM_PAGING_STATE_VALUE_FREE, SYSTEM_PAGING_STATE_VALUE_USED, SYSTEM_PAGING_TYPE_VALUE_MAJOR, SYSTEM_PAGING_TYPE_VALUE_MINOR, SYSTEM_PROCESSES_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESSES_STATUS_VALUE_RUNNING, SYSTEM_PROCESSES_STATUS_VALUE_SLEEPING, SYSTEM_PROCESSES_STATUS_VALUE_STOPPED, SYSTEM_PROCESS_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESS_STATUS_VALUE_RUNNING, SYSTEM_PROCESS_STATUS_VALUE_SLEEPING, SYSTEM_PROCESS_STATUS_VALUE_STOPPED, SemanticAttributes, SemanticResourceAttributes, TELEMETRYSDKLANGUAGEVALUES_CPP, TELEMETRYSDKLANGUAGEVALUES_DOTNET, TELEMETRYSDKLANGUAGEVALUES_ERLANG, TELEMETRYSDKLANGUAGEVALUES_GO, TELEMETRYSDKLANGUAGEVALUES_JAVA, TELEMETRYSDKLANGUAGEVALUES_NODEJS, TELEMETRYSDKLANGUAGEVALUES_PHP, TELEMETRYSDKLANGUAGEVALUES_PYTHON, TELEMETRYSDKLANGUAGEVALUES_RUBY, TELEMETRYSDKLANGUAGEVALUES_WEBJS, TELEMETRY_SDK_LANGUAGE_VALUE_CPP, TELEMETRY_SDK_LANGUAGE_VALUE_DOTNET, TELEMETRY_SDK_LANGUAGE_VALUE_ERLANG, TELEMETRY_SDK_LANGUAGE_VALUE_GO, TELEMETRY_SDK_LANGUAGE_VALUE_JAVA, TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS, TELEMETRY_SDK_LANGUAGE_VALUE_PHP, TELEMETRY_SDK_LANGUAGE_VALUE_PYTHON, TELEMETRY_SDK_LANGUAGE_VALUE_RUBY, TELEMETRY_SDK_LANGUAGE_VALUE_RUST, TELEMETRY_SDK_LANGUAGE_VALUE_SWIFT, TELEMETRY_SDK_LANGUAGE_VALUE_WEBJS, TEST_CASE_RESULT_STATUS_VALUE_FAIL, TEST_CASE_RESULT_STATUS_VALUE_PASS, TEST_SUITE_RUN_STATUS_VALUE_ABORTED, TEST_SUITE_RUN_STATUS_VALUE_FAILURE, TEST_SUITE_RUN_STATUS_VALUE_IN_PROGRESS, TEST_SUITE_RUN_STATUS_VALUE_SKIPPED, TEST_SUITE_RUN_STATUS_VALUE_SUCCESS, TEST_SUITE_RUN_STATUS_VALUE_TIMED_OUT, TLS_PROTOCOL_NAME_VALUE_SSL, TLS_PROTOCOL_NAME_VALUE_TLS, TelemetrySdkLanguageValues, USER_AGENT_SYNTHETIC_TYPE_VALUE_BOT, USER_AGENT_SYNTHETIC_TYPE_VALUE_TEST, V8JS_GC_TYPE_VALUE_INCREMENTAL, V8JS_GC_TYPE_VALUE_MAJOR, V8JS_GC_TYPE_VALUE_MINOR, V8JS_GC_TYPE_VALUE_WEAKCB, V8JS_HEAP_SPACE_NAME_VALUE_CODE_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_LARGE_OBJECT_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_MAP_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_NEW_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_OLD_SPACE, VCS_CHANGE_STATE_VALUE_CLOSED, VCS_CHANGE_STATE_VALUE_MERGED, VCS_CHANGE_STATE_VALUE_OPEN, VCS_CHANGE_STATE_VALUE_WIP, VCS_LINE_CHANGE_TYPE_VALUE_ADDED, VCS_LINE_CHANGE_TYPE_VALUE_REMOVED, VCS_PROVIDER_NAME_VALUE_BITBUCKET, VCS_PROVIDER_NAME_VALUE_GITEA, VCS_PROVIDER_NAME_VALUE_GITHUB, VCS_PROVIDER_NAME_VALUE_GITLAB, VCS_PROVIDER_NAME_VALUE_GITTEA, VCS_REF_BASE_TYPE_VALUE_BRANCH, VCS_REF_BASE_TYPE_VALUE_TAG, VCS_REF_HEAD_TYPE_VALUE_BRANCH, VCS_REF_HEAD_TYPE_VALUE_TAG, VCS_REF_TYPE_VALUE_BRANCH, VCS_REF_TYPE_VALUE_TAG, VCS_REPOSITORY_REF_TYPE_VALUE_BRANCH, VCS_REPOSITORY_REF_TYPE_VALUE_TAG, VCS_REVISION_DELTA_DIRECTION_VALUE_AHEAD, VCS_REVISION_DELTA_DIRECTION_VALUE_BEHIND };
+export { ANDROID_APP_STATE_VALUE_BACKGROUND, ANDROID_APP_STATE_VALUE_CREATED, ANDROID_APP_STATE_VALUE_FOREGROUND, ANDROID_STATE_VALUE_BACKGROUND, ANDROID_STATE_VALUE_CREATED, ANDROID_STATE_VALUE_FOREGROUND, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_ABORTED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_HANDLED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_SKIPPED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_UNHANDLED, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ACQUIRED, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ENDPOINT_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_GLOBAL_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_REQUEST_CANCELED, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_FAILURE, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_SUCCESS, ATTR_ANDROID_APP_STATE, ATTR_ANDROID_OS_API_LEVEL, ATTR_ANDROID_STATE, ATTR_APP_INSTALLATION_ID, ATTR_APP_SCREEN_COORDINATE_X, ATTR_APP_SCREEN_COORDINATE_Y, ATTR_APP_WIDGET_ID, ATTR_APP_WIDGET_NAME, ATTR_ARTIFACT_ATTESTATION_FILENAME, ATTR_ARTIFACT_ATTESTATION_HASH, ATTR_ARTIFACT_ATTESTATION_ID, ATTR_ARTIFACT_FILENAME, ATTR_ARTIFACT_HASH, ATTR_ARTIFACT_PURL, ATTR_ARTIFACT_VERSION, ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT, ATTR_ASPNETCORE_DIAGNOSTICS_HANDLER_TYPE, ATTR_ASPNETCORE_RATE_LIMITING_POLICY, ATTR_ASPNETCORE_RATE_LIMITING_RESULT, ATTR_ASPNETCORE_REQUEST_IS_UNHANDLED, ATTR_ASPNETCORE_ROUTING_IS_FALLBACK, ATTR_ASPNETCORE_ROUTING_MATCH_STATUS, ATTR_AWS_BEDROCK_GUARDRAIL_ID, ATTR_AWS_BEDROCK_KNOWLEDGE_BASE_ID, ATTR_AWS_DYNAMODB_ATTRIBUTES_TO_GET, ATTR_AWS_DYNAMODB_ATTRIBUTE_DEFINITIONS, ATTR_AWS_DYNAMODB_CONSISTENT_READ, ATTR_AWS_DYNAMODB_CONSUMED_CAPACITY, ATTR_AWS_DYNAMODB_COUNT, ATTR_AWS_DYNAMODB_EXCLUSIVE_START_TABLE, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEX_UPDATES, ATTR_AWS_DYNAMODB_INDEX_NAME, ATTR_AWS_DYNAMODB_ITEM_COLLECTION_METRICS, ATTR_AWS_DYNAMODB_LIMIT, ATTR_AWS_DYNAMODB_LOCAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_PROJECTION, ATTR_AWS_DYNAMODB_PROVISIONED_READ_CAPACITY, ATTR_AWS_DYNAMODB_PROVISIONED_WRITE_CAPACITY, ATTR_AWS_DYNAMODB_SCANNED_COUNT, ATTR_AWS_DYNAMODB_SCAN_FORWARD, ATTR_AWS_DYNAMODB_SEGMENT, ATTR_AWS_DYNAMODB_SELECT, ATTR_AWS_DYNAMODB_TABLE_COUNT, ATTR_AWS_DYNAMODB_TABLE_NAMES, ATTR_AWS_DYNAMODB_TOTAL_SEGMENTS, ATTR_AWS_ECS_CLUSTER_ARN, ATTR_AWS_ECS_CONTAINER_ARN, ATTR_AWS_ECS_LAUNCHTYPE, ATTR_AWS_ECS_TASK_ARN, ATTR_AWS_ECS_TASK_FAMILY, ATTR_AWS_ECS_TASK_ID, ATTR_AWS_ECS_TASK_REVISION, ATTR_AWS_EKS_CLUSTER_ARN, ATTR_AWS_EXTENDED_REQUEST_ID, ATTR_AWS_KINESIS_STREAM_NAME, ATTR_AWS_LAMBDA_INVOKED_ARN, ATTR_AWS_LAMBDA_RESOURCE_MAPPING_ID, ATTR_AWS_LOG_GROUP_ARNS, ATTR_AWS_LOG_GROUP_NAMES, ATTR_AWS_LOG_STREAM_ARNS, ATTR_AWS_LOG_STREAM_NAMES, ATTR_AWS_REQUEST_ID, ATTR_AWS_S3_BUCKET, ATTR_AWS_S3_COPY_SOURCE, ATTR_AWS_S3_DELETE, ATTR_AWS_S3_KEY, ATTR_AWS_S3_PART_NUMBER, ATTR_AWS_S3_UPLOAD_ID, ATTR_AWS_SECRETSMANAGER_SECRET_ARN, ATTR_AWS_SNS_TOPIC_ARN, ATTR_AWS_SQS_QUEUE_URL, ATTR_AWS_STEP_FUNCTIONS_ACTIVITY_ARN, ATTR_AWS_STEP_FUNCTIONS_STATE_MACHINE_ARN, ATTR_AZURE_CLIENT_ID, ATTR_AZURE_COSMOSDB_CONNECTION_MODE, ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL, ATTR_AZURE_COSMOSDB_OPERATION_CONTACTED_REGIONS, ATTR_AZURE_COSMOSDB_OPERATION_REQUEST_CHARGE, ATTR_AZURE_COSMOSDB_REQUEST_BODY_SIZE, ATTR_AZURE_COSMOSDB_RESPONSE_SUB_STATUS_CODE, ATTR_AZ_NAMESPACE, ATTR_AZ_SERVICE_REQUEST_ID, ATTR_BROWSER_BRANDS, ATTR_BROWSER_LANGUAGE, ATTR_BROWSER_MOBILE, ATTR_BROWSER_PLATFORM, ATTR_CASSANDRA_CONSISTENCY_LEVEL, ATTR_CASSANDRA_COORDINATOR_DC, ATTR_CASSANDRA_COORDINATOR_ID, ATTR_CASSANDRA_PAGE_SIZE, ATTR_CASSANDRA_QUERY_IDEMPOTENT, ATTR_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_CICD_PIPELINE_ACTION_NAME, ATTR_CICD_PIPELINE_NAME, ATTR_CICD_PIPELINE_RESULT, ATTR_CICD_PIPELINE_RUN_ID, ATTR_CICD_PIPELINE_RUN_STATE, ATTR_CICD_PIPELINE_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_NAME, ATTR_CICD_PIPELINE_TASK_RUN_ID, ATTR_CICD_PIPELINE_TASK_RUN_RESULT, ATTR_CICD_PIPELINE_TASK_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_TYPE, ATTR_CICD_SYSTEM_COMPONENT, ATTR_CICD_WORKER_ID, ATTR_CICD_WORKER_NAME, ATTR_CICD_WORKER_STATE, ATTR_CICD_WORKER_URL_FULL, ATTR_CLIENT_ADDRESS, ATTR_CLIENT_PORT, ATTR_CLOUDEVENTS_EVENT_ID, ATTR_CLOUDEVENTS_EVENT_SOURCE, ATTR_CLOUDEVENTS_EVENT_SPEC_VERSION, ATTR_CLOUDEVENTS_EVENT_SUBJECT, ATTR_CLOUDEVENTS_EVENT_TYPE, ATTR_CLOUDFOUNDRY_APP_ID, ATTR_CLOUDFOUNDRY_APP_INSTANCE_ID, ATTR_CLOUDFOUNDRY_APP_NAME, ATTR_CLOUDFOUNDRY_ORG_ID, ATTR_CLOUDFOUNDRY_ORG_NAME, ATTR_CLOUDFOUNDRY_PROCESS_ID, ATTR_CLOUDFOUNDRY_PROCESS_TYPE, ATTR_CLOUDFOUNDRY_SPACE_ID, ATTR_CLOUDFOUNDRY_SPACE_NAME, ATTR_CLOUDFOUNDRY_SYSTEM_ID, ATTR_CLOUDFOUNDRY_SYSTEM_INSTANCE_ID, ATTR_CLOUD_ACCOUNT_ID, ATTR_CLOUD_AVAILABILITY_ZONE, ATTR_CLOUD_PLATFORM, ATTR_CLOUD_PROVIDER, ATTR_CLOUD_REGION, ATTR_CLOUD_RESOURCE_ID, ATTR_CODE_COLUMN, ATTR_CODE_COLUMN_NUMBER, ATTR_CODE_FILEPATH, ATTR_CODE_FILE_PATH, ATTR_CODE_FUNCTION, ATTR_CODE_FUNCTION_NAME, ATTR_CODE_LINENO, ATTR_CODE_LINE_NUMBER, ATTR_CODE_NAMESPACE, ATTR_CODE_STACKTRACE, ATTR_CONTAINER_COMMAND, ATTR_CONTAINER_COMMAND_ARGS, ATTR_CONTAINER_COMMAND_LINE, ATTR_CONTAINER_CPU_STATE, ATTR_CONTAINER_CSI_PLUGIN_NAME, ATTR_CONTAINER_CSI_VOLUME_ID, ATTR_CONTAINER_ID, ATTR_CONTAINER_IMAGE_ID, ATTR_CONTAINER_IMAGE_NAME, ATTR_CONTAINER_IMAGE_REPO_DIGESTS, ATTR_CONTAINER_IMAGE_TAGS, ATTR_CONTAINER_LABEL, ATTR_CONTAINER_LABELS, ATTR_CONTAINER_NAME, ATTR_CONTAINER_RUNTIME, ATTR_CPU_LOGICAL_NUMBER, ATTR_CPU_MODE, ATTR_CPYTHON_GC_GENERATION, ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL, ATTR_DB_CASSANDRA_COORDINATOR_DC, ATTR_DB_CASSANDRA_COORDINATOR_ID, ATTR_DB_CASSANDRA_IDEMPOTENCE, ATTR_DB_CASSANDRA_PAGE_SIZE, ATTR_DB_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_DB_CASSANDRA_TABLE, ATTR_DB_CLIENT_CONNECTIONS_POOL_NAME, ATTR_DB_CLIENT_CONNECTIONS_STATE, ATTR_DB_CLIENT_CONNECTION_POOL_NAME, ATTR_DB_CLIENT_CONNECTION_STATE, ATTR_DB_COLLECTION_NAME, ATTR_DB_CONNECTION_STRING, ATTR_DB_COSMOSDB_CLIENT_ID, ATTR_DB_COSMOSDB_CONNECTION_MODE, ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL, ATTR_DB_COSMOSDB_CONTAINER, ATTR_DB_COSMOSDB_OPERATION_TYPE, ATTR_DB_COSMOSDB_REGIONS_CONTACTED, ATTR_DB_COSMOSDB_REQUEST_CHARGE, ATTR_DB_COSMOSDB_REQUEST_CONTENT_LENGTH, ATTR_DB_COSMOSDB_STATUS_CODE, ATTR_DB_COSMOSDB_SUB_STATUS_CODE, ATTR_DB_ELASTICSEARCH_CLUSTER_NAME, ATTR_DB_ELASTICSEARCH_NODE_NAME, ATTR_DB_ELASTICSEARCH_PATH_PARTS, ATTR_DB_INSTANCE_ID, ATTR_DB_JDBC_DRIVER_CLASSNAME, ATTR_DB_MONGODB_COLLECTION, ATTR_DB_MSSQL_INSTANCE_NAME, ATTR_DB_NAME, ATTR_DB_NAMESPACE, ATTR_DB_OPERATION, ATTR_DB_OPERATION_BATCH_SIZE, ATTR_DB_OPERATION_NAME, ATTR_DB_OPERATION_PARAMETER, ATTR_DB_QUERY_PARAMETER, ATTR_DB_QUERY_SUMMARY, ATTR_DB_QUERY_TEXT, ATTR_DB_REDIS_DATABASE_INDEX, ATTR_DB_RESPONSE_RETURNED_ROWS, ATTR_DB_RESPONSE_STATUS_CODE, ATTR_DB_SQL_TABLE, ATTR_DB_STATEMENT, ATTR_DB_STORED_PROCEDURE_NAME, ATTR_DB_SYSTEM, ATTR_DB_SYSTEM_NAME, ATTR_DB_USER, ATTR_DEPLOYMENT_ENVIRONMENT, ATTR_DEPLOYMENT_ENVIRONMENT_NAME, ATTR_DEPLOYMENT_ID, ATTR_DEPLOYMENT_NAME, ATTR_DEPLOYMENT_STATUS, ATTR_DESTINATION_ADDRESS, ATTR_DESTINATION_PORT, ATTR_DEVICE_ID, ATTR_DEVICE_MANUFACTURER, ATTR_DEVICE_MODEL_IDENTIFIER, ATTR_DEVICE_MODEL_NAME, ATTR_DISK_IO_DIRECTION, ATTR_DNS_QUESTION_NAME, ATTR_DOTNET_GC_HEAP_GENERATION, ATTR_ELASTICSEARCH_NODE_NAME, ATTR_ENDUSER_ID, ATTR_ENDUSER_PSEUDO_ID, ATTR_ENDUSER_ROLE, ATTR_ENDUSER_SCOPE, ATTR_ERROR_MESSAGE, ATTR_ERROR_TYPE, ATTR_EVENT_NAME, ATTR_EXCEPTION_ESCAPED, ATTR_EXCEPTION_MESSAGE, ATTR_EXCEPTION_STACKTRACE, ATTR_EXCEPTION_TYPE, ATTR_FAAS_COLDSTART, ATTR_FAAS_CRON, ATTR_FAAS_DOCUMENT_COLLECTION, ATTR_FAAS_DOCUMENT_NAME, ATTR_FAAS_DOCUMENT_OPERATION, ATTR_FAAS_DOCUMENT_TIME, ATTR_FAAS_INSTANCE, ATTR_FAAS_INVOCATION_ID, ATTR_FAAS_INVOKED_NAME, ATTR_FAAS_INVOKED_PROVIDER, ATTR_FAAS_INVOKED_REGION, ATTR_FAAS_MAX_MEMORY, ATTR_FAAS_NAME, ATTR_FAAS_TIME, ATTR_FAAS_TRIGGER, ATTR_FAAS_VERSION, ATTR_FEATURE_FLAG_CONTEXT_ID, ATTR_FEATURE_FLAG_EVALUATION_ERROR_MESSAGE, ATTR_FEATURE_FLAG_EVALUATION_REASON, ATTR_FEATURE_FLAG_KEY, ATTR_FEATURE_FLAG_PROVIDER_NAME, ATTR_FEATURE_FLAG_RESULT_REASON, ATTR_FEATURE_FLAG_RESULT_VALUE, ATTR_FEATURE_FLAG_RESULT_VARIANT, ATTR_FEATURE_FLAG_SET_ID, ATTR_FEATURE_FLAG_VARIANT, ATTR_FEATURE_FLAG_VERSION, ATTR_FILE_ACCESSED, ATTR_FILE_ATTRIBUTES, ATTR_FILE_CHANGED, ATTR_FILE_CREATED, ATTR_FILE_DIRECTORY, ATTR_FILE_EXTENSION, ATTR_FILE_FORK_NAME, ATTR_FILE_GROUP_ID, ATTR_FILE_GROUP_NAME, ATTR_FILE_INODE, ATTR_FILE_MODE, ATTR_FILE_MODIFIED, ATTR_FILE_NAME, ATTR_FILE_OWNER_ID, ATTR_FILE_OWNER_NAME, ATTR_FILE_PATH, ATTR_FILE_SIZE, ATTR_FILE_SYMBOLIC_LINK_TARGET_PATH, ATTR_GCP_APPHUB_APPLICATION_CONTAINER, ATTR_GCP_APPHUB_APPLICATION_ID, ATTR_GCP_APPHUB_APPLICATION_LOCATION, ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE, ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_SERVICE_ID, ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ID, ATTR_GCP_CLIENT_SERVICE, ATTR_GCP_CLOUD_RUN_JOB_EXECUTION, ATTR_GCP_CLOUD_RUN_JOB_TASK_INDEX, ATTR_GCP_GCE_INSTANCE_HOSTNAME, ATTR_GCP_GCE_INSTANCE_NAME, ATTR_GEN_AI_AGENT_DESCRIPTION, ATTR_GEN_AI_AGENT_ID, ATTR_GEN_AI_AGENT_NAME, ATTR_GEN_AI_COMPLETION, ATTR_GEN_AI_CONVERSATION_ID, ATTR_GEN_AI_DATA_SOURCE_ID, ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT, ATTR_GEN_AI_OPENAI_REQUEST_SEED, ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SYSTEM_FINGERPRINT, ATTR_GEN_AI_OPERATION_NAME, ATTR_GEN_AI_OUTPUT_TYPE, ATTR_GEN_AI_PROMPT, ATTR_GEN_AI_REQUEST_CHOICE_COUNT, ATTR_GEN_AI_REQUEST_ENCODING_FORMATS, ATTR_GEN_AI_REQUEST_FREQUENCY_PENALTY, ATTR_GEN_AI_REQUEST_MAX_TOKENS, ATTR_GEN_AI_REQUEST_MODEL, ATTR_GEN_AI_REQUEST_PRESENCE_PENALTY, ATTR_GEN_AI_REQUEST_SEED, ATTR_GEN_AI_REQUEST_STOP_SEQUENCES, ATTR_GEN_AI_REQUEST_TEMPERATURE, ATTR_GEN_AI_REQUEST_TOP_K, ATTR_GEN_AI_REQUEST_TOP_P, ATTR_GEN_AI_RESPONSE_FINISH_REASONS, ATTR_GEN_AI_RESPONSE_ID, ATTR_GEN_AI_RESPONSE_MODEL, ATTR_GEN_AI_SYSTEM, ATTR_GEN_AI_TOKEN_TYPE, ATTR_GEN_AI_TOOL_CALL_ID, ATTR_GEN_AI_TOOL_DESCRIPTION, ATTR_GEN_AI_TOOL_NAME, ATTR_GEN_AI_TOOL_TYPE, ATTR_GEN_AI_USAGE_COMPLETION_TOKENS, ATTR_GEN_AI_USAGE_INPUT_TOKENS, ATTR_GEN_AI_USAGE_OUTPUT_TOKENS, ATTR_GEN_AI_USAGE_PROMPT_TOKENS, ATTR_GEO_CONTINENT_CODE, ATTR_GEO_COUNTRY_ISO_CODE, ATTR_GEO_LOCALITY_NAME, ATTR_GEO_LOCATION_LAT, ATTR_GEO_LOCATION_LON, ATTR_GEO_POSTAL_CODE, ATTR_GEO_REGION_ISO_CODE, ATTR_GO_MEMORY_TYPE, ATTR_GRAPHQL_DOCUMENT, ATTR_GRAPHQL_OPERATION_NAME, ATTR_GRAPHQL_OPERATION_TYPE, ATTR_HEROKU_APP_ID, ATTR_HEROKU_RELEASE_COMMIT, ATTR_HEROKU_RELEASE_CREATION_TIMESTAMP, ATTR_HOST_ARCH, ATTR_HOST_CPU_CACHE_L2_SIZE, ATTR_HOST_CPU_FAMILY, ATTR_HOST_CPU_MODEL_ID, ATTR_HOST_CPU_MODEL_NAME, ATTR_HOST_CPU_STEPPING, ATTR_HOST_CPU_VENDOR_ID, ATTR_HOST_ID, ATTR_HOST_IMAGE_ID, ATTR_HOST_IMAGE_NAME, ATTR_HOST_IMAGE_VERSION, ATTR_HOST_IP, ATTR_HOST_MAC, ATTR_HOST_NAME, ATTR_HOST_TYPE, ATTR_HTTP_CLIENT_IP, ATTR_HTTP_CONNECTION_STATE, ATTR_HTTP_FLAVOR, ATTR_HTTP_HOST, ATTR_HTTP_METHOD, ATTR_HTTP_REQUEST_BODY_SIZE, ATTR_HTTP_REQUEST_CONTENT_LENGTH, ATTR_HTTP_REQUEST_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_REQUEST_HEADER, ATTR_HTTP_REQUEST_METHOD, ATTR_HTTP_REQUEST_METHOD_ORIGINAL, ATTR_HTTP_REQUEST_RESEND_COUNT, ATTR_HTTP_REQUEST_SIZE, ATTR_HTTP_RESPONSE_BODY_SIZE, ATTR_HTTP_RESPONSE_CONTENT_LENGTH, ATTR_HTTP_RESPONSE_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_RESPONSE_HEADER, ATTR_HTTP_RESPONSE_SIZE, ATTR_HTTP_RESPONSE_STATUS_CODE, ATTR_HTTP_ROUTE, ATTR_HTTP_SCHEME, ATTR_HTTP_SERVER_NAME, ATTR_HTTP_STATUS_CODE, ATTR_HTTP_TARGET, ATTR_HTTP_URL, ATTR_HTTP_USER_AGENT, ATTR_HW_ID, ATTR_HW_NAME, ATTR_HW_PARENT, ATTR_HW_STATE, ATTR_HW_TYPE, ATTR_IOS_APP_STATE, ATTR_IOS_STATE, ATTR_JVM_BUFFER_POOL_NAME, ATTR_JVM_GC_ACTION, ATTR_JVM_GC_CAUSE, ATTR_JVM_GC_NAME, ATTR_JVM_MEMORY_POOL_NAME, ATTR_JVM_MEMORY_TYPE, ATTR_JVM_THREAD_DAEMON, ATTR_JVM_THREAD_STATE, ATTR_K8S_CLUSTER_NAME, ATTR_K8S_CLUSTER_UID, ATTR_K8S_CONTAINER_NAME, ATTR_K8S_CONTAINER_RESTART_COUNT, ATTR_K8S_CONTAINER_STATUS_LAST_TERMINATED_REASON, ATTR_K8S_CRONJOB_ANNOTATION, ATTR_K8S_CRONJOB_LABEL, ATTR_K8S_CRONJOB_NAME, ATTR_K8S_CRONJOB_UID, ATTR_K8S_DAEMONSET_ANNOTATION, ATTR_K8S_DAEMONSET_LABEL, ATTR_K8S_DAEMONSET_NAME, ATTR_K8S_DAEMONSET_UID, ATTR_K8S_DEPLOYMENT_ANNOTATION, ATTR_K8S_DEPLOYMENT_LABEL, ATTR_K8S_DEPLOYMENT_NAME, ATTR_K8S_DEPLOYMENT_UID, ATTR_K8S_HPA_NAME, ATTR_K8S_HPA_UID, ATTR_K8S_JOB_ANNOTATION, ATTR_K8S_JOB_LABEL, ATTR_K8S_JOB_NAME, ATTR_K8S_JOB_UID, ATTR_K8S_NAMESPACE_ANNOTATION, ATTR_K8S_NAMESPACE_LABEL, ATTR_K8S_NAMESPACE_NAME, ATTR_K8S_NAMESPACE_PHASE, ATTR_K8S_NODE_ANNOTATION, ATTR_K8S_NODE_LABEL, ATTR_K8S_NODE_NAME, ATTR_K8S_NODE_UID, ATTR_K8S_POD_ANNOTATION, ATTR_K8S_POD_LABEL, ATTR_K8S_POD_LABELS, ATTR_K8S_POD_NAME, ATTR_K8S_POD_UID, ATTR_K8S_REPLICASET_ANNOTATION, ATTR_K8S_REPLICASET_LABEL, ATTR_K8S_REPLICASET_NAME, ATTR_K8S_REPLICASET_UID, ATTR_K8S_REPLICATIONCONTROLLER_NAME, ATTR_K8S_REPLICATIONCONTROLLER_UID, ATTR_K8S_RESOURCEQUOTA_NAME, ATTR_K8S_RESOURCEQUOTA_UID, ATTR_K8S_STATEFULSET_ANNOTATION, ATTR_K8S_STATEFULSET_LABEL, ATTR_K8S_STATEFULSET_NAME, ATTR_K8S_STATEFULSET_UID, ATTR_K8S_VOLUME_NAME, ATTR_K8S_VOLUME_TYPE, ATTR_LINUX_MEMORY_SLAB_STATE, ATTR_LOG_FILE_NAME, ATTR_LOG_FILE_NAME_RESOLVED, ATTR_LOG_FILE_PATH, ATTR_LOG_FILE_PATH_RESOLVED, ATTR_LOG_IOSTREAM, ATTR_LOG_RECORD_ORIGINAL, ATTR_LOG_RECORD_UID, ATTR_MESSAGE_COMPRESSED_SIZE, ATTR_MESSAGE_ID, ATTR_MESSAGE_TYPE, ATTR_MESSAGE_UNCOMPRESSED_SIZE, ATTR_MESSAGING_BATCH_MESSAGE_COUNT, ATTR_MESSAGING_CLIENT_ID, ATTR_MESSAGING_CONSUMER_GROUP_NAME, ATTR_MESSAGING_DESTINATION_ANONYMOUS, ATTR_MESSAGING_DESTINATION_NAME, ATTR_MESSAGING_DESTINATION_PARTITION_ID, ATTR_MESSAGING_DESTINATION_PUBLISH_ANONYMOUS, ATTR_MESSAGING_DESTINATION_PUBLISH_NAME, ATTR_MESSAGING_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_DESTINATION_TEMPLATE, ATTR_MESSAGING_DESTINATION_TEMPORARY, ATTR_MESSAGING_EVENTHUBS_CONSUMER_GROUP, ATTR_MESSAGING_EVENTHUBS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_DEADLINE, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_ID, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_DELIVERY_ATTEMPT, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ORDERING_KEY, ATTR_MESSAGING_KAFKA_CONSUMER_GROUP, ATTR_MESSAGING_KAFKA_DESTINATION_PARTITION, ATTR_MESSAGING_KAFKA_MESSAGE_KEY, ATTR_MESSAGING_KAFKA_MESSAGE_OFFSET, ATTR_MESSAGING_KAFKA_MESSAGE_TOMBSTONE, ATTR_MESSAGING_KAFKA_OFFSET, ATTR_MESSAGING_MESSAGE_BODY_SIZE, ATTR_MESSAGING_MESSAGE_CONVERSATION_ID, ATTR_MESSAGING_MESSAGE_ENVELOPE_SIZE, ATTR_MESSAGING_MESSAGE_ID, ATTR_MESSAGING_OPERATION, ATTR_MESSAGING_OPERATION_NAME, ATTR_MESSAGING_OPERATION_TYPE, ATTR_MESSAGING_RABBITMQ_DESTINATION_ROUTING_KEY, ATTR_MESSAGING_RABBITMQ_MESSAGE_DELIVERY_TAG, ATTR_MESSAGING_ROCKETMQ_CLIENT_GROUP, ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELAY_TIME_LEVEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELIVERY_TIMESTAMP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_GROUP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_KEYS, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TAG, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE, ATTR_MESSAGING_ROCKETMQ_NAMESPACE, ATTR_MESSAGING_SERVICEBUS_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS, ATTR_MESSAGING_SERVICEBUS_MESSAGE_DELIVERY_COUNT, ATTR_MESSAGING_SERVICEBUS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_SYSTEM, ATTR_NETWORK_CARRIER_ICC, ATTR_NETWORK_CARRIER_MCC, ATTR_NETWORK_CARRIER_MNC, ATTR_NETWORK_CARRIER_NAME, ATTR_NETWORK_CONNECTION_STATE, ATTR_NETWORK_CONNECTION_SUBTYPE, ATTR_NETWORK_CONNECTION_TYPE, ATTR_NETWORK_INTERFACE_NAME, ATTR_NETWORK_IO_DIRECTION, ATTR_NETWORK_LOCAL_ADDRESS, ATTR_NETWORK_LOCAL_PORT, ATTR_NETWORK_PEER_ADDRESS, ATTR_NETWORK_PEER_PORT, ATTR_NETWORK_PROTOCOL_NAME, ATTR_NETWORK_PROTOCOL_VERSION, ATTR_NETWORK_TRANSPORT, ATTR_NETWORK_TYPE, ATTR_NET_HOST_IP, ATTR_NET_HOST_NAME, ATTR_NET_HOST_PORT, ATTR_NET_PEER_IP, ATTR_NET_PEER_NAME, ATTR_NET_PEER_PORT, ATTR_NET_PROTOCOL_NAME, ATTR_NET_PROTOCOL_VERSION, ATTR_NET_SOCK_FAMILY, ATTR_NET_SOCK_HOST_ADDR, ATTR_NET_SOCK_HOST_PORT, ATTR_NET_SOCK_PEER_ADDR, ATTR_NET_SOCK_PEER_NAME, ATTR_NET_SOCK_PEER_PORT, ATTR_NET_TRANSPORT, ATTR_NODEJS_EVENTLOOP_STATE, ATTR_OCI_MANIFEST_DIGEST, ATTR_OPENTRACING_REF_TYPE, ATTR_OS_BUILD_ID, ATTR_OS_DESCRIPTION, ATTR_OS_NAME, ATTR_OS_TYPE, ATTR_OS_VERSION, ATTR_OTEL_COMPONENT_NAME, ATTR_OTEL_COMPONENT_TYPE, ATTR_OTEL_LIBRARY_NAME, ATTR_OTEL_LIBRARY_VERSION, ATTR_OTEL_SCOPE_NAME, ATTR_OTEL_SCOPE_VERSION, ATTR_OTEL_SPAN_SAMPLING_RESULT, ATTR_OTEL_STATUS_CODE, ATTR_OTEL_STATUS_DESCRIPTION, ATTR_PEER_SERVICE, ATTR_POOL_NAME, ATTR_PROCESS_ARGS_COUNT, ATTR_PROCESS_COMMAND, ATTR_PROCESS_COMMAND_ARGS, ATTR_PROCESS_COMMAND_LINE, ATTR_PROCESS_CONTEXT_SWITCH_TYPE, ATTR_PROCESS_CPU_STATE, ATTR_PROCESS_CREATION_TIME, ATTR_PROCESS_ENVIRONMENT_VARIABLE, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GNU, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GO, ATTR_PROCESS_EXECUTABLE_BUILD_ID_HTLHASH, ATTR_PROCESS_EXECUTABLE_BUILD_ID_PROFILING, ATTR_PROCESS_EXECUTABLE_NAME, ATTR_PROCESS_EXECUTABLE_PATH, ATTR_PROCESS_EXIT_CODE, ATTR_PROCESS_EXIT_TIME, ATTR_PROCESS_GROUP_LEADER_PID, ATTR_PROCESS_INTERACTIVE, ATTR_PROCESS_LINUX_CGROUP, ATTR_PROCESS_OWNER, ATTR_PROCESS_PAGING_FAULT_TYPE, ATTR_PROCESS_PARENT_PID, ATTR_PROCESS_PID, ATTR_PROCESS_REAL_USER_ID, ATTR_PROCESS_REAL_USER_NAME, ATTR_PROCESS_RUNTIME_DESCRIPTION, ATTR_PROCESS_RUNTIME_NAME, ATTR_PROCESS_RUNTIME_VERSION, ATTR_PROCESS_SAVED_USER_ID, ATTR_PROCESS_SAVED_USER_NAME, ATTR_PROCESS_SESSION_LEADER_PID, ATTR_PROCESS_TITLE, ATTR_PROCESS_USER_ID, ATTR_PROCESS_USER_NAME, ATTR_PROCESS_VPID, ATTR_PROCESS_WORKING_DIRECTORY, ATTR_PROFILE_FRAME_TYPE, ATTR_RPC_CONNECT_RPC_ERROR_CODE, ATTR_RPC_CONNECT_RPC_REQUEST_METADATA, ATTR_RPC_CONNECT_RPC_RESPONSE_METADATA, ATTR_RPC_GRPC_REQUEST_METADATA, ATTR_RPC_GRPC_RESPONSE_METADATA, ATTR_RPC_GRPC_STATUS_CODE, ATTR_RPC_JSONRPC_ERROR_CODE, ATTR_RPC_JSONRPC_ERROR_MESSAGE, ATTR_RPC_JSONRPC_REQUEST_ID, ATTR_RPC_JSONRPC_VERSION, ATTR_RPC_MESSAGE_COMPRESSED_SIZE, ATTR_RPC_MESSAGE_ID, ATTR_RPC_MESSAGE_TYPE, ATTR_RPC_MESSAGE_UNCOMPRESSED_SIZE, ATTR_RPC_METHOD, ATTR_RPC_SERVICE, ATTR_RPC_SYSTEM, ATTR_SECURITY_RULE_CATEGORY, ATTR_SECURITY_RULE_DESCRIPTION, ATTR_SECURITY_RULE_LICENSE, ATTR_SECURITY_RULE_NAME, ATTR_SECURITY_RULE_REFERENCE, ATTR_SECURITY_RULE_RULESET_NAME, ATTR_SECURITY_RULE_UUID, ATTR_SECURITY_RULE_VERSION, ATTR_SERVER_ADDRESS, ATTR_SERVER_PORT, ATTR_SERVICE_INSTANCE_ID, ATTR_SERVICE_NAME, ATTR_SERVICE_NAMESPACE, ATTR_SERVICE_VERSION, ATTR_SESSION_ID, ATTR_SESSION_PREVIOUS_ID, ATTR_SIGNALR_CONNECTION_STATUS, ATTR_SIGNALR_TRANSPORT, ATTR_SOURCE_ADDRESS, ATTR_SOURCE_PORT, ATTR_STATE, ATTR_SYSTEM_CPU_LOGICAL_NUMBER, ATTR_SYSTEM_CPU_STATE, ATTR_SYSTEM_DEVICE, ATTR_SYSTEM_FILESYSTEM_MODE, ATTR_SYSTEM_FILESYSTEM_MOUNTPOINT, ATTR_SYSTEM_FILESYSTEM_STATE, ATTR_SYSTEM_FILESYSTEM_TYPE, ATTR_SYSTEM_MEMORY_STATE, ATTR_SYSTEM_NETWORK_STATE, ATTR_SYSTEM_PAGING_DIRECTION, ATTR_SYSTEM_PAGING_STATE, ATTR_SYSTEM_PAGING_TYPE, ATTR_SYSTEM_PROCESSES_STATUS, ATTR_SYSTEM_PROCESS_STATUS, ATTR_TELEMETRY_DISTRO_NAME, ATTR_TELEMETRY_DISTRO_VERSION, ATTR_TELEMETRY_SDK_LANGUAGE, ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_VERSION, ATTR_TEST_CASE_NAME, ATTR_TEST_CASE_RESULT_STATUS, ATTR_TEST_SUITE_NAME, ATTR_TEST_SUITE_RUN_STATUS, ATTR_THREAD_ID, ATTR_THREAD_NAME, ATTR_TLS_CIPHER, ATTR_TLS_CLIENT_CERTIFICATE, ATTR_TLS_CLIENT_CERTIFICATE_CHAIN, ATTR_TLS_CLIENT_HASH_MD5, ATTR_TLS_CLIENT_HASH_SHA1, ATTR_TLS_CLIENT_HASH_SHA256, ATTR_TLS_CLIENT_ISSUER, ATTR_TLS_CLIENT_JA3, ATTR_TLS_CLIENT_NOT_AFTER, ATTR_TLS_CLIENT_NOT_BEFORE, ATTR_TLS_CLIENT_SERVER_NAME, ATTR_TLS_CLIENT_SUBJECT, ATTR_TLS_CLIENT_SUPPORTED_CIPHERS, ATTR_TLS_CURVE, ATTR_TLS_ESTABLISHED, ATTR_TLS_NEXT_PROTOCOL, ATTR_TLS_PROTOCOL_NAME, ATTR_TLS_PROTOCOL_VERSION, ATTR_TLS_RESUMED, ATTR_TLS_SERVER_CERTIFICATE, ATTR_TLS_SERVER_CERTIFICATE_CHAIN, ATTR_TLS_SERVER_HASH_MD5, ATTR_TLS_SERVER_HASH_SHA1, ATTR_TLS_SERVER_HASH_SHA256, ATTR_TLS_SERVER_ISSUER, ATTR_TLS_SERVER_JA3S, ATTR_TLS_SERVER_NOT_AFTER, ATTR_TLS_SERVER_NOT_BEFORE, ATTR_TLS_SERVER_SUBJECT, ATTR_URL_DOMAIN, ATTR_URL_EXTENSION, ATTR_URL_FRAGMENT, ATTR_URL_FULL, ATTR_URL_ORIGINAL, ATTR_URL_PATH, ATTR_URL_PORT, ATTR_URL_QUERY, ATTR_URL_REGISTERED_DOMAIN, ATTR_URL_SCHEME, ATTR_URL_SUBDOMAIN, ATTR_URL_TEMPLATE, ATTR_URL_TOP_LEVEL_DOMAIN, ATTR_USER_AGENT_NAME, ATTR_USER_AGENT_ORIGINAL, ATTR_USER_AGENT_OS_NAME, ATTR_USER_AGENT_OS_VERSION, ATTR_USER_AGENT_SYNTHETIC_TYPE, ATTR_USER_AGENT_VERSION, ATTR_USER_EMAIL, ATTR_USER_FULL_NAME, ATTR_USER_HASH, ATTR_USER_ID, ATTR_USER_NAME, ATTR_USER_ROLES, ATTR_V8JS_GC_TYPE, ATTR_V8JS_HEAP_SPACE_NAME, ATTR_VCS_CHANGE_ID, ATTR_VCS_CHANGE_STATE, ATTR_VCS_CHANGE_TITLE, ATTR_VCS_LINE_CHANGE_TYPE, ATTR_VCS_OWNER_NAME, ATTR_VCS_PROVIDER_NAME, ATTR_VCS_REF_BASE_NAME, ATTR_VCS_REF_BASE_REVISION, ATTR_VCS_REF_BASE_TYPE, ATTR_VCS_REF_HEAD_NAME, ATTR_VCS_REF_HEAD_REVISION, ATTR_VCS_REF_HEAD_TYPE, ATTR_VCS_REF_TYPE, ATTR_VCS_REPOSITORY_CHANGE_ID, ATTR_VCS_REPOSITORY_CHANGE_TITLE, ATTR_VCS_REPOSITORY_NAME, ATTR_VCS_REPOSITORY_REF_NAME, ATTR_VCS_REPOSITORY_REF_REVISION, ATTR_VCS_REPOSITORY_REF_TYPE, ATTR_VCS_REPOSITORY_URL_FULL, ATTR_VCS_REVISION_DELTA_DIRECTION, ATTR_WEBENGINE_DESCRIPTION, ATTR_WEBENGINE_NAME, ATTR_WEBENGINE_VERSION, AWSECSLAUNCHTYPEVALUES_EC2, AWSECSLAUNCHTYPEVALUES_FARGATE, AWS_ECS_LAUNCHTYPE_VALUE_EC2, AWS_ECS_LAUNCHTYPE_VALUE_FARGATE, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, AwsEcsLaunchtypeValues, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, CICD_PIPELINE_ACTION_NAME_VALUE_BUILD, CICD_PIPELINE_ACTION_NAME_VALUE_RUN, CICD_PIPELINE_ACTION_NAME_VALUE_SYNC, CICD_PIPELINE_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_RESULT_VALUE_ERROR, CICD_PIPELINE_RESULT_VALUE_FAILURE, CICD_PIPELINE_RESULT_VALUE_SKIP, CICD_PIPELINE_RESULT_VALUE_SUCCESS, CICD_PIPELINE_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_RUN_STATE_VALUE_EXECUTING, CICD_PIPELINE_RUN_STATE_VALUE_FINALIZING, CICD_PIPELINE_RUN_STATE_VALUE_PENDING, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_ERROR, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_FAILURE, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SKIP, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SUCCESS, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_TASK_TYPE_VALUE_BUILD, CICD_PIPELINE_TASK_TYPE_VALUE_DEPLOY, CICD_PIPELINE_TASK_TYPE_VALUE_TEST, CICD_WORKER_STATE_VALUE_AVAILABLE, CICD_WORKER_STATE_VALUE_BUSY, CICD_WORKER_STATE_VALUE_OFFLINE, CLOUDPLATFORMVALUES_ALIBABA_CLOUD_ECS, CLOUDPLATFORMVALUES_ALIBABA_CLOUD_FC, CLOUDPLATFORMVALUES_AWS_EC2, CLOUDPLATFORMVALUES_AWS_ECS, CLOUDPLATFORMVALUES_AWS_EKS, CLOUDPLATFORMVALUES_AWS_ELASTIC_BEANSTALK, CLOUDPLATFORMVALUES_AWS_LAMBDA, CLOUDPLATFORMVALUES_AZURE_AKS, CLOUDPLATFORMVALUES_AZURE_APP_SERVICE, CLOUDPLATFORMVALUES_AZURE_CONTAINER_INSTANCES, CLOUDPLATFORMVALUES_AZURE_FUNCTIONS, CLOUDPLATFORMVALUES_AZURE_VM, CLOUDPLATFORMVALUES_GCP_APP_ENGINE, CLOUDPLATFORMVALUES_GCP_CLOUD_FUNCTIONS, CLOUDPLATFORMVALUES_GCP_CLOUD_RUN, CLOUDPLATFORMVALUES_GCP_COMPUTE_ENGINE, CLOUDPLATFORMVALUES_GCP_KUBERNETES_ENGINE, CLOUDPROVIDERVALUES_ALIBABA_CLOUD, CLOUDPROVIDERVALUES_AWS, CLOUDPROVIDERVALUES_AZURE, CLOUDPROVIDERVALUES_GCP, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_ECS, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_FC, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_AWS_APP_RUNNER, CLOUD_PLATFORM_VALUE_AWS_EC2, CLOUD_PLATFORM_VALUE_AWS_ECS, CLOUD_PLATFORM_VALUE_AWS_EKS, CLOUD_PLATFORM_VALUE_AWS_ELASTIC_BEANSTALK, CLOUD_PLATFORM_VALUE_AWS_LAMBDA, CLOUD_PLATFORM_VALUE_AWS_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_AKS, CLOUD_PLATFORM_VALUE_AZURE_APP_SERVICE, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_APPS, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_INSTANCES, CLOUD_PLATFORM_VALUE_AZURE_FUNCTIONS, CLOUD_PLATFORM_VALUE_AZURE_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_VM, CLOUD_PLATFORM_VALUE_GCP_APP_ENGINE, CLOUD_PLATFORM_VALUE_GCP_BARE_METAL_SOLUTION, CLOUD_PLATFORM_VALUE_GCP_CLOUD_FUNCTIONS, CLOUD_PLATFORM_VALUE_GCP_CLOUD_RUN, CLOUD_PLATFORM_VALUE_GCP_COMPUTE_ENGINE, CLOUD_PLATFORM_VALUE_GCP_KUBERNETES_ENGINE, CLOUD_PLATFORM_VALUE_GCP_OPENSHIFT, CLOUD_PLATFORM_VALUE_IBM_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_COMPUTE, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_OKE, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_CVM, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_EKS, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_SCF, CLOUD_PROVIDER_VALUE_ALIBABA_CLOUD, CLOUD_PROVIDER_VALUE_AWS, CLOUD_PROVIDER_VALUE_AZURE, CLOUD_PROVIDER_VALUE_GCP, CLOUD_PROVIDER_VALUE_HEROKU, CLOUD_PROVIDER_VALUE_IBM_CLOUD, CLOUD_PROVIDER_VALUE_ORACLE_CLOUD, CLOUD_PROVIDER_VALUE_TENCENT_CLOUD, CONTAINER_CPU_STATE_VALUE_KERNEL, CONTAINER_CPU_STATE_VALUE_SYSTEM, CONTAINER_CPU_STATE_VALUE_USER, CPU_MODE_VALUE_IDLE, CPU_MODE_VALUE_INTERRUPT, CPU_MODE_VALUE_IOWAIT, CPU_MODE_VALUE_KERNEL, CPU_MODE_VALUE_NICE, CPU_MODE_VALUE_STEAL, CPU_MODE_VALUE_SYSTEM, CPU_MODE_VALUE_USER, CPYTHON_GC_GENERATION_VALUE_GENERATION_0, CPYTHON_GC_GENERATION_VALUE_GENERATION_1, CPYTHON_GC_GENERATION_VALUE_GENERATION_2, CloudPlatformValues, CloudProviderValues, DBCASSANDRACONSISTENCYLEVELVALUES_ALL, DBCASSANDRACONSISTENCYLEVELVALUES_ANY, DBCASSANDRACONSISTENCYLEVELVALUES_EACH_QUORUM, DBCASSANDRACONSISTENCYLEVELVALUES_LOCAL_ONE, DBCASSANDRACONSISTENCYLEVELVALUES_LOCAL_QUORUM, DBCASSANDRACONSISTENCYLEVELVALUES_LOCAL_SERIAL, DBCASSANDRACONSISTENCYLEVELVALUES_ONE, DBCASSANDRACONSISTENCYLEVELVALUES_QUORUM, DBCASSANDRACONSISTENCYLEVELVALUES_SERIAL, DBCASSANDRACONSISTENCYLEVELVALUES_THREE, DBCASSANDRACONSISTENCYLEVELVALUES_TWO, DBSYSTEMVALUES_ADABAS, DBSYSTEMVALUES_CACHE, DBSYSTEMVALUES_CASSANDRA, DBSYSTEMVALUES_CLOUDSCAPE, DBSYSTEMVALUES_COCKROACHDB, DBSYSTEMVALUES_COLDFUSION, DBSYSTEMVALUES_COSMOSDB, DBSYSTEMVALUES_COUCHBASE, DBSYSTEMVALUES_COUCHDB, DBSYSTEMVALUES_DB2, DBSYSTEMVALUES_DERBY, DBSYSTEMVALUES_DYNAMODB, DBSYSTEMVALUES_EDB, DBSYSTEMVALUES_ELASTICSEARCH, DBSYSTEMVALUES_FILEMAKER, DBSYSTEMVALUES_FIREBIRD, DBSYSTEMVALUES_FIRSTSQL, DBSYSTEMVALUES_GEODE, DBSYSTEMVALUES_H2, DBSYSTEMVALUES_HANADB, DBSYSTEMVALUES_HBASE, DBSYSTEMVALUES_HIVE, DBSYSTEMVALUES_HSQLDB, DBSYSTEMVALUES_INFORMIX, DBSYSTEMVALUES_INGRES, DBSYSTEMVALUES_INSTANTDB, DBSYSTEMVALUES_INTERBASE, DBSYSTEMVALUES_MARIADB, DBSYSTEMVALUES_MAXDB, DBSYSTEMVALUES_MEMCACHED, DBSYSTEMVALUES_MONGODB, DBSYSTEMVALUES_MSSQL, DBSYSTEMVALUES_MYSQL, DBSYSTEMVALUES_NEO4J, DBSYSTEMVALUES_NETEZZA, DBSYSTEMVALUES_ORACLE, DBSYSTEMVALUES_OTHER_SQL, DBSYSTEMVALUES_PERVASIVE, DBSYSTEMVALUES_POINTBASE, DBSYSTEMVALUES_POSTGRESQL, DBSYSTEMVALUES_PROGRESS, DBSYSTEMVALUES_REDIS, DBSYSTEMVALUES_REDSHIFT, DBSYSTEMVALUES_SQLITE, DBSYSTEMVALUES_SYBASE, DBSYSTEMVALUES_TERADATA, DBSYSTEMVALUES_VERTICA, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, DB_CLIENT_CONNECTIONS_STATE_VALUE_IDLE, DB_CLIENT_CONNECTIONS_STATE_VALUE_USED, DB_CLIENT_CONNECTION_STATE_VALUE_IDLE, DB_CLIENT_CONNECTION_STATE_VALUE_USED, DB_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, DB_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, DB_COSMOSDB_OPERATION_TYPE_VALUE_BATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_CREATE, DB_COSMOSDB_OPERATION_TYPE_VALUE_DELETE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE_JAVASCRIPT, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_INVALID, DB_COSMOSDB_OPERATION_TYPE_VALUE_PATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY_PLAN, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_REPLACE, DB_COSMOSDB_OPERATION_TYPE_VALUE_UPSERT, DB_SYSTEM_NAME_VALUE_ACTIAN_INGRES, DB_SYSTEM_NAME_VALUE_AWS_DYNAMODB, DB_SYSTEM_NAME_VALUE_AWS_REDSHIFT, DB_SYSTEM_NAME_VALUE_AZURE_COSMOSDB, DB_SYSTEM_NAME_VALUE_CASSANDRA, DB_SYSTEM_NAME_VALUE_CLICKHOUSE, DB_SYSTEM_NAME_VALUE_COCKROACHDB, DB_SYSTEM_NAME_VALUE_COUCHBASE, DB_SYSTEM_NAME_VALUE_COUCHDB, DB_SYSTEM_NAME_VALUE_DERBY, DB_SYSTEM_NAME_VALUE_ELASTICSEARCH, DB_SYSTEM_NAME_VALUE_FIREBIRDSQL, DB_SYSTEM_NAME_VALUE_GCP_SPANNER, DB_SYSTEM_NAME_VALUE_GEODE, DB_SYSTEM_NAME_VALUE_H2DATABASE, DB_SYSTEM_NAME_VALUE_HBASE, DB_SYSTEM_NAME_VALUE_HIVE, DB_SYSTEM_NAME_VALUE_HSQLDB, DB_SYSTEM_NAME_VALUE_IBM_DB2, DB_SYSTEM_NAME_VALUE_IBM_INFORMIX, DB_SYSTEM_NAME_VALUE_IBM_NETEZZA, DB_SYSTEM_NAME_VALUE_INFLUXDB, DB_SYSTEM_NAME_VALUE_INSTANTDB, DB_SYSTEM_NAME_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_NAME_VALUE_MARIADB, DB_SYSTEM_NAME_VALUE_MEMCACHED, DB_SYSTEM_NAME_VALUE_MICROSOFT_SQL_SERVER, DB_SYSTEM_NAME_VALUE_MONGODB, DB_SYSTEM_NAME_VALUE_MYSQL, DB_SYSTEM_NAME_VALUE_NEO4J, DB_SYSTEM_NAME_VALUE_OPENSEARCH, DB_SYSTEM_NAME_VALUE_ORACLE_DB, DB_SYSTEM_NAME_VALUE_OTHER_SQL, DB_SYSTEM_NAME_VALUE_POSTGRESQL, DB_SYSTEM_NAME_VALUE_REDIS, DB_SYSTEM_NAME_VALUE_SAP_HANA, DB_SYSTEM_NAME_VALUE_SAP_MAXDB, DB_SYSTEM_NAME_VALUE_SOFTWAREAG_ADABAS, DB_SYSTEM_NAME_VALUE_SQLITE, DB_SYSTEM_NAME_VALUE_TERADATA, DB_SYSTEM_NAME_VALUE_TRINO, DB_SYSTEM_VALUE_ADABAS, DB_SYSTEM_VALUE_CACHE, DB_SYSTEM_VALUE_CASSANDRA, DB_SYSTEM_VALUE_CLICKHOUSE, DB_SYSTEM_VALUE_CLOUDSCAPE, DB_SYSTEM_VALUE_COCKROACHDB, DB_SYSTEM_VALUE_COLDFUSION, DB_SYSTEM_VALUE_COSMOSDB, DB_SYSTEM_VALUE_COUCHBASE, DB_SYSTEM_VALUE_COUCHDB, DB_SYSTEM_VALUE_DB2, DB_SYSTEM_VALUE_DERBY, DB_SYSTEM_VALUE_DYNAMODB, DB_SYSTEM_VALUE_EDB, DB_SYSTEM_VALUE_ELASTICSEARCH, DB_SYSTEM_VALUE_FILEMAKER, DB_SYSTEM_VALUE_FIREBIRD, DB_SYSTEM_VALUE_FIRSTSQL, DB_SYSTEM_VALUE_GEODE, DB_SYSTEM_VALUE_H2, DB_SYSTEM_VALUE_HANADB, DB_SYSTEM_VALUE_HBASE, DB_SYSTEM_VALUE_HIVE, DB_SYSTEM_VALUE_HSQLDB, DB_SYSTEM_VALUE_INFLUXDB, DB_SYSTEM_VALUE_INFORMIX, DB_SYSTEM_VALUE_INGRES, DB_SYSTEM_VALUE_INSTANTDB, DB_SYSTEM_VALUE_INTERBASE, DB_SYSTEM_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_VALUE_MARIADB, DB_SYSTEM_VALUE_MAXDB, DB_SYSTEM_VALUE_MEMCACHED, DB_SYSTEM_VALUE_MONGODB, DB_SYSTEM_VALUE_MSSQL, DB_SYSTEM_VALUE_MSSQLCOMPACT, DB_SYSTEM_VALUE_MYSQL, DB_SYSTEM_VALUE_NEO4J, DB_SYSTEM_VALUE_NETEZZA, DB_SYSTEM_VALUE_OPENSEARCH, DB_SYSTEM_VALUE_ORACLE, DB_SYSTEM_VALUE_OTHER_SQL, DB_SYSTEM_VALUE_PERVASIVE, DB_SYSTEM_VALUE_POINTBASE, DB_SYSTEM_VALUE_POSTGRESQL, DB_SYSTEM_VALUE_PROGRESS, DB_SYSTEM_VALUE_REDIS, DB_SYSTEM_VALUE_REDSHIFT, DB_SYSTEM_VALUE_SPANNER, DB_SYSTEM_VALUE_SQLITE, DB_SYSTEM_VALUE_SYBASE, DB_SYSTEM_VALUE_TERADATA, DB_SYSTEM_VALUE_TRINO, DB_SYSTEM_VALUE_VERTICA, DEPLOYMENT_STATUS_VALUE_FAILED, DEPLOYMENT_STATUS_VALUE_SUCCEEDED, DISK_IO_DIRECTION_VALUE_READ, DISK_IO_DIRECTION_VALUE_WRITE, DOTNET_GC_HEAP_GENERATION_VALUE_GEN0, DOTNET_GC_HEAP_GENERATION_VALUE_GEN1, DOTNET_GC_HEAP_GENERATION_VALUE_GEN2, DOTNET_GC_HEAP_GENERATION_VALUE_LOH, DOTNET_GC_HEAP_GENERATION_VALUE_POH, DbCassandraConsistencyLevelValues, DbSystemValues, ERROR_TYPE_VALUE_OTHER, FAASDOCUMENTOPERATIONVALUES_DELETE, FAASDOCUMENTOPERATIONVALUES_EDIT, FAASDOCUMENTOPERATIONVALUES_INSERT, FAASINVOKEDPROVIDERVALUES_ALIBABA_CLOUD, FAASINVOKEDPROVIDERVALUES_AWS, FAASINVOKEDPROVIDERVALUES_AZURE, FAASINVOKEDPROVIDERVALUES_GCP, FAASTRIGGERVALUES_DATASOURCE, FAASTRIGGERVALUES_HTTP, FAASTRIGGERVALUES_OTHER, FAASTRIGGERVALUES_PUBSUB, FAASTRIGGERVALUES_TIMER, FAAS_DOCUMENT_OPERATION_VALUE_DELETE, FAAS_DOCUMENT_OPERATION_VALUE_EDIT, FAAS_DOCUMENT_OPERATION_VALUE_INSERT, FAAS_INVOKED_PROVIDER_VALUE_ALIBABA_CLOUD, FAAS_INVOKED_PROVIDER_VALUE_AWS, FAAS_INVOKED_PROVIDER_VALUE_AZURE, FAAS_INVOKED_PROVIDER_VALUE_GCP, FAAS_INVOKED_PROVIDER_VALUE_TENCENT_CLOUD, FAAS_TRIGGER_VALUE_DATASOURCE, FAAS_TRIGGER_VALUE_HTTP, FAAS_TRIGGER_VALUE_OTHER, FAAS_TRIGGER_VALUE_PUBSUB, FAAS_TRIGGER_VALUE_TIMER, FEATURE_FLAG_EVALUATION_REASON_VALUE_CACHED, FEATURE_FLAG_EVALUATION_REASON_VALUE_DEFAULT, FEATURE_FLAG_EVALUATION_REASON_VALUE_DISABLED, FEATURE_FLAG_EVALUATION_REASON_VALUE_ERROR, FEATURE_FLAG_EVALUATION_REASON_VALUE_SPLIT, FEATURE_FLAG_EVALUATION_REASON_VALUE_STALE, FEATURE_FLAG_EVALUATION_REASON_VALUE_STATIC, FEATURE_FLAG_EVALUATION_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_EVALUATION_REASON_VALUE_UNKNOWN, FEATURE_FLAG_RESULT_REASON_VALUE_CACHED, FEATURE_FLAG_RESULT_REASON_VALUE_DEFAULT, FEATURE_FLAG_RESULT_REASON_VALUE_DISABLED, FEATURE_FLAG_RESULT_REASON_VALUE_ERROR, FEATURE_FLAG_RESULT_REASON_VALUE_SPLIT, FEATURE_FLAG_RESULT_REASON_VALUE_STALE, FEATURE_FLAG_RESULT_REASON_VALUE_STATIC, FEATURE_FLAG_RESULT_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_RESULT_REASON_VALUE_UNKNOWN, FaasDocumentOperationValues, FaasInvokedProviderValues, FaasTriggerValues, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_TEST, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_TEST, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_OBJECT, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_SCHEMA, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_TEXT, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT, GEN_AI_OPERATION_NAME_VALUE_CHAT, GEN_AI_OPERATION_NAME_VALUE_CREATE_AGENT, GEN_AI_OPERATION_NAME_VALUE_EMBEDDINGS, GEN_AI_OPERATION_NAME_VALUE_EXECUTE_TOOL, GEN_AI_OPERATION_NAME_VALUE_GENERATE_CONTENT, GEN_AI_OPERATION_NAME_VALUE_INVOKE_AGENT, GEN_AI_OPERATION_NAME_VALUE_TEXT_COMPLETION, GEN_AI_OUTPUT_TYPE_VALUE_IMAGE, GEN_AI_OUTPUT_TYPE_VALUE_JSON, GEN_AI_OUTPUT_TYPE_VALUE_SPEECH, GEN_AI_OUTPUT_TYPE_VALUE_TEXT, GEN_AI_SYSTEM_VALUE_ANTHROPIC, GEN_AI_SYSTEM_VALUE_AWS_BEDROCK, GEN_AI_SYSTEM_VALUE_AZ_AI_INFERENCE, GEN_AI_SYSTEM_VALUE_AZ_AI_OPENAI, GEN_AI_SYSTEM_VALUE_COHERE, GEN_AI_SYSTEM_VALUE_DEEPSEEK, GEN_AI_SYSTEM_VALUE_GCP_GEMINI, GEN_AI_SYSTEM_VALUE_GCP_GEN_AI, GEN_AI_SYSTEM_VALUE_GCP_VERTEX_AI, GEN_AI_SYSTEM_VALUE_GEMINI, GEN_AI_SYSTEM_VALUE_GROQ, GEN_AI_SYSTEM_VALUE_IBM_WATSONX_AI, GEN_AI_SYSTEM_VALUE_MISTRAL_AI, GEN_AI_SYSTEM_VALUE_OPENAI, GEN_AI_SYSTEM_VALUE_PERPLEXITY, GEN_AI_SYSTEM_VALUE_VERTEX_AI, GEN_AI_SYSTEM_VALUE_XAI, GEN_AI_TOKEN_TYPE_VALUE_COMPLETION, GEN_AI_TOKEN_TYPE_VALUE_INPUT, GEN_AI_TOKEN_TYPE_VALUE_OUTPUT, GEO_CONTINENT_CODE_VALUE_AF, GEO_CONTINENT_CODE_VALUE_AN, GEO_CONTINENT_CODE_VALUE_AS, GEO_CONTINENT_CODE_VALUE_EU, GEO_CONTINENT_CODE_VALUE_NA, GEO_CONTINENT_CODE_VALUE_OC, GEO_CONTINENT_CODE_VALUE_SA, GO_MEMORY_TYPE_VALUE_OTHER, GO_MEMORY_TYPE_VALUE_STACK, GRAPHQL_OPERATION_TYPE_VALUE_MUTATION, GRAPHQL_OPERATION_TYPE_VALUE_QUERY, GRAPHQL_OPERATION_TYPE_VALUE_SUBSCRIPTION, HOSTARCHVALUES_AMD64, HOSTARCHVALUES_ARM32, HOSTARCHVALUES_ARM64, HOSTARCHVALUES_IA64, HOSTARCHVALUES_PPC32, HOSTARCHVALUES_PPC64, HOSTARCHVALUES_X86, HOST_ARCH_VALUE_AMD64, HOST_ARCH_VALUE_ARM32, HOST_ARCH_VALUE_ARM64, HOST_ARCH_VALUE_IA64, HOST_ARCH_VALUE_PPC32, HOST_ARCH_VALUE_PPC64, HOST_ARCH_VALUE_S390X, HOST_ARCH_VALUE_X86, HTTPFLAVORVALUES_HTTP_1_0, HTTPFLAVORVALUES_HTTP_1_1, HTTPFLAVORVALUES_HTTP_2_0, HTTPFLAVORVALUES_QUIC, HTTPFLAVORVALUES_SPDY, HTTP_CONNECTION_STATE_VALUE_ACTIVE, HTTP_CONNECTION_STATE_VALUE_IDLE, HTTP_FLAVOR_VALUE_HTTP_1_0, HTTP_FLAVOR_VALUE_HTTP_1_1, HTTP_FLAVOR_VALUE_HTTP_2_0, HTTP_FLAVOR_VALUE_HTTP_3_0, HTTP_FLAVOR_VALUE_QUIC, HTTP_FLAVOR_VALUE_SPDY, HTTP_REQUEST_METHOD_VALUE_CONNECT, HTTP_REQUEST_METHOD_VALUE_DELETE, HTTP_REQUEST_METHOD_VALUE_GET, HTTP_REQUEST_METHOD_VALUE_HEAD, HTTP_REQUEST_METHOD_VALUE_OPTIONS, HTTP_REQUEST_METHOD_VALUE_OTHER, HTTP_REQUEST_METHOD_VALUE_PATCH, HTTP_REQUEST_METHOD_VALUE_POST, HTTP_REQUEST_METHOD_VALUE_PUT, HTTP_REQUEST_METHOD_VALUE_TRACE, HW_STATE_VALUE_DEGRADED, HW_STATE_VALUE_FAILED, HW_STATE_VALUE_OK, HW_TYPE_VALUE_BATTERY, HW_TYPE_VALUE_CPU, HW_TYPE_VALUE_DISK_CONTROLLER, HW_TYPE_VALUE_ENCLOSURE, HW_TYPE_VALUE_FAN, HW_TYPE_VALUE_GPU, HW_TYPE_VALUE_LOGICAL_DISK, HW_TYPE_VALUE_MEMORY, HW_TYPE_VALUE_NETWORK, HW_TYPE_VALUE_PHYSICAL_DISK, HW_TYPE_VALUE_POWER_SUPPLY, HW_TYPE_VALUE_TAPE_DRIVE, HW_TYPE_VALUE_TEMPERATURE, HW_TYPE_VALUE_VOLTAGE, HostArchValues, HttpFlavorValues, IOS_APP_STATE_VALUE_ACTIVE, IOS_APP_STATE_VALUE_BACKGROUND, IOS_APP_STATE_VALUE_FOREGROUND, IOS_APP_STATE_VALUE_INACTIVE, IOS_APP_STATE_VALUE_TERMINATE, IOS_STATE_VALUE_ACTIVE, IOS_STATE_VALUE_BACKGROUND, IOS_STATE_VALUE_FOREGROUND, IOS_STATE_VALUE_INACTIVE, IOS_STATE_VALUE_TERMINATE, JVM_MEMORY_TYPE_VALUE_HEAP, JVM_MEMORY_TYPE_VALUE_NON_HEAP, JVM_THREAD_STATE_VALUE_BLOCKED, JVM_THREAD_STATE_VALUE_NEW, JVM_THREAD_STATE_VALUE_RUNNABLE, JVM_THREAD_STATE_VALUE_TERMINATED, JVM_THREAD_STATE_VALUE_TIMED_WAITING, JVM_THREAD_STATE_VALUE_WAITING, K8S_NAMESPACE_PHASE_VALUE_ACTIVE, K8S_NAMESPACE_PHASE_VALUE_TERMINATING, K8S_VOLUME_TYPE_VALUE_CONFIG_MAP, K8S_VOLUME_TYPE_VALUE_DOWNWARD_API, K8S_VOLUME_TYPE_VALUE_EMPTY_DIR, K8S_VOLUME_TYPE_VALUE_LOCAL, K8S_VOLUME_TYPE_VALUE_PERSISTENT_VOLUME_CLAIM, K8S_VOLUME_TYPE_VALUE_SECRET, LINUX_MEMORY_SLAB_STATE_VALUE_RECLAIMABLE, LINUX_MEMORY_SLAB_STATE_VALUE_UNRECLAIMABLE, LOG_IOSTREAM_VALUE_STDERR, LOG_IOSTREAM_VALUE_STDOUT, MESSAGETYPEVALUES_RECEIVED, MESSAGETYPEVALUES_SENT, MESSAGE_TYPE_VALUE_RECEIVED, MESSAGE_TYPE_VALUE_SENT, MESSAGINGDESTINATIONKINDVALUES_QUEUE, MESSAGINGDESTINATIONKINDVALUES_TOPIC, MESSAGINGOPERATIONVALUES_PROCESS, MESSAGINGOPERATIONVALUES_RECEIVE, MESSAGING_OPERATION_TYPE_VALUE_CREATE, MESSAGING_OPERATION_TYPE_VALUE_DELIVER, MESSAGING_OPERATION_TYPE_VALUE_PROCESS, MESSAGING_OPERATION_TYPE_VALUE_PUBLISH, MESSAGING_OPERATION_TYPE_VALUE_RECEIVE, MESSAGING_OPERATION_TYPE_VALUE_SEND, MESSAGING_OPERATION_TYPE_VALUE_SETTLE, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_BROADCASTING, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_CLUSTERING, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_DELAY, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_FIFO, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_NORMAL, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_TRANSACTION, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_ABANDON, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_COMPLETE, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEAD_LETTER, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEFER, MESSAGING_SYSTEM_VALUE_ACTIVEMQ, MESSAGING_SYSTEM_VALUE_AWS_SQS, MESSAGING_SYSTEM_VALUE_EVENTGRID, MESSAGING_SYSTEM_VALUE_EVENTHUBS, MESSAGING_SYSTEM_VALUE_GCP_PUBSUB, MESSAGING_SYSTEM_VALUE_JMS, MESSAGING_SYSTEM_VALUE_KAFKA, MESSAGING_SYSTEM_VALUE_PULSAR, MESSAGING_SYSTEM_VALUE_RABBITMQ, MESSAGING_SYSTEM_VALUE_ROCKETMQ, MESSAGING_SYSTEM_VALUE_SERVICEBUS, METRIC_ASPNETCORE_DIAGNOSTICS_EXCEPTIONS, METRIC_ASPNETCORE_RATE_LIMITING_ACTIVE_REQUEST_LEASES, METRIC_ASPNETCORE_RATE_LIMITING_QUEUED_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_LEASE_DURATION, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_TIME_IN_QUEUE, METRIC_ASPNETCORE_ROUTING_MATCH_ATTEMPTS, METRIC_AZURE_COSMOSDB_CLIENT_ACTIVE_INSTANCE_COUNT, METRIC_AZURE_COSMOSDB_CLIENT_OPERATION_REQUEST_CHARGE, METRIC_CICD_PIPELINE_RUN_ACTIVE, METRIC_CICD_PIPELINE_RUN_DURATION, METRIC_CICD_PIPELINE_RUN_ERRORS, METRIC_CICD_SYSTEM_ERRORS, METRIC_CICD_WORKER_COUNT, METRIC_CONTAINER_CPU_TIME, METRIC_CONTAINER_CPU_USAGE, METRIC_CONTAINER_DISK_IO, METRIC_CONTAINER_MEMORY_USAGE, METRIC_CONTAINER_NETWORK_IO, METRIC_CONTAINER_UPTIME, METRIC_CPU_FREQUENCY, METRIC_CPU_TIME, METRIC_CPU_UTILIZATION, METRIC_CPYTHON_GC_COLLECTED_OBJECTS, METRIC_CPYTHON_GC_COLLECTIONS, METRIC_CPYTHON_GC_UNCOLLECTABLE_OBJECTS, METRIC_DB_CLIENT_CONNECTIONS_CREATE_TIME, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MAX, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MIN, METRIC_DB_CLIENT_CONNECTIONS_MAX, METRIC_DB_CLIENT_CONNECTIONS_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTIONS_TIMEOUTS, METRIC_DB_CLIENT_CONNECTIONS_USAGE, METRIC_DB_CLIENT_CONNECTIONS_USE_TIME, METRIC_DB_CLIENT_CONNECTIONS_WAIT_TIME, METRIC_DB_CLIENT_CONNECTION_COUNT, METRIC_DB_CLIENT_CONNECTION_CREATE_TIME, METRIC_DB_CLIENT_CONNECTION_IDLE_MAX, METRIC_DB_CLIENT_CONNECTION_IDLE_MIN, METRIC_DB_CLIENT_CONNECTION_MAX, METRIC_DB_CLIENT_CONNECTION_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTION_TIMEOUTS, METRIC_DB_CLIENT_CONNECTION_USE_TIME, METRIC_DB_CLIENT_CONNECTION_WAIT_TIME, METRIC_DB_CLIENT_COSMOSDB_ACTIVE_INSTANCE_COUNT, METRIC_DB_CLIENT_COSMOSDB_OPERATION_REQUEST_CHARGE, METRIC_DB_CLIENT_OPERATION_DURATION, METRIC_DB_CLIENT_RESPONSE_RETURNED_ROWS, METRIC_DNS_LOOKUP_DURATION, METRIC_DOTNET_ASSEMBLY_COUNT, METRIC_DOTNET_EXCEPTIONS, METRIC_DOTNET_GC_COLLECTIONS, METRIC_DOTNET_GC_HEAP_TOTAL_ALLOCATED, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_FRAGMENTATION_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_MEMORY_COMMITTED_SIZE, METRIC_DOTNET_GC_PAUSE_TIME, METRIC_DOTNET_JIT_COMPILATION_TIME, METRIC_DOTNET_JIT_COMPILED_IL_SIZE, METRIC_DOTNET_JIT_COMPILED_METHODS, METRIC_DOTNET_MONITOR_LOCK_CONTENTIONS, METRIC_DOTNET_PROCESS_CPU_COUNT, METRIC_DOTNET_PROCESS_CPU_TIME, METRIC_DOTNET_PROCESS_MEMORY_WORKING_SET, METRIC_DOTNET_THREAD_POOL_QUEUE_LENGTH, METRIC_DOTNET_THREAD_POOL_THREAD_COUNT, METRIC_DOTNET_THREAD_POOL_WORK_ITEM_COUNT, METRIC_DOTNET_TIMER_COUNT, METRIC_FAAS_COLDSTARTS, METRIC_FAAS_CPU_USAGE, METRIC_FAAS_ERRORS, METRIC_FAAS_INIT_DURATION, METRIC_FAAS_INVOCATIONS, METRIC_FAAS_INVOKE_DURATION, METRIC_FAAS_MEM_USAGE, METRIC_FAAS_NET_IO, METRIC_FAAS_TIMEOUTS, METRIC_GEN_AI_CLIENT_OPERATION_DURATION, METRIC_GEN_AI_CLIENT_TOKEN_USAGE, METRIC_GEN_AI_SERVER_REQUEST_DURATION, METRIC_GEN_AI_SERVER_TIME_PER_OUTPUT_TOKEN, METRIC_GEN_AI_SERVER_TIME_TO_FIRST_TOKEN, METRIC_GO_CONFIG_GOGC, METRIC_GO_GOROUTINE_COUNT, METRIC_GO_MEMORY_ALLOCATED, METRIC_GO_MEMORY_ALLOCATIONS, METRIC_GO_MEMORY_GC_GOAL, METRIC_GO_MEMORY_LIMIT, METRIC_GO_MEMORY_USED, METRIC_GO_PROCESSOR_LIMIT, METRIC_GO_SCHEDULE_DURATION, METRIC_HTTP_CLIENT_ACTIVE_REQUESTS, METRIC_HTTP_CLIENT_CONNECTION_DURATION, METRIC_HTTP_CLIENT_OPEN_CONNECTIONS, METRIC_HTTP_CLIENT_REQUEST_BODY_SIZE, METRIC_HTTP_CLIENT_REQUEST_DURATION, METRIC_HTTP_CLIENT_RESPONSE_BODY_SIZE, METRIC_HTTP_SERVER_ACTIVE_REQUESTS, METRIC_HTTP_SERVER_REQUEST_BODY_SIZE, METRIC_HTTP_SERVER_REQUEST_DURATION, METRIC_HTTP_SERVER_RESPONSE_BODY_SIZE, METRIC_HW_ENERGY, METRIC_HW_ERRORS, METRIC_HW_HOST_AMBIENT_TEMPERATURE, METRIC_HW_HOST_ENERGY, METRIC_HW_HOST_HEATING_MARGIN, METRIC_HW_HOST_POWER, METRIC_HW_POWER, METRIC_HW_STATUS, METRIC_JVM_BUFFER_COUNT, METRIC_JVM_BUFFER_MEMORY_LIMIT, METRIC_JVM_BUFFER_MEMORY_USAGE, METRIC_JVM_BUFFER_MEMORY_USED, METRIC_JVM_CLASS_COUNT, METRIC_JVM_CLASS_LOADED, METRIC_JVM_CLASS_UNLOADED, METRIC_JVM_CPU_COUNT, METRIC_JVM_CPU_RECENT_UTILIZATION, METRIC_JVM_CPU_TIME, METRIC_JVM_FILE_DESCRIPTOR_COUNT, METRIC_JVM_GC_DURATION, METRIC_JVM_MEMORY_COMMITTED, METRIC_JVM_MEMORY_INIT, METRIC_JVM_MEMORY_LIMIT, METRIC_JVM_MEMORY_USED, METRIC_JVM_MEMORY_USED_AFTER_LAST_GC, METRIC_JVM_SYSTEM_CPU_LOAD_1M, METRIC_JVM_SYSTEM_CPU_UTILIZATION, METRIC_JVM_THREAD_COUNT, METRIC_K8S_CRONJOB_ACTIVE_JOBS, METRIC_K8S_DAEMONSET_CURRENT_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_DESIRED_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_MISSCHEDULED_NODES, METRIC_K8S_DAEMONSET_READY_NODES, METRIC_K8S_DEPLOYMENT_AVAILABLE_PODS, METRIC_K8S_DEPLOYMENT_DESIRED_PODS, METRIC_K8S_HPA_CURRENT_PODS, METRIC_K8S_HPA_DESIRED_PODS, METRIC_K8S_HPA_MAX_PODS, METRIC_K8S_HPA_MIN_PODS, METRIC_K8S_JOB_ACTIVE_PODS, METRIC_K8S_JOB_DESIRED_SUCCESSFUL_PODS, METRIC_K8S_JOB_FAILED_PODS, METRIC_K8S_JOB_MAX_PARALLEL_PODS, METRIC_K8S_JOB_SUCCESSFUL_PODS, METRIC_K8S_NAMESPACE_PHASE, METRIC_K8S_NODE_CPU_TIME, METRIC_K8S_NODE_CPU_USAGE, METRIC_K8S_NODE_MEMORY_USAGE, METRIC_K8S_NODE_NETWORK_ERRORS, METRIC_K8S_NODE_NETWORK_IO, METRIC_K8S_NODE_UPTIME, METRIC_K8S_POD_CPU_TIME, METRIC_K8S_POD_CPU_USAGE, METRIC_K8S_POD_MEMORY_USAGE, METRIC_K8S_POD_NETWORK_ERRORS, METRIC_K8S_POD_NETWORK_IO, METRIC_K8S_POD_UPTIME, METRIC_K8S_REPLICASET_AVAILABLE_PODS, METRIC_K8S_REPLICASET_DESIRED_PODS, METRIC_K8S_REPLICATIONCONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATIONCONTROLLER_DESIRED_PODS, METRIC_K8S_REPLICATION_CONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATION_CONTROLLER_DESIRED_PODS, METRIC_K8S_STATEFULSET_CURRENT_PODS, METRIC_K8S_STATEFULSET_DESIRED_PODS, METRIC_K8S_STATEFULSET_READY_PODS, METRIC_K8S_STATEFULSET_UPDATED_PODS, METRIC_KESTREL_ACTIVE_CONNECTIONS, METRIC_KESTREL_ACTIVE_TLS_HANDSHAKES, METRIC_KESTREL_CONNECTION_DURATION, METRIC_KESTREL_QUEUED_CONNECTIONS, METRIC_KESTREL_QUEUED_REQUESTS, METRIC_KESTREL_REJECTED_CONNECTIONS, METRIC_KESTREL_TLS_HANDSHAKE_DURATION, METRIC_KESTREL_UPGRADED_CONNECTIONS, METRIC_MESSAGING_CLIENT_CONSUMED_MESSAGES, METRIC_MESSAGING_CLIENT_OPERATION_DURATION, METRIC_MESSAGING_CLIENT_PUBLISHED_MESSAGES, METRIC_MESSAGING_CLIENT_SENT_MESSAGES, METRIC_MESSAGING_PROCESS_DURATION, METRIC_MESSAGING_PROCESS_MESSAGES, METRIC_MESSAGING_PUBLISH_DURATION, METRIC_MESSAGING_PUBLISH_MESSAGES, METRIC_MESSAGING_RECEIVE_DURATION, METRIC_MESSAGING_RECEIVE_MESSAGES, METRIC_NODEJS_EVENTLOOP_DELAY_MAX, METRIC_NODEJS_EVENTLOOP_DELAY_MEAN, METRIC_NODEJS_EVENTLOOP_DELAY_MIN, METRIC_NODEJS_EVENTLOOP_DELAY_P50, METRIC_NODEJS_EVENTLOOP_DELAY_P90, METRIC_NODEJS_EVENTLOOP_DELAY_P99, METRIC_NODEJS_EVENTLOOP_DELAY_STDDEV, METRIC_NODEJS_EVENTLOOP_TIME, METRIC_NODEJS_EVENTLOOP_UTILIZATION, METRIC_OTEL_SDK_EXPORTER_LOG_EXPORTED, METRIC_OTEL_SDK_EXPORTER_LOG_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_EXPORTED, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_OPERATION_DURATION, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED_COUNT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT_COUNT, METRIC_OTEL_SDK_LOG_CREATED, METRIC_OTEL_SDK_METRIC_READER_COLLECTION_DURATION, METRIC_OTEL_SDK_PROCESSOR_LOG_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_SIZE, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED_COUNT, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_SIZE, METRIC_OTEL_SDK_SPAN_ENDED, METRIC_OTEL_SDK_SPAN_ENDED_COUNT, METRIC_OTEL_SDK_SPAN_LIVE, METRIC_OTEL_SDK_SPAN_LIVE_COUNT, METRIC_PROCESS_CONTEXT_SWITCHES, METRIC_PROCESS_CPU_TIME, METRIC_PROCESS_CPU_UTILIZATION, METRIC_PROCESS_DISK_IO, METRIC_PROCESS_MEMORY_USAGE, METRIC_PROCESS_MEMORY_VIRTUAL, METRIC_PROCESS_NETWORK_IO, METRIC_PROCESS_OPEN_FILE_DESCRIPTOR_COUNT, METRIC_PROCESS_PAGING_FAULTS, METRIC_PROCESS_THREAD_COUNT, METRIC_PROCESS_UPTIME, METRIC_RPC_CLIENT_DURATION, METRIC_RPC_CLIENT_REQUESTS_PER_RPC, METRIC_RPC_CLIENT_REQUEST_SIZE, METRIC_RPC_CLIENT_RESPONSES_PER_RPC, METRIC_RPC_CLIENT_RESPONSE_SIZE, METRIC_RPC_SERVER_DURATION, METRIC_RPC_SERVER_REQUESTS_PER_RPC, METRIC_RPC_SERVER_REQUEST_SIZE, METRIC_RPC_SERVER_RESPONSES_PER_RPC, METRIC_RPC_SERVER_RESPONSE_SIZE, METRIC_SIGNALR_SERVER_ACTIVE_CONNECTIONS, METRIC_SIGNALR_SERVER_CONNECTION_DURATION, METRIC_SYSTEM_CPU_FREQUENCY, METRIC_SYSTEM_CPU_LOGICAL_COUNT, METRIC_SYSTEM_CPU_PHYSICAL_COUNT, METRIC_SYSTEM_CPU_TIME, METRIC_SYSTEM_CPU_UTILIZATION, METRIC_SYSTEM_DISK_IO, METRIC_SYSTEM_DISK_IO_TIME, METRIC_SYSTEM_DISK_LIMIT, METRIC_SYSTEM_DISK_MERGED, METRIC_SYSTEM_DISK_OPERATIONS, METRIC_SYSTEM_DISK_OPERATION_TIME, METRIC_SYSTEM_FILESYSTEM_LIMIT, METRIC_SYSTEM_FILESYSTEM_USAGE, METRIC_SYSTEM_FILESYSTEM_UTILIZATION, METRIC_SYSTEM_LINUX_MEMORY_AVAILABLE, METRIC_SYSTEM_LINUX_MEMORY_SLAB_USAGE, METRIC_SYSTEM_MEMORY_LIMIT, METRIC_SYSTEM_MEMORY_SHARED, METRIC_SYSTEM_MEMORY_USAGE, METRIC_SYSTEM_MEMORY_UTILIZATION, METRIC_SYSTEM_NETWORK_CONNECTIONS, METRIC_SYSTEM_NETWORK_DROPPED, METRIC_SYSTEM_NETWORK_ERRORS, METRIC_SYSTEM_NETWORK_IO, METRIC_SYSTEM_NETWORK_PACKETS, METRIC_SYSTEM_PAGING_FAULTS, METRIC_SYSTEM_PAGING_OPERATIONS, METRIC_SYSTEM_PAGING_USAGE, METRIC_SYSTEM_PAGING_UTILIZATION, METRIC_SYSTEM_PROCESS_COUNT, METRIC_SYSTEM_PROCESS_CREATED, METRIC_SYSTEM_UPTIME, METRIC_V8JS_GC_DURATION, METRIC_V8JS_HEAP_SPACE_AVAILABLE_SIZE, METRIC_V8JS_HEAP_SPACE_PHYSICAL_SIZE, METRIC_V8JS_MEMORY_HEAP_LIMIT, METRIC_V8JS_MEMORY_HEAP_USED, METRIC_VCS_CHANGE_COUNT, METRIC_VCS_CHANGE_DURATION, METRIC_VCS_CHANGE_TIME_TO_APPROVAL, METRIC_VCS_CHANGE_TIME_TO_MERGE, METRIC_VCS_CONTRIBUTOR_COUNT, METRIC_VCS_REF_COUNT, METRIC_VCS_REF_LINES_DELTA, METRIC_VCS_REF_REVISIONS_DELTA, METRIC_VCS_REF_TIME, METRIC_VCS_REPOSITORY_COUNT, MessageTypeValues, MessagingDestinationKindValues, MessagingOperationValues, NETHOSTCONNECTIONSUBTYPEVALUES_CDMA, NETHOSTCONNECTIONSUBTYPEVALUES_CDMA2000_1XRTT, NETHOSTCONNECTIONSUBTYPEVALUES_EDGE, NETHOSTCONNECTIONSUBTYPEVALUES_EHRPD, NETHOSTCONNECTIONSUBTYPEVALUES_EVDO_0, NETHOSTCONNECTIONSUBTYPEVALUES_EVDO_A, NETHOSTCONNECTIONSUBTYPEVALUES_EVDO_B, NETHOSTCONNECTIONSUBTYPEVALUES_GPRS, NETHOSTCONNECTIONSUBTYPEVALUES_GSM, NETHOSTCONNECTIONSUBTYPEVALUES_HSDPA, NETHOSTCONNECTIONSUBTYPEVALUES_HSPA, NETHOSTCONNECTIONSUBTYPEVALUES_HSPAP, NETHOSTCONNECTIONSUBTYPEVALUES_HSUPA, NETHOSTCONNECTIONSUBTYPEVALUES_IDEN, NETHOSTCONNECTIONSUBTYPEVALUES_IWLAN, NETHOSTCONNECTIONSUBTYPEVALUES_LTE, NETHOSTCONNECTIONSUBTYPEVALUES_LTE_CA, NETHOSTCONNECTIONSUBTYPEVALUES_NR, NETHOSTCONNECTIONSUBTYPEVALUES_NRNSA, NETHOSTCONNECTIONSUBTYPEVALUES_TD_SCDMA, NETHOSTCONNECTIONSUBTYPEVALUES_UMTS, NETHOSTCONNECTIONTYPEVALUES_CELL, NETHOSTCONNECTIONTYPEVALUES_UNAVAILABLE, NETHOSTCONNECTIONTYPEVALUES_UNKNOWN, NETHOSTCONNECTIONTYPEVALUES_WIFI, NETHOSTCONNECTIONTYPEVALUES_WIRED, NETTRANSPORTVALUES_INPROC, NETTRANSPORTVALUES_IP, NETTRANSPORTVALUES_IP_TCP, NETTRANSPORTVALUES_IP_UDP, NETTRANSPORTVALUES_OTHER, NETTRANSPORTVALUES_PIPE, NETTRANSPORTVALUES_UNIX, NETWORK_CONNECTION_STATE_VALUE_CLOSED, NETWORK_CONNECTION_STATE_VALUE_CLOSE_WAIT, NETWORK_CONNECTION_STATE_VALUE_CLOSING, NETWORK_CONNECTION_STATE_VALUE_ESTABLISHED, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_1, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_2, NETWORK_CONNECTION_STATE_VALUE_LAST_ACK, NETWORK_CONNECTION_STATE_VALUE_LISTEN, NETWORK_CONNECTION_STATE_VALUE_SYN_RECEIVED, NETWORK_CONNECTION_STATE_VALUE_SYN_SENT, NETWORK_CONNECTION_STATE_VALUE_TIME_WAIT, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA2000_1XRTT, NETWORK_CONNECTION_SUBTYPE_VALUE_EDGE, NETWORK_CONNECTION_SUBTYPE_VALUE_EHRPD, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_0, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_A, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_B, NETWORK_CONNECTION_SUBTYPE_VALUE_GPRS, NETWORK_CONNECTION_SUBTYPE_VALUE_GSM, NETWORK_CONNECTION_SUBTYPE_VALUE_HSDPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPAP, NETWORK_CONNECTION_SUBTYPE_VALUE_HSUPA, NETWORK_CONNECTION_SUBTYPE_VALUE_IDEN, NETWORK_CONNECTION_SUBTYPE_VALUE_IWLAN, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE_CA, NETWORK_CONNECTION_SUBTYPE_VALUE_NR, NETWORK_CONNECTION_SUBTYPE_VALUE_NRNSA, NETWORK_CONNECTION_SUBTYPE_VALUE_TD_SCDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_UMTS, NETWORK_CONNECTION_TYPE_VALUE_CELL, NETWORK_CONNECTION_TYPE_VALUE_UNAVAILABLE, NETWORK_CONNECTION_TYPE_VALUE_UNKNOWN, NETWORK_CONNECTION_TYPE_VALUE_WIFI, NETWORK_CONNECTION_TYPE_VALUE_WIRED, NETWORK_IO_DIRECTION_VALUE_RECEIVE, NETWORK_IO_DIRECTION_VALUE_TRANSMIT, NETWORK_TRANSPORT_VALUE_PIPE, NETWORK_TRANSPORT_VALUE_QUIC, NETWORK_TRANSPORT_VALUE_TCP, NETWORK_TRANSPORT_VALUE_UDP, NETWORK_TRANSPORT_VALUE_UNIX, NETWORK_TYPE_VALUE_IPV4, NETWORK_TYPE_VALUE_IPV6, NET_SOCK_FAMILY_VALUE_INET, NET_SOCK_FAMILY_VALUE_INET6, NET_SOCK_FAMILY_VALUE_UNIX, NET_TRANSPORT_VALUE_INPROC, NET_TRANSPORT_VALUE_IP_TCP, NET_TRANSPORT_VALUE_IP_UDP, NET_TRANSPORT_VALUE_OTHER, NET_TRANSPORT_VALUE_PIPE, NODEJS_EVENTLOOP_STATE_VALUE_ACTIVE, NODEJS_EVENTLOOP_STATE_VALUE_IDLE, NetHostConnectionSubtypeValues, NetHostConnectionTypeValues, NetTransportValues, OPENTRACING_REF_TYPE_VALUE_CHILD_OF, OPENTRACING_REF_TYPE_VALUE_FOLLOWS_FROM, OSTYPEVALUES_AIX, OSTYPEVALUES_DARWIN, OSTYPEVALUES_DRAGONFLYBSD, OSTYPEVALUES_FREEBSD, OSTYPEVALUES_HPUX, OSTYPEVALUES_LINUX, OSTYPEVALUES_NETBSD, OSTYPEVALUES_OPENBSD, OSTYPEVALUES_SOLARIS, OSTYPEVALUES_WINDOWS, OSTYPEVALUES_Z_OS, OS_TYPE_VALUE_AIX, OS_TYPE_VALUE_DARWIN, OS_TYPE_VALUE_DRAGONFLYBSD, OS_TYPE_VALUE_FREEBSD, OS_TYPE_VALUE_HPUX, OS_TYPE_VALUE_LINUX, OS_TYPE_VALUE_NETBSD, OS_TYPE_VALUE_OPENBSD, OS_TYPE_VALUE_SOLARIS, OS_TYPE_VALUE_WINDOWS, OS_TYPE_VALUE_Z_OS, OTEL_COMPONENT_TYPE_VALUE_BATCHING_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_BATCHING_SPAN_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_PERIODIC_METRIC_READER, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_SPAN_PROCESSOR, OTEL_SPAN_SAMPLING_RESULT_VALUE_DROP, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_AND_SAMPLE, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_ONLY, OTEL_STATUS_CODE_VALUE_ERROR, OTEL_STATUS_CODE_VALUE_OK, OsTypeValues, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_INVOLUNTARY, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_VOLUNTARY, PROCESS_CPU_STATE_VALUE_SYSTEM, PROCESS_CPU_STATE_VALUE_USER, PROCESS_CPU_STATE_VALUE_WAIT, PROCESS_PAGING_FAULT_TYPE_VALUE_MAJOR, PROCESS_PAGING_FAULT_TYPE_VALUE_MINOR, PROFILE_FRAME_TYPE_VALUE_BEAM, PROFILE_FRAME_TYPE_VALUE_CPYTHON, PROFILE_FRAME_TYPE_VALUE_DOTNET, PROFILE_FRAME_TYPE_VALUE_GO, PROFILE_FRAME_TYPE_VALUE_JVM, PROFILE_FRAME_TYPE_VALUE_KERNEL, PROFILE_FRAME_TYPE_VALUE_NATIVE, PROFILE_FRAME_TYPE_VALUE_PERL, PROFILE_FRAME_TYPE_VALUE_PHP, PROFILE_FRAME_TYPE_VALUE_RUBY, PROFILE_FRAME_TYPE_VALUE_RUST, PROFILE_FRAME_TYPE_VALUE_V8JS, RPCGRPCSTATUSCODEVALUES_ABORTED, RPCGRPCSTATUSCODEVALUES_ALREADY_EXISTS, RPCGRPCSTATUSCODEVALUES_CANCELLED, RPCGRPCSTATUSCODEVALUES_DATA_LOSS, RPCGRPCSTATUSCODEVALUES_DEADLINE_EXCEEDED, RPCGRPCSTATUSCODEVALUES_FAILED_PRECONDITION, RPCGRPCSTATUSCODEVALUES_INTERNAL, RPCGRPCSTATUSCODEVALUES_INVALID_ARGUMENT, RPCGRPCSTATUSCODEVALUES_NOT_FOUND, RPCGRPCSTATUSCODEVALUES_OK, RPCGRPCSTATUSCODEVALUES_OUT_OF_RANGE, RPCGRPCSTATUSCODEVALUES_PERMISSION_DENIED, RPCGRPCSTATUSCODEVALUES_RESOURCE_EXHAUSTED, RPCGRPCSTATUSCODEVALUES_UNAUTHENTICATED, RPCGRPCSTATUSCODEVALUES_UNAVAILABLE, RPCGRPCSTATUSCODEVALUES_UNIMPLEMENTED, RPCGRPCSTATUSCODEVALUES_UNKNOWN, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ABORTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ALREADY_EXISTS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_CANCELLED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DATA_LOSS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DEADLINE_EXCEEDED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_FAILED_PRECONDITION, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INTERNAL, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INVALID_ARGUMENT, RPC_CONNECT_RPC_ERROR_CODE_VALUE_NOT_FOUND, RPC_CONNECT_RPC_ERROR_CODE_VALUE_OUT_OF_RANGE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_PERMISSION_DENIED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAUTHENTICATED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAVAILABLE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNIMPLEMENTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNKNOWN, RPC_GRPC_STATUS_CODE_VALUE_ABORTED, RPC_GRPC_STATUS_CODE_VALUE_ALREADY_EXISTS, RPC_GRPC_STATUS_CODE_VALUE_CANCELLED, RPC_GRPC_STATUS_CODE_VALUE_DATA_LOSS, RPC_GRPC_STATUS_CODE_VALUE_DEADLINE_EXCEEDED, RPC_GRPC_STATUS_CODE_VALUE_FAILED_PRECONDITION, RPC_GRPC_STATUS_CODE_VALUE_INTERNAL, RPC_GRPC_STATUS_CODE_VALUE_INVALID_ARGUMENT, RPC_GRPC_STATUS_CODE_VALUE_NOT_FOUND, RPC_GRPC_STATUS_CODE_VALUE_OK, RPC_GRPC_STATUS_CODE_VALUE_OUT_OF_RANGE, RPC_GRPC_STATUS_CODE_VALUE_PERMISSION_DENIED, RPC_GRPC_STATUS_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_GRPC_STATUS_CODE_VALUE_UNAUTHENTICATED, RPC_GRPC_STATUS_CODE_VALUE_UNAVAILABLE, RPC_GRPC_STATUS_CODE_VALUE_UNIMPLEMENTED, RPC_GRPC_STATUS_CODE_VALUE_UNKNOWN, RPC_MESSAGE_TYPE_VALUE_RECEIVED, RPC_MESSAGE_TYPE_VALUE_SENT, RPC_SYSTEM_VALUE_APACHE_DUBBO, RPC_SYSTEM_VALUE_CONNECT_RPC, RPC_SYSTEM_VALUE_DOTNET_WCF, RPC_SYSTEM_VALUE_GRPC, RPC_SYSTEM_VALUE_JAVA_RMI, RpcGrpcStatusCodeValues, SEMATTRS_AWS_DYNAMODB_ATTRIBUTES_TO_GET, SEMATTRS_AWS_DYNAMODB_ATTRIBUTE_DEFINITIONS, SEMATTRS_AWS_DYNAMODB_CONSISTENT_READ, SEMATTRS_AWS_DYNAMODB_CONSUMED_CAPACITY, SEMATTRS_AWS_DYNAMODB_COUNT, SEMATTRS_AWS_DYNAMODB_EXCLUSIVE_START_TABLE, SEMATTRS_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEXES, SEMATTRS_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEX_UPDATES, SEMATTRS_AWS_DYNAMODB_INDEX_NAME, SEMATTRS_AWS_DYNAMODB_ITEM_COLLECTION_METRICS, SEMATTRS_AWS_DYNAMODB_LIMIT, SEMATTRS_AWS_DYNAMODB_LOCAL_SECONDARY_INDEXES, SEMATTRS_AWS_DYNAMODB_PROJECTION, SEMATTRS_AWS_DYNAMODB_PROVISIONED_READ_CAPACITY, SEMATTRS_AWS_DYNAMODB_PROVISIONED_WRITE_CAPACITY, SEMATTRS_AWS_DYNAMODB_SCANNED_COUNT, SEMATTRS_AWS_DYNAMODB_SCAN_FORWARD, SEMATTRS_AWS_DYNAMODB_SEGMENT, SEMATTRS_AWS_DYNAMODB_SELECT, SEMATTRS_AWS_DYNAMODB_TABLE_COUNT, SEMATTRS_AWS_DYNAMODB_TABLE_NAMES, SEMATTRS_AWS_DYNAMODB_TOTAL_SEGMENTS, SEMATTRS_AWS_LAMBDA_INVOKED_ARN, SEMATTRS_CODE_FILEPATH, SEMATTRS_CODE_FUNCTION, SEMATTRS_CODE_LINENO, SEMATTRS_CODE_NAMESPACE, SEMATTRS_DB_CASSANDRA_CONSISTENCY_LEVEL, SEMATTRS_DB_CASSANDRA_COORDINATOR_DC, SEMATTRS_DB_CASSANDRA_COORDINATOR_ID, SEMATTRS_DB_CASSANDRA_IDEMPOTENCE, SEMATTRS_DB_CASSANDRA_KEYSPACE, SEMATTRS_DB_CASSANDRA_PAGE_SIZE, SEMATTRS_DB_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, SEMATTRS_DB_CASSANDRA_TABLE, SEMATTRS_DB_CONNECTION_STRING, SEMATTRS_DB_HBASE_NAMESPACE, SEMATTRS_DB_JDBC_DRIVER_CLASSNAME, SEMATTRS_DB_MONGODB_COLLECTION, SEMATTRS_DB_MSSQL_INSTANCE_NAME, SEMATTRS_DB_NAME, SEMATTRS_DB_OPERATION, SEMATTRS_DB_REDIS_DATABASE_INDEX, SEMATTRS_DB_SQL_TABLE, SEMATTRS_DB_STATEMENT, SEMATTRS_DB_SYSTEM, SEMATTRS_DB_USER, SEMATTRS_ENDUSER_ID, SEMATTRS_ENDUSER_ROLE, SEMATTRS_ENDUSER_SCOPE, SEMATTRS_EXCEPTION_ESCAPED, SEMATTRS_EXCEPTION_MESSAGE, SEMATTRS_EXCEPTION_STACKTRACE, SEMATTRS_EXCEPTION_TYPE, SEMATTRS_FAAS_COLDSTART, SEMATTRS_FAAS_CRON, SEMATTRS_FAAS_DOCUMENT_COLLECTION, SEMATTRS_FAAS_DOCUMENT_NAME, SEMATTRS_FAAS_DOCUMENT_OPERATION, SEMATTRS_FAAS_DOCUMENT_TIME, SEMATTRS_FAAS_EXECUTION, SEMATTRS_FAAS_INVOKED_NAME, SEMATTRS_FAAS_INVOKED_PROVIDER, SEMATTRS_FAAS_INVOKED_REGION, SEMATTRS_FAAS_TIME, SEMATTRS_FAAS_TRIGGER, SEMATTRS_HTTP_CLIENT_IP, SEMATTRS_HTTP_FLAVOR, SEMATTRS_HTTP_HOST, SEMATTRS_HTTP_METHOD, SEMATTRS_HTTP_REQUEST_CONTENT_LENGTH, SEMATTRS_HTTP_REQUEST_CONTENT_LENGTH_UNCOMPRESSED, SEMATTRS_HTTP_RESPONSE_CONTENT_LENGTH, SEMATTRS_HTTP_RESPONSE_CONTENT_LENGTH_UNCOMPRESSED, SEMATTRS_HTTP_ROUTE, SEMATTRS_HTTP_SCHEME, SEMATTRS_HTTP_SERVER_NAME, SEMATTRS_HTTP_STATUS_CODE, SEMATTRS_HTTP_TARGET, SEMATTRS_HTTP_URL, SEMATTRS_HTTP_USER_AGENT, SEMATTRS_MESSAGE_COMPRESSED_SIZE, SEMATTRS_MESSAGE_ID, SEMATTRS_MESSAGE_TYPE, SEMATTRS_MESSAGE_UNCOMPRESSED_SIZE, SEMATTRS_MESSAGING_CONSUMER_ID, SEMATTRS_MESSAGING_CONVERSATION_ID, SEMATTRS_MESSAGING_DESTINATION, SEMATTRS_MESSAGING_DESTINATION_KIND, SEMATTRS_MESSAGING_KAFKA_CLIENT_ID, SEMATTRS_MESSAGING_KAFKA_CONSUMER_GROUP, SEMATTRS_MESSAGING_KAFKA_MESSAGE_KEY, SEMATTRS_MESSAGING_KAFKA_PARTITION, SEMATTRS_MESSAGING_KAFKA_TOMBSTONE, SEMATTRS_MESSAGING_MESSAGE_ID, SEMATTRS_MESSAGING_MESSAGE_PAYLOAD_COMPRESSED_SIZE_BYTES, SEMATTRS_MESSAGING_MESSAGE_PAYLOAD_SIZE_BYTES, SEMATTRS_MESSAGING_OPERATION, SEMATTRS_MESSAGING_PROTOCOL, SEMATTRS_MESSAGING_PROTOCOL_VERSION, SEMATTRS_MESSAGING_RABBITMQ_ROUTING_KEY, SEMATTRS_MESSAGING_SYSTEM, SEMATTRS_MESSAGING_TEMP_DESTINATION, SEMATTRS_MESSAGING_URL, SEMATTRS_NET_HOST_CARRIER_ICC, SEMATTRS_NET_HOST_CARRIER_MCC, SEMATTRS_NET_HOST_CARRIER_MNC, SEMATTRS_NET_HOST_CARRIER_NAME, SEMATTRS_NET_HOST_CONNECTION_SUBTYPE, SEMATTRS_NET_HOST_CONNECTION_TYPE, SEMATTRS_NET_HOST_IP, SEMATTRS_NET_HOST_NAME, SEMATTRS_NET_HOST_PORT, SEMATTRS_NET_PEER_IP, SEMATTRS_NET_PEER_NAME, SEMATTRS_NET_PEER_PORT, SEMATTRS_NET_TRANSPORT, SEMATTRS_PEER_SERVICE, SEMATTRS_RPC_GRPC_STATUS_CODE, SEMATTRS_RPC_JSONRPC_ERROR_CODE, SEMATTRS_RPC_JSONRPC_ERROR_MESSAGE, SEMATTRS_RPC_JSONRPC_REQUEST_ID, SEMATTRS_RPC_JSONRPC_VERSION, SEMATTRS_RPC_METHOD, SEMATTRS_RPC_SERVICE, SEMATTRS_RPC_SYSTEM, SEMATTRS_THREAD_ID, SEMATTRS_THREAD_NAME, SEMRESATTRS_AWS_ECS_CLUSTER_ARN, SEMRESATTRS_AWS_ECS_CONTAINER_ARN, SEMRESATTRS_AWS_ECS_LAUNCHTYPE, SEMRESATTRS_AWS_ECS_TASK_ARN, SEMRESATTRS_AWS_ECS_TASK_FAMILY, SEMRESATTRS_AWS_ECS_TASK_REVISION, SEMRESATTRS_AWS_EKS_CLUSTER_ARN, SEMRESATTRS_AWS_LOG_GROUP_ARNS, SEMRESATTRS_AWS_LOG_GROUP_NAMES, SEMRESATTRS_AWS_LOG_STREAM_ARNS, SEMRESATTRS_AWS_LOG_STREAM_NAMES, SEMRESATTRS_CLOUD_ACCOUNT_ID, SEMRESATTRS_CLOUD_AVAILABILITY_ZONE, SEMRESATTRS_CLOUD_PLATFORM, SEMRESATTRS_CLOUD_PROVIDER, SEMRESATTRS_CLOUD_REGION, SEMRESATTRS_CONTAINER_ID, SEMRESATTRS_CONTAINER_IMAGE_NAME, SEMRESATTRS_CONTAINER_IMAGE_TAG, SEMRESATTRS_CONTAINER_NAME, SEMRESATTRS_CONTAINER_RUNTIME, SEMRESATTRS_DEPLOYMENT_ENVIRONMENT, SEMRESATTRS_DEVICE_ID, SEMRESATTRS_DEVICE_MODEL_IDENTIFIER, SEMRESATTRS_DEVICE_MODEL_NAME, SEMRESATTRS_FAAS_ID, SEMRESATTRS_FAAS_INSTANCE, SEMRESATTRS_FAAS_MAX_MEMORY, SEMRESATTRS_FAAS_NAME, SEMRESATTRS_FAAS_VERSION, SEMRESATTRS_HOST_ARCH, SEMRESATTRS_HOST_ID, SEMRESATTRS_HOST_IMAGE_ID, SEMRESATTRS_HOST_IMAGE_NAME, SEMRESATTRS_HOST_IMAGE_VERSION, SEMRESATTRS_HOST_NAME, SEMRESATTRS_HOST_TYPE, SEMRESATTRS_K8S_CLUSTER_NAME, SEMRESATTRS_K8S_CONTAINER_NAME, SEMRESATTRS_K8S_CRONJOB_NAME, SEMRESATTRS_K8S_CRONJOB_UID, SEMRESATTRS_K8S_DAEMONSET_NAME, SEMRESATTRS_K8S_DAEMONSET_UID, SEMRESATTRS_K8S_DEPLOYMENT_NAME, SEMRESATTRS_K8S_DEPLOYMENT_UID, SEMRESATTRS_K8S_JOB_NAME, SEMRESATTRS_K8S_JOB_UID, SEMRESATTRS_K8S_NAMESPACE_NAME, SEMRESATTRS_K8S_NODE_NAME, SEMRESATTRS_K8S_NODE_UID, SEMRESATTRS_K8S_POD_NAME, SEMRESATTRS_K8S_POD_UID, SEMRESATTRS_K8S_REPLICASET_NAME, SEMRESATTRS_K8S_REPLICASET_UID, SEMRESATTRS_K8S_STATEFULSET_NAME, SEMRESATTRS_K8S_STATEFULSET_UID, SEMRESATTRS_OS_DESCRIPTION, SEMRESATTRS_OS_NAME, SEMRESATTRS_OS_TYPE, SEMRESATTRS_OS_VERSION, SEMRESATTRS_PROCESS_COMMAND, SEMRESATTRS_PROCESS_COMMAND_ARGS, SEMRESATTRS_PROCESS_COMMAND_LINE, SEMRESATTRS_PROCESS_EXECUTABLE_NAME, SEMRESATTRS_PROCESS_EXECUTABLE_PATH, SEMRESATTRS_PROCESS_OWNER, SEMRESATTRS_PROCESS_PID, SEMRESATTRS_PROCESS_RUNTIME_DESCRIPTION, SEMRESATTRS_PROCESS_RUNTIME_NAME, SEMRESATTRS_PROCESS_RUNTIME_VERSION, SEMRESATTRS_SERVICE_INSTANCE_ID, SEMRESATTRS_SERVICE_NAME, SEMRESATTRS_SERVICE_NAMESPACE, SEMRESATTRS_SERVICE_VERSION, SEMRESATTRS_TELEMETRY_AUTO_VERSION, SEMRESATTRS_TELEMETRY_SDK_LANGUAGE, SEMRESATTRS_TELEMETRY_SDK_NAME, SEMRESATTRS_TELEMETRY_SDK_VERSION, SEMRESATTRS_WEBENGINE_DESCRIPTION, SEMRESATTRS_WEBENGINE_NAME, SEMRESATTRS_WEBENGINE_VERSION, SIGNALR_CONNECTION_STATUS_VALUE_APP_SHUTDOWN, SIGNALR_CONNECTION_STATUS_VALUE_NORMAL_CLOSURE, SIGNALR_CONNECTION_STATUS_VALUE_TIMEOUT, SIGNALR_TRANSPORT_VALUE_LONG_POLLING, SIGNALR_TRANSPORT_VALUE_SERVER_SENT_EVENTS, SIGNALR_TRANSPORT_VALUE_WEB_SOCKETS, STATE_VALUE_IDLE, STATE_VALUE_USED, SYSTEM_CPU_STATE_VALUE_IDLE, SYSTEM_CPU_STATE_VALUE_INTERRUPT, SYSTEM_CPU_STATE_VALUE_IOWAIT, SYSTEM_CPU_STATE_VALUE_NICE, SYSTEM_CPU_STATE_VALUE_STEAL, SYSTEM_CPU_STATE_VALUE_SYSTEM, SYSTEM_CPU_STATE_VALUE_USER, SYSTEM_FILESYSTEM_STATE_VALUE_FREE, SYSTEM_FILESYSTEM_STATE_VALUE_RESERVED, SYSTEM_FILESYSTEM_STATE_VALUE_USED, SYSTEM_FILESYSTEM_TYPE_VALUE_EXFAT, SYSTEM_FILESYSTEM_TYPE_VALUE_EXT4, SYSTEM_FILESYSTEM_TYPE_VALUE_FAT32, SYSTEM_FILESYSTEM_TYPE_VALUE_HFSPLUS, SYSTEM_FILESYSTEM_TYPE_VALUE_NTFS, SYSTEM_FILESYSTEM_TYPE_VALUE_REFS, SYSTEM_MEMORY_STATE_VALUE_BUFFERS, SYSTEM_MEMORY_STATE_VALUE_CACHED, SYSTEM_MEMORY_STATE_VALUE_FREE, SYSTEM_MEMORY_STATE_VALUE_SHARED, SYSTEM_MEMORY_STATE_VALUE_USED, SYSTEM_NETWORK_STATE_VALUE_CLOSE, SYSTEM_NETWORK_STATE_VALUE_CLOSE_WAIT, SYSTEM_NETWORK_STATE_VALUE_CLOSING, SYSTEM_NETWORK_STATE_VALUE_DELETE, SYSTEM_NETWORK_STATE_VALUE_ESTABLISHED, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_1, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_2, SYSTEM_NETWORK_STATE_VALUE_LAST_ACK, SYSTEM_NETWORK_STATE_VALUE_LISTEN, SYSTEM_NETWORK_STATE_VALUE_SYN_RECV, SYSTEM_NETWORK_STATE_VALUE_SYN_SENT, SYSTEM_NETWORK_STATE_VALUE_TIME_WAIT, SYSTEM_PAGING_DIRECTION_VALUE_IN, SYSTEM_PAGING_DIRECTION_VALUE_OUT, SYSTEM_PAGING_STATE_VALUE_FREE, SYSTEM_PAGING_STATE_VALUE_USED, SYSTEM_PAGING_TYPE_VALUE_MAJOR, SYSTEM_PAGING_TYPE_VALUE_MINOR, SYSTEM_PROCESSES_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESSES_STATUS_VALUE_RUNNING, SYSTEM_PROCESSES_STATUS_VALUE_SLEEPING, SYSTEM_PROCESSES_STATUS_VALUE_STOPPED, SYSTEM_PROCESS_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESS_STATUS_VALUE_RUNNING, SYSTEM_PROCESS_STATUS_VALUE_SLEEPING, SYSTEM_PROCESS_STATUS_VALUE_STOPPED, SemanticAttributes, SemanticResourceAttributes, TELEMETRYSDKLANGUAGEVALUES_CPP, TELEMETRYSDKLANGUAGEVALUES_DOTNET, TELEMETRYSDKLANGUAGEVALUES_ERLANG, TELEMETRYSDKLANGUAGEVALUES_GO, TELEMETRYSDKLANGUAGEVALUES_JAVA, TELEMETRYSDKLANGUAGEVALUES_NODEJS, TELEMETRYSDKLANGUAGEVALUES_PHP, TELEMETRYSDKLANGUAGEVALUES_PYTHON, TELEMETRYSDKLANGUAGEVALUES_RUBY, TELEMETRYSDKLANGUAGEVALUES_WEBJS, TELEMETRY_SDK_LANGUAGE_VALUE_CPP, TELEMETRY_SDK_LANGUAGE_VALUE_DOTNET, TELEMETRY_SDK_LANGUAGE_VALUE_ERLANG, TELEMETRY_SDK_LANGUAGE_VALUE_GO, TELEMETRY_SDK_LANGUAGE_VALUE_JAVA, TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS, TELEMETRY_SDK_LANGUAGE_VALUE_PHP, TELEMETRY_SDK_LANGUAGE_VALUE_PYTHON, TELEMETRY_SDK_LANGUAGE_VALUE_RUBY, TELEMETRY_SDK_LANGUAGE_VALUE_RUST, TELEMETRY_SDK_LANGUAGE_VALUE_SWIFT, TELEMETRY_SDK_LANGUAGE_VALUE_WEBJS, TEST_CASE_RESULT_STATUS_VALUE_FAIL, TEST_CASE_RESULT_STATUS_VALUE_PASS, TEST_SUITE_RUN_STATUS_VALUE_ABORTED, TEST_SUITE_RUN_STATUS_VALUE_FAILURE, TEST_SUITE_RUN_STATUS_VALUE_IN_PROGRESS, TEST_SUITE_RUN_STATUS_VALUE_SKIPPED, TEST_SUITE_RUN_STATUS_VALUE_SUCCESS, TEST_SUITE_RUN_STATUS_VALUE_TIMED_OUT, TLS_PROTOCOL_NAME_VALUE_SSL, TLS_PROTOCOL_NAME_VALUE_TLS, TelemetrySdkLanguageValues, USER_AGENT_SYNTHETIC_TYPE_VALUE_BOT, USER_AGENT_SYNTHETIC_TYPE_VALUE_TEST, V8JS_GC_TYPE_VALUE_INCREMENTAL, V8JS_GC_TYPE_VALUE_MAJOR, V8JS_GC_TYPE_VALUE_MINOR, V8JS_GC_TYPE_VALUE_WEAKCB, V8JS_HEAP_SPACE_NAME_VALUE_CODE_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_LARGE_OBJECT_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_MAP_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_NEW_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_OLD_SPACE, VCS_CHANGE_STATE_VALUE_CLOSED, VCS_CHANGE_STATE_VALUE_MERGED, VCS_CHANGE_STATE_VALUE_OPEN, VCS_CHANGE_STATE_VALUE_WIP, VCS_LINE_CHANGE_TYPE_VALUE_ADDED, VCS_LINE_CHANGE_TYPE_VALUE_REMOVED, VCS_PROVIDER_NAME_VALUE_BITBUCKET, VCS_PROVIDER_NAME_VALUE_GITEA, VCS_PROVIDER_NAME_VALUE_GITHUB, VCS_PROVIDER_NAME_VALUE_GITLAB, VCS_PROVIDER_NAME_VALUE_GITTEA, VCS_REF_BASE_TYPE_VALUE_BRANCH, VCS_REF_BASE_TYPE_VALUE_TAG, VCS_REF_HEAD_TYPE_VALUE_BRANCH, VCS_REF_HEAD_TYPE_VALUE_TAG, VCS_REF_TYPE_VALUE_BRANCH, VCS_REF_TYPE_VALUE_TAG, VCS_REPOSITORY_REF_TYPE_VALUE_BRANCH, VCS_REPOSITORY_REF_TYPE_VALUE_TAG, VCS_REVISION_DELTA_DIRECTION_VALUE_AHEAD, VCS_REVISION_DELTA_DIRECTION_VALUE_BEHIND };

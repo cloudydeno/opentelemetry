@@ -213,22 +213,28 @@ function isWrapped(func) {
 		func.__wrapped === true);
 }
 
+var SemconvStability;
+(function (SemconvStability) {
+	SemconvStability[SemconvStability["STABLE"] = 1] = "STABLE";
+	SemconvStability[SemconvStability["OLD"] = 2] = "OLD";
+	SemconvStability[SemconvStability["DUPLICATE"] = 3] = "DUPLICATE";
+})(SemconvStability || (SemconvStability = {}));
 function semconvStabilityFromStr(namespace, str) {
-	let semconvStability = 2 ;
+	let semconvStability = SemconvStability.OLD;
 	const entries = str
 		?.split(',')
 		.map(v => v.trim())
 		.filter(s => s !== '');
 	for (const entry of entries ?? []) {
 		if (entry.toLowerCase() === namespace + '/dup') {
-			semconvStability = 3 ;
+			semconvStability = SemconvStability.DUPLICATE;
 			break;
 		}
 		else if (entry.toLowerCase() === namespace) {
-			semconvStability = 1 ;
+			semconvStability = SemconvStability.STABLE;
 		}
 	}
 	return semconvStability;
 }
 
-export { InstrumentationBase, InstrumentationNodeModuleDefinition, InstrumentationNodeModuleFile, isWrapped, registerInstrumentations, safeExecuteInTheMiddle, safeExecuteInTheMiddleAsync, semconvStabilityFromStr };
+export { InstrumentationBase, InstrumentationNodeModuleDefinition, InstrumentationNodeModuleFile, SemconvStability, isWrapped, registerInstrumentations, safeExecuteInTheMiddle, safeExecuteInTheMiddleAsync, semconvStabilityFromStr };
