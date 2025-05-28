@@ -273,11 +273,8 @@ for (const file of [
 }
 
 {
-  const text = await Deno.readTextFile('hack/opentelemetry-js/semantic-conventions/src/index.ts');
-  if (!text.includes('experimental')) {
-    Deno.writeTextFile('hack/opentelemetry-js/semantic-conventions/src/index.ts',
-      text + `\nexport * from './experimental_attributes';\nexport * from './experimental_metrics';;\n`);
-  }
+  Deno.writeTextFile('hack/opentelemetry-js/semantic-conventions/src/index.ts',
+    await Deno.readTextFile('hack/opentelemetry-js/semantic-conventions/src/index-incubating.ts'));
 }
 
 {
