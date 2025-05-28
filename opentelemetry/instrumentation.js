@@ -213,4 +213,22 @@ function isWrapped(func) {
 		func.__wrapped === true);
 }
 
-export { InstrumentationBase, InstrumentationNodeModuleDefinition, InstrumentationNodeModuleFile, isWrapped, registerInstrumentations, safeExecuteInTheMiddle, safeExecuteInTheMiddleAsync };
+function semconvStabilityFromStr(namespace, str) {
+	let semconvStability = 2 ;
+	const entries = str
+		?.split(',')
+		.map(v => v.trim())
+		.filter(s => s !== '');
+	for (const entry of entries ?? []) {
+		if (entry.toLowerCase() === namespace + '/dup') {
+			semconvStability = 3 ;
+			break;
+		}
+		else if (entry.toLowerCase() === namespace) {
+			semconvStability = 1 ;
+		}
+	}
+	return semconvStability;
+}
+
+export { InstrumentationBase, InstrumentationNodeModuleDefinition, InstrumentationNodeModuleFile, isWrapped, registerInstrumentations, safeExecuteInTheMiddle, safeExecuteInTheMiddleAsync, semconvStabilityFromStr };

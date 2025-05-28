@@ -19,7 +19,7 @@ import { otperformance, getTimeOrigin, isAttributeValue, isTimeInput, sanitizeAt
 import { defaultResource } from './resources.js';
 import * as api from './api.js';
 import { SpanStatusCode, diag, trace, isSpanContextValid, TraceFlags, isValidTraceId, context } from './api.js';
-import { SEMATTRS_EXCEPTION_TYPE, SEMATTRS_EXCEPTION_MESSAGE, SEMATTRS_EXCEPTION_STACKTRACE } from './semantic-conventions.js';
+import { ATTR_EXCEPTION_TYPE, ATTR_EXCEPTION_MESSAGE, ATTR_EXCEPTION_STACKTRACE } from './semantic-conventions.js';
 
 const ExceptionEventName = 'exception';
 
@@ -201,24 +201,23 @@ class SpanImpl {
 	recordException(exception, time) {
 		const attributes = {};
 		if (typeof exception === 'string') {
-			attributes[SEMATTRS_EXCEPTION_MESSAGE] = exception;
+			attributes[ATTR_EXCEPTION_MESSAGE] = exception;
 		}
 		else if (exception) {
 			if (exception.code) {
-				attributes[SEMATTRS_EXCEPTION_TYPE] = exception.code.toString();
+				attributes[ATTR_EXCEPTION_TYPE] = exception.code.toString();
 			}
 			else if (exception.name) {
-				attributes[SEMATTRS_EXCEPTION_TYPE] = exception.name;
+				attributes[ATTR_EXCEPTION_TYPE] = exception.name;
 			}
 			if (exception.message) {
-				attributes[SEMATTRS_EXCEPTION_MESSAGE] = exception.message;
+				attributes[ATTR_EXCEPTION_MESSAGE] = exception.message;
 			}
 			if (exception.stack) {
-				attributes[SEMATTRS_EXCEPTION_STACKTRACE] = exception.stack;
+				attributes[ATTR_EXCEPTION_STACKTRACE] = exception.stack;
 			}
 		}
-		if (attributes[SEMATTRS_EXCEPTION_TYPE] ||
-			attributes[SEMATTRS_EXCEPTION_MESSAGE]) {
+		if (attributes[ATTR_EXCEPTION_TYPE] || attributes[ATTR_EXCEPTION_MESSAGE]) {
 			this.addEvent(ExceptionEventName, attributes, time);
 		}
 		else {

@@ -216,6 +216,9 @@ const JsonLogsSerializer = {
 		return encoder.encode(JSON.stringify(request));
 	},
 	deserializeResponse: (arg) => {
+		if (arg.length === 0) {
+			return {};
+		}
 		const decoder = new TextDecoder();
 		return JSON.parse(decoder.decode(arg));
 	},
@@ -355,6 +358,9 @@ const JsonMetricsSerializer = {
 		return encoder.encode(JSON.stringify(request));
 	},
 	deserializeResponse: (arg) => {
+		if (arg.length === 0) {
+			return {};
+		}
 		const decoder = new TextDecoder();
 		return JSON.parse(decoder.decode(arg));
 	},
@@ -473,6 +479,9 @@ const JsonTraceSerializer = {
 		return encoder.encode(JSON.stringify(request));
 	},
 	deserializeResponse: (arg) => {
+		if (arg.length === 0) {
+			return {};
+		}
 		const decoder = new TextDecoder();
 		return JSON.parse(decoder.decode(arg));
 	},

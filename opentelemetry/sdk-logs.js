@@ -209,6 +209,16 @@ function reconfigureLimits(logRecordLimits) {
 	};
 }
 
+class NoopLogRecordProcessor {
+	forceFlush() {
+		return Promise.resolve();
+	}
+	onEmit(_logRecord, _context) { }
+	shutdown() {
+		return Promise.resolve();
+	}
+}
+
 class MultiLogRecordProcessor {
 	processors;
 	forceFlushTimeoutMillis;
@@ -228,28 +238,26 @@ class MultiLogRecordProcessor {
 	}
 }
 
-class NoopLogRecordProcessor {
-	forceFlush() {
-		return Promise.resolve();
-	}
-	onEmit(_logRecord, _context) { }
-	shutdown() {
-		return Promise.resolve();
-	}
-}
-
 class LoggerProviderSharedState {
 	resource;
 	forceFlushTimeoutMillis;
 	logRecordLimits;
+	processors;
 	loggers = new Map();
 	activeProcessor;
 	registeredLogRecordProcessors = [];
-	constructor(resource, forceFlushTimeoutMillis, logRecordLimits) {
+	constructor(resource, forceFlushTimeoutMillis, logRecordLimits, processors) {
 		this.resource = resource;
 		this.forceFlushTimeoutMillis = forceFlushTimeoutMillis;
 		this.logRecordLimits = logRecordLimits;
-		this.activeProcessor = new NoopLogRecordProcessor();
+		this.processors = processors;
+		if (processors.length > 0) {
+			this.registeredLogRecordProcessors = processors;
+			this.activeProcessor = new MultiLogRecordProcessor(this.registeredLogRecordProcessors, this.forceFlushTimeoutMillis);
+		}
+		else {
+			this.activeProcessor = new NoopLogRecordProcessor();
+		}
 	}
 }
 
@@ -260,7 +268,7 @@ class LoggerProvider {
 	constructor(config = {}) {
 		const mergedConfig = merge({}, loadDefaultConfig(), config);
 		const resource = config.resource ?? defaultResource();
-		this._sharedState = new LoggerProviderSharedState(resource, mergedConfig.forceFlushTimeoutMillis, reconfigureLimits(mergedConfig.logRecordLimits));
+		this._sharedState = new LoggerProviderSharedState(resource, mergedConfig.forceFlushTimeoutMillis, reconfigureLimits(mergedConfig.logRecordLimits), config?.processors ?? []);
 		this._shutdownOnce = new BindOnceFuture(this._shutdown, this);
 	}
 	getLogger(name, version, options) {

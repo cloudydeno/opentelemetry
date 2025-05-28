@@ -15,49 +15,11 @@
  */
 
 import { Resource } from './resources.d.ts';
-import * as logsAPI from './api-logs.d.ts';
-import { SeverityNumber, LogBody, LogAttributes, Logger, AnyValue } from './api-logs.d.ts';
 import * as api from './api.d.ts';
 import { HrTime, SpanContext, Context } from './api.d.ts';
+import * as logsAPI from './api-logs.d.ts';
+import { SeverityNumber, LogBody, LogAttributes, Logger, AnyValue } from './api-logs.d.ts';
 import { InstrumentationScope, ExportResult } from './core.d.ts';
-
-interface LoggerProviderConfig {
-	/** Resource associated with trace telemetry  */
-	resource?: Resource;
-	/**
-	* How long the forceFlush can run before it is cancelled.
-	* The default value is 30000ms
-	*/
-	forceFlushTimeoutMillis?: number;
-	/** Log Record Limits*/
-	logRecordLimits?: LogRecordLimits;
-}
-interface LogRecordLimits {
-	/** attributeValueLengthLimit is maximum allowed attribute value size */
-	attributeValueLengthLimit?: number;
-	/** attributeCountLimit is number of attributes per LogRecord */
-	attributeCountLimit?: number;
-}
-/** Interface configuration for a buffer. */
-interface BufferConfig {
-	/** The maximum batch size of every export. It must be smaller or equal to
-	* maxQueueSize. The default value is 512. */
-	maxExportBatchSize?: number;
-	/** The delay interval in milliseconds between two consecutive exports.
-	*  The default value is 5000ms. */
-	scheduledDelayMillis?: number;
-	/** How long the export can run before it is cancelled.
-	* The default value is 30000ms */
-	exportTimeoutMillis?: number;
-	/** The maximum queue size. After the size is reached log records are dropped.
-	* The default value is 2048. */
-	maxQueueSize?: number;
-}
-interface BatchLogRecordProcessorBrowserConfig extends BufferConfig {
-	/** Disable flush when a user navigates to a new page, closes the tab or the browser, or,
-	* on mobile, switches to a different app. Auto flush is enabled by default. */
-	disableAutoFlushOnDocumentHide?: boolean;
-}
 
 interface ReadableLogRecord {
 	readonly hrTime: HrTime;
@@ -76,10 +38,11 @@ declare class LoggerProviderSharedState {
 	readonly resource: Resource;
 	readonly forceFlushTimeoutMillis: number;
 	readonly logRecordLimits: Required<LogRecordLimits>;
+	readonly processors: LogRecordProcessor[];
 	readonly loggers: Map<string, Logger>;
 	activeProcessor: LogRecordProcessor;
 	readonly registeredLogRecordProcessors: LogRecordProcessor[];
-	constructor(resource: Resource, forceFlushTimeoutMillis: number, logRecordLimits: Required<LogRecordLimits>);
+	constructor(resource: Resource, forceFlushTimeoutMillis: number, logRecordLimits: Required<LogRecordLimits>, processors: LogRecordProcessor[]);
 }
 
 declare class LogRecord implements ReadableLogRecord {
@@ -137,6 +100,46 @@ interface LogRecordProcessor {
 	shutdown(): Promise<void>;
 }
 
+interface LoggerProviderConfig {
+	/** Resource associated with trace telemetry  */
+	resource?: Resource;
+	/**
+	* How long the forceFlush can run before it is cancelled.
+	* The default value is 30000ms
+	*/
+	forceFlushTimeoutMillis?: number;
+	/** Log Record Limits*/
+	logRecordLimits?: LogRecordLimits;
+	/** Log Record Processors */
+	processors?: LogRecordProcessor[];
+}
+interface LogRecordLimits {
+	/** attributeValueLengthLimit is maximum allowed attribute value size */
+	attributeValueLengthLimit?: number;
+	/** attributeCountLimit is number of attributes per LogRecord */
+	attributeCountLimit?: number;
+}
+/** Interface configuration for a buffer. */
+interface BufferConfig {
+	/** The maximum batch size of every export. It must be smaller or equal to
+	* maxQueueSize. The default value is 512. */
+	maxExportBatchSize?: number;
+	/** The delay interval in milliseconds between two consecutive exports.
+	*  The default value is 5000ms. */
+	scheduledDelayMillis?: number;
+	/** How long the export can run before it is cancelled.
+	* The default value is 30000ms */
+	exportTimeoutMillis?: number;
+	/** The maximum queue size. After the size is reached log records are dropped.
+	* The default value is 2048. */
+	maxQueueSize?: number;
+}
+interface BatchLogRecordProcessorBrowserConfig extends BufferConfig {
+	/** Disable flush when a user navigates to a new page, closes the tab or the browser, or,
+	* on mobile, switches to a different app. Auto flush is enabled by default. */
+	disableAutoFlushOnDocumentHide?: boolean;
+}
+
 declare class LoggerProvider implements logsAPI.LoggerProvider {
 	private _shutdownOnce;
 	private readonly _sharedState;
@@ -146,6 +149,8 @@ declare class LoggerProvider implements logsAPI.LoggerProvider {
 	*/
 	getLogger(name: string, version?: string, options?: logsAPI.LoggerOptions): logsAPI.Logger;
 	/**
+	* @deprecated add your processors in the constructors instead.
+	*
 	* Adds a new {@link LogRecordProcessor} to this logger.
 	* @param processor the new LogRecordProcessor to be added.
 	*/

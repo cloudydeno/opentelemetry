@@ -16,7 +16,7 @@
 /// <reference types="./core.d.ts" />
 
 import { createContextKey, baggageEntryMetadataFromString, propagation, diag, trace, isSpanContextValid, TraceFlags, DiagLogLevel, context } from './api.js';
-import { SEMRESATTRS_TELEMETRY_SDK_NAME, SEMRESATTRS_PROCESS_RUNTIME_NAME, SEMRESATTRS_TELEMETRY_SDK_LANGUAGE, TELEMETRYSDKLANGUAGEVALUES_NODEJS, SEMRESATTRS_TELEMETRY_SDK_VERSION } from './semantic-conventions.js';
+import { ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_LANGUAGE, TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS, ATTR_TELEMETRY_SDK_VERSION } from './semantic-conventions.js';
 
 const SUPPRESS_TRACING_KEY = createContextKey('OpenTelemetry SDK Context Key SUPPRESS_TRACING');
 function suppressTracing(context) {
@@ -71,18 +71,16 @@ function parsePairKeyValue(entry) {
 	return { key, value, metadata };
 }
 function parseKeyPairsIntoRecord(value) {
-	if (typeof value !== 'string' || value.length === 0)
-		return {};
-	return value
-		.split(BAGGAGE_ITEMS_SEPARATOR)
-		.map(entry => {
-		return parsePairKeyValue(entry);
-	})
-		.filter(keyPair => keyPair !== undefined && keyPair.value.length > 0)
-		.reduce((headers, keyPair) => {
-		headers[keyPair.key] = keyPair.value;
-		return headers;
-	}, {});
+	const result = {};
+	if (typeof value === 'string' && value.length > 0) {
+		value.split(BAGGAGE_ITEMS_SEPARATOR).forEach(entry => {
+			const keyPair = parsePairKeyValue(entry);
+			if (keyPair !== undefined && keyPair.value.length > 0) {
+				result[keyPair.key] = keyPair.value;
+			}
+		});
+	}
+	return result;
 }
 
 class W3CBaggagePropagator {
@@ -298,13 +296,15 @@ const _globalThis = typeof globalThis === 'object' ? globalThis : global;
 
 const otperformance = performance;
 
-const VERSION$1 = "2.0.0";
+const VERSION$1 = "2.0.1";
+
+const ATTR_PROCESS_RUNTIME_NAME = 'process.runtime.name';
 
 const SDK_INFO = {
-	[SEMRESATTRS_TELEMETRY_SDK_NAME]: 'opentelemetry',
-	[SEMRESATTRS_PROCESS_RUNTIME_NAME]: 'deno',
-	[SEMRESATTRS_TELEMETRY_SDK_LANGUAGE]: TELEMETRYSDKLANGUAGEVALUES_NODEJS,
-	[SEMRESATTRS_TELEMETRY_SDK_VERSION]: VERSION$1,
+	[ATTR_TELEMETRY_SDK_NAME]: 'opentelemetry',
+	[ATTR_PROCESS_RUNTIME_NAME]: 'deno',
+	[ATTR_TELEMETRY_SDK_LANGUAGE]: TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS,
+	[ATTR_TELEMETRY_SDK_VERSION]: VERSION$1,
 };
 
 function unrefTimer(timer) {

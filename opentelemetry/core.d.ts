@@ -225,7 +225,7 @@ declare const otperformance: Performance;
 declare const SDK_INFO: {
 	"telemetry.sdk.name": string;
 	"process.runtime.name": string;
-	"telemetry.sdk.language": string;
+	"telemetry.sdk.language": "nodejs";
 	"telemetry.sdk.version": string;
 };
 

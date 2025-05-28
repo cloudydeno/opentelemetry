@@ -17,7 +17,7 @@
 
 import { diag } from './api.js';
 import { SDK_INFO, getStringFromEnv } from './core.js';
-import { ATTR_SERVICE_NAME, ATTR_TELEMETRY_SDK_LANGUAGE, ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_VERSION, SEMRESATTRS_SERVICE_NAME, SEMRESATTRS_HOST_NAME, SEMRESATTRS_HOST_ARCH, SEMRESATTRS_HOST_ID, SEMRESATTRS_OS_TYPE, SEMRESATTRS_OS_VERSION, SEMRESATTRS_PROCESS_PID, SEMRESATTRS_PROCESS_EXECUTABLE_NAME, SEMRESATTRS_PROCESS_EXECUTABLE_PATH, SEMRESATTRS_PROCESS_COMMAND_ARGS, SEMRESATTRS_PROCESS_RUNTIME_VERSION, SEMRESATTRS_PROCESS_RUNTIME_NAME, SEMRESATTRS_PROCESS_RUNTIME_DESCRIPTION, SEMRESATTRS_PROCESS_COMMAND, SEMRESATTRS_PROCESS_OWNER, SEMRESATTRS_SERVICE_INSTANCE_ID } from './semantic-conventions.js';
+import { ATTR_SERVICE_NAME, ATTR_TELEMETRY_SDK_LANGUAGE, ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_VERSION } from './semantic-conventions.js';
 
 
 
@@ -39,7 +39,7 @@ class ResourceImpl {
 	_memoizedAttributes;
 	static FromAttributeList(attributes) {
 		const res = new ResourceImpl({});
-		res._rawAttributes = attributes;
+		res._rawAttributes = guardedRawAttributes(attributes);
 		res._asyncAttributesPending =
 			attributes.filter(([_, val]) => isPromiseLike(val)).length > 0;
 		return res;
@@ -53,6 +53,7 @@ class ResourceImpl {
 			}
 			return [k, v];
 		});
+		this._rawAttributes = guardedRawAttributes(this._rawAttributes);
 	}
 	get asyncAttributesPending() {
 		return this._asyncAttributesPending;
@@ -63,13 +64,7 @@ class ResourceImpl {
 		}
 		for (let i = 0; i < this._rawAttributes.length; i++) {
 			const [k, v] = this._rawAttributes[i];
-			try {
-				this._rawAttributes[i] = [k, isPromiseLike(v) ? await v : v];
-			}
-			catch (err) {
-				diag.debug("a resource's async attributes promise rejected: %s", err);
-				this._rawAttributes[i] = [k, undefined];
-			}
+			this._rawAttributes[i] = [k, isPromiseLike(v) ? await v : v];
 		}
 		this._asyncAttributesPending = false;
 	}
@@ -124,6 +119,20 @@ function defaultResource() {
 		[ATTR_TELEMETRY_SDK_VERSION]: SDK_INFO[ATTR_TELEMETRY_SDK_VERSION],
 	});
 }
+function guardedRawAttributes(attributes) {
+	return attributes.map(([k, v]) => {
+		if (isPromiseLike(v)) {
+			return [
+				k,
+				v.catch(err => {
+					diag.debug('promise rejection for resource attribute: %s - %s', k, err);
+					return undefined;
+				}),
+			];
+		}
+		return [k, v];
+	});
+}
 
 const detectResources = (config = {}) => {
 	const resources = (config.detectors || []).map(d => {
@@ -137,16 +146,7 @@ const detectResources = (config = {}) => {
 			return emptyResource();
 		}
 	});
-	logResources(resources);
 	return resources.reduce((acc, resource) => acc.merge(resource), emptyResource());
-};
-const logResources = (resources) => {
-	resources.forEach(resource => {
-		if (Object.keys(resource.attributes).length > 0) {
-			const resourceDebugString = JSON.stringify(resource.attributes, null, 4);
-			diag.verbose(resourceDebugString);
-		}
-	});
 };
 
 class EnvDetector {
@@ -173,7 +173,7 @@ class EnvDetector {
 			}
 		}
 		if (serviceName) {
-			attributes[SEMRESATTRS_SERVICE_NAME] = serviceName;
+			attributes[ATTR_SERVICE_NAME] = serviceName;
 		}
 		return { attributes };
 	}
@@ -218,6 +218,22 @@ class EnvDetector {
 }
 const envDetector = new EnvDetector();
 
+const ATTR_HOST_ARCH = 'host.arch';
+const ATTR_HOST_ID = 'host.id';
+const ATTR_HOST_NAME = 'host.name';
+const ATTR_OS_TYPE = 'os.type';
+const ATTR_OS_VERSION = 'os.version';
+const ATTR_PROCESS_COMMAND = 'process.command';
+const ATTR_PROCESS_COMMAND_ARGS = 'process.command_args';
+const ATTR_PROCESS_EXECUTABLE_NAME = 'process.executable.name';
+const ATTR_PROCESS_EXECUTABLE_PATH = 'process.executable.path';
+const ATTR_PROCESS_OWNER = 'process.owner';
+const ATTR_PROCESS_PID = 'process.pid';
+const ATTR_PROCESS_RUNTIME_DESCRIPTION = 'process.runtime.description';
+const ATTR_PROCESS_RUNTIME_NAME = 'process.runtime.name';
+const ATTR_PROCESS_RUNTIME_VERSION = 'process.runtime.version';
+const ATTR_SERVICE_INSTANCE_ID = 'service.instance.id';
+
 async function getMachineId() {
 	const paths = ['/etc/machine-id', '/var/lib/dbus/machine-id'];
 	for (const path of paths) {
@@ -258,9 +274,9 @@ const normalizeType = (nodePlatform) => {
 class HostDetector {
 	detect(_config) {
 		const attributes = {
-			[SEMRESATTRS_HOST_NAME]: Deno.hostname?.(),
-			[SEMRESATTRS_HOST_ARCH]: normalizeArch(Deno.build.arch),
-			[SEMRESATTRS_HOST_ID]: getMachineId(),
+			[ATTR_HOST_NAME]: Deno.hostname?.(),
+			[ATTR_HOST_ARCH]: normalizeArch(Deno.build.arch),
+			[ATTR_HOST_ID]: getMachineId(),
 		};
 		return { attributes };
 	}
@@ -270,8 +286,8 @@ const hostDetector = new HostDetector();
 class OSDetector {
 	detect(_config) {
 		const attributes = {
-			[SEMRESATTRS_OS_TYPE]: Deno.build.os,
-			[SEMRESATTRS_OS_VERSION]: Deno.osRelease?.(),
+			[ATTR_OS_TYPE]: Deno.build.os,
+			[ATTR_OS_VERSION]: Deno.osRelease?.(),
 		};
 		return { attributes };
 	}
@@ -281,24 +297,24 @@ const osDetector = new OSDetector();
 class ProcessDetector {
 	detect(_config) {
 		const attributes = {
-			[SEMRESATTRS_PROCESS_PID]: process.pid,
-			[SEMRESATTRS_PROCESS_EXECUTABLE_NAME]: process.title,
-			[SEMRESATTRS_PROCESS_EXECUTABLE_PATH]: process.execPath,
-			[SEMRESATTRS_PROCESS_COMMAND_ARGS]: [
+			[ATTR_PROCESS_PID]: process.pid,
+			[ATTR_PROCESS_EXECUTABLE_NAME]: process.title,
+			[ATTR_PROCESS_EXECUTABLE_PATH]: process.execPath,
+			[ATTR_PROCESS_COMMAND_ARGS]: [
 				process.argv[0],
 				...process.execArgv,
 				...process.argv.slice(1),
 			],
-			[SEMRESATTRS_PROCESS_RUNTIME_VERSION]: process.versions.node,
-			[SEMRESATTRS_PROCESS_RUNTIME_NAME]: 'nodejs',
-			[SEMRESATTRS_PROCESS_RUNTIME_DESCRIPTION]: 'Node.js',
+			[ATTR_PROCESS_RUNTIME_VERSION]: process.versions.node,
+			[ATTR_PROCESS_RUNTIME_NAME]: 'nodejs',
+			[ATTR_PROCESS_RUNTIME_DESCRIPTION]: 'Node.js',
 		};
 		if (process.argv.length > 1) {
-			attributes[SEMRESATTRS_PROCESS_COMMAND] = process.argv[1];
+			attributes[ATTR_PROCESS_COMMAND] = process.argv[1];
 		}
 		try {
 			const userInfo = os.userInfo();
-			attributes[SEMRESATTRS_PROCESS_OWNER] = userInfo.username;
+			attributes[ATTR_PROCESS_OWNER] = userInfo.username;
 		}
 		catch (e) {
 			diag.debug(`error obtaining process owner: ${e}`);
@@ -312,7 +328,7 @@ class ServiceInstanceIdDetector {
 	detect(_config) {
 		return {
 			attributes: {
-				[SEMRESATTRS_SERVICE_INSTANCE_ID]: crypto.randomUUID(),
+				[ATTR_SERVICE_INSTANCE_ID]: crypto.randomUUID(),
 			},
 		};
 	}
