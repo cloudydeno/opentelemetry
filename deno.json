@@ -2,9 +2,6 @@
   "name": "@cloudydeno/opentelemetry",
   "version": "0.10.3",
   "license": "MPL",
-  "imports": {
-    "@cloudydeno/shimmer": "jsr:@cloudydeno/shimmer@^1"
-  },
   "exports": {
 
     "./instrumentation/async.ts": "./instrumentation/async.ts",
