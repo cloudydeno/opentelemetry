@@ -38,6 +38,7 @@
     "./sdk": "./sdk.ts",
     ".": "./mod.ts"
   },
+  "lock": false,
   "publish": {
     "exclude": [
       ".github",
