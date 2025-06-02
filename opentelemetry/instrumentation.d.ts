@@ -161,7 +161,7 @@ declare abstract class InstrumentationAbstract<ConfigType extends Instrumentatio
 	private _logger;
 	protected _diag: DiagLogger;
 	constructor(instrumentationName: string, instrumentationVersion: string, config: ConfigType);
-	protected _wrap: <Nodule extends object, FieldName extends keyof Nodule>(nodule: Nodule, name: FieldName, wrapper: (original: Nodule[FieldName]) => Nodule[FieldName]) => void;
+	protected _wrap: <Nodule extends object, FieldName extends keyof Nodule>(nodule: Nodule, name: FieldName, wrapper: (original: Nodule[FieldName], name: FieldName) => Nodule[FieldName]) => ShimWrapped | undefined;
 	protected _unwrap: <Nodule extends object>(nodule: Nodule, name: keyof Nodule) => void;
 	protected _massWrap: <Nodule extends object, FieldName extends keyof Nodule>(nodules: Nodule[], names: FieldName[], wrapper: (original: Nodule[FieldName]) => Nodule[FieldName]) => void;
 	protected _massUnwrap: <Nodule extends object>(nodules: Nodule[], names: (keyof Nodule)[]) => void;

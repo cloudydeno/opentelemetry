@@ -104,7 +104,7 @@ class OTLPMetricExporterBase extends OTLPExporterBase {
 	}
 }
 
-const VERSION = "0.201.1";
+const VERSION = "0.202.0";
 
 const USER_AGENT = {
 	'User-Agent': `Deno/${Deno.version.deno} OTel-OTLP-Exporter-JavaScript/${VERSION}`,

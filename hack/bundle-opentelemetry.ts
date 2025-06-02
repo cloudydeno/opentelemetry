@@ -75,7 +75,7 @@ async function buildModuleWithRollup(directory: string, modName: string, externa
         // newImport = 'node:'+match[2];
         return '';
       } else if ('shimmer' == match[2]) {
-        newImport = `jsr:@cloudydeno/shimmer@1.2.1`;
+        newImport = `@cloudydeno/shimmer`;
       } else {
         console.error('Unhandled import:', match[2]);
       }
