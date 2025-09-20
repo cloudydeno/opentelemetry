@@ -19,7 +19,7 @@ import * as api from './api.js';
 import { diag, context } from './api.js';
 import { NOOP_LOGGER } from './api-logs.js';
 import { defaultResource } from './resources.js';
-import { timeInputToHrTime, isAttributeValue, getNumberFromEnv, callWithTimeout, merge, BindOnceFuture, hrTimeToMicroseconds, ExportResultCode, globalErrorHandler, internal, unrefTimer } from './core.js';
+import { timeInputToHrTime, isAttributeValue, getNumberFromEnv, callWithTimeout, merge, BindOnceFuture, hrTimeToMicroseconds, ExportResultCode, internal, globalErrorHandler, unrefTimer } from './core.js';
 
 class LogRecord {
 	hrTime;

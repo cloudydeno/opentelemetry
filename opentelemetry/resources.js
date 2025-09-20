@@ -17,7 +17,7 @@
 
 import { diag } from './api.js';
 import { SDK_INFO, getStringFromEnv } from './core.js';
-import { ATTR_SERVICE_NAME, ATTR_TELEMETRY_SDK_LANGUAGE, ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_VERSION } from './semantic-conventions.js';
+import { ATTR_TELEMETRY_SDK_VERSION, ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_LANGUAGE, ATTR_SERVICE_NAME } from './semantic-conventions.js';
 
 
 

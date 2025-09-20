@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ValueType, HrTime, Attributes, Context, MeterProvider as MeterProvider$1, MeterOptions, Meter } from './api.d.ts';
+import { HrTime, Attributes, ValueType, Context, MeterProvider as MeterProvider$1, MeterOptions, Meter } from './api.d.ts';
 import { InstrumentationScope, ExportResult } from './core.d.ts';
 import { Resource } from './resources.d.ts';
 

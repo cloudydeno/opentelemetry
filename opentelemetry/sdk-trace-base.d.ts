@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Attributes, TraceState, Context, SpanKind, Link, HrTime, SpanContext, SpanStatus, Span as Span$1, TextMapPropagator, ContextManager, TracerProvider, Tracer } from './api.d.ts';
+import { Context, SpanKind, Attributes, Link, TraceState, HrTime, SpanContext, SpanStatus, Span as Span$1, TextMapPropagator, ContextManager, TracerProvider, Tracer } from './api.d.ts';
 import { Resource } from './resources.d.ts';
 import { InstrumentationScope, ExportResult } from './core.d.ts';
 

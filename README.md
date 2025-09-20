@@ -13,7 +13,7 @@ with extra Deno-specific integrations.
 ```ts
 // set up the SDK:
 import 'jsr:@cloudydeno/opentelemetry/register';
-// Can also use `deno --unstable-otel` instead of the /register import.
+// Can also use `OTEL_DENO=true deno` instead of the /register import.
 // See more setup in the deno documentation on OTel (short for opentelemetry)
 
 // Wrap an async function in a span:

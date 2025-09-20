@@ -15,7 +15,7 @@
  */
 
 import * as api from './api.d.ts';
-import { TextMapPropagator, Context, TextMapSetter, TextMapGetter, Attributes, AttributeValue, Exception, SpanContext, Span, DiagLogLevel } from './api.d.ts';
+import { TextMapPropagator, Context, TextMapSetter, TextMapGetter, AttributeValue, Attributes, Exception, SpanContext, Span, DiagLogLevel } from './api.d.ts';
 
 /**
  * Propagates {@link Baggage} through Context format propagation.

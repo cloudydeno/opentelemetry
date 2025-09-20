@@ -16,7 +16,7 @@
 /// <reference types="./core.d.ts" />
 
 import { createContextKey, baggageEntryMetadataFromString, propagation, diag, trace, isSpanContextValid, TraceFlags, DiagLogLevel, context } from './api.js';
-import { ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_LANGUAGE, TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS, ATTR_TELEMETRY_SDK_VERSION } from './semantic-conventions.js';
+import { TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS, ATTR_TELEMETRY_SDK_VERSION, ATTR_TELEMETRY_SDK_LANGUAGE, ATTR_TELEMETRY_SDK_NAME } from './semantic-conventions.js';
 
 const SUPPRESS_TRACING_KEY = createContextKey('OpenTelemetry SDK Context Key SUPPRESS_TRACING');
 function suppressTracing(context) {
