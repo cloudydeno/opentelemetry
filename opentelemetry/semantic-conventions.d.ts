@@ -15,7 +15,7 @@
  */
 
 /**
- * ASP.NET Core exception middleware handling result
+ * ASP.NET Core exception middleware handling result.
  *
  * @example handled
  * @example unhandled
@@ -23,18 +23,26 @@
 declare const ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT: "aspnetcore.diagnostics.exception.result";
 /**
  * Enum value "aborted" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
+ *
+ * Exception handling didn't run because the request was aborted.
  */
 declare const ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_ABORTED: "aborted";
 /**
  * Enum value "handled" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
+ *
+ * Exception was handled by the exception handling middleware.
  */
 declare const ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_HANDLED: "handled";
 /**
  * Enum value "skipped" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
+ *
+ * Exception handling was skipped because the response had started.
  */
 declare const ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_SKIPPED: "skipped";
 /**
  * Enum value "unhandled" for attribute {@link ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT}.
+ *
+ * Exception was not handled by the exception handling middleware.
  */
 declare const ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_UNHANDLED: "unhandled";
 /**
@@ -60,18 +68,26 @@ declare const ATTR_ASPNETCORE_RATE_LIMITING_POLICY: "aspnetcore.rate_limiting.po
 declare const ATTR_ASPNETCORE_RATE_LIMITING_RESULT: "aspnetcore.rate_limiting.result";
 /**
  * Enum value "acquired" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
+ *
+ * Lease was acquired
  */
 declare const ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ACQUIRED: "acquired";
 /**
  * Enum value "endpoint_limiter" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
+ *
+ * Lease request was rejected by the endpoint limiter
  */
 declare const ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ENDPOINT_LIMITER: "endpoint_limiter";
 /**
  * Enum value "global_limiter" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
+ *
+ * Lease request was rejected by the global limiter
  */
 declare const ASPNETCORE_RATE_LIMITING_RESULT_VALUE_GLOBAL_LIMITER: "global_limiter";
 /**
  * Enum value "request_canceled" for attribute {@link ATTR_ASPNETCORE_RATE_LIMITING_RESULT}.
+ *
+ * Lease request was canceled
  */
 declare const ASPNETCORE_RATE_LIMITING_RESULT_VALUE_REQUEST_CANCELED: "request_canceled";
 /**
@@ -95,12 +111,22 @@ declare const ATTR_ASPNETCORE_ROUTING_IS_FALLBACK: "aspnetcore.routing.is_fallba
 declare const ATTR_ASPNETCORE_ROUTING_MATCH_STATUS: "aspnetcore.routing.match_status";
 /**
  * Enum value "failure" for attribute {@link ATTR_ASPNETCORE_ROUTING_MATCH_STATUS}.
+ *
+ * Match failed
  */
 declare const ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_FAILURE: "failure";
 /**
  * Enum value "success" for attribute {@link ATTR_ASPNETCORE_ROUTING_MATCH_STATUS}.
+ *
+ * Match succeeded
  */
 declare const ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_SUCCESS: "success";
+/**
+ * A value that indicates whether the user is authenticated.
+ *
+ * @example true
+ */
+declare const ATTR_ASPNETCORE_USER_IS_AUTHENTICATED: "aspnetcore.user.is_authenticated";
 /**
  * Client address - domain name if available without reverse DNS lookup; otherwise, IP address or Unix domain socket name.
  *
@@ -289,18 +315,26 @@ declare const ATTR_DB_STORED_PROCEDURE_NAME: "db.stored_procedure.name";
 declare const ATTR_DB_SYSTEM_NAME: "db.system.name";
 /**
  * Enum value "mariadb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [MariaDB](https://mariadb.org/)
  */
 declare const DB_SYSTEM_NAME_VALUE_MARIADB: "mariadb";
 /**
  * Enum value "microsoft.sql_server" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Microsoft SQL Server](https://www.microsoft.com/sql-server)
  */
 declare const DB_SYSTEM_NAME_VALUE_MICROSOFT_SQL_SERVER: "microsoft.sql_server";
 /**
  * Enum value "mysql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [MySQL](https://www.mysql.com/)
  */
 declare const DB_SYSTEM_NAME_VALUE_MYSQL: "mysql";
 /**
  * Enum value "postgresql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [PostgreSQL](https://www.postgresql.org/)
  */
 declare const DB_SYSTEM_NAME_VALUE_POSTGRESQL: "postgresql";
 /**
@@ -313,22 +347,32 @@ declare const DB_SYSTEM_NAME_VALUE_POSTGRESQL: "postgresql";
 declare const ATTR_DOTNET_GC_HEAP_GENERATION: "dotnet.gc.heap.generation";
 /**
  * Enum value "gen0" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
+ *
+ * Generation 0
  */
 declare const DOTNET_GC_HEAP_GENERATION_VALUE_GEN0: "gen0";
 /**
  * Enum value "gen1" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
+ *
+ * Generation 1
  */
 declare const DOTNET_GC_HEAP_GENERATION_VALUE_GEN1: "gen1";
 /**
  * Enum value "gen2" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
+ *
+ * Generation 2
  */
 declare const DOTNET_GC_HEAP_GENERATION_VALUE_GEN2: "gen2";
 /**
  * Enum value "loh" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
+ *
+ * Large Object Heap
  */
 declare const DOTNET_GC_HEAP_GENERATION_VALUE_LOH: "loh";
 /**
  * Enum value "poh" for attribute {@link ATTR_DOTNET_GC_HEAP_GENERATION}.
+ *
+ * Pinned Object Heap
  */
 declare const DOTNET_GC_HEAP_GENERATION_VALUE_POH: "poh";
 /**
@@ -362,6 +406,8 @@ declare const DOTNET_GC_HEAP_GENERATION_VALUE_POH: "poh";
 declare const ATTR_ERROR_TYPE: "error.type";
 /**
  * Enum value "_OTHER" for attribute {@link ATTR_ERROR_TYPE}.
+ *
+ * A fallback error value to be used when the instrumentation doesn't define a custom value.
  */
 declare const ERROR_TYPE_VALUE_OTHER: "_OTHER";
 /**
@@ -439,42 +485,62 @@ declare const ATTR_HTTP_REQUEST_HEADER: (key: string) => string;
 declare const ATTR_HTTP_REQUEST_METHOD: "http.request.method";
 /**
  * Enum value "_OTHER" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ *
+ * Any HTTP method that the instrumentation has no prior knowledge of.
  */
 declare const HTTP_REQUEST_METHOD_VALUE_OTHER: "_OTHER";
 /**
  * Enum value "CONNECT" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ *
+ * CONNECT method.
  */
 declare const HTTP_REQUEST_METHOD_VALUE_CONNECT: "CONNECT";
 /**
  * Enum value "DELETE" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ *
+ * DELETE method.
  */
 declare const HTTP_REQUEST_METHOD_VALUE_DELETE: "DELETE";
 /**
  * Enum value "GET" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ *
+ * GET method.
  */
 declare const HTTP_REQUEST_METHOD_VALUE_GET: "GET";
 /**
  * Enum value "HEAD" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ *
+ * HEAD method.
  */
 declare const HTTP_REQUEST_METHOD_VALUE_HEAD: "HEAD";
 /**
  * Enum value "OPTIONS" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ *
+ * OPTIONS method.
  */
 declare const HTTP_REQUEST_METHOD_VALUE_OPTIONS: "OPTIONS";
 /**
  * Enum value "PATCH" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ *
+ * PATCH method.
  */
 declare const HTTP_REQUEST_METHOD_VALUE_PATCH: "PATCH";
 /**
  * Enum value "POST" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ *
+ * POST method.
  */
 declare const HTTP_REQUEST_METHOD_VALUE_POST: "POST";
 /**
  * Enum value "PUT" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ *
+ * PUT method.
  */
 declare const HTTP_REQUEST_METHOD_VALUE_PUT: "PUT";
 /**
  * Enum value "TRACE" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ *
+ * TRACE method.
  */
 declare const HTTP_REQUEST_METHOD_VALUE_TRACE: "TRACE";
 /**
@@ -569,10 +635,14 @@ declare const ATTR_JVM_MEMORY_POOL_NAME: "jvm.memory.pool.name";
 declare const ATTR_JVM_MEMORY_TYPE: "jvm.memory.type";
 /**
  * Enum value "heap" for attribute {@link ATTR_JVM_MEMORY_TYPE}.
+ *
+ * Heap memory.
  */
 declare const JVM_MEMORY_TYPE_VALUE_HEAP: "heap";
 /**
  * Enum value "non_heap" for attribute {@link ATTR_JVM_MEMORY_TYPE}.
+ *
+ * Non-heap memory
  */
 declare const JVM_MEMORY_TYPE_VALUE_NON_HEAP: "non_heap";
 /**
@@ -588,26 +658,38 @@ declare const ATTR_JVM_THREAD_DAEMON: "jvm.thread.daemon";
 declare const ATTR_JVM_THREAD_STATE: "jvm.thread.state";
 /**
  * Enum value "blocked" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ *
+ * A thread that is blocked waiting for a monitor lock is in this state.
  */
 declare const JVM_THREAD_STATE_VALUE_BLOCKED: "blocked";
 /**
  * Enum value "new" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ *
+ * A thread that has not yet started is in this state.
  */
 declare const JVM_THREAD_STATE_VALUE_NEW: "new";
 /**
  * Enum value "runnable" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ *
+ * A thread executing in the Java virtual machine is in this state.
  */
 declare const JVM_THREAD_STATE_VALUE_RUNNABLE: "runnable";
 /**
  * Enum value "terminated" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ *
+ * A thread that has exited is in this state.
  */
 declare const JVM_THREAD_STATE_VALUE_TERMINATED: "terminated";
 /**
  * Enum value "timed_waiting" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ *
+ * A thread that is waiting for another thread to perform an action for up to a specified waiting time is in this state.
  */
 declare const JVM_THREAD_STATE_VALUE_TIMED_WAITING: "timed_waiting";
 /**
  * Enum value "waiting" for attribute {@link ATTR_JVM_THREAD_STATE}.
+ *
+ * A thread that is waiting indefinitely for another thread to perform a particular action is in this state.
  */
 declare const JVM_THREAD_STATE_VALUE_WAITING: "waiting";
 /**
@@ -670,22 +752,32 @@ declare const ATTR_NETWORK_PROTOCOL_VERSION: "network.protocol.version";
 declare const ATTR_NETWORK_TRANSPORT: "network.transport";
 /**
  * Enum value "pipe" for attribute {@link ATTR_NETWORK_TRANSPORT}.
+ *
+ * Named or anonymous pipe.
  */
 declare const NETWORK_TRANSPORT_VALUE_PIPE: "pipe";
 /**
  * Enum value "quic" for attribute {@link ATTR_NETWORK_TRANSPORT}.
+ *
+ * QUIC
  */
 declare const NETWORK_TRANSPORT_VALUE_QUIC: "quic";
 /**
  * Enum value "tcp" for attribute {@link ATTR_NETWORK_TRANSPORT}.
+ *
+ * TCP
  */
 declare const NETWORK_TRANSPORT_VALUE_TCP: "tcp";
 /**
  * Enum value "udp" for attribute {@link ATTR_NETWORK_TRANSPORT}.
+ *
+ * UDP
  */
 declare const NETWORK_TRANSPORT_VALUE_UDP: "udp";
 /**
  * Enum value "unix" for attribute {@link ATTR_NETWORK_TRANSPORT}.
+ *
+ * Unix domain socket
  */
 declare const NETWORK_TRANSPORT_VALUE_UNIX: "unix";
 /**
@@ -699,10 +791,14 @@ declare const NETWORK_TRANSPORT_VALUE_UNIX: "unix";
 declare const ATTR_NETWORK_TYPE: "network.type";
 /**
  * Enum value "ipv4" for attribute {@link ATTR_NETWORK_TYPE}.
+ *
+ * IPv4
  */
 declare const NETWORK_TYPE_VALUE_IPV4: "ipv4";
 /**
  * Enum value "ipv6" for attribute {@link ATTR_NETWORK_TYPE}.
+ *
+ * IPv6
  */
 declare const NETWORK_TYPE_VALUE_IPV6: "ipv6";
 /**
@@ -723,10 +819,14 @@ declare const ATTR_OTEL_SCOPE_VERSION: "otel.scope.version";
 declare const ATTR_OTEL_STATUS_CODE: "otel.status_code";
 /**
  * Enum value "ERROR" for attribute {@link ATTR_OTEL_STATUS_CODE}.
+ *
+ * The operation contains an error.
  */
 declare const OTEL_STATUS_CODE_VALUE_ERROR: "ERROR";
 /**
  * Enum value "OK" for attribute {@link ATTR_OTEL_STATUS_CODE}.
+ *
+ * The operation has been validated by an Application developer or Operator to have completed successfully.
  */
 declare const OTEL_STATUS_CODE_VALUE_OK: "OK";
 /**
@@ -779,14 +879,20 @@ declare const ATTR_SERVICE_VERSION: "service.version";
 declare const ATTR_SIGNALR_CONNECTION_STATUS: "signalr.connection.status";
 /**
  * Enum value "app_shutdown" for attribute {@link ATTR_SIGNALR_CONNECTION_STATUS}.
+ *
+ * The connection was closed because the app is shutting down.
  */
 declare const SIGNALR_CONNECTION_STATUS_VALUE_APP_SHUTDOWN: "app_shutdown";
 /**
  * Enum value "normal_closure" for attribute {@link ATTR_SIGNALR_CONNECTION_STATUS}.
+ *
+ * The connection was closed normally.
  */
 declare const SIGNALR_CONNECTION_STATUS_VALUE_NORMAL_CLOSURE: "normal_closure";
 /**
  * Enum value "timeout" for attribute {@link ATTR_SIGNALR_CONNECTION_STATUS}.
+ *
+ * The connection was closed due to a timeout.
  */
 declare const SIGNALR_CONNECTION_STATUS_VALUE_TIMEOUT: "timeout";
 /**
@@ -798,14 +904,20 @@ declare const SIGNALR_CONNECTION_STATUS_VALUE_TIMEOUT: "timeout";
 declare const ATTR_SIGNALR_TRANSPORT: "signalr.transport";
 /**
  * Enum value "long_polling" for attribute {@link ATTR_SIGNALR_TRANSPORT}.
+ *
+ * LongPolling protocol
  */
 declare const SIGNALR_TRANSPORT_VALUE_LONG_POLLING: "long_polling";
 /**
  * Enum value "server_sent_events" for attribute {@link ATTR_SIGNALR_TRANSPORT}.
+ *
+ * ServerSentEvents protocol
  */
 declare const SIGNALR_TRANSPORT_VALUE_SERVER_SENT_EVENTS: "server_sent_events";
 /**
  * Enum value "web_sockets" for attribute {@link ATTR_SIGNALR_TRANSPORT}.
+ *
+ * WebSockets protocol
  */
 declare const SIGNALR_TRANSPORT_VALUE_WEB_SOCKETS: "web_sockets";
 /**
@@ -1271,6 +1383,11 @@ declare const METRIC_SIGNALR_SERVER_ACTIVE_CONNECTIONS: "signalr.server.active_c
 declare const METRIC_SIGNALR_SERVER_CONNECTION_DURATION: "signalr.server.connection.duration";
 
 /**
+ * This event describes a single exception.
+ */
+declare const EVENT_EXCEPTION: "exception";
+
+/**
  * This attribute represents the state of the application.
  *
  * @example created
@@ -1282,18 +1399,30 @@ declare const METRIC_SIGNALR_SERVER_CONNECTION_DURATION: "signalr.server.connect
 declare const ATTR_ANDROID_APP_STATE: "android.app.state";
 /**
  * Enum value "background" for attribute {@link ATTR_ANDROID_APP_STATE}.
+ *
+ * Any time after Activity.onPause() or, if the app has no Activity, Context.stopService() has been called when the app was in the foreground state.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ANDROID_APP_STATE_VALUE_BACKGROUND: "background";
 /**
  * Enum value "created" for attribute {@link ATTR_ANDROID_APP_STATE}.
+ *
+ * Any time before Activity.onResume() or, if the app has no Activity, Context.startService() has been called in the app for the first time.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ANDROID_APP_STATE_VALUE_CREATED: "created";
 /**
  * Enum value "foreground" for attribute {@link ATTR_ANDROID_APP_STATE}.
+ *
+ * Any time after Activity.onResume() or, if the app has no Activity, Context.startService() has been called when the app was in either the created or background states.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ANDROID_APP_STATE_VALUE_FOREGROUND: "foreground";
 /**
- * Uniquely identifies the framework API revision offered by a version (`os.version`) of the android operating system. More information can be found [here](https://developer.android.com/guide/topics/manifest/uses-sdk-element#ApiLevels).
+ * Uniquely identifies the framework API revision offered by a version (`os.version`) of the android operating system. More information can be found in the [Android API levels documentation](https://developer.android.com/guide/topics/manifest/uses-sdk-element#ApiLevels).
  *
  * @example 33
  * @example 32
@@ -1302,25 +1431,47 @@ declare const ANDROID_APP_STATE_VALUE_FOREGROUND: "foreground";
  */
 declare const ATTR_ANDROID_OS_API_LEVEL: "android.os.api_level";
 /**
- * Deprecated. Use `android.app.state` body field instead.
+ * Deprecated. Use `android.app.state` attribute instead.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Use `android.app.state` body field instead.
+ * @deprecated Replaced by `android.app.state`.
  */
 declare const ATTR_ANDROID_STATE: "android.state";
 /**
  * Enum value "background" for attribute {@link ATTR_ANDROID_STATE}.
+ *
+ * Any time after Activity.onPause() or, if the app has no Activity, Context.stopService() has been called when the app was in the foreground state.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ANDROID_STATE_VALUE_BACKGROUND: "background";
 /**
  * Enum value "created" for attribute {@link ATTR_ANDROID_STATE}.
+ *
+ * Any time before Activity.onResume() or, if the app has no Activity, Context.startService() has been called in the app for the first time.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ANDROID_STATE_VALUE_CREATED: "created";
 /**
  * Enum value "foreground" for attribute {@link ATTR_ANDROID_STATE}.
+ *
+ * Any time after Activity.onResume() or, if the app has no Activity, Context.startService() has been called when the app was in either the created or background states.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ANDROID_STATE_VALUE_FOREGROUND: "foreground";
+/**
+ * Unique identifier for a particular build or compilation of the application.
+ *
+ * @example 6cff0a7e-cefc-4668-96f5-1273d8b334d0
+ * @example 9f2b833506aa6973a92fde9733e6271f
+ * @example my-app-1.0.0-code-123
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_APP_BUILD_ID: "app.build_id";
 /**
  * A unique identifier representing the installation of an application on a specific device
  *
@@ -1342,11 +1493,42 @@ declare const ANDROID_STATE_VALUE_FOREGROUND: "foreground";
  *   - [App set ID](https://developer.android.com/identity/app-set-id).
  *   - [`Settings.getString(Settings.Secure.ANDROID_ID)`](https://developer.android.com/reference/android/provider/Settings.Secure#ANDROID_ID).
  *
- * More information about Android identifier best practices can be found [here](https://developer.android.com/training/articles/user-data-ids).
+ * More information about Android identifier best practices can be found in the [Android user data IDs guide](https://developer.android.com/training/articles/user-data-ids).
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_APP_INSTALLATION_ID: "app.installation.id";
+/**
+ * A number of frame renders that experienced jank.
+ *
+ * @example 9
+ * @example 42
+ *
+ * @note Depending on platform limitations, the value provided **MAY** be approximation.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_APP_JANK_FRAME_COUNT: "app.jank.frame_count";
+/**
+ * The time period, in seconds, for which this jank is being reported.
+ *
+ * @example 1.0
+ * @example 5.0
+ * @example 10.24
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_APP_JANK_PERIOD: "app.jank.period";
+/**
+ * The minimum rendering threshold for this jank, in seconds.
+ *
+ * @example 0.016
+ * @example 0.7
+ * @example 1.024
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_APP_JANK_THRESHOLD: "app.jank.threshold";
 /**
  * The x (horizontal) coordinate of a screen coordinate, in screen pixels.
  *
@@ -1467,6 +1649,650 @@ declare const ATTR_ARTIFACT_PURL: "artifact.purl";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_ARTIFACT_VERSION: "artifact.version";
+/**
+ * The result of the authentication operation.
+ *
+ * @example success
+ * @example failure
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_AUTHENTICATION_RESULT: "aspnetcore.authentication.result";
+/**
+ * Enum value "failure" for attribute {@link ATTR_ASPNETCORE_AUTHENTICATION_RESULT}.
+ *
+ * Authentication failed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_AUTHENTICATION_RESULT_VALUE_FAILURE: "failure";
+/**
+ * Enum value "none" for attribute {@link ATTR_ASPNETCORE_AUTHENTICATION_RESULT}.
+ *
+ * No authentication information returned.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_AUTHENTICATION_RESULT_VALUE_NONE: "none";
+/**
+ * Enum value "success" for attribute {@link ATTR_ASPNETCORE_AUTHENTICATION_RESULT}.
+ *
+ * Authentication was successful.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_AUTHENTICATION_RESULT_VALUE_SUCCESS: "success";
+/**
+ * The identifier that names a particular authentication handler.
+ *
+ * @example Cookies
+ * @example Bearer
+ * @example Identity.Application
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_AUTHENTICATION_SCHEME: "aspnetcore.authentication.scheme";
+/**
+ * The name of the authorization policy.
+ *
+ * @example RequireAdminRole
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_AUTHORIZATION_POLICY: "aspnetcore.authorization.policy";
+/**
+ * The result of calling the authorization service.
+ *
+ * @example success
+ * @example failure
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_AUTHORIZATION_RESULT: "aspnetcore.authorization.result";
+/**
+ * Enum value "failure" for attribute {@link ATTR_ASPNETCORE_AUTHORIZATION_RESULT}.
+ *
+ * Authorization failed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_AUTHORIZATION_RESULT_VALUE_FAILURE: "failure";
+/**
+ * Enum value "success" for attribute {@link ATTR_ASPNETCORE_AUTHORIZATION_RESULT}.
+ *
+ * Authorization was successful.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_AUTHORIZATION_RESULT_VALUE_SUCCESS: "success";
+/**
+ * The error code for a failed identity operation.
+ *
+ * @example DefaultError
+ * @example PasswordMismatch
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_IDENTITY_ERROR_CODE: "aspnetcore.identity.error_code";
+/**
+ * The result from checking the password.
+ *
+ * @example success
+ * @example failure
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT: "aspnetcore.identity.password_check_result";
+/**
+ * Enum value "failure" for attribute {@link ATTR_ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT}.
+ *
+ * Password check failed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_FAILURE: "failure";
+/**
+ * Enum value "password_missing" for attribute {@link ATTR_ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT}.
+ *
+ * Password check couldn't proceed because the password was missing from the user.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_PASSWORD_MISSING: "password_missing";
+/**
+ * Enum value "success" for attribute {@link ATTR_ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT}.
+ *
+ * Password check was successful.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_SUCCESS: "success";
+/**
+ * Enum value "success_rehash_needed" for attribute {@link ATTR_ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT}.
+ *
+ * Password check was successful however the password was encoded using a deprecated algorithm and should be rehashed and updated.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_SUCCESS_REHASH_NEEDED: "success_rehash_needed";
+/**
+ * Enum value "user_missing" for attribute {@link ATTR_ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT}.
+ *
+ * Password check couldn't proceed because the user was missing.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_USER_MISSING: "user_missing";
+/**
+ * The result of the identity operation.
+ *
+ * @example success
+ * @example failure
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_IDENTITY_RESULT: "aspnetcore.identity.result";
+/**
+ * Enum value "failure" for attribute {@link ATTR_ASPNETCORE_IDENTITY_RESULT}.
+ *
+ * Identity operation failed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_RESULT_VALUE_FAILURE: "failure";
+/**
+ * Enum value "success" for attribute {@link ATTR_ASPNETCORE_IDENTITY_RESULT}.
+ *
+ * Identity operation was successful.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_RESULT_VALUE_SUCCESS: "success";
+/**
+ * Whether the sign in result was success or failure.
+ *
+ * @example password
+ * @example two_factor
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_IDENTITY_SIGN_IN_RESULT: "aspnetcore.identity.sign_in.result";
+/**
+ * Enum value "failure" for attribute {@link ATTR_ASPNETCORE_IDENTITY_SIGN_IN_RESULT}.
+ *
+ * Sign in failed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_FAILURE: "failure";
+/**
+ * Enum value "locked_out" for attribute {@link ATTR_ASPNETCORE_IDENTITY_SIGN_IN_RESULT}.
+ *
+ * User is locked out.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_LOCKED_OUT: "locked_out";
+/**
+ * Enum value "not_allowed" for attribute {@link ATTR_ASPNETCORE_IDENTITY_SIGN_IN_RESULT}.
+ *
+ * User is not allowed to sign in.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_NOT_ALLOWED: "not_allowed";
+/**
+ * Enum value "requires_two_factor" for attribute {@link ATTR_ASPNETCORE_IDENTITY_SIGN_IN_RESULT}.
+ *
+ * User requires two factory authentication to sign in.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_REQUIRES_TWO_FACTOR: "requires_two_factor";
+/**
+ * Enum value "success" for attribute {@link ATTR_ASPNETCORE_IDENTITY_SIGN_IN_RESULT}.
+ *
+ * Sign in was successful.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_SUCCESS: "success";
+/**
+ * The authentication type.
+ *
+ * @example password
+ * @example two_factor
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_IDENTITY_SIGN_IN_TYPE: "aspnetcore.identity.sign_in.type";
+/**
+ * Enum value "external" for attribute {@link ATTR_ASPNETCORE_IDENTITY_SIGN_IN_TYPE}.
+ *
+ * Sign in with a previously registered third-party login.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_EXTERNAL: "external";
+/**
+ * Enum value "passkey" for attribute {@link ATTR_ASPNETCORE_IDENTITY_SIGN_IN_TYPE}.
+ *
+ * Sign in with passkey.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_PASSKEY: "passkey";
+/**
+ * Enum value "password" for attribute {@link ATTR_ASPNETCORE_IDENTITY_SIGN_IN_TYPE}.
+ *
+ * Sign in with password.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_PASSWORD: "password";
+/**
+ * Enum value "two_factor" for attribute {@link ATTR_ASPNETCORE_IDENTITY_SIGN_IN_TYPE}.
+ *
+ * Sign in with a two factor provider.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR: "two_factor";
+/**
+ * Enum value "two_factor_authenticator" for attribute {@link ATTR_ASPNETCORE_IDENTITY_SIGN_IN_TYPE}.
+ *
+ * Sign in with two factor authenticator app.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR_AUTHENTICATOR: "two_factor_authenticator";
+/**
+ * Enum value "two_factor_recovery_code" for attribute {@link ATTR_ASPNETCORE_IDENTITY_SIGN_IN_TYPE}.
+ *
+ * Sign in with two factory recovery code.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR_RECOVERY_CODE: "two_factor_recovery_code";
+/**
+ * What the token will be used for.
+ *
+ * @example success
+ * @example failure
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_IDENTITY_TOKEN_PURPOSE: "aspnetcore.identity.token_purpose";
+/**
+ * Enum value "_OTHER" for attribute {@link ATTR_ASPNETCORE_IDENTITY_TOKEN_PURPOSE}.
+ *
+ * Any token purpose that the instrumentation has no prior knowledge of.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_OTHER: "_OTHER";
+/**
+ * Enum value "change_email" for attribute {@link ATTR_ASPNETCORE_IDENTITY_TOKEN_PURPOSE}.
+ *
+ * The token is for changing the user email address.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_CHANGE_EMAIL: "change_email";
+/**
+ * Enum value "change_phone_number" for attribute {@link ATTR_ASPNETCORE_IDENTITY_TOKEN_PURPOSE}.
+ *
+ * The token is for changing a user phone number.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_CHANGE_PHONE_NUMBER: "change_phone_number";
+/**
+ * Enum value "email_confirmation" for attribute {@link ATTR_ASPNETCORE_IDENTITY_TOKEN_PURPOSE}.
+ *
+ * The token is for confirming user email address.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_EMAIL_CONFIRMATION: "email_confirmation";
+/**
+ * Enum value "reset_password" for attribute {@link ATTR_ASPNETCORE_IDENTITY_TOKEN_PURPOSE}.
+ *
+ * The token is for resetting a user password.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_RESET_PASSWORD: "reset_password";
+/**
+ * Enum value "two_factor" for attribute {@link ATTR_ASPNETCORE_IDENTITY_TOKEN_PURPOSE}.
+ *
+ * The token is for changing user two factor settings.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_TWO_FACTOR: "two_factor";
+/**
+ * The result of token verification.
+ *
+ * @example success
+ * @example failure
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_IDENTITY_TOKEN_VERIFIED: "aspnetcore.identity.token_verified";
+/**
+ * Enum value "failure" for attribute {@link ATTR_ASPNETCORE_IDENTITY_TOKEN_VERIFIED}.
+ *
+ * Token verification failed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_TOKEN_VERIFIED_VALUE_FAILURE: "failure";
+/**
+ * Enum value "success" for attribute {@link ATTR_ASPNETCORE_IDENTITY_TOKEN_VERIFIED}.
+ *
+ * Token verification was successful.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_TOKEN_VERIFIED_VALUE_SUCCESS: "success";
+/**
+ * The user update type.
+ *
+ * @example update
+ * @example user_name
+ * @example reset_password
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE: "aspnetcore.identity.user.update_type";
+/**
+ * Enum value "_OTHER" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Any update type that the instrumentation has no prior knowledge of.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_OTHER: "_OTHER";
+/**
+ * Enum value "access_failed" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user access failure recorded.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ACCESS_FAILED: "access_failed";
+/**
+ * Enum value "add_claims" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user claims added.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_CLAIMS: "add_claims";
+/**
+ * Enum value "add_login" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user login added.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_LOGIN: "add_login";
+/**
+ * Enum value "add_password" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user password added.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_PASSWORD: "add_password";
+/**
+ * Enum value "add_to_roles" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user added to roles.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_TO_ROLES: "add_to_roles";
+/**
+ * Enum value "change_email" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user email changed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_EMAIL: "change_email";
+/**
+ * Enum value "change_password" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user password changed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_PASSWORD: "change_password";
+/**
+ * Enum value "change_phone_number" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user phone number changed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_PHONE_NUMBER: "change_phone_number";
+/**
+ * Enum value "confirm_email" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user email confirmed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CONFIRM_EMAIL: "confirm_email";
+/**
+ * Enum value "generate_new_two_factor_recovery_codes" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user new two-factor recovery codes generated.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_GENERATE_NEW_TWO_FACTOR_RECOVERY_CODES: "generate_new_two_factor_recovery_codes";
+/**
+ * Enum value "password_rehash" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user password rehashed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_PASSWORD_REHASH: "password_rehash";
+/**
+ * Enum value "redeem_two_factor_recovery_code" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user two-factor recovery code redeemed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REDEEM_TWO_FACTOR_RECOVERY_CODE: "redeem_two_factor_recovery_code";
+/**
+ * Enum value "remove_authentication_token" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user authentication token removed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_AUTHENTICATION_TOKEN: "remove_authentication_token";
+/**
+ * Enum value "remove_claims" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user claims removed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_CLAIMS: "remove_claims";
+/**
+ * Enum value "remove_from_roles" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user removed from roles.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_FROM_ROLES: "remove_from_roles";
+/**
+ * Enum value "remove_login" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user login removed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_LOGIN: "remove_login";
+/**
+ * Enum value "remove_passkey" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user passkey removed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_PASSKEY: "remove_passkey";
+/**
+ * Enum value "remove_password" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user password removed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_PASSWORD: "remove_password";
+/**
+ * Enum value "replace_claim" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user claim replaced.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REPLACE_CLAIM: "replace_claim";
+/**
+ * Enum value "reset_access_failed_count" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user access failure count reset.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_ACCESS_FAILED_COUNT: "reset_access_failed_count";
+/**
+ * Enum value "reset_authenticator_key" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user authenticator key reset.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_AUTHENTICATOR_KEY: "reset_authenticator_key";
+/**
+ * Enum value "reset_password" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user password reset.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_PASSWORD: "reset_password";
+/**
+ * Enum value "security_stamp" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user security stamp updated.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SECURITY_STAMP: "security_stamp";
+/**
+ * Enum value "set_authentication_token" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user authentication token set.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_AUTHENTICATION_TOKEN: "set_authentication_token";
+/**
+ * Enum value "set_email" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user email set.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_EMAIL: "set_email";
+/**
+ * Enum value "set_lockout_enabled" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user lockout enabled or disabled.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_LOCKOUT_ENABLED: "set_lockout_enabled";
+/**
+ * Enum value "set_lockout_end_date" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user lockout end date set.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_LOCKOUT_END_DATE: "set_lockout_end_date";
+/**
+ * Enum value "set_passkey" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user passkey set.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_PASSKEY: "set_passkey";
+/**
+ * Enum value "set_phone_number" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user phone number set.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_PHONE_NUMBER: "set_phone_number";
+/**
+ * Enum value "set_two_factor_enabled" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user two-factor authentication enabled or disabled.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_TWO_FACTOR_ENABLED: "set_two_factor_enabled";
+/**
+ * Enum value "update" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user updated.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_UPDATE: "update";
+/**
+ * Enum value "user_name" for attribute {@link ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE}.
+ *
+ * Identity user name updated.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_USER_NAME: "user_name";
+/**
+ * The full name of the identity user type.
+ *
+ * @example Contoso.ContosoUser
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_IDENTITY_USER_TYPE: "aspnetcore.identity.user_type";
+/**
+ * The name of the library or subsystem using the memory pool instance.
+ *
+ * @example kestrel
+ * @example iis
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_MEMORY_POOL_OWNER: "aspnetcore.memory_pool.owner";
+/**
+ * A flag indicating whether the sign in is persistent.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ASPNETCORE_SIGN_IN_IS_PERSISTENT: "aspnetcore.sign_in.is_persistent";
 /**
  * The unique identifier of the AWS Bedrock Guardrail. A [guardrail](https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html) helps safeguard and prevent unwanted behavior from model responses or user messages.
  *
@@ -1685,10 +2511,18 @@ declare const ATTR_AWS_ECS_CONTAINER_ARN: "aws.ecs.container.arn";
 declare const ATTR_AWS_ECS_LAUNCHTYPE: "aws.ecs.launchtype";
 /**
  * Enum value "ec2" for attribute {@link ATTR_AWS_ECS_LAUNCHTYPE}.
+ *
+ * Amazon EC2
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const AWS_ECS_LAUNCHTYPE_VALUE_EC2: "ec2";
 /**
  * Enum value "fargate" for attribute {@link ATTR_AWS_ECS_LAUNCHTYPE}.
+ *
+ * Amazon Fargate
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const AWS_ECS_LAUNCHTYPE_VALUE_FARGATE: "fargate";
 /**
@@ -1949,21 +2783,25 @@ declare const ATTR_AWS_STEP_FUNCTIONS_ACTIVITY_ARN: "aws.step_functions.activity
  */
 declare const ATTR_AWS_STEP_FUNCTIONS_STATE_MACHINE_ARN: "aws.step_functions.state_machine.arn";
 /**
- * [Azure Resource Provider Namespace](https://learn.microsoft.com/azure/azure-resource-manager/management/azure-services-resource-providers) as recognized by the client.
+ * Deprecated, use `azure.resource_provider.namespace` instead.
  *
  * @example Microsoft.Storage
  * @example Microsoft.KeyVault
  * @example Microsoft.ServiceBus
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `azure.resource_provider.namespace`.
  */
 declare const ATTR_AZ_NAMESPACE: "az.namespace";
 /**
- * The unique identifier of the service request. It's generated by the Azure service and returned with the response.
+ * Deprecated, use `azure.service.request.id` instead.
  *
  * @example 00000000-0000-0000-0000-000000000000
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `azure.service.request.id`.
  */
 declare const ATTR_AZ_SERVICE_REQUEST_ID: "az.service_request_id";
 /**
@@ -1983,10 +2821,18 @@ declare const ATTR_AZURE_CLIENT_ID: "azure.client.id";
 declare const ATTR_AZURE_COSMOSDB_CONNECTION_MODE: "azure.cosmosdb.connection.mode";
 /**
  * Enum value "direct" for attribute {@link ATTR_AZURE_COSMOSDB_CONNECTION_MODE}.
+ *
+ * Direct connection.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const AZURE_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT: "direct";
 /**
  * Enum value "gateway" for attribute {@link ATTR_AZURE_COSMOSDB_CONNECTION_MODE}.
+ *
+ * Gateway (HTTP) connection.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const AZURE_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY: "gateway";
 /**
@@ -2003,22 +2849,42 @@ declare const AZURE_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY: "gateway";
 declare const ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL: "azure.cosmosdb.consistency.level";
 /**
  * Enum value "BoundedStaleness" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
+ *
+ * Bounded Staleness
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS: "BoundedStaleness";
 /**
  * Enum value "ConsistentPrefix" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
+ *
+ * Consistent Prefix
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX: "ConsistentPrefix";
 /**
  * Enum value "Eventual" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
+ *
+ * Eventual
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL: "Eventual";
 /**
  * Enum value "Session" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
+ *
+ * Session
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION: "Session";
 /**
  * Enum value "Strong" for attribute {@link ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL}.
+ *
+ * Strong
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG: "Strong";
 /**
@@ -2055,6 +2921,24 @@ declare const ATTR_AZURE_COSMOSDB_REQUEST_BODY_SIZE: "azure.cosmosdb.request.bod
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_AZURE_COSMOSDB_RESPONSE_SUB_STATUS_CODE: "azure.cosmosdb.response.sub_status_code";
+/**
+ * [Azure Resource Provider Namespace](https://learn.microsoft.com/azure/azure-resource-manager/management/azure-services-resource-providers) as recognized by the client.
+ *
+ * @example Microsoft.Storage
+ * @example Microsoft.KeyVault
+ * @example Microsoft.ServiceBus
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_AZURE_RESOURCE_PROVIDER_NAMESPACE: "azure.resource_provider.namespace";
+/**
+ * The unique identifier of the service request. It's generated by the Azure service and returned with the response.
+ *
+ * @example 00000000-0000-0000-0000-000000000000
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_AZURE_SERVICE_REQUEST_ID: "azure.service.request.id";
 /**
  * Array of brand name and version separated by a space
  *
@@ -2107,46 +2991,90 @@ declare const ATTR_BROWSER_PLATFORM: "browser.platform";
 declare const ATTR_CASSANDRA_CONSISTENCY_LEVEL: "cassandra.consistency.level";
 /**
  * Enum value "all" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * All
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL: "all";
 /**
  * Enum value "any" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * Any
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY: "any";
 /**
  * Enum value "each_quorum" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * Each Quorum
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM: "each_quorum";
 /**
  * Enum value "local_one" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * Local One
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE: "local_one";
 /**
  * Enum value "local_quorum" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * Local Quorum
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM: "local_quorum";
 /**
  * Enum value "local_serial" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * Local Serial
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL: "local_serial";
 /**
  * Enum value "one" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * One
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE: "one";
 /**
  * Enum value "quorum" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * Quorum
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM: "quorum";
 /**
  * Enum value "serial" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * Serial
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL: "serial";
 /**
  * Enum value "three" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * Three
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE: "three";
 /**
  * Enum value "two" for attribute {@link ATTR_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * Two
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO: "two";
 /**
@@ -2200,14 +3128,26 @@ declare const ATTR_CASSANDRA_SPECULATIVE_EXECUTION_COUNT: "cassandra.speculative
 declare const ATTR_CICD_PIPELINE_ACTION_NAME: "cicd.pipeline.action.name";
 /**
  * Enum value "BUILD" for attribute {@link ATTR_CICD_PIPELINE_ACTION_NAME}.
+ *
+ * The pipeline run is executing a build.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_ACTION_NAME_VALUE_BUILD: "BUILD";
 /**
  * Enum value "RUN" for attribute {@link ATTR_CICD_PIPELINE_ACTION_NAME}.
+ *
+ * The pipeline run is executing.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_ACTION_NAME_VALUE_RUN: "RUN";
 /**
  * Enum value "SYNC" for attribute {@link ATTR_CICD_PIPELINE_ACTION_NAME}.
+ *
+ * The pipeline run is executing a sync.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_ACTION_NAME_VALUE_SYNC: "SYNC";
 /**
@@ -2234,26 +3174,50 @@ declare const ATTR_CICD_PIPELINE_NAME: "cicd.pipeline.name";
 declare const ATTR_CICD_PIPELINE_RESULT: "cicd.pipeline.result";
 /**
  * Enum value "cancellation" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ *
+ * The pipeline run was cancelled, eg. by a user manually cancelling the pipeline run.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_RESULT_VALUE_CANCELLATION: "cancellation";
 /**
  * Enum value "error" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ *
+ * The pipeline run failed due to an error in the CICD system, eg. due to the worker being killed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_RESULT_VALUE_ERROR: "error";
 /**
  * Enum value "failure" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ *
+ * The pipeline run did not finish successfully, eg. due to a compile error or a failing test. Such failures are usually detected by non-zero exit codes of the tools executed in the pipeline run.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_RESULT_VALUE_FAILURE: "failure";
 /**
  * Enum value "skip" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ *
+ * The pipeline run was skipped, eg. due to a precondition not being met.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_RESULT_VALUE_SKIP: "skip";
 /**
  * Enum value "success" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ *
+ * The pipeline run finished successfully.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_RESULT_VALUE_SUCCESS: "success";
 /**
  * Enum value "timeout" for attribute {@link ATTR_CICD_PIPELINE_RESULT}.
+ *
+ * A timeout caused the pipeline run to be interrupted.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_RESULT_VALUE_TIMEOUT: "timeout";
 /**
@@ -2276,14 +3240,26 @@ declare const ATTR_CICD_PIPELINE_RUN_ID: "cicd.pipeline.run.id";
 declare const ATTR_CICD_PIPELINE_RUN_STATE: "cicd.pipeline.run.state";
 /**
  * Enum value "executing" for attribute {@link ATTR_CICD_PIPELINE_RUN_STATE}.
+ *
+ * The executing state spans the execution of any run tasks (eg. build, test).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_RUN_STATE_VALUE_EXECUTING: "executing";
 /**
  * Enum value "finalizing" for attribute {@link ATTR_CICD_PIPELINE_RUN_STATE}.
+ *
+ * The finalizing state spans from when the run has finished executing (eg. cleanup of run resources).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_RUN_STATE_VALUE_FINALIZING: "finalizing";
 /**
  * Enum value "pending" for attribute {@link ATTR_CICD_PIPELINE_RUN_STATE}.
+ *
+ * The run pending state spans from the event triggering the pipeline run until the execution of the run starts (eg. time spent in a queue, provisioning agents, creating run resources).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_RUN_STATE_VALUE_PENDING: "pending";
 /**
@@ -2326,26 +3302,50 @@ declare const ATTR_CICD_PIPELINE_TASK_RUN_ID: "cicd.pipeline.task.run.id";
 declare const ATTR_CICD_PIPELINE_TASK_RUN_RESULT: "cicd.pipeline.task.run.result";
 /**
  * Enum value "cancellation" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ *
+ * The task run was cancelled, eg. by a user manually cancelling the task run.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_CANCELLATION: "cancellation";
 /**
  * Enum value "error" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ *
+ * The task run failed due to an error in the CICD system, eg. due to the worker being killed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_ERROR: "error";
 /**
  * Enum value "failure" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ *
+ * The task run did not finish successfully, eg. due to a compile error or a failing test. Such failures are usually detected by non-zero exit codes of the tools executed in the task run.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_FAILURE: "failure";
 /**
  * Enum value "skip" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ *
+ * The task run was skipped, eg. due to a precondition not being met.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SKIP: "skip";
 /**
  * Enum value "success" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ *
+ * The task run finished successfully.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SUCCESS: "success";
 /**
  * Enum value "timeout" for attribute {@link ATTR_CICD_PIPELINE_TASK_RUN_RESULT}.
+ *
+ * A timeout caused the task run to be interrupted.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_TASK_RUN_RESULT_VALUE_TIMEOUT: "timeout";
 /**
@@ -2368,14 +3368,26 @@ declare const ATTR_CICD_PIPELINE_TASK_RUN_URL_FULL: "cicd.pipeline.task.run.url.
 declare const ATTR_CICD_PIPELINE_TASK_TYPE: "cicd.pipeline.task.type";
 /**
  * Enum value "build" for attribute {@link ATTR_CICD_PIPELINE_TASK_TYPE}.
+ *
+ * build
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_TASK_TYPE_VALUE_BUILD: "build";
 /**
  * Enum value "deploy" for attribute {@link ATTR_CICD_PIPELINE_TASK_TYPE}.
+ *
+ * deploy
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_TASK_TYPE_VALUE_DEPLOY: "deploy";
 /**
  * Enum value "test" for attribute {@link ATTR_CICD_PIPELINE_TASK_TYPE}.
+ *
+ * test
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_PIPELINE_TASK_TYPE_VALUE_TEST: "test";
 /**
@@ -2420,14 +3432,26 @@ declare const ATTR_CICD_WORKER_NAME: "cicd.worker.name";
 declare const ATTR_CICD_WORKER_STATE: "cicd.worker.state";
 /**
  * Enum value "available" for attribute {@link ATTR_CICD_WORKER_STATE}.
+ *
+ * The worker is not performing work for the CICD system. It is available to the CICD system to perform work on (online / idle).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_WORKER_STATE_VALUE_AVAILABLE: "available";
 /**
  * Enum value "busy" for attribute {@link ATTR_CICD_WORKER_STATE}.
+ *
+ * The worker is performing work for the CICD system.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_WORKER_STATE_VALUE_BUSY: "busy";
 /**
  * Enum value "offline" for attribute {@link ATTR_CICD_WORKER_STATE}.
+ *
+ * The worker is not available to the CICD system (disconnected / down).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CICD_WORKER_STATE_VALUE_OFFLINE: "offline";
 /**
@@ -2467,122 +3491,242 @@ declare const ATTR_CLOUD_AVAILABILITY_ZONE: "cloud.availability_zone";
 declare const ATTR_CLOUD_PLATFORM: "cloud.platform";
 /**
  * Enum value "alibaba_cloud_ecs" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Alibaba Cloud Elastic Compute Service
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_ECS: "alibaba_cloud_ecs";
 /**
  * Enum value "alibaba_cloud_fc" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Alibaba Cloud Function Compute
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_FC: "alibaba_cloud_fc";
 /**
  * Enum value "alibaba_cloud_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Red Hat OpenShift on Alibaba Cloud
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_OPENSHIFT: "alibaba_cloud_openshift";
 /**
  * Enum value "aws_app_runner" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * AWS App Runner
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_AWS_APP_RUNNER: "aws_app_runner";
 /**
  * Enum value "aws_ec2" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * AWS Elastic Compute Cloud
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_AWS_EC2: "aws_ec2";
 /**
  * Enum value "aws_ecs" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * AWS Elastic Container Service
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_AWS_ECS: "aws_ecs";
 /**
  * Enum value "aws_eks" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * AWS Elastic Kubernetes Service
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_AWS_EKS: "aws_eks";
 /**
  * Enum value "aws_elastic_beanstalk" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * AWS Elastic Beanstalk
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_AWS_ELASTIC_BEANSTALK: "aws_elastic_beanstalk";
 /**
  * Enum value "aws_lambda" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * AWS Lambda
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_AWS_LAMBDA: "aws_lambda";
 /**
  * Enum value "aws_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Red Hat OpenShift on AWS (ROSA)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_AWS_OPENSHIFT: "aws_openshift";
 /**
- * Enum value "azure_aks" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ * Enum value "azure.aks" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Azure Kubernetes Service
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const CLOUD_PLATFORM_VALUE_AZURE_AKS: "azure_aks";
+declare const CLOUD_PLATFORM_VALUE_AZURE_AKS: "azure.aks";
 /**
- * Enum value "azure_app_service" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ * Enum value "azure.app_service" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Azure App Service
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const CLOUD_PLATFORM_VALUE_AZURE_APP_SERVICE: "azure_app_service";
+declare const CLOUD_PLATFORM_VALUE_AZURE_APP_SERVICE: "azure.app_service";
 /**
- * Enum value "azure_container_apps" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ * Enum value "azure.container_apps" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Azure Container Apps
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_APPS: "azure_container_apps";
+declare const CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_APPS: "azure.container_apps";
 /**
- * Enum value "azure_container_instances" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ * Enum value "azure.container_instances" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Azure Container Instances
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_INSTANCES: "azure_container_instances";
+declare const CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_INSTANCES: "azure.container_instances";
 /**
- * Enum value "azure_functions" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ * Enum value "azure.functions" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Azure Functions
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const CLOUD_PLATFORM_VALUE_AZURE_FUNCTIONS: "azure_functions";
+declare const CLOUD_PLATFORM_VALUE_AZURE_FUNCTIONS: "azure.functions";
 /**
- * Enum value "azure_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ * Enum value "azure.openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Azure Red Hat OpenShift
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const CLOUD_PLATFORM_VALUE_AZURE_OPENSHIFT: "azure_openshift";
+declare const CLOUD_PLATFORM_VALUE_AZURE_OPENSHIFT: "azure.openshift";
 /**
- * Enum value "azure_vm" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ * Enum value "azure.vm" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Azure Virtual Machines
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const CLOUD_PLATFORM_VALUE_AZURE_VM: "azure_vm";
+declare const CLOUD_PLATFORM_VALUE_AZURE_VM: "azure.vm";
 /**
  * Enum value "gcp_app_engine" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Google Cloud App Engine (GAE)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_GCP_APP_ENGINE: "gcp_app_engine";
 /**
  * Enum value "gcp_bare_metal_solution" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Google Bare Metal Solution (BMS)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_GCP_BARE_METAL_SOLUTION: "gcp_bare_metal_solution";
 /**
  * Enum value "gcp_cloud_functions" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Google Cloud Functions (GCF)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_GCP_CLOUD_FUNCTIONS: "gcp_cloud_functions";
 /**
  * Enum value "gcp_cloud_run" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Google Cloud Run
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_GCP_CLOUD_RUN: "gcp_cloud_run";
 /**
  * Enum value "gcp_compute_engine" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Google Cloud Compute Engine (GCE)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_GCP_COMPUTE_ENGINE: "gcp_compute_engine";
 /**
  * Enum value "gcp_kubernetes_engine" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Google Cloud Kubernetes Engine (GKE)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_GCP_KUBERNETES_ENGINE: "gcp_kubernetes_engine";
 /**
  * Enum value "gcp_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Red Hat OpenShift on Google Cloud
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_GCP_OPENSHIFT: "gcp_openshift";
 /**
  * Enum value "ibm_cloud_openshift" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Red Hat OpenShift on IBM Cloud
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_IBM_CLOUD_OPENSHIFT: "ibm_cloud_openshift";
 /**
  * Enum value "oracle_cloud_compute" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Compute on Oracle Cloud Infrastructure (OCI)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_COMPUTE: "oracle_cloud_compute";
 /**
  * Enum value "oracle_cloud_oke" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Kubernetes Engine (OKE) on Oracle Cloud Infrastructure (OCI)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_OKE: "oracle_cloud_oke";
 /**
  * Enum value "tencent_cloud_cvm" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Tencent Cloud Cloud Virtual Machine (CVM)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_CVM: "tencent_cloud_cvm";
 /**
  * Enum value "tencent_cloud_eks" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Tencent Cloud Elastic Kubernetes Service (EKS)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_EKS: "tencent_cloud_eks";
 /**
  * Enum value "tencent_cloud_scf" for attribute {@link ATTR_CLOUD_PLATFORM}.
+ *
+ * Tencent Cloud Serverless Cloud Function (SCF)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_SCF: "tencent_cloud_scf";
 /**
@@ -2593,34 +3737,66 @@ declare const CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_SCF: "tencent_cloud_scf";
 declare const ATTR_CLOUD_PROVIDER: "cloud.provider";
 /**
  * Enum value "alibaba_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ *
+ * Alibaba Cloud
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PROVIDER_VALUE_ALIBABA_CLOUD: "alibaba_cloud";
 /**
  * Enum value "aws" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ *
+ * Amazon Web Services
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PROVIDER_VALUE_AWS: "aws";
 /**
  * Enum value "azure" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ *
+ * Microsoft Azure
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PROVIDER_VALUE_AZURE: "azure";
 /**
  * Enum value "gcp" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ *
+ * Google Cloud Platform
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PROVIDER_VALUE_GCP: "gcp";
 /**
  * Enum value "heroku" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ *
+ * Heroku Platform as a Service
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PROVIDER_VALUE_HEROKU: "heroku";
 /**
  * Enum value "ibm_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ *
+ * IBM Cloud
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PROVIDER_VALUE_IBM_CLOUD: "ibm_cloud";
 /**
  * Enum value "oracle_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ *
+ * Oracle Cloud Infrastructure (OCI)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PROVIDER_VALUE_ORACLE_CLOUD: "oracle_cloud";
 /**
  * Enum value "tencent_cloud" for attribute {@link ATTR_CLOUD_PROVIDER}.
+ *
+ * Tencent Cloud
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CLOUD_PROVIDER_VALUE_TENCENT_CLOUD: "tencent_cloud";
 /**
@@ -2653,7 +3829,7 @@ declare const ATTR_CLOUD_REGION: "cloud.region";
  *     with the resolved function version, as the same runtime instance may be invocable with
  *     multiple different aliases.
  *   - **GCP:** The [URI of the resource](https://cloud.google.com/iam/docs/full-resource-names)
- *   - **Azure:** The [Fully Qualified Resource ID](https://docs.microsoft.com/rest/api/resources/resources/get-by-id) of the invoked function,
+ *   - **Azure:** The [Fully Qualified Resource ID](https://learn.microsoft.com/rest/api/resources/resources/get-by-id) of the invoked function,
  *     *not* the function app, having the form
  *     `/subscriptions/<SUBSCRIPTION_GUID>/resourceGroups/<RG>/providers/Microsoft.Web/sites/<FUNCAPP>/functions/<FUNC>`.
  *     This means that a span attribute **MUST** be used, as an Azure function app can host multiple functions that would usually share
@@ -2943,14 +4119,26 @@ declare const ATTR_CONTAINER_COMMAND_LINE: "container.command_line";
 declare const ATTR_CONTAINER_CPU_STATE: "container.cpu.state";
 /**
  * Enum value "kernel" for attribute {@link ATTR_CONTAINER_CPU_STATE}.
+ *
+ * When tasks of the cgroup are in kernel mode (Linux). When all container processes are in kernel mode (Windows).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CONTAINER_CPU_STATE_VALUE_KERNEL: "kernel";
 /**
  * Enum value "system" for attribute {@link ATTR_CONTAINER_CPU_STATE}.
+ *
+ * When CPU is used by the system (host OS)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CONTAINER_CPU_STATE_VALUE_SYSTEM: "system";
 /**
  * Enum value "user" for attribute {@link ATTR_CONTAINER_CPU_STATE}.
+ *
+ * When tasks of the cgroup are in user mode (Linux). When all container processes are in user mode (Windows).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CONTAINER_CPU_STATE_VALUE_USER: "user";
 /**
@@ -3055,8 +4243,36 @@ declare const ATTR_CONTAINER_NAME: "container.name";
  * @example rkt
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `container.runtime.name`.
  */
 declare const ATTR_CONTAINER_RUNTIME: "container.runtime";
+/**
+ * A description about the runtime which could include, for example details about the CRI/API version being used or other customisations.
+ *
+ * @example docker://19.3.1 - CRI: 1.22.0
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_CONTAINER_RUNTIME_DESCRIPTION: "container.runtime.description";
+/**
+ * The container runtime managing this container.
+ *
+ * @example docker
+ * @example containerd
+ * @example rkt
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_CONTAINER_RUNTIME_NAME: "container.runtime.name";
+/**
+ * The version of the runtime of this process, as returned by the runtime without modification.
+ *
+ * @example "1.0.0"
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_CONTAINER_RUNTIME_VERSION: "container.runtime.version";
 /**
  * The logical CPU number [0..n-1]
  *
@@ -3076,34 +4292,66 @@ declare const ATTR_CPU_LOGICAL_NUMBER: "cpu.logical_number";
 declare const ATTR_CPU_MODE: "cpu.mode";
 /**
  * Enum value "idle" for attribute {@link ATTR_CPU_MODE}.
+ *
+ * Idle
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CPU_MODE_VALUE_IDLE: "idle";
 /**
  * Enum value "interrupt" for attribute {@link ATTR_CPU_MODE}.
+ *
+ * Interrupt
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CPU_MODE_VALUE_INTERRUPT: "interrupt";
 /**
  * Enum value "iowait" for attribute {@link ATTR_CPU_MODE}.
+ *
+ * IO Wait
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CPU_MODE_VALUE_IOWAIT: "iowait";
 /**
  * Enum value "kernel" for attribute {@link ATTR_CPU_MODE}.
+ *
+ * Kernel
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CPU_MODE_VALUE_KERNEL: "kernel";
 /**
  * Enum value "nice" for attribute {@link ATTR_CPU_MODE}.
+ *
+ * Nice
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CPU_MODE_VALUE_NICE: "nice";
 /**
  * Enum value "steal" for attribute {@link ATTR_CPU_MODE}.
+ *
+ * Steal
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CPU_MODE_VALUE_STEAL: "steal";
 /**
  * Enum value "system" for attribute {@link ATTR_CPU_MODE}.
+ *
+ * System
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CPU_MODE_VALUE_SYSTEM: "system";
 /**
  * Enum value "user" for attribute {@link ATTR_CPU_MODE}.
+ *
+ * User
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CPU_MODE_VALUE_USER: "user";
 /**
@@ -3118,14 +4366,26 @@ declare const CPU_MODE_VALUE_USER: "user";
 declare const ATTR_CPYTHON_GC_GENERATION: "cpython.gc.generation";
 /**
  * Enum value 0 for attribute {@link ATTR_CPYTHON_GC_GENERATION}.
+ *
+ * Generation 0
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CPYTHON_GC_GENERATION_VALUE_GENERATION_0: 0;
 /**
  * Enum value 1 for attribute {@link ATTR_CPYTHON_GC_GENERATION}.
+ *
+ * Generation 1
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CPYTHON_GC_GENERATION_VALUE_GENERATION_1: 1;
 /**
  * Enum value 2 for attribute {@link ATTR_CPYTHON_GC_GENERATION}.
+ *
+ * Generation 2
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const CPYTHON_GC_GENERATION_VALUE_GENERATION_2: 2;
 /**
@@ -3138,46 +4398,68 @@ declare const CPYTHON_GC_GENERATION_VALUE_GENERATION_2: 2;
 declare const ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL: "db.cassandra.consistency_level";
 /**
  * Enum value "all" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL: "all";
 /**
  * Enum value "any" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY: "any";
 /**
  * Enum value "each_quorum" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM: "each_quorum";
 /**
  * Enum value "local_one" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE: "local_one";
 /**
  * Enum value "local_quorum" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM: "local_quorum";
 /**
  * Enum value "local_serial" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL: "local_serial";
 /**
  * Enum value "one" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE: "one";
 /**
  * Enum value "quorum" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM: "quorum";
 /**
  * Enum value "serial" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL: "serial";
 /**
  * Enum value "three" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE: "three";
 /**
  * Enum value "two" for attribute {@link ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO: "two";
 /**
@@ -3257,10 +4539,14 @@ declare const ATTR_DB_CLIENT_CONNECTION_POOL_NAME: "db.client.connection.pool.na
 declare const ATTR_DB_CLIENT_CONNECTION_STATE: "db.client.connection.state";
 /**
  * Enum value "idle" for attribute {@link ATTR_DB_CLIENT_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CLIENT_CONNECTION_STATE_VALUE_IDLE: "idle";
 /**
  * Enum value "used" for attribute {@link ATTR_DB_CLIENT_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CLIENT_CONNECTION_STATE_VALUE_USED: "used";
 /**
@@ -3285,10 +4571,14 @@ declare const ATTR_DB_CLIENT_CONNECTIONS_POOL_NAME: "db.client.connections.pool.
 declare const ATTR_DB_CLIENT_CONNECTIONS_STATE: "db.client.connections.state";
 /**
  * Enum value "idle" for attribute {@link ATTR_DB_CLIENT_CONNECTIONS_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CLIENT_CONNECTIONS_STATE_VALUE_IDLE: "idle";
 /**
  * Enum value "used" for attribute {@link ATTR_DB_CLIENT_CONNECTIONS_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_CLIENT_CONNECTIONS_STATE_VALUE_USED: "used";
 /**
@@ -3321,10 +4611,18 @@ declare const ATTR_DB_COSMOSDB_CLIENT_ID: "db.cosmosdb.client_id";
 declare const ATTR_DB_COSMOSDB_CONNECTION_MODE: "db.cosmosdb.connection_mode";
 /**
  * Enum value "direct" for attribute {@link ATTR_DB_COSMOSDB_CONNECTION_MODE}.
+ *
+ * Direct connection.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT: "direct";
 /**
  * Enum value "gateway" for attribute {@link ATTR_DB_COSMOSDB_CONNECTION_MODE}.
+ *
+ * Gateway (HTTP) connection.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY: "gateway";
 /**
@@ -3343,22 +4641,32 @@ declare const DB_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY: "gateway";
 declare const ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL: "db.cosmosdb.consistency_level";
 /**
  * Enum value "BoundedStaleness" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS: "BoundedStaleness";
 /**
  * Enum value "ConsistentPrefix" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX: "ConsistentPrefix";
 /**
  * Enum value "Eventual" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL: "Eventual";
 /**
  * Enum value "Session" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION: "Session";
 /**
  * Enum value "Strong" for attribute {@link ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG: "Strong";
 /**
@@ -3381,62 +4689,92 @@ declare const ATTR_DB_COSMOSDB_CONTAINER: "db.cosmosdb.container";
 declare const ATTR_DB_COSMOSDB_OPERATION_TYPE: "db.cosmosdb.operation_type";
 /**
  * Enum value "batch" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_BATCH: "batch";
 /**
  * Enum value "create" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_CREATE: "create";
 /**
  * Enum value "delete" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_DELETE: "delete";
 /**
  * Enum value "execute" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE: "execute";
 /**
  * Enum value "execute_javascript" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE_JAVASCRIPT: "execute_javascript";
 /**
  * Enum value "head" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD: "head";
 /**
  * Enum value "head_feed" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD_FEED: "head_feed";
 /**
  * Enum value "invalid" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_INVALID: "invalid";
 /**
  * Enum value "patch" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_PATCH: "patch";
 /**
  * Enum value "query" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY: "query";
 /**
  * Enum value "query_plan" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY_PLAN: "query_plan";
 /**
  * Enum value "read" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_READ: "read";
 /**
  * Enum value "read_feed" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_READ_FEED: "read_feed";
 /**
  * Enum value "replace" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_REPLACE: "replace";
 /**
  * Enum value "upsert" for attribute {@link ATTR_DB_COSMOSDB_OPERATION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_COSMOSDB_OPERATION_TYPE_VALUE_UPSERT: "upsert";
 /**
@@ -3677,366 +5015,740 @@ declare const ATTR_DB_STATEMENT: "db.statement";
 declare const ATTR_DB_SYSTEM: "db.system";
 /**
  * Enum value "adabas" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Adabas (Adaptable Database System)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_ADABAS: "adabas";
 /**
  * Enum value "cache" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Deprecated, use `intersystems_cache` instead.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `intersystems_cache`.
  */
 declare const DB_SYSTEM_VALUE_CACHE: "cache";
 /**
  * Enum value "cassandra" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Apache Cassandra
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_CASSANDRA: "cassandra";
 /**
  * Enum value "clickhouse" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * ClickHouse
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_CLICKHOUSE: "clickhouse";
 /**
  * Enum value "cloudscape" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Deprecated, use `other_sql` instead.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `other_sql`.
  */
 declare const DB_SYSTEM_VALUE_CLOUDSCAPE: "cloudscape";
 /**
  * Enum value "cockroachdb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * CockroachDB
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_COCKROACHDB: "cockroachdb";
 /**
  * Enum value "coldfusion" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Deprecated, no replacement at this time.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Obsoleted.
  */
 declare const DB_SYSTEM_VALUE_COLDFUSION: "coldfusion";
 /**
  * Enum value "cosmosdb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Microsoft Azure Cosmos DB
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_COSMOSDB: "cosmosdb";
 /**
  * Enum value "couchbase" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Couchbase
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_COUCHBASE: "couchbase";
 /**
  * Enum value "couchdb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * CouchDB
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_COUCHDB: "couchdb";
 /**
  * Enum value "db2" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * IBM Db2
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_DB2: "db2";
 /**
  * Enum value "derby" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Apache Derby
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_DERBY: "derby";
 /**
  * Enum value "dynamodb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Amazon DynamoDB
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_DYNAMODB: "dynamodb";
 /**
  * Enum value "edb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * EnterpriseDB
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_EDB: "edb";
 /**
  * Enum value "elasticsearch" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Elasticsearch
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_ELASTICSEARCH: "elasticsearch";
 /**
  * Enum value "filemaker" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * FileMaker
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_FILEMAKER: "filemaker";
 /**
  * Enum value "firebird" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Firebird
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_FIREBIRD: "firebird";
 /**
  * Enum value "firstsql" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Deprecated, use `other_sql` instead.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `other_sql`.
  */
 declare const DB_SYSTEM_VALUE_FIRSTSQL: "firstsql";
 /**
  * Enum value "geode" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Apache Geode
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_GEODE: "geode";
 /**
  * Enum value "h2" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * H2
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_H2: "h2";
 /**
  * Enum value "hanadb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * SAP HANA
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_HANADB: "hanadb";
 /**
  * Enum value "hbase" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Apache HBase
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_HBASE: "hbase";
 /**
  * Enum value "hive" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Apache Hive
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_HIVE: "hive";
 /**
  * Enum value "hsqldb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * HyperSQL DataBase
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_HSQLDB: "hsqldb";
 /**
  * Enum value "influxdb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * InfluxDB
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_INFLUXDB: "influxdb";
 /**
  * Enum value "informix" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Informix
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_INFORMIX: "informix";
 /**
  * Enum value "ingres" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Ingres
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_INGRES: "ingres";
 /**
  * Enum value "instantdb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * InstantDB
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_INSTANTDB: "instantdb";
 /**
  * Enum value "interbase" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * InterBase
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_INTERBASE: "interbase";
 /**
  * Enum value "intersystems_cache" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * InterSystems Caché
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_INTERSYSTEMS_CACHE: "intersystems_cache";
 /**
  * Enum value "mariadb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * MariaDB
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_MARIADB: "mariadb";
 /**
  * Enum value "maxdb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * SAP MaxDB
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_MAXDB: "maxdb";
 /**
  * Enum value "memcached" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Memcached
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_MEMCACHED: "memcached";
 /**
  * Enum value "mongodb" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * MongoDB
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_MONGODB: "mongodb";
 /**
  * Enum value "mssql" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Microsoft SQL Server
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_MSSQL: "mssql";
 /**
  * Enum value "mssqlcompact" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Deprecated, Microsoft SQL Server Compact is discontinued.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `other_sql`.
  */
 declare const DB_SYSTEM_VALUE_MSSQLCOMPACT: "mssqlcompact";
 /**
  * Enum value "mysql" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * MySQL
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_MYSQL: "mysql";
 /**
  * Enum value "neo4j" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Neo4j
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_NEO4J: "neo4j";
 /**
  * Enum value "netezza" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Netezza
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_NETEZZA: "netezza";
 /**
  * Enum value "opensearch" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * OpenSearch
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_OPENSEARCH: "opensearch";
 /**
  * Enum value "oracle" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Oracle Database
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_ORACLE: "oracle";
 /**
  * Enum value "other_sql" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Some other SQL database. Fallback only. See notes.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_OTHER_SQL: "other_sql";
 /**
  * Enum value "pervasive" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Pervasive PSQL
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_PERVASIVE: "pervasive";
 /**
  * Enum value "pointbase" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * PointBase
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_POINTBASE: "pointbase";
 /**
  * Enum value "postgresql" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * PostgreSQL
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_POSTGRESQL: "postgresql";
 /**
  * Enum value "progress" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Progress Database
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_PROGRESS: "progress";
 /**
  * Enum value "redis" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Redis
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_REDIS: "redis";
 /**
  * Enum value "redshift" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Amazon Redshift
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_REDSHIFT: "redshift";
 /**
  * Enum value "spanner" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Cloud Spanner
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_SPANNER: "spanner";
 /**
  * Enum value "sqlite" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * SQLite
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_SQLITE: "sqlite";
 /**
  * Enum value "sybase" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Sybase
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_SYBASE: "sybase";
 /**
  * Enum value "teradata" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Teradata
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_TERADATA: "teradata";
 /**
  * Enum value "trino" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Trino
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_TRINO: "trino";
 /**
  * Enum value "vertica" for attribute {@link ATTR_DB_SYSTEM}.
+ *
+ * Vertica
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_VALUE_VERTICA: "vertica";
 /**
  * Enum value "actian.ingres" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Actian Ingres](https://www.actian.com/databases/ingres/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_ACTIAN_INGRES: "actian.ingres";
 /**
  * Enum value "aws.dynamodb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Amazon DynamoDB](https://aws.amazon.com/pm/dynamodb/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_AWS_DYNAMODB: "aws.dynamodb";
 /**
  * Enum value "aws.redshift" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Amazon Redshift](https://aws.amazon.com/redshift/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_AWS_REDSHIFT: "aws.redshift";
 /**
  * Enum value "azure.cosmosdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Azure Cosmos DB](https://learn.microsoft.com/azure/cosmos-db)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_AZURE_COSMOSDB: "azure.cosmosdb";
 /**
  * Enum value "cassandra" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Apache Cassandra](https://cassandra.apache.org/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_CASSANDRA: "cassandra";
 /**
  * Enum value "clickhouse" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [ClickHouse](https://clickhouse.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_CLICKHOUSE: "clickhouse";
 /**
  * Enum value "cockroachdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [CockroachDB](https://www.cockroachlabs.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_COCKROACHDB: "cockroachdb";
 /**
  * Enum value "couchbase" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Couchbase](https://www.couchbase.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_COUCHBASE: "couchbase";
 /**
  * Enum value "couchdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Apache CouchDB](https://couchdb.apache.org/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_COUCHDB: "couchdb";
 /**
  * Enum value "derby" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Apache Derby](https://db.apache.org/derby/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_DERBY: "derby";
 /**
  * Enum value "elasticsearch" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Elasticsearch](https://www.elastic.co/elasticsearch)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_ELASTICSEARCH: "elasticsearch";
 /**
  * Enum value "firebirdsql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Firebird](https://www.firebirdsql.org/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_FIREBIRDSQL: "firebirdsql";
 /**
  * Enum value "gcp.spanner" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Google Cloud Spanner](https://cloud.google.com/spanner)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_GCP_SPANNER: "gcp.spanner";
 /**
  * Enum value "geode" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Apache Geode](https://geode.apache.org/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_GEODE: "geode";
 /**
  * Enum value "h2database" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [H2 Database](https://h2database.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_H2DATABASE: "h2database";
 /**
  * Enum value "hbase" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Apache HBase](https://hbase.apache.org/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_HBASE: "hbase";
 /**
  * Enum value "hive" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Apache Hive](https://hive.apache.org/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_HIVE: "hive";
 /**
  * Enum value "hsqldb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [HyperSQL Database](https://hsqldb.org/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_HSQLDB: "hsqldb";
 /**
  * Enum value "ibm.db2" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [IBM Db2](https://www.ibm.com/db2)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_IBM_DB2: "ibm.db2";
 /**
  * Enum value "ibm.informix" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [IBM Informix](https://www.ibm.com/products/informix)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_IBM_INFORMIX: "ibm.informix";
 /**
  * Enum value "ibm.netezza" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [IBM Netezza](https://www.ibm.com/products/netezza)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_IBM_NETEZZA: "ibm.netezza";
 /**
  * Enum value "influxdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [InfluxDB](https://www.influxdata.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_INFLUXDB: "influxdb";
 /**
  * Enum value "instantdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Instant](https://www.instantdb.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_INSTANTDB: "instantdb";
 /**
  * Enum value "intersystems.cache" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [InterSystems Caché](https://www.intersystems.com/products/cache/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_INTERSYSTEMS_CACHE: "intersystems.cache";
 /**
  * Enum value "memcached" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Memcached](https://memcached.org/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_MEMCACHED: "memcached";
 /**
  * Enum value "mongodb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [MongoDB](https://www.mongodb.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_MONGODB: "mongodb";
 /**
  * Enum value "neo4j" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Neo4j](https://neo4j.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_NEO4J: "neo4j";
 /**
  * Enum value "opensearch" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [OpenSearch](https://opensearch.org/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_OPENSEARCH: "opensearch";
 /**
  * Enum value "oracle.db" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Oracle Database](https://www.oracle.com/database/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_ORACLE_DB: "oracle.db";
 /**
  * Enum value "other_sql" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * Some other SQL database. Fallback only.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_OTHER_SQL: "other_sql";
 /**
  * Enum value "redis" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Redis](https://redis.io/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_REDIS: "redis";
 /**
  * Enum value "sap.hana" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [SAP HANA](https://www.sap.com/products/technology-platform/hana/what-is-sap-hana.html)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_SAP_HANA: "sap.hana";
 /**
  * Enum value "sap.maxdb" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [SAP MaxDB](https://maxdb.sap.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_SAP_MAXDB: "sap.maxdb";
 /**
  * Enum value "softwareag.adabas" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Adabas (Adaptable Database System)](https://documentation.softwareag.com/?pf=adabas)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_SOFTWAREAG_ADABAS: "softwareag.adabas";
 /**
  * Enum value "sqlite" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [SQLite](https://www.sqlite.org/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_SQLITE: "sqlite";
 /**
  * Enum value "teradata" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Teradata](https://www.teradata.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_TERADATA: "teradata";
 /**
  * Enum value "trino" for attribute {@link ATTR_DB_SYSTEM_NAME}.
+ *
+ * [Trino](https://trino.io/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DB_SYSTEM_NAME_VALUE_TRINO: "trino";
 /**
@@ -4051,7 +5763,7 @@ declare const DB_SYSTEM_NAME_VALUE_TRINO: "trino";
  */
 declare const ATTR_DB_USER: "db.user";
 /**
- * 'Deprecated, use `deployment.environment.name` instead.'
+ * Deprecated, use `deployment.environment.name` instead.
  *
  * @example staging
  * @example production
@@ -4103,10 +5815,18 @@ declare const ATTR_DEPLOYMENT_NAME: "deployment.name";
 declare const ATTR_DEPLOYMENT_STATUS: "deployment.status";
 /**
  * Enum value "failed" for attribute {@link ATTR_DEPLOYMENT_STATUS}.
+ *
+ * failed
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DEPLOYMENT_STATUS_VALUE_FAILED: "failed";
 /**
  * Enum value "succeeded" for attribute {@link ATTR_DEPLOYMENT_STATUS}.
+ *
+ * succeeded
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DEPLOYMENT_STATUS_VALUE_SUCCEEDED: "succeeded";
 /**
@@ -4140,7 +5860,7 @@ declare const ATTR_DESTINATION_PORT: "destination.port";
  * However, it might be resettable by the user for all apps on a device.
  * Hardware IDs (e.g. vendor-specific serial number, IMEI or MAC address) **MAY** be used as values.
  *
- * More information about Android identifier best practices can be found [here](https://developer.android.com/training/articles/user-data-ids).
+ * More information about Android identifier best practices can be found in the [Android user data IDs guide](https://developer.android.com/training/articles/user-data-ids).
  *
  * > [!WARNING]> This attribute may contain sensitive (PII) information. Caution should be taken when storing personal data or anything which can identify a user. GDPR and data protection laws may apply,
  * > ensure you do your own due diligence.> Due to these reasons, this identifier is not recommended for consumer applications and will likely result in rejection from both Google Play and App Store.
@@ -4193,12 +5913,24 @@ declare const ATTR_DEVICE_MODEL_NAME: "device.model.name";
 declare const ATTR_DISK_IO_DIRECTION: "disk.io.direction";
 /**
  * Enum value "read" for attribute {@link ATTR_DISK_IO_DIRECTION}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DISK_IO_DIRECTION_VALUE_READ: "read";
 /**
  * Enum value "write" for attribute {@link ATTR_DISK_IO_DIRECTION}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const DISK_IO_DIRECTION_VALUE_WRITE: "write";
+/**
+ * The list of IPv4 or IPv6 addresses resolved during DNS lookup.
+ *
+ * @example ["10.0.0.1", "2001:0db8:85a3:0000:0000:8a2e:0370:7334"]
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_DNS_ANSWERS: "dns.answers";
 /**
  * The name being queried.
  *
@@ -4251,7 +5983,7 @@ declare const ATTR_ENDUSER_PSEUDO_ID: "enduser.pseudo.id";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Use `user.roles` attribute instead.
+ * @deprecated Replaced by `user.roles`.
  */
 declare const ATTR_ENDUSER_ROLE: "enduser.role";
 /**
@@ -4330,14 +6062,26 @@ declare const ATTR_FAAS_DOCUMENT_NAME: "faas.document.name";
 declare const ATTR_FAAS_DOCUMENT_OPERATION: "faas.document.operation";
 /**
  * Enum value "delete" for attribute {@link ATTR_FAAS_DOCUMENT_OPERATION}.
+ *
+ * When an object is deleted.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_DOCUMENT_OPERATION_VALUE_DELETE: "delete";
 /**
  * Enum value "edit" for attribute {@link ATTR_FAAS_DOCUMENT_OPERATION}.
+ *
+ * When an object is modified.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_DOCUMENT_OPERATION_VALUE_EDIT: "edit";
 /**
  * Enum value "insert" for attribute {@link ATTR_FAAS_DOCUMENT_OPERATION}.
+ *
+ * When a new object is created.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_DOCUMENT_OPERATION_VALUE_INSERT: "insert";
 /**
@@ -4386,22 +6130,42 @@ declare const ATTR_FAAS_INVOKED_NAME: "faas.invoked_name";
 declare const ATTR_FAAS_INVOKED_PROVIDER: "faas.invoked_provider";
 /**
  * Enum value "alibaba_cloud" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
+ *
+ * Alibaba Cloud
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_INVOKED_PROVIDER_VALUE_ALIBABA_CLOUD: "alibaba_cloud";
 /**
  * Enum value "aws" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
+ *
+ * Amazon Web Services
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_INVOKED_PROVIDER_VALUE_AWS: "aws";
 /**
  * Enum value "azure" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
+ *
+ * Microsoft Azure
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_INVOKED_PROVIDER_VALUE_AZURE: "azure";
 /**
  * Enum value "gcp" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
+ *
+ * Google Cloud Platform
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_INVOKED_PROVIDER_VALUE_GCP: "gcp";
 /**
  * Enum value "tencent_cloud" for attribute {@link ATTR_FAAS_INVOKED_PROVIDER}.
+ *
+ * Tencent Cloud
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_INVOKED_PROVIDER_VALUE_TENCENT_CLOUD: "tencent_cloud";
 /**
@@ -4466,22 +6230,42 @@ declare const ATTR_FAAS_TIME: "faas.time";
 declare const ATTR_FAAS_TRIGGER: "faas.trigger";
 /**
  * Enum value "datasource" for attribute {@link ATTR_FAAS_TRIGGER}.
+ *
+ * A response to some data source operation such as a database or filesystem read/write
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_TRIGGER_VALUE_DATASOURCE: "datasource";
 /**
  * Enum value "http" for attribute {@link ATTR_FAAS_TRIGGER}.
+ *
+ * To provide an answer to an inbound HTTP request
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_TRIGGER_VALUE_HTTP: "http";
 /**
  * Enum value "other" for attribute {@link ATTR_FAAS_TRIGGER}.
+ *
+ * If none of the others apply
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_TRIGGER_VALUE_OTHER: "other";
 /**
  * Enum value "pubsub" for attribute {@link ATTR_FAAS_TRIGGER}.
+ *
+ * A function is set to be executed when messages are sent to a messaging system
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_TRIGGER_VALUE_PUBSUB: "pubsub";
 /**
  * Enum value "timer" for attribute {@link ATTR_FAAS_TRIGGER}.
+ *
+ * A function is scheduled to be executed regularly
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FAAS_TRIGGER_VALUE_TIMER: "timer";
 /**
@@ -4536,38 +6320,74 @@ declare const ATTR_FEATURE_FLAG_EVALUATION_ERROR_MESSAGE: "feature_flag.evaluati
 declare const ATTR_FEATURE_FLAG_EVALUATION_REASON: "feature_flag.evaluation.reason";
 /**
  * Enum value "cached" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ *
+ * The resolved value was retrieved from cache.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_CACHED: "cached";
 /**
  * Enum value "default" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ *
+ * The resolved value fell back to a pre-configured value (no dynamic evaluation occurred or dynamic evaluation yielded no result).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_DEFAULT: "default";
 /**
  * Enum value "disabled" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ *
+ * The resolved value was the result of the flag being disabled in the management system.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_DISABLED: "disabled";
 /**
  * Enum value "error" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ *
+ * The resolved value was the result of an error.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_ERROR: "error";
 /**
  * Enum value "split" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ *
+ * The resolved value was the result of pseudorandom assignment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_SPLIT: "split";
 /**
  * Enum value "stale" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ *
+ * The resolved value is non-authoritative or possibly out of date
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_STALE: "stale";
 /**
  * Enum value "static" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ *
+ * The resolved value is static (no dynamic evaluation).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_STATIC: "static";
 /**
  * Enum value "targeting_match" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ *
+ * The resolved value was the result of a dynamic evaluation, such as a rule or specific user-targeting.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_TARGETING_MATCH: "targeting_match";
 /**
  * Enum value "unknown" for attribute {@link ATTR_FEATURE_FLAG_EVALUATION_REASON}.
+ *
+ * The reason for the resolved value could not be determined.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_EVALUATION_REASON_VALUE_UNKNOWN: "unknown";
 /**
@@ -4599,38 +6419,74 @@ declare const ATTR_FEATURE_FLAG_PROVIDER_NAME: "feature_flag.provider.name";
 declare const ATTR_FEATURE_FLAG_RESULT_REASON: "feature_flag.result.reason";
 /**
  * Enum value "cached" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ *
+ * The resolved value was retrieved from cache.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_CACHED: "cached";
 /**
  * Enum value "default" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ *
+ * The resolved value fell back to a pre-configured value (no dynamic evaluation occurred or dynamic evaluation yielded no result).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_DEFAULT: "default";
 /**
  * Enum value "disabled" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ *
+ * The resolved value was the result of the flag being disabled in the management system.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_DISABLED: "disabled";
 /**
  * Enum value "error" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ *
+ * The resolved value was the result of an error.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_ERROR: "error";
 /**
  * Enum value "split" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ *
+ * The resolved value was the result of pseudorandom assignment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_SPLIT: "split";
 /**
  * Enum value "stale" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ *
+ * The resolved value is non-authoritative or possibly out of date
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_STALE: "stale";
 /**
  * Enum value "static" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ *
+ * The resolved value is static (no dynamic evaluation).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_STATIC: "static";
 /**
  * Enum value "targeting_match" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ *
+ * The resolved value was the result of a dynamic evaluation, such as a rule or specific user-targeting.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_TARGETING_MATCH: "targeting_match";
 /**
  * Enum value "unknown" for attribute {@link ATTR_FEATURE_FLAG_RESULT_REASON}.
+ *
+ * The reason for the resolved value could not be determined.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const FEATURE_FLAG_RESULT_REASON_VALUE_UNKNOWN: "unknown";
 /**
@@ -4757,7 +6613,7 @@ declare const ATTR_FILE_EXTENSION: "file.extension";
 /**
  * Name of the fork. A fork is additional data associated with a filesystem object.
  *
- * @example Zone.Identifer
+ * @example Zone.Identifier
  *
  * @note On Linux, a resource fork is used to store additional data with a filesystem object. A file always has at least one fork for the data portion, and additional forks may exist.
  * On NTFS, this is analogous to an Alternate Data Stream (ADS), and the default data stream for a file is just called $DATA. Zone.Identifier is commonly used by Windows to track contents downloaded from the Internet. An ADS is typically of the form: C:\\path\\to\\filename.extension:some_fork_name, and some_fork_name is the value that should populate `fork_name`. `filename.extension` should populate `file.name`, and `extension` should populate `file.extension`. The full path, `file.path`, will include the fork name.
@@ -4888,18 +6744,34 @@ declare const ATTR_GCP_APPHUB_APPLICATION_LOCATION: "gcp.apphub.application.loca
 declare const ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE: "gcp.apphub.service.criticality_type";
 /**
  * Enum value "HIGH" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
+ *
+ * High impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_HIGH: "HIGH";
 /**
  * Enum value "LOW" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
+ *
+ * Low impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_LOW: "LOW";
 /**
  * Enum value "MEDIUM" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
+ *
+ * Medium impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MEDIUM: "MEDIUM";
 /**
  * Enum value "MISSION_CRITICAL" for attribute {@link ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE}.
+ *
+ * Mission critical service.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL: "MISSION_CRITICAL";
 /**
@@ -4912,18 +6784,34 @@ declare const GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL: "MISSI
 declare const ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE: "gcp.apphub.service.environment_type";
 /**
  * Enum value "DEVELOPMENT" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
+ *
+ * Development environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT: "DEVELOPMENT";
 /**
  * Enum value "PRODUCTION" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
+ *
+ * Production environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_PRODUCTION: "PRODUCTION";
 /**
  * Enum value "STAGING" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
+ *
+ * Staging environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_STAGING: "STAGING";
 /**
  * Enum value "TEST" for attribute {@link ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE}.
+ *
+ * Test environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_TEST: "TEST";
 /**
@@ -4944,18 +6832,34 @@ declare const ATTR_GCP_APPHUB_SERVICE_ID: "gcp.apphub.service.id";
 declare const ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE: "gcp.apphub.workload.criticality_type";
 /**
  * Enum value "HIGH" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
+ *
+ * High impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_HIGH: "HIGH";
 /**
  * Enum value "LOW" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
+ *
+ * Low impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_LOW: "LOW";
 /**
  * Enum value "MEDIUM" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
+ *
+ * Medium impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MEDIUM: "MEDIUM";
 /**
  * Enum value "MISSION_CRITICAL" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE}.
+ *
+ * Mission critical service.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL: "MISSION_CRITICAL";
 /**
@@ -4968,18 +6872,34 @@ declare const GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL: "MISS
 declare const ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE: "gcp.apphub.workload.environment_type";
 /**
  * Enum value "DEVELOPMENT" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
+ *
+ * Development environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT: "DEVELOPMENT";
 /**
  * Enum value "PRODUCTION" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
+ *
+ * Production environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_PRODUCTION: "PRODUCTION";
 /**
  * Enum value "STAGING" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
+ *
+ * Staging environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_STAGING: "STAGING";
 /**
  * Enum value "TEST" for attribute {@link ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE}.
+ *
+ * Test environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_TEST: "TEST";
 /**
@@ -5095,6 +7015,62 @@ declare const ATTR_GEN_AI_CONVERSATION_ID: "gen_ai.conversation.id";
  */
 declare const ATTR_GEN_AI_DATA_SOURCE_ID: "gen_ai.data_source.id";
 /**
+ * The chat history provided to the model as an input.
+ *
+ * @example [
+ * {
+ * "role": "user",
+ * "parts": [
+ * {
+ * "type": "text",
+ * "content": "Weather in Paris?"
+ * }
+ * ]
+ * },
+ * {
+ * "role": "assistant",
+ * "parts": [
+ * {
+ * "type": "tool_call",
+ * "id": "call_VSPygqKTWdrhaFErNvMV18Yl",
+ * "name": "get_weather",
+ * "arguments": {
+ * "location": "Paris"
+ * }
+ * }
+ * ]
+ * },
+ * {
+ * "role": "tool",
+ * "parts": [
+ * {
+ * "type": "tool_call_response",
+ * "id": " call_VSPygqKTWdrhaFErNvMV18Yl",
+ * "result": "rainy, 57°F"
+ * }
+ * ]
+ * }
+ * ]
+ *
+ * @note Instrumentations **MUST** follow [Input messages JSON schema](/docs/gen-ai/gen-ai-input-messages.json).
+ * When the attribute is recorded on events, it **MUST** be recorded in structured
+ * form. When recorded on spans, it **MAY** be recorded as a JSON string if structured
+ * format is not supported and **SHOULD** be recorded in structured form otherwise.
+ *
+ * Messages **MUST** be provided in the order they were sent to the model.
+ * Instrumentations **MAY** provide a way for users to filter or truncate
+ * input messages.
+ *
+ * > [!Warning]
+ * > This attribute is likely to contain sensitive information including user/PII data.
+ *
+ * See [Recording content on attributes](/docs/gen-ai/gen-ai-spans.md#recording-content-on-attributes)
+ * section for more details.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_INPUT_MESSAGES: "gen_ai.input.messages";
+/**
  * Deprecated, use `gen_ai.output.type`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
@@ -5104,14 +7080,26 @@ declare const ATTR_GEN_AI_DATA_SOURCE_ID: "gen_ai.data_source.id";
 declare const ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT: "gen_ai.openai.request.response_format";
 /**
  * Enum value "json_object" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT}.
+ *
+ * JSON object response format
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_OBJECT: "json_object";
 /**
  * Enum value "json_schema" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT}.
+ *
+ * JSON schema response format
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_SCHEMA: "json_schema";
 /**
  * Enum value "text" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT}.
+ *
+ * Text response format
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_TEXT: "text";
 /**
@@ -5125,37 +7113,48 @@ declare const GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_TEXT: "text";
  */
 declare const ATTR_GEN_AI_OPENAI_REQUEST_SEED: "gen_ai.openai.request.seed";
 /**
- * The service tier requested. May be a specific tier, default, or auto.
- *
- * @example auto
- * @example default
+ * Deprecated, use `openai.request.service_tier`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `openai.request.service_tier`.
  */
 declare const ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER: "gen_ai.openai.request.service_tier";
 /**
  * Enum value "auto" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER}.
+ *
+ * The system will utilize scale tier credits until they are exhausted.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO: "auto";
 /**
  * Enum value "default" for attribute {@link ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER}.
+ *
+ * The system will utilize the default scale tier.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT: "default";
 /**
- * The service tier used for the response.
+ * Deprecated, use `openai.response.service_tier`.
  *
  * @example scale
  * @example default
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `openai.response.service_tier`.
  */
 declare const ATTR_GEN_AI_OPENAI_RESPONSE_SERVICE_TIER: "gen_ai.openai.response.service_tier";
 /**
- * A fingerprint to track any eventual change in the Generative AI environment.
+ * Deprecated, use `openai.response.system_fingerprint`.
  *
  * @example fp_44709d6fcb
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `openai.response.system_fingerprint`.
  */
 declare const ATTR_GEN_AI_OPENAI_RESPONSE_SYSTEM_FINGERPRINT: "gen_ai.openai.response.system_fingerprint";
 /**
@@ -5168,32 +7167,99 @@ declare const ATTR_GEN_AI_OPENAI_RESPONSE_SYSTEM_FINGERPRINT: "gen_ai.openai.res
 declare const ATTR_GEN_AI_OPERATION_NAME: "gen_ai.operation.name";
 /**
  * Enum value "chat" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ *
+ * Chat completion operation such as [OpenAI Chat API](https://platform.openai.com/docs/api-reference/chat)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPERATION_NAME_VALUE_CHAT: "chat";
 /**
  * Enum value "create_agent" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ *
+ * Create GenAI agent
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPERATION_NAME_VALUE_CREATE_AGENT: "create_agent";
 /**
  * Enum value "embeddings" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ *
+ * Embeddings operation such as [OpenAI Create embeddings API](https://platform.openai.com/docs/api-reference/embeddings/create)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPERATION_NAME_VALUE_EMBEDDINGS: "embeddings";
 /**
  * Enum value "execute_tool" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ *
+ * Execute a tool
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPERATION_NAME_VALUE_EXECUTE_TOOL: "execute_tool";
 /**
  * Enum value "generate_content" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ *
+ * Multimodal content generation operation such as [Gemini Generate Content](https://ai.google.dev/api/generate-content)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPERATION_NAME_VALUE_GENERATE_CONTENT: "generate_content";
 /**
  * Enum value "invoke_agent" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ *
+ * Invoke GenAI agent
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPERATION_NAME_VALUE_INVOKE_AGENT: "invoke_agent";
 /**
  * Enum value "text_completion" for attribute {@link ATTR_GEN_AI_OPERATION_NAME}.
+ *
+ * Text completions operation such as [OpenAI Completions API (Legacy)](https://platform.openai.com/docs/api-reference/completions)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OPERATION_NAME_VALUE_TEXT_COMPLETION: "text_completion";
+/**
+ * Messages returned by the model where each message represents a specific model response (choice, candidate).
+ *
+ * @example [
+ * {
+ * "role": "assistant",
+ * "parts": [
+ * {
+ * "type": "text",
+ * "content": "The weather in Paris is currently rainy with a temperature of 57°F."
+ * }
+ * ],
+ * "finish_reason": "stop"
+ * }
+ * ]
+ *
+ * @note Instrumentations **MUST** follow [Output messages JSON schema](/docs/gen-ai/gen-ai-output-messages.json)
+ *
+ * Each message represents a single output choice/candidate generated by
+ * the model. Each message corresponds to exactly one generation
+ * (choice/candidate) and vice versa - one choice cannot be split across
+ * multiple messages or one message cannot contain parts from multiple choices.
+ *
+ * When the attribute is recorded on events, it **MUST** be recorded in structured
+ * form. When recorded on spans, it **MAY** be recorded as a JSON string if structured
+ * format is not supported and **SHOULD** be recorded in structured form otherwise.
+ *
+ * Instrumentations **MAY** provide a way for users to filter or truncate
+ * output messages.
+ *
+ * > [!Warning]
+ * > This attribute is likely to contain sensitive information including user/PII data.
+ *
+ * See [Recording content on attributes](/docs/gen-ai/gen-ai-spans.md#recording-content-on-attributes)
+ * section for more details.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_OUTPUT_MESSAGES: "gen_ai.output.messages";
 /**
  * Represents the content type requested by the client.
  *
@@ -5206,18 +7272,34 @@ declare const GEN_AI_OPERATION_NAME_VALUE_TEXT_COMPLETION: "text_completion";
 declare const ATTR_GEN_AI_OUTPUT_TYPE: "gen_ai.output.type";
 /**
  * Enum value "image" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
+ *
+ * Image
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OUTPUT_TYPE_VALUE_IMAGE: "image";
 /**
  * Enum value "json" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
+ *
+ * JSON object with known or unknown schema
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OUTPUT_TYPE_VALUE_JSON: "json";
 /**
  * Enum value "speech" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
+ *
+ * Speech
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OUTPUT_TYPE_VALUE_SPEECH: "speech";
 /**
  * Enum value "text" for attribute {@link ATTR_GEN_AI_OUTPUT_TYPE}.
+ *
+ * Plain text
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_OUTPUT_TYPE_VALUE_TEXT: "text";
 /**
@@ -5230,6 +7312,151 @@ declare const GEN_AI_OUTPUT_TYPE_VALUE_TEXT: "text";
  * @deprecated Removed, no replacement at this time.
  */
 declare const ATTR_GEN_AI_PROMPT: "gen_ai.prompt";
+/**
+ * The Generative AI provider as identified by the client or server instrumentation.
+ *
+ * @note The attribute **SHOULD** be set based on the instrumentation's best
+ * knowledge and may differ from the actual model provider.
+ *
+ * Multiple providers, including Azure OpenAI, Gemini, and AI hosting platforms
+ * are accessible using the OpenAI REST API and corresponding client libraries,
+ * but may proxy or host models from different providers.
+ *
+ * The `gen_ai.request.model`, `gen_ai.response.model`, and `server.address`
+ * attributes may help identify the actual system in use.
+ *
+ * The `gen_ai.provider.name` attribute acts as a discriminator that
+ * identifies the GenAI telemetry format flavor specific to that provider
+ * within GenAI semantic conventions.
+ * It **SHOULD** be set consistently with provider-specific attributes and signals.
+ * For example, GenAI spans, metrics, and events related to AWS Bedrock
+ * should have the `gen_ai.provider.name` set to `aws.bedrock` and include
+ * applicable `aws.bedrock.*` attributes and are not expected to include
+ * `openai.*` attributes.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_PROVIDER_NAME: "gen_ai.provider.name";
+/**
+ * Enum value "anthropic" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [Anthropic](https://www.anthropic.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_ANTHROPIC: "anthropic";
+/**
+ * Enum value "aws.bedrock" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [AWS Bedrock](https://aws.amazon.com/bedrock)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_AWS_BEDROCK: "aws.bedrock";
+/**
+ * Enum value "azure.ai.inference" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * Azure AI Inference
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_AZURE_AI_INFERENCE: "azure.ai.inference";
+/**
+ * Enum value "azure.ai.openai" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [Azure OpenAI](https://azure.microsoft.com/products/ai-services/openai-service/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_AZURE_AI_OPENAI: "azure.ai.openai";
+/**
+ * Enum value "cohere" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [Cohere](https://cohere.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_COHERE: "cohere";
+/**
+ * Enum value "deepseek" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [DeepSeek](https://www.deepseek.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_DEEPSEEK: "deepseek";
+/**
+ * Enum value "gcp.gemini" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [Gemini](https://cloud.google.com/products/gemini)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_GCP_GEMINI: "gcp.gemini";
+/**
+ * Enum value "gcp.gen_ai" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * Any Google generative AI endpoint
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_GCP_GEN_AI: "gcp.gen_ai";
+/**
+ * Enum value "gcp.vertex_ai" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [Vertex AI](https://cloud.google.com/vertex-ai)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_GCP_VERTEX_AI: "gcp.vertex_ai";
+/**
+ * Enum value "groq" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [Groq](https://groq.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_GROQ: "groq";
+/**
+ * Enum value "ibm.watsonx.ai" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [IBM Watsonx AI](https://www.ibm.com/products/watsonx-ai)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_IBM_WATSONX_AI: "ibm.watsonx.ai";
+/**
+ * Enum value "mistral_ai" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [Mistral AI](https://mistral.ai/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_MISTRAL_AI: "mistral_ai";
+/**
+ * Enum value "openai" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [OpenAI](https://openai.com/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_OPENAI: "openai";
+/**
+ * Enum value "perplexity" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [Perplexity](https://www.perplexity.ai/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_PERPLEXITY: "perplexity";
+/**
+ * Enum value "x_ai" for attribute {@link ATTR_GEN_AI_PROVIDER_NAME}.
+ *
+ * [xAI](https://x.ai/)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_PROVIDER_NAME_VALUE_X_AI: "x_ai";
 /**
  * The target number of candidate completions to return.
  *
@@ -5347,93 +7574,216 @@ declare const ATTR_GEN_AI_RESPONSE_ID: "gen_ai.response.id";
  */
 declare const ATTR_GEN_AI_RESPONSE_MODEL: "gen_ai.response.model";
 /**
- * The Generative AI product as identified by the client or server instrumentation.
- *
- * @example "openai"
- *
- * @note The `gen_ai.system` describes a family of GenAI models with specific model identified
- * by `gen_ai.request.model` and `gen_ai.response.model` attributes.
- *
- * The actual GenAI product may differ from the one identified by the client.
- * Multiple systems, including Azure OpenAI and Gemini, are accessible by OpenAI client
- * libraries. In such cases, the `gen_ai.system` is set to `openai` based on the
- * instrumentation's best knowledge, instead of the actual system. The `server.address`
- * attribute may help identify the actual system in use for `openai`.
- *
- * For custom model, a custom friendly name **SHOULD** be used.
- * If none of these options apply, the `gen_ai.system` **SHOULD** be set to `_OTHER`.
+ * Deprecated, use `gen_ai.provider.name` instead.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `gen_ai.provider.name`.
  */
 declare const ATTR_GEN_AI_SYSTEM: "gen_ai.system";
 /**
  * Enum value "anthropic" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Anthropic
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_ANTHROPIC: "anthropic";
 /**
  * Enum value "aws.bedrock" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * AWS Bedrock
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_AWS_BEDROCK: "aws.bedrock";
 /**
  * Enum value "az.ai.inference" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Azure AI Inference
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_AZ_AI_INFERENCE: "az.ai.inference";
 /**
  * Enum value "az.ai.openai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Azure OpenAI
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_AZ_AI_OPENAI: "az.ai.openai";
 /**
+ * Enum value "azure.ai.inference" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Azure AI Inference
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_SYSTEM_VALUE_AZURE_AI_INFERENCE: "azure.ai.inference";
+/**
+ * Enum value "azure.ai.openai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Azure OpenAI
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GEN_AI_SYSTEM_VALUE_AZURE_AI_OPENAI: "azure.ai.openai";
+/**
  * Enum value "cohere" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Cohere
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_COHERE: "cohere";
 /**
  * Enum value "deepseek" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * DeepSeek
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_DEEPSEEK: "deepseek";
 /**
  * Enum value "gcp.gemini" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Gemini
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_GCP_GEMINI: "gcp.gemini";
 /**
  * Enum value "gcp.gen_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Any Google generative AI endpoint
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_GCP_GEN_AI: "gcp.gen_ai";
 /**
  * Enum value "gcp.vertex_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Vertex AI
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_GCP_VERTEX_AI: "gcp.vertex_ai";
 /**
  * Enum value "gemini" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Gemini
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `gcp.gemini`.
  */
 declare const GEN_AI_SYSTEM_VALUE_GEMINI: "gemini";
 /**
  * Enum value "groq" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Groq
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_GROQ: "groq";
 /**
  * Enum value "ibm.watsonx.ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * IBM Watsonx AI
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_IBM_WATSONX_AI: "ibm.watsonx.ai";
 /**
  * Enum value "mistral_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Mistral AI
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_MISTRAL_AI: "mistral_ai";
 /**
  * Enum value "openai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * OpenAI
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_OPENAI: "openai";
 /**
  * Enum value "perplexity" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Perplexity
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_SYSTEM_VALUE_PERPLEXITY: "perplexity";
 /**
  * Enum value "vertex_ai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * Vertex AI
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `gcp.vertex_ai`.
  */
 declare const GEN_AI_SYSTEM_VALUE_VERTEX_AI: "vertex_ai";
 /**
  * Enum value "xai" for attribute {@link ATTR_GEN_AI_SYSTEM}.
+ *
+ * xAI
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `x_ai`.
  */
 declare const GEN_AI_SYSTEM_VALUE_XAI: "xai";
+/**
+ * The system message or instructions provided to the GenAI model separately from the chat history.
+ *
+ * @example [
+ * {
+ * "type": "text",
+ * "content": "You are an Agent that greet users, always use greetings tool to respond"
+ * }
+ * ]
+ *
+ * @example [
+ * {
+ * "type": "text",
+ * "content": "You are a language translator."
+ * },
+ * {
+ * "type": "text",
+ * "content": "Your mission is to translate text in English to French."
+ * }
+ * ]
+ *
+ * @note This attribute **SHOULD** be used when the corresponding provider or API
+ * allows to provide system instructions or messages separately from the
+ * chat history.
+ *
+ * Instructions that are part of the chat history **SHOULD** be recorded in
+ * `gen_ai.input.messages` attribute instead.
+ *
+ * Instrumentations **MUST** follow [System instructions JSON schema](/docs/gen-ai/gen-ai-system-instructions.json).
+ *
+ * When recorded on spans, it **MAY** be recorded as a JSON string if structured
+ * format is not supported and **SHOULD** be recorded in structured form otherwise.
+ *
+ * Instrumentations **MAY** provide a way for users to filter or truncate
+ * system instructions.
+ *
+ * > [!Warning]
+ * > This attribute may contain sensitive information.
+ *
+ * See [Recording content on attributes](/docs/gen-ai/gen-ai-spans.md#recording-content-on-attributes)
+ * section for more details.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_SYSTEM_INSTRUCTIONS: "gen_ai.system_instructions";
 /**
  * The type of token being counted.
  *
@@ -5445,14 +7795,28 @@ declare const GEN_AI_SYSTEM_VALUE_XAI: "xai";
 declare const ATTR_GEN_AI_TOKEN_TYPE: "gen_ai.token.type";
 /**
  * Enum value "input" for attribute {@link ATTR_GEN_AI_TOKEN_TYPE}.
+ *
+ * Input tokens (prompt, input, etc.)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_TOKEN_TYPE_VALUE_INPUT: "input";
 /**
  * Enum value "output" for attribute {@link ATTR_GEN_AI_TOKEN_TYPE}.
+ *
+ * Output tokens (completion, response, etc.)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `output`.
  */
 declare const GEN_AI_TOKEN_TYPE_VALUE_COMPLETION: "output";
 /**
  * Enum value "output" for attribute {@link ATTR_GEN_AI_TOKEN_TYPE}.
+ *
+ * Output tokens (completion, response, etc.)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEN_AI_TOKEN_TYPE_VALUE_OUTPUT: "output";
 /**
@@ -5539,30 +7903,58 @@ declare const ATTR_GEN_AI_USAGE_PROMPT_TOKENS: "gen_ai.usage.prompt_tokens";
 declare const ATTR_GEO_CONTINENT_CODE: "geo.continent.code";
 /**
  * Enum value "AF" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ *
+ * Africa
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEO_CONTINENT_CODE_VALUE_AF: "AF";
 /**
  * Enum value "AN" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ *
+ * Antarctica
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEO_CONTINENT_CODE_VALUE_AN: "AN";
 /**
  * Enum value "AS" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ *
+ * Asia
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEO_CONTINENT_CODE_VALUE_AS: "AS";
 /**
  * Enum value "EU" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ *
+ * Europe
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEO_CONTINENT_CODE_VALUE_EU: "EU";
 /**
  * Enum value "NA" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ *
+ * North America
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEO_CONTINENT_CODE_VALUE_NA: "NA";
 /**
  * Enum value "OC" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ *
+ * Oceania
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEO_CONTINENT_CODE_VALUE_OC: "OC";
 /**
  * Enum value "SA" for attribute {@link ATTR_GEO_CONTINENT_CODE}.
+ *
+ * South America
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GEO_CONTINENT_CODE_VALUE_SA: "SA";
 /**
@@ -5625,10 +8017,18 @@ declare const ATTR_GEO_REGION_ISO_CODE: "geo.region.iso_code";
 declare const ATTR_GO_MEMORY_TYPE: "go.memory.type";
 /**
  * Enum value "other" for attribute {@link ATTR_GO_MEMORY_TYPE}.
+ *
+ * Memory used by the Go runtime, excluding other categories of memory usage described in this enumeration.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GO_MEMORY_TYPE_VALUE_OTHER: "other";
 /**
  * Enum value "stack" for attribute {@link ATTR_GO_MEMORY_TYPE}.
+ *
+ * Memory allocated from the heap that is reserved for stack space, whether or not it is currently in-use.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GO_MEMORY_TYPE_VALUE_STACK: "stack";
 /**
@@ -5660,14 +8060,26 @@ declare const ATTR_GRAPHQL_OPERATION_NAME: "graphql.operation.name";
 declare const ATTR_GRAPHQL_OPERATION_TYPE: "graphql.operation.type";
 /**
  * Enum value "mutation" for attribute {@link ATTR_GRAPHQL_OPERATION_TYPE}.
+ *
+ * GraphQL mutation
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GRAPHQL_OPERATION_TYPE_VALUE_MUTATION: "mutation";
 /**
  * Enum value "query" for attribute {@link ATTR_GRAPHQL_OPERATION_TYPE}.
+ *
+ * GraphQL query
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GRAPHQL_OPERATION_TYPE_VALUE_QUERY: "query";
 /**
  * Enum value "subscription" for attribute {@link ATTR_GRAPHQL_OPERATION_TYPE}.
+ *
+ * GraphQL subscription
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const GRAPHQL_OPERATION_TYPE_VALUE_SUBSCRIPTION: "subscription";
 /**
@@ -5702,34 +8114,66 @@ declare const ATTR_HEROKU_RELEASE_CREATION_TIMESTAMP: "heroku.release.creation_t
 declare const ATTR_HOST_ARCH: "host.arch";
 /**
  * Enum value "amd64" for attribute {@link ATTR_HOST_ARCH}.
+ *
+ * AMD64
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HOST_ARCH_VALUE_AMD64: "amd64";
 /**
  * Enum value "arm32" for attribute {@link ATTR_HOST_ARCH}.
+ *
+ * ARM32
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HOST_ARCH_VALUE_ARM32: "arm32";
 /**
  * Enum value "arm64" for attribute {@link ATTR_HOST_ARCH}.
+ *
+ * ARM64
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HOST_ARCH_VALUE_ARM64: "arm64";
 /**
  * Enum value "ia64" for attribute {@link ATTR_HOST_ARCH}.
+ *
+ * Itanium
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HOST_ARCH_VALUE_IA64: "ia64";
 /**
  * Enum value "ppc32" for attribute {@link ATTR_HOST_ARCH}.
+ *
+ * 32-bit PowerPC
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HOST_ARCH_VALUE_PPC32: "ppc32";
 /**
  * Enum value "ppc64" for attribute {@link ATTR_HOST_ARCH}.
+ *
+ * 64-bit PowerPC
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HOST_ARCH_VALUE_PPC64: "ppc64";
 /**
  * Enum value "s390x" for attribute {@link ATTR_HOST_ARCH}.
+ *
+ * IBM z/Architecture
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HOST_ARCH_VALUE_S390X: "s390x";
 /**
  * Enum value "x86" for attribute {@link ATTR_HOST_ARCH}.
+ *
+ * 32-bit x86
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HOST_ARCH_VALUE_X86: "x86";
 /**
@@ -5875,10 +8319,18 @@ declare const ATTR_HTTP_CLIENT_IP: "http.client_ip";
 declare const ATTR_HTTP_CONNECTION_STATE: "http.connection.state";
 /**
  * Enum value "active" for attribute {@link ATTR_HTTP_CONNECTION_STATE}.
+ *
+ * active state.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HTTP_CONNECTION_STATE_VALUE_ACTIVE: "active";
 /**
  * Enum value "idle" for attribute {@link ATTR_HTTP_CONNECTION_STATE}.
+ *
+ * idle state.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HTTP_CONNECTION_STATE_VALUE_IDLE: "idle";
 /**
@@ -5891,26 +8343,50 @@ declare const HTTP_CONNECTION_STATE_VALUE_IDLE: "idle";
 declare const ATTR_HTTP_FLAVOR: "http.flavor";
 /**
  * Enum value "1.0" for attribute {@link ATTR_HTTP_FLAVOR}.
+ *
+ * HTTP/1.0
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HTTP_FLAVOR_VALUE_HTTP_1_0: "1.0";
 /**
  * Enum value "1.1" for attribute {@link ATTR_HTTP_FLAVOR}.
+ *
+ * HTTP/1.1
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HTTP_FLAVOR_VALUE_HTTP_1_1: "1.1";
 /**
  * Enum value "2.0" for attribute {@link ATTR_HTTP_FLAVOR}.
+ *
+ * HTTP/2
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HTTP_FLAVOR_VALUE_HTTP_2_0: "2.0";
 /**
  * Enum value "3.0" for attribute {@link ATTR_HTTP_FLAVOR}.
+ *
+ * HTTP/3
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HTTP_FLAVOR_VALUE_HTTP_3_0: "3.0";
 /**
  * Enum value "QUIC" for attribute {@link ATTR_HTTP_FLAVOR}.
+ *
+ * QUIC protocol.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HTTP_FLAVOR_VALUE_QUIC: "QUIC";
 /**
  * Enum value "SPDY" for attribute {@link ATTR_HTTP_FLAVOR}.
+ *
+ * SPDY protocol.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HTTP_FLAVOR_VALUE_SPDY: "SPDY";
 /**
@@ -5994,7 +8470,7 @@ declare const ATTR_HTTP_RESPONSE_SIZE: "http.response.size";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated hp.response.header.content-length
+ * @deprecated Replaced by `http.response.header.content-length`.
  */
 declare const ATTR_HTTP_RESPONSE_CONTENT_LENGTH: "http.response_content_length";
 /**
@@ -6070,6 +8546,110 @@ declare const ATTR_HTTP_URL: "http.url";
  */
 declare const ATTR_HTTP_USER_AGENT: "http.user_agent";
 /**
+ * Design capacity in Watts-hours or Amper-hours
+ *
+ * @example 9.3Ah
+ * @example 50Wh
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_BATTERY_CAPACITY: "hw.battery.capacity";
+/**
+ * Battery [chemistry](https://schemas.dmtf.org/wbem/cim-html/2.31.0/CIM_Battery.html), e.g. Lithium-Ion, Nickel-Cadmium, etc.
+ *
+ * @example Li-ion
+ * @example NiMH
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_BATTERY_CHEMISTRY: "hw.battery.chemistry";
+/**
+ * The current state of the battery
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_BATTERY_STATE: "hw.battery.state";
+/**
+ * Enum value "charging" for attribute {@link ATTR_HW_BATTERY_STATE}.
+ *
+ * Charging
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_BATTERY_STATE_VALUE_CHARGING: "charging";
+/**
+ * Enum value "discharging" for attribute {@link ATTR_HW_BATTERY_STATE}.
+ *
+ * Discharging
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_BATTERY_STATE_VALUE_DISCHARGING: "discharging";
+/**
+ * BIOS version of the hardware component
+ *
+ * @example 1.2.3
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_BIOS_VERSION: "hw.bios_version";
+/**
+ * Driver version for the hardware component
+ *
+ * @example 10.2.1-3
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_DRIVER_VERSION: "hw.driver_version";
+/**
+ * Type of the enclosure (useful for modular systems)
+ *
+ * @example Computer
+ * @example Storage
+ * @example Switch
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_ENCLOSURE_TYPE: "hw.enclosure.type";
+/**
+ * Firmware version of the hardware component
+ *
+ * @example 2.0.1
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_FIRMWARE_VERSION: "hw.firmware_version";
+/**
+ * Type of task the GPU is performing
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_GPU_TASK: "hw.gpu.task";
+/**
+ * Enum value "decoder" for attribute {@link ATTR_HW_GPU_TASK}.
+ *
+ * Decoder
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_GPU_TASK_VALUE_DECODER: "decoder";
+/**
+ * Enum value "encoder" for attribute {@link ATTR_HW_GPU_TASK}.
+ *
+ * Encoder
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_GPU_TASK_VALUE_ENCODER: "encoder";
+/**
+ * Enum value "general" for attribute {@link ATTR_HW_GPU_TASK}.
+ *
+ * General
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_GPU_TASK_VALUE_GENERAL: "general";
+/**
  * An identifier for the hardware component, unique within the monitored host
  *
  * @example win32battery_battery_testsysa33_1
@@ -6077,6 +8657,136 @@ declare const ATTR_HTTP_USER_AGENT: "http.user_agent";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_HW_ID: "hw.id";
+/**
+ * Type of limit for hardware components
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_LIMIT_TYPE: "hw.limit_type";
+/**
+ * Enum value "critical" for attribute {@link ATTR_HW_LIMIT_TYPE}.
+ *
+ * Critical
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_LIMIT_TYPE_VALUE_CRITICAL: "critical";
+/**
+ * Enum value "degraded" for attribute {@link ATTR_HW_LIMIT_TYPE}.
+ *
+ * Degraded
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_LIMIT_TYPE_VALUE_DEGRADED: "degraded";
+/**
+ * Enum value "high.critical" for attribute {@link ATTR_HW_LIMIT_TYPE}.
+ *
+ * High Critical
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_LIMIT_TYPE_VALUE_HIGH_CRITICAL: "high.critical";
+/**
+ * Enum value "high.degraded" for attribute {@link ATTR_HW_LIMIT_TYPE}.
+ *
+ * High Degraded
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_LIMIT_TYPE_VALUE_HIGH_DEGRADED: "high.degraded";
+/**
+ * Enum value "low.critical" for attribute {@link ATTR_HW_LIMIT_TYPE}.
+ *
+ * Low Critical
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_LIMIT_TYPE_VALUE_LOW_CRITICAL: "low.critical";
+/**
+ * Enum value "low.degraded" for attribute {@link ATTR_HW_LIMIT_TYPE}.
+ *
+ * Low Degraded
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_LIMIT_TYPE_VALUE_LOW_DEGRADED: "low.degraded";
+/**
+ * Enum value "max" for attribute {@link ATTR_HW_LIMIT_TYPE}.
+ *
+ * Maximum
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_LIMIT_TYPE_VALUE_MAX: "max";
+/**
+ * Enum value "throttled" for attribute {@link ATTR_HW_LIMIT_TYPE}.
+ *
+ * Throttled
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_LIMIT_TYPE_VALUE_THROTTLED: "throttled";
+/**
+ * Enum value "turbo" for attribute {@link ATTR_HW_LIMIT_TYPE}.
+ *
+ * Turbo
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_LIMIT_TYPE_VALUE_TURBO: "turbo";
+/**
+ * RAID Level of the logical disk
+ *
+ * @example RAID0+1
+ * @example RAID5
+ * @example RAID10
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_LOGICAL_DISK_RAID_LEVEL: "hw.logical_disk.raid_level";
+/**
+ * State of the logical disk space usage
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_LOGICAL_DISK_STATE: "hw.logical_disk.state";
+/**
+ * Enum value "free" for attribute {@link ATTR_HW_LOGICAL_DISK_STATE}.
+ *
+ * Free
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_LOGICAL_DISK_STATE_VALUE_FREE: "free";
+/**
+ * Enum value "used" for attribute {@link ATTR_HW_LOGICAL_DISK_STATE}.
+ *
+ * Used
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_LOGICAL_DISK_STATE_VALUE_USED: "used";
+/**
+ * Type of the memory module
+ *
+ * @example DDR4
+ * @example DDR5
+ * @example LPDDR5
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_MEMORY_TYPE: "hw.memory.type";
+/**
+ * Descriptive model name of the hardware component
+ *
+ * @example PERC H740P
+ * @example Intel(R) Core(TM) i7-10700K
+ * @example Dell XPS 15 Battery
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_MODEL: "hw.model";
 /**
  * An easily-recognizable name for the hardware component
  *
@@ -6086,6 +8796,22 @@ declare const ATTR_HW_ID: "hw.id";
  */
 declare const ATTR_HW_NAME: "hw.name";
 /**
+ * Logical addresses of the adapter (e.g. IP address, or WWPN)
+ *
+ * @example ["172.16.8.21", "57.11.193.42"]
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_NETWORK_LOGICAL_ADDRESSES: "hw.network.logical_addresses";
+/**
+ * Physical address of the adapter (e.g. MAC address, or WWNN)
+ *
+ * @example 00-90-F5-E9-7B-36
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_NETWORK_PHYSICAL_ADDRESS: "hw.network.physical_address";
+/**
  * Unique identifier of the parent component (typically the `hw.id` attribute of the enclosure, or disk controller)
  *
  * @example dellStorage_perc_0
@@ -6094,6 +8820,64 @@ declare const ATTR_HW_NAME: "hw.name";
  */
 declare const ATTR_HW_PARENT: "hw.parent";
 /**
+ * [S.M.A.R.T.](https://wikipedia.org/wiki/S.M.A.R.T.) (Self-Monitoring, Analysis, and Reporting Technology) attribute of the physical disk
+ *
+ * @example Spin Retry Count
+ * @example Seek Error Rate
+ * @example Raw Read Error Rate
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_PHYSICAL_DISK_SMART_ATTRIBUTE: "hw.physical_disk.smart_attribute";
+/**
+ * State of the physical disk endurance utilization
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_PHYSICAL_DISK_STATE: "hw.physical_disk.state";
+/**
+ * Enum value "remaining" for attribute {@link ATTR_HW_PHYSICAL_DISK_STATE}.
+ *
+ * Remaining
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_PHYSICAL_DISK_STATE_VALUE_REMAINING: "remaining";
+/**
+ * Type of the physical disk
+ *
+ * @example HDD
+ * @example SSD
+ * @example 10K
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_PHYSICAL_DISK_TYPE: "hw.physical_disk.type";
+/**
+ * Location of the sensor
+ *
+ * @example cpu0
+ * @example ps1
+ * @example INLET
+ * @example CPU0_DIE
+ * @example AMBIENT
+ * @example MOTHERBOARD
+ * @example PS0 V3_3
+ * @example MAIN_12V
+ * @example CPU_VCORE
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_SENSOR_LOCATION: "hw.sensor_location";
+/**
+ * Serial number of the hardware component
+ *
+ * @example CNFCP0123456789
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_SERIAL_NUMBER: "hw.serial_number";
+/**
  * The current state of the component
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
@@ -6101,16 +8885,74 @@ declare const ATTR_HW_PARENT: "hw.parent";
 declare const ATTR_HW_STATE: "hw.state";
 /**
  * Enum value "degraded" for attribute {@link ATTR_HW_STATE}.
+ *
+ * Degraded
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_STATE_VALUE_DEGRADED: "degraded";
 /**
  * Enum value "failed" for attribute {@link ATTR_HW_STATE}.
+ *
+ * Failed
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_STATE_VALUE_FAILED: "failed";
 /**
+ * Enum value "needs_cleaning" for attribute {@link ATTR_HW_STATE}.
+ *
+ * Needs Cleaning
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_STATE_VALUE_NEEDS_CLEANING: "needs_cleaning";
+/**
  * Enum value "ok" for attribute {@link ATTR_HW_STATE}.
+ *
+ * OK
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_STATE_VALUE_OK: "ok";
+/**
+ * Enum value "predicted_failure" for attribute {@link ATTR_HW_STATE}.
+ *
+ * Predicted Failure
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_STATE_VALUE_PREDICTED_FAILURE: "predicted_failure";
+/**
+ * Type of tape drive operation
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_TAPE_DRIVE_OPERATION_TYPE: "hw.tape_drive.operation_type";
+/**
+ * Enum value "clean" for attribute {@link ATTR_HW_TAPE_DRIVE_OPERATION_TYPE}.
+ *
+ * Clean
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_CLEAN: "clean";
+/**
+ * Enum value "mount" for attribute {@link ATTR_HW_TAPE_DRIVE_OPERATION_TYPE}.
+ *
+ * Mount
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_MOUNT: "mount";
+/**
+ * Enum value "unmount" for attribute {@link ATTR_HW_TAPE_DRIVE_OPERATION_TYPE}.
+ *
+ * Unmount
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_UNMOUNT: "unmount";
 /**
  * Type of the component
  *
@@ -6121,60 +8963,129 @@ declare const HW_STATE_VALUE_OK: "ok";
 declare const ATTR_HW_TYPE: "hw.type";
 /**
  * Enum value "battery" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Battery
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_BATTERY: "battery";
 /**
  * Enum value "cpu" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * CPU
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_CPU: "cpu";
 /**
  * Enum value "disk_controller" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Disk controller
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_DISK_CONTROLLER: "disk_controller";
 /**
  * Enum value "enclosure" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Enclosure
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_ENCLOSURE: "enclosure";
 /**
  * Enum value "fan" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Fan
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_FAN: "fan";
 /**
  * Enum value "gpu" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * GPU
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_GPU: "gpu";
 /**
  * Enum value "logical_disk" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Logical disk
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_LOGICAL_DISK: "logical_disk";
 /**
  * Enum value "memory" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Memory
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_MEMORY: "memory";
 /**
  * Enum value "network" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Network
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_NETWORK: "network";
 /**
  * Enum value "physical_disk" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Physical disk
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_PHYSICAL_DISK: "physical_disk";
 /**
  * Enum value "power_supply" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Power supply
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_POWER_SUPPLY: "power_supply";
 /**
  * Enum value "tape_drive" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Tape drive
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_TAPE_DRIVE: "tape_drive";
 /**
  * Enum value "temperature" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Temperature
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_TEMPERATURE: "temperature";
 /**
  * Enum value "voltage" for attribute {@link ATTR_HW_TYPE}.
+ *
+ * Voltage
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const HW_TYPE_VALUE_VOLTAGE: "voltage";
+/**
+ * Vendor name of the hardware component
+ *
+ * @example Dell
+ * @example HP
+ * @example Intel
+ * @example AMD
+ * @example LSI
+ * @example Lenovo
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_HW_VENDOR: "hw.vendor";
 /**
  * This attribute represents the state of the application.
  *
@@ -6185,50 +9096,92 @@ declare const HW_TYPE_VALUE_VOLTAGE: "voltage";
 declare const ATTR_IOS_APP_STATE: "ios.app.state";
 /**
  * Enum value "active" for attribute {@link ATTR_IOS_APP_STATE}.
+ *
+ * The app has become `active`. Associated with UIKit notification `applicationDidBecomeActive`.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const IOS_APP_STATE_VALUE_ACTIVE: "active";
 /**
  * Enum value "background" for attribute {@link ATTR_IOS_APP_STATE}.
+ *
+ * The app is now in the background. This value is associated with UIKit notification `applicationDidEnterBackground`.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const IOS_APP_STATE_VALUE_BACKGROUND: "background";
 /**
  * Enum value "foreground" for attribute {@link ATTR_IOS_APP_STATE}.
+ *
+ * The app is now in the foreground. This value is associated with UIKit notification `applicationWillEnterForeground`.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const IOS_APP_STATE_VALUE_FOREGROUND: "foreground";
 /**
  * Enum value "inactive" for attribute {@link ATTR_IOS_APP_STATE}.
+ *
+ * The app is now `inactive`. Associated with UIKit notification `applicationWillResignActive`.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const IOS_APP_STATE_VALUE_INACTIVE: "inactive";
 /**
  * Enum value "terminate" for attribute {@link ATTR_IOS_APP_STATE}.
+ *
+ * The app is about to terminate. Associated with UIKit notification `applicationWillTerminate`.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const IOS_APP_STATE_VALUE_TERMINATE: "terminate";
 /**
+ * Deprecated. Use the `ios.app.state` attribute.
+ *
  * @note The iOS lifecycle states are defined in the [UIApplicationDelegate documentation](https://developer.apple.com/documentation/uikit/uiapplicationdelegate), and from which the `OS terminology` column values are derived.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by the `ios.app.state` event body field.
+ * @deprecated Replaced by `ios.app.state`.
  */
 declare const ATTR_IOS_STATE: "ios.state";
 /**
  * Enum value "active" for attribute {@link ATTR_IOS_STATE}.
+ *
+ * The app has become `active`. Associated with UIKit notification `applicationDidBecomeActive`.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const IOS_STATE_VALUE_ACTIVE: "active";
 /**
  * Enum value "background" for attribute {@link ATTR_IOS_STATE}.
+ *
+ * The app is now in the background. This value is associated with UIKit notification `applicationDidEnterBackground`.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const IOS_STATE_VALUE_BACKGROUND: "background";
 /**
  * Enum value "foreground" for attribute {@link ATTR_IOS_STATE}.
+ *
+ * The app is now in the foreground. This value is associated with UIKit notification `applicationWillEnterForeground`.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const IOS_STATE_VALUE_FOREGROUND: "foreground";
 /**
  * Enum value "inactive" for attribute {@link ATTR_IOS_STATE}.
+ *
+ * The app is now `inactive`. Associated with UIKit notification `applicationWillResignActive`.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const IOS_STATE_VALUE_INACTIVE: "inactive";
 /**
  * Enum value "terminate" for attribute {@link ATTR_IOS_STATE}.
+ *
+ * The app is about to terminate. Associated with UIKit notification `applicationWillTerminate`.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const IOS_STATE_VALUE_TERMINATE: "terminate";
 /**
@@ -6316,6 +9269,128 @@ declare const ATTR_K8S_CONTAINER_RESTART_COUNT: "k8s.container.restart_count";
  */
 declare const ATTR_K8S_CONTAINER_STATUS_LAST_TERMINATED_REASON: "k8s.container.status.last_terminated_reason";
 /**
+ * The reason for the container state. Corresponds to the `reason` field of the: [K8s ContainerStateWaiting](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#containerstatewaiting-v1-core) or [K8s ContainerStateTerminated](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#containerstateterminated-v1-core)
+ *
+ * @example ContainerCreating
+ * @example CrashLoopBackOff
+ * @example CreateContainerConfigError
+ * @example ErrImagePull
+ * @example ImagePullBackOff
+ * @example OOMKilled
+ * @example Completed
+ * @example Error
+ * @example ContainerCannotRun
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_CONTAINER_STATUS_REASON: "k8s.container.status.reason";
+/**
+ * Enum value "Completed" for attribute {@link ATTR_K8S_CONTAINER_STATUS_REASON}.
+ *
+ * The container has completed execution.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_REASON_VALUE_COMPLETED: "Completed";
+/**
+ * Enum value "ContainerCannotRun" for attribute {@link ATTR_K8S_CONTAINER_STATUS_REASON}.
+ *
+ * The container cannot run.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_REASON_VALUE_CONTAINER_CANNOT_RUN: "ContainerCannotRun";
+/**
+ * Enum value "ContainerCreating" for attribute {@link ATTR_K8S_CONTAINER_STATUS_REASON}.
+ *
+ * The container is being created.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_REASON_VALUE_CONTAINER_CREATING: "ContainerCreating";
+/**
+ * Enum value "CrashLoopBackOff" for attribute {@link ATTR_K8S_CONTAINER_STATUS_REASON}.
+ *
+ * The container is in a crash loop back off state.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_REASON_VALUE_CRASH_LOOP_BACK_OFF: "CrashLoopBackOff";
+/**
+ * Enum value "CreateContainerConfigError" for attribute {@link ATTR_K8S_CONTAINER_STATUS_REASON}.
+ *
+ * There was an error creating the container configuration.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_REASON_VALUE_CREATE_CONTAINER_CONFIG_ERROR: "CreateContainerConfigError";
+/**
+ * Enum value "ErrImagePull" for attribute {@link ATTR_K8S_CONTAINER_STATUS_REASON}.
+ *
+ * There was an error pulling the container image.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_REASON_VALUE_ERR_IMAGE_PULL: "ErrImagePull";
+/**
+ * Enum value "Error" for attribute {@link ATTR_K8S_CONTAINER_STATUS_REASON}.
+ *
+ * There was an error with the container.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_REASON_VALUE_ERROR: "Error";
+/**
+ * Enum value "ImagePullBackOff" for attribute {@link ATTR_K8S_CONTAINER_STATUS_REASON}.
+ *
+ * The container image pull is in back off state.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_REASON_VALUE_IMAGE_PULL_BACK_OFF: "ImagePullBackOff";
+/**
+ * Enum value "OOMKilled" for attribute {@link ATTR_K8S_CONTAINER_STATUS_REASON}.
+ *
+ * The container was killed due to out of memory.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_REASON_VALUE_OOM_KILLED: "OOMKilled";
+/**
+ * The state of the container. [K8s ContainerState](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#containerstate-v1-core)
+ *
+ * @example terminated
+ * @example running
+ * @example waiting
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_CONTAINER_STATUS_STATE: "k8s.container.status.state";
+/**
+ * Enum value "running" for attribute {@link ATTR_K8S_CONTAINER_STATUS_STATE}.
+ *
+ * The container is running.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_STATE_VALUE_RUNNING: "running";
+/**
+ * Enum value "terminated" for attribute {@link ATTR_K8S_CONTAINER_STATUS_STATE}.
+ *
+ * The container has terminated.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_STATE_VALUE_TERMINATED: "terminated";
+/**
+ * Enum value "waiting" for attribute {@link ATTR_K8S_CONTAINER_STATUS_STATE}.
+ *
+ * The container is waiting.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_CONTAINER_STATUS_STATE_VALUE_WAITING: "waiting";
+/**
  * The cronjob annotation placed on the CronJob, the `<key>` being the annotation name, the value being the annotation value.
  *
  * @example 4
@@ -6364,23 +9439,35 @@ declare const ATTR_K8S_CRONJOB_NAME: "k8s.cronjob.name";
  */
 declare const ATTR_K8S_CRONJOB_UID: "k8s.cronjob.uid";
 /**
- * The annotation key-value pairs placed on the DaemonSet.
+ * The annotation placed on the DaemonSet, the `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
  *
- * @example k8s.daemonset.annotation.replicas=1
- * @example k8s.daemonset.annotation.data=
+ * @example 1
+ * @example
  *
- * @note The `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
+ * @note
+ * Examples:
+ *
+ *   - A label `replicas` with value `1` **SHOULD** be recorded
+ *     as the `k8s.daemonset.annotation.replicas` attribute with value `"1"`.
+ *   - A label `data` with empty string value **SHOULD** be recorded as
+ *     the `k8s.daemonset.annotation.data` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_K8S_DAEMONSET_ANNOTATION: (key: string) => string;
 /**
- * The label key-value pairs placed on the DaemonSet.
+ * The label placed on the DaemonSet, the `<key>` being the label name, the value being the label value, even if the value is empty.
  *
- * @example k8s.daemonset.label.app=guestbook
- * @example k8s.daemonset.label.injected=
+ * @example guestbook
+ * @example
  *
- * @note The `<key>` being the label name, the value being the label value, even if the value is empty.
+ * @note
+ * Examples:
+ *
+ *   - A label `app` with value `guestbook` **SHOULD** be recorded
+ *     as the `k8s.daemonset.label.app` attribute with value `"guestbook"`.
+ *   - A label `data` with empty string value **SHOULD** be recorded as
+ *     the `k8s.daemonset.label.injected` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -6402,23 +9489,35 @@ declare const ATTR_K8S_DAEMONSET_NAME: "k8s.daemonset.name";
  */
 declare const ATTR_K8S_DAEMONSET_UID: "k8s.daemonset.uid";
 /**
- * The annotation key-value pairs placed on the Deployment.
+ * The annotation placed on the Deployment, the `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
  *
- * @example k8s.deployment.annotation.replicas=1
- * @example k8s.deployment.annotation.data=
+ * @example 1
+ * @example
  *
- * @note The `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
+ * @note
+ * Examples:
+ *
+ *   - A label `replicas` with value `1` **SHOULD** be recorded
+ *     as the `k8s.deployment.annotation.replicas` attribute with value `"1"`.
+ *   - A label `data` with empty string value **SHOULD** be recorded as
+ *     the `k8s.deployment.annotation.data` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_K8S_DEPLOYMENT_ANNOTATION: (key: string) => string;
 /**
- * The label key-value pairs placed on the Deployment.
+ * The label placed on the Deployment, the `<key>` being the label name, the value being the label value, even if the value is empty.
  *
- * @example k8s.deployment.label.app=guestbook
- * @example k8s.deployment.label.injected=
+ * @example guestbook
+ * @example
  *
- * @note The `<key>` being the label name, the value being the label value, even if the value is empty.
+ * @note
+ * Examples:
+ *
+ *   - A label `replicas` with value `0` **SHOULD** be recorded
+ *     as the `k8s.deployment.label.app` attribute with value `"guestbook"`.
+ *   - A label `injected` with empty string value **SHOULD** be recorded as
+ *     the `k8s.deployment.label.injected` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -6440,6 +9539,17 @@ declare const ATTR_K8S_DEPLOYMENT_NAME: "k8s.deployment.name";
  */
 declare const ATTR_K8S_DEPLOYMENT_UID: "k8s.deployment.uid";
 /**
+ * The type of metric source for the horizontal pod autoscaler.
+ *
+ * @example Resource
+ * @example ContainerResource
+ *
+ * @note This attribute reflects the `type` field of spec.metrics[] in the HPA.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_HPA_METRIC_TYPE: "k8s.hpa.metric.type";
+/**
  * The name of the horizontal pod autoscaler.
  *
  * @example opentelemetry
@@ -6447,6 +9557,39 @@ declare const ATTR_K8S_DEPLOYMENT_UID: "k8s.deployment.uid";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_K8S_HPA_NAME: "k8s.hpa.name";
+/**
+ * The API version of the target resource to scale for the HorizontalPodAutoscaler.
+ *
+ * @example apps/v1
+ * @example autoscaling/v2
+ *
+ * @note This maps to the `apiVersion` field in the `scaleTargetRef` of the HPA spec.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_HPA_SCALETARGETREF_API_VERSION: "k8s.hpa.scaletargetref.api_version";
+/**
+ * The kind of the target resource to scale for the HorizontalPodAutoscaler.
+ *
+ * @example Deployment
+ * @example StatefulSet
+ *
+ * @note This maps to the `kind` field in the `scaleTargetRef` of the HPA spec.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_HPA_SCALETARGETREF_KIND: "k8s.hpa.scaletargetref.kind";
+/**
+ * The name of the target resource to scale for the HorizontalPodAutoscaler.
+ *
+ * @example my-deployment
+ * @example my-statefulset
+ *
+ * @note This maps to the `name` field in the `scaleTargetRef` of the HPA spec.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_HPA_SCALETARGETREF_NAME: "k8s.hpa.scaletargetref.name";
 /**
  * The UID of the horizontal pod autoscaler.
  *
@@ -6456,23 +9599,43 @@ declare const ATTR_K8S_HPA_NAME: "k8s.hpa.name";
  */
 declare const ATTR_K8S_HPA_UID: "k8s.hpa.uid";
 /**
- * The annotation key-value pairs placed on the Job.
+ * The size (identifier) of the K8s huge page.
  *
- * @example k8s.job.annotation.number=1
- * @example k8s.job.annotation.data=
+ * @example 2Mi
  *
- * @note The `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_HUGEPAGE_SIZE: "k8s.hugepage.size";
+/**
+ * The annotation placed on the Job, the `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
+ *
+ * @example 1
+ * @example
+ *
+ * @note
+ * Examples:
+ *
+ *   - A label `number` with value `1` **SHOULD** be recorded
+ *     as the `k8s.job.annotation.number` attribute with value `"1"`.
+ *   - A label `data` with empty string value **SHOULD** be recorded as
+ *     the `k8s.job.annotation.data` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_K8S_JOB_ANNOTATION: (key: string) => string;
 /**
- * The label key-value pairs placed on the Job.
+ * The label placed on the Job, the `<key>` being the label name, the value being the label value, even if the value is empty.
  *
- * @example k8s.job.label.jobtype=ci
- * @example k8s.job.label.automated=
+ * @example ci
+ * @example
  *
- * @note The `<key>` being the label name, the value being the label value, even if the value is empty.
+ * @note
+ * Examples:
+ *
+ *   - A label `jobtype` with value `ci` **SHOULD** be recorded
+ *     as the `k8s.job.label.jobtype` attribute with value `"ci"`.
+ *   - A label `data` with empty string value **SHOULD** be recorded as
+ *     the `k8s.job.label.automated` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -6494,23 +9657,35 @@ declare const ATTR_K8S_JOB_NAME: "k8s.job.name";
  */
 declare const ATTR_K8S_JOB_UID: "k8s.job.uid";
 /**
- * The annotation key-value pairs placed on the Namespace.
+ * The annotation placed on the Namespace, the `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
  *
- * @example k8s.namespace.annotation.ttl=0
- * @example k8s.namespace.annotation.data=
+ * @example 0
+ * @example
  *
- * @note The `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
+ * @note
+ * Examples:
+ *
+ *   - A label `ttl` with value `0` **SHOULD** be recorded
+ *     as the `k8s.namespace.annotation.ttl` attribute with value `"0"`.
+ *   - A label `data` with empty string value **SHOULD** be recorded as
+ *     the `k8s.namespace.annotation.data` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_K8S_NAMESPACE_ANNOTATION: (key: string) => string;
 /**
- * The label key-value pairs placed on the Namespace.
+ * The label placed on the Namespace, the `<key>` being the label name, the value being the label value, even if the value is empty.
  *
- * @example k8s.namespace.label.kubernetes.io/metadata.name=default
- * @example k8s.namespace.label.data=
+ * @example default
+ * @example
  *
- * @note The `<key>` being the label name, the value being the label value, even if the value is empty.
+ * @note
+ * Examples:
+ *
+ *   - A label `kubernetes.io/metadata.name` with value `default` **SHOULD** be recorded
+ *     as the `k8s.namespace.label.kubernetes.io/metadata.name` attribute with value `"default"`.
+ *   - A label `data` with empty string value **SHOULD** be recorded as
+ *     the `k8s.namespace.label.data` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -6537,10 +9712,18 @@ declare const ATTR_K8S_NAMESPACE_NAME: "k8s.namespace.name";
 declare const ATTR_K8S_NAMESPACE_PHASE: "k8s.namespace.phase";
 /**
  * Enum value "active" for attribute {@link ATTR_K8S_NAMESPACE_PHASE}.
+ *
+ * Active namespace phase as described by [K8s API](https://pkg.go.dev/k8s.io/api@v0.31.3/core/v1#NamespacePhase)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const K8S_NAMESPACE_PHASE_VALUE_ACTIVE: "active";
 /**
  * Enum value "terminating" for attribute {@link ATTR_K8S_NAMESPACE_PHASE}.
+ *
+ * Terminating namespace phase as described by [K8s API](https://pkg.go.dev/k8s.io/api@v0.31.3/core/v1#NamespacePhase)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const K8S_NAMESPACE_PHASE_VALUE_TERMINATING: "terminating";
 /**
@@ -6559,6 +9742,96 @@ declare const K8S_NAMESPACE_PHASE_VALUE_TERMINATING: "terminating";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_K8S_NODE_ANNOTATION: (key: string) => string;
+/**
+ * The status of the condition, one of True, False, Unknown.
+ *
+ * @example true
+ * @example false
+ * @example unknown
+ *
+ * @note This attribute aligns with the `status` field of the
+ * [NodeCondition](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#nodecondition-v1-core)
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_NODE_CONDITION_STATUS: "k8s.node.condition.status";
+/**
+ * Enum value "false" for attribute {@link ATTR_K8S_NODE_CONDITION_STATUS}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_FALSE: "false";
+/**
+ * Enum value "true" for attribute {@link ATTR_K8S_NODE_CONDITION_STATUS}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_TRUE: "true";
+/**
+ * Enum value "unknown" for attribute {@link ATTR_K8S_NODE_CONDITION_STATUS}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_UNKNOWN: "unknown";
+/**
+ * The condition type of a K8s Node.
+ *
+ * @example Ready
+ * @example DiskPressure
+ *
+ * @note K8s Node conditions as described
+ * by [K8s documentation](https://v1-32.docs.kubernetes.io/docs/reference/node/node-status/#condition).
+ *
+ * This attribute aligns with the `type` field of the
+ * [NodeCondition](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#nodecondition-v1-core)
+ *
+ * The set of possible values is not limited to those listed here. Managed Kubernetes environments,
+ * or custom controllers **MAY** introduce additional node condition types.
+ * When this occurs, the exact value as reported by the Kubernetes API **SHOULD** be used.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_NODE_CONDITION_TYPE: "k8s.node.condition.type";
+/**
+ * Enum value "DiskPressure" for attribute {@link ATTR_K8S_NODE_CONDITION_TYPE}.
+ *
+ * Pressure exists on the disk size—that is, if the disk capacity is low
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_NODE_CONDITION_TYPE_VALUE_DISK_PRESSURE: "DiskPressure";
+/**
+ * Enum value "MemoryPressure" for attribute {@link ATTR_K8S_NODE_CONDITION_TYPE}.
+ *
+ * Pressure exists on the node memory—that is, if the node memory is low
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_NODE_CONDITION_TYPE_VALUE_MEMORY_PRESSURE: "MemoryPressure";
+/**
+ * Enum value "NetworkUnavailable" for attribute {@link ATTR_K8S_NODE_CONDITION_TYPE}.
+ *
+ * The network for the node is not correctly configured
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_NODE_CONDITION_TYPE_VALUE_NETWORK_UNAVAILABLE: "NetworkUnavailable";
+/**
+ * Enum value "PIDPressure" for attribute {@link ATTR_K8S_NODE_CONDITION_TYPE}.
+ *
+ * Pressure exists on the processes—that is, if there are too many processes on the node
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_NODE_CONDITION_TYPE_VALUE_PID_PRESSURE: "PIDPressure";
+/**
+ * Enum value "Ready" for attribute {@link ATTR_K8S_NODE_CONDITION_TYPE}.
+ *
+ * The node is healthy and ready to accept pods
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_NODE_CONDITION_TYPE_VALUE_READY: "Ready";
 /**
  * The label placed on the Node, the `<key>` being the label name, the value being the label value, even if the value is empty.
  *
@@ -6656,23 +9929,35 @@ declare const ATTR_K8S_POD_NAME: "k8s.pod.name";
  */
 declare const ATTR_K8S_POD_UID: "k8s.pod.uid";
 /**
- * The annotation key-value pairs placed on the ReplicaSet.
+ * The annotation placed on the ReplicaSet, the `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
  *
- * @example k8s.replicaset.annotation.replicas=0
- * @example k8s.replicaset.annotation.data=
+ * @example 0
+ * @example
  *
- * @note The `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
+ * @note
+ * Examples:
+ *
+ *   - A label `replicas` with value `0` **SHOULD** be recorded
+ *     as the `k8s.replicaset.annotation.replicas` attribute with value `"0"`.
+ *   - A label `data` with empty string value **SHOULD** be recorded as
+ *     the `k8s.replicaset.annotation.data` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_K8S_REPLICASET_ANNOTATION: (key: string) => string;
 /**
- * The label key-value pairs placed on the ReplicaSet.
+ * The label placed on the ReplicaSet, the `<key>` being the label name, the value being the label value, even if the value is empty.
  *
- * @example k8s.replicaset.label.app=guestbook
- * @example k8s.replicaset.label.injected=
+ * @example guestbook
+ * @example
  *
- * @note The `<key>` being the label name, the value being the label value, even if the value is empty.
+ * @note
+ * Examples:
+ *
+ *   - A label `app` with value `guestbook` **SHOULD** be recorded
+ *     as the `k8s.replicaset.label.app` attribute with value `"guestbook"`.
+ *   - A label `injected` with empty string value **SHOULD** be recorded as
+ *     the `k8s.replicaset.label.injected` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -6718,6 +10003,16 @@ declare const ATTR_K8S_REPLICATIONCONTROLLER_UID: "k8s.replicationcontroller.uid
  */
 declare const ATTR_K8S_RESOURCEQUOTA_NAME: "k8s.resourcequota.name";
 /**
+ * The name of the K8s resource a resource quota defines.
+ *
+ * @example count/replicationcontrollers
+ *
+ * @note The value for this attribute can be either the full `count/<resource>[.<group>]` string (e.g., count/deployments.apps, count/pods), or, for certain core Kubernetes resources, just the resource name (e.g., pods, services, configmaps). Both forms are supported by Kubernetes for object count quotas. See [Kubernetes Resource Quotas documentation](https://kubernetes.io/docs/concepts/policy/resource-quotas/#object-count-quota) for more details.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_RESOURCEQUOTA_RESOURCE_NAME: "k8s.resourcequota.resource_name";
+/**
  * The UID of the resource quota.
  *
  * @example 275ecb36-5aa8-4c2a-9c47-d8bb681b9aff
@@ -6726,23 +10021,35 @@ declare const ATTR_K8S_RESOURCEQUOTA_NAME: "k8s.resourcequota.name";
  */
 declare const ATTR_K8S_RESOURCEQUOTA_UID: "k8s.resourcequota.uid";
 /**
- * The annotation key-value pairs placed on the StatefulSet.
+ * The annotation placed on the StatefulSet, the `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
  *
- * @example k8s.statefulset.annotation.replicas=1
- * @example k8s.statefulset.annotation.data=
+ * @example 1
+ * @example
  *
- * @note The `<key>` being the annotation name, the value being the annotation value, even if the value is empty.
+ * @note
+ * Examples:
+ *
+ *   - A label `replicas` with value `1` **SHOULD** be recorded
+ *     as the `k8s.statefulset.annotation.replicas` attribute with value `"1"`.
+ *   - A label `data` with empty string value **SHOULD** be recorded as
+ *     the `k8s.statefulset.annotation.data` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_K8S_STATEFULSET_ANNOTATION: (key: string) => string;
 /**
- * The label key-value pairs placed on the StatefulSet.
+ * The label placed on the StatefulSet, the `<key>` being the label name, the value being the label value, even if the value is empty.
  *
- * @example k8s.statefulset.label.app=guestbook
- * @example k8s.statefulset.label.injected=
+ * @example guestbook
+ * @example
  *
- * @note The `<key>` being the label name, the value being the label value, even if the value is empty.
+ * @note
+ * Examples:
+ *
+ *   - A label `replicas` with value `0` **SHOULD** be recorded
+ *     as the `k8s.statefulset.label.app` attribute with value `"guestbook"`.
+ *   - A label `injected` with empty string value **SHOULD** be recorded as
+ *     the `k8s.statefulset.label.injected` attribute with value `""`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -6764,6 +10071,14 @@ declare const ATTR_K8S_STATEFULSET_NAME: "k8s.statefulset.name";
  */
 declare const ATTR_K8S_STATEFULSET_UID: "k8s.statefulset.uid";
 /**
+ * The name of K8s [StorageClass](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#storageclass-v1-storage-k8s-io) object.
+ *
+ * @example gold.storageclass.storage.k8s.io
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_STORAGECLASS_NAME: "k8s.storageclass.name";
+/**
  * The name of the K8s volume.
  *
  * @example volume0
@@ -6782,26 +10097,50 @@ declare const ATTR_K8S_VOLUME_NAME: "k8s.volume.name";
 declare const ATTR_K8S_VOLUME_TYPE: "k8s.volume.type";
 /**
  * Enum value "configMap" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ *
+ * A [configMap](https://v1-30.docs.kubernetes.io/docs/concepts/storage/volumes/#configmap) volume
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const K8S_VOLUME_TYPE_VALUE_CONFIG_MAP: "configMap";
 /**
  * Enum value "downwardAPI" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ *
+ * A [downwardAPI](https://v1-30.docs.kubernetes.io/docs/concepts/storage/volumes/#downwardapi) volume
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const K8S_VOLUME_TYPE_VALUE_DOWNWARD_API: "downwardAPI";
 /**
  * Enum value "emptyDir" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ *
+ * An [emptyDir](https://v1-30.docs.kubernetes.io/docs/concepts/storage/volumes/#emptydir) volume
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const K8S_VOLUME_TYPE_VALUE_EMPTY_DIR: "emptyDir";
 /**
  * Enum value "local" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ *
+ * A [local](https://v1-30.docs.kubernetes.io/docs/concepts/storage/volumes/#local) volume
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const K8S_VOLUME_TYPE_VALUE_LOCAL: "local";
 /**
  * Enum value "persistentVolumeClaim" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ *
+ * A [persistentVolumeClaim](https://v1-30.docs.kubernetes.io/docs/concepts/storage/volumes/#persistentvolumeclaim) volume
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const K8S_VOLUME_TYPE_VALUE_PERSISTENT_VOLUME_CLAIM: "persistentVolumeClaim";
 /**
  * Enum value "secret" for attribute {@link ATTR_K8S_VOLUME_TYPE}.
+ *
+ * A [secret](https://v1-30.docs.kubernetes.io/docs/concepts/storage/volumes/#secret) volume
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const K8S_VOLUME_TYPE_VALUE_SECRET: "secret";
 /**
@@ -6815,10 +10154,14 @@ declare const K8S_VOLUME_TYPE_VALUE_SECRET: "secret";
 declare const ATTR_LINUX_MEMORY_SLAB_STATE: "linux.memory.slab.state";
 /**
  * Enum value "reclaimable" for attribute {@link ATTR_LINUX_MEMORY_SLAB_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const LINUX_MEMORY_SLAB_STATE_VALUE_RECLAIMABLE: "reclaimable";
 /**
  * Enum value "unreclaimable" for attribute {@link ATTR_LINUX_MEMORY_SLAB_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const LINUX_MEMORY_SLAB_STATE_VALUE_UNRECLAIMABLE: "unreclaimable";
 /**
@@ -6861,10 +10204,18 @@ declare const ATTR_LOG_FILE_PATH_RESOLVED: "log.file.path_resolved";
 declare const ATTR_LOG_IOSTREAM: "log.iostream";
 /**
  * Enum value "stderr" for attribute {@link ATTR_LOG_IOSTREAM}.
+ *
+ * Events from stderr stream
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const LOG_IOSTREAM_VALUE_STDERR: "stderr";
 /**
  * Enum value "stdout" for attribute {@link ATTR_LOG_IOSTREAM}.
+ *
+ * Logs from stdout stream
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const LOG_IOSTREAM_VALUE_STDOUT: "stdout";
 /**
@@ -6889,6 +10240,14 @@ declare const ATTR_LOG_RECORD_ORIGINAL: "log.record.original";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_LOG_RECORD_UID: "log.record.uid";
+/**
+ * Name of the logical partition that hosts a systems with a mainframe operating system.
+ *
+ * @example LPAR01
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_MAINFRAME_LPAR_NAME: "mainframe.lpar.name";
 /**
  * Deprecated, use `rpc.message.compressed_size` instead.
  *
@@ -6915,10 +10274,14 @@ declare const ATTR_MESSAGE_ID: "message.id";
 declare const ATTR_MESSAGE_TYPE: "message.type";
 /**
  * Enum value "RECEIVED" for attribute {@link ATTR_MESSAGE_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGE_TYPE_VALUE_RECEIVED: "RECEIVED";
 /**
  * Enum value "SENT" for attribute {@link ATTR_MESSAGE_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGE_TYPE_VALUE_SENT: "SENT";
 /**
@@ -7205,30 +10568,62 @@ declare const ATTR_MESSAGING_OPERATION_NAME: "messaging.operation.name";
 declare const ATTR_MESSAGING_OPERATION_TYPE: "messaging.operation.type";
 /**
  * Enum value "create" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ *
+ * A message is created. "Create" spans always refer to a single message and are used to provide a unique creation context for messages in batch sending scenarios.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_OPERATION_TYPE_VALUE_CREATE: "create";
 /**
  * Enum value "deliver" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ *
+ * Deprecated. Use `process` instead.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `process`.
  */
 declare const MESSAGING_OPERATION_TYPE_VALUE_DELIVER: "deliver";
 /**
  * Enum value "process" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ *
+ * One or more messages are processed by a consumer.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_OPERATION_TYPE_VALUE_PROCESS: "process";
 /**
  * Enum value "publish" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ *
+ * Deprecated. Use `send` instead.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `send`.
  */
 declare const MESSAGING_OPERATION_TYPE_VALUE_PUBLISH: "publish";
 /**
  * Enum value "receive" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ *
+ * One or more messages are requested by a consumer. This operation refers to pull-based scenarios, where consumers explicitly call methods of messaging SDKs to receive messages.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_OPERATION_TYPE_VALUE_RECEIVE: "receive";
 /**
  * Enum value "send" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ *
+ * One or more messages are provided for sending to an intermediary. If a single message is sent, the context of the "Send" span can be used as the creation context and no "Create" span needs to be created.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_OPERATION_TYPE_VALUE_SEND: "send";
 /**
  * Enum value "settle" for attribute {@link ATTR_MESSAGING_OPERATION_TYPE}.
+ *
+ * One or more messages are settled.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_OPERATION_TYPE_VALUE_SETTLE: "settle";
 /**
@@ -7265,10 +10660,18 @@ declare const ATTR_MESSAGING_ROCKETMQ_CLIENT_GROUP: "messaging.rocketmq.client_g
 declare const ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL: "messaging.rocketmq.consumption_model";
 /**
  * Enum value "broadcasting" for attribute {@link ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL}.
+ *
+ * Broadcasting consumption model
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_BROADCASTING: "broadcasting";
 /**
  * Enum value "clustering" for attribute {@link ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL}.
+ *
+ * Clustering consumption model
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_CLUSTERING: "clustering";
 /**
@@ -7319,18 +10722,34 @@ declare const ATTR_MESSAGING_ROCKETMQ_MESSAGE_TAG: "messaging.rocketmq.message.t
 declare const ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE: "messaging.rocketmq.message.type";
 /**
  * Enum value "delay" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
+ *
+ * Delay message
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_DELAY: "delay";
 /**
  * Enum value "fifo" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
+ *
+ * FIFO message
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_FIFO: "fifo";
 /**
  * Enum value "normal" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
+ *
+ * Normal message
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_NORMAL: "normal";
 /**
  * Enum value "transaction" for attribute {@link ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE}.
+ *
+ * Transaction message
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_TRANSACTION: "transaction";
 /**
@@ -7359,18 +10778,34 @@ declare const ATTR_MESSAGING_SERVICEBUS_DESTINATION_SUBSCRIPTION_NAME: "messagin
 declare const ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS: "messaging.servicebus.disposition_status";
 /**
  * Enum value "abandon" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
+ *
+ * Message is abandoned
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_ABANDON: "abandon";
 /**
  * Enum value "complete" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
+ *
+ * Message is completed
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_COMPLETE: "complete";
 /**
  * Enum value "dead_letter" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
+ *
+ * Message is sent to dead letter queue
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEAD_LETTER: "dead_letter";
 /**
  * Enum value "defer" for attribute {@link ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS}.
+ *
+ * Message is deferred
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEFER: "defer";
 /**
@@ -7399,46 +10834,98 @@ declare const ATTR_MESSAGING_SERVICEBUS_MESSAGE_ENQUEUED_TIME: "messaging.servic
 declare const ATTR_MESSAGING_SYSTEM: "messaging.system";
 /**
  * Enum value "activemq" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * Apache ActiveMQ
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SYSTEM_VALUE_ACTIVEMQ: "activemq";
 /**
+ * Enum value "aws.sns" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * Amazon Simple Notification Service (SNS)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const MESSAGING_SYSTEM_VALUE_AWS_SNS: "aws.sns";
+/**
  * Enum value "aws_sqs" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * Amazon Simple Queue Service (SQS)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SYSTEM_VALUE_AWS_SQS: "aws_sqs";
 /**
  * Enum value "eventgrid" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * Azure Event Grid
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SYSTEM_VALUE_EVENTGRID: "eventgrid";
 /**
  * Enum value "eventhubs" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * Azure Event Hubs
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SYSTEM_VALUE_EVENTHUBS: "eventhubs";
 /**
  * Enum value "gcp_pubsub" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * Google Cloud Pub/Sub
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SYSTEM_VALUE_GCP_PUBSUB: "gcp_pubsub";
 /**
  * Enum value "jms" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * Java Message Service
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SYSTEM_VALUE_JMS: "jms";
 /**
  * Enum value "kafka" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * Apache Kafka
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SYSTEM_VALUE_KAFKA: "kafka";
 /**
  * Enum value "pulsar" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * Apache Pulsar
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SYSTEM_VALUE_PULSAR: "pulsar";
 /**
  * Enum value "rabbitmq" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * RabbitMQ
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SYSTEM_VALUE_RABBITMQ: "rabbitmq";
 /**
  * Enum value "rocketmq" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * Apache RocketMQ
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SYSTEM_VALUE_ROCKETMQ: "rocketmq";
 /**
  * Enum value "servicebus" for attribute {@link ATTR_MESSAGING_SYSTEM}.
+ *
+ * Azure Service Bus
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const MESSAGING_SYSTEM_VALUE_SERVICEBUS: "servicebus";
 /**
@@ -7533,14 +11020,26 @@ declare const ATTR_NET_PROTOCOL_VERSION: "net.protocol.version";
 declare const ATTR_NET_SOCK_FAMILY: "net.sock.family";
 /**
  * Enum value "inet" for attribute {@link ATTR_NET_SOCK_FAMILY}.
+ *
+ * IPv4 address
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NET_SOCK_FAMILY_VALUE_INET: "inet";
 /**
  * Enum value "inet6" for attribute {@link ATTR_NET_SOCK_FAMILY}.
+ *
+ * IPv6 address
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NET_SOCK_FAMILY_VALUE_INET6: "inet6";
 /**
  * Enum value "unix" for attribute {@link ATTR_NET_SOCK_FAMILY}.
+ *
+ * Unix domain socket path
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NET_SOCK_FAMILY_VALUE_UNIX: "unix";
 /**
@@ -7603,22 +11102,38 @@ declare const ATTR_NET_SOCK_PEER_PORT: "net.sock.peer.port";
 declare const ATTR_NET_TRANSPORT: "net.transport";
 /**
  * Enum value "inproc" for attribute {@link ATTR_NET_TRANSPORT}.
+ *
+ * In-process communication.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NET_TRANSPORT_VALUE_INPROC: "inproc";
 /**
  * Enum value "ip_tcp" for attribute {@link ATTR_NET_TRANSPORT}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NET_TRANSPORT_VALUE_IP_TCP: "ip_tcp";
 /**
  * Enum value "ip_udp" for attribute {@link ATTR_NET_TRANSPORT}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NET_TRANSPORT_VALUE_IP_UDP: "ip_udp";
 /**
  * Enum value "other" for attribute {@link ATTR_NET_TRANSPORT}.
+ *
+ * Something else (non IP-based).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NET_TRANSPORT_VALUE_OTHER: "other";
 /**
  * Enum value "pipe" for attribute {@link ATTR_NET_TRANSPORT}.
+ *
+ * Named or anonymous pipe.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NET_TRANSPORT_VALUE_PIPE: "pipe";
 /**
@@ -7664,46 +11179,68 @@ declare const ATTR_NETWORK_CARRIER_NAME: "network.carrier.name";
 declare const ATTR_NETWORK_CONNECTION_STATE: "network.connection.state";
 /**
  * Enum value "close_wait" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_STATE_VALUE_CLOSE_WAIT: "close_wait";
 /**
  * Enum value "closed" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_STATE_VALUE_CLOSED: "closed";
 /**
  * Enum value "closing" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_STATE_VALUE_CLOSING: "closing";
 /**
  * Enum value "established" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_STATE_VALUE_ESTABLISHED: "established";
 /**
  * Enum value "fin_wait_1" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_1: "fin_wait_1";
 /**
  * Enum value "fin_wait_2" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_2: "fin_wait_2";
 /**
  * Enum value "last_ack" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_STATE_VALUE_LAST_ACK: "last_ack";
 /**
  * Enum value "listen" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_STATE_VALUE_LISTEN: "listen";
 /**
  * Enum value "syn_received" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_STATE_VALUE_SYN_RECEIVED: "syn_received";
 /**
  * Enum value "syn_sent" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_STATE_VALUE_SYN_SENT: "syn_sent";
 /**
  * Enum value "time_wait" for attribute {@link ATTR_NETWORK_CONNECTION_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_STATE_VALUE_TIME_WAIT: "time_wait";
 /**
@@ -7716,86 +11253,170 @@ declare const NETWORK_CONNECTION_STATE_VALUE_TIME_WAIT: "time_wait";
 declare const ATTR_NETWORK_CONNECTION_SUBTYPE: "network.connection.subtype";
 /**
  * Enum value "cdma" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * CDMA
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA: "cdma";
 /**
  * Enum value "cdma2000_1xrtt" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * CDMA2000 1XRTT
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA2000_1XRTT: "cdma2000_1xrtt";
 /**
  * Enum value "edge" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * EDGE
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_EDGE: "edge";
 /**
  * Enum value "ehrpd" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * EHRPD
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_EHRPD: "ehrpd";
 /**
  * Enum value "evdo_0" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * EVDO Rel. 0
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_0: "evdo_0";
 /**
  * Enum value "evdo_a" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * EVDO Rev. A
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_A: "evdo_a";
 /**
  * Enum value "evdo_b" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * EVDO Rev. B
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_B: "evdo_b";
 /**
  * Enum value "gprs" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * GPRS
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_GPRS: "gprs";
 /**
  * Enum value "gsm" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * GSM
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_GSM: "gsm";
 /**
  * Enum value "hsdpa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * HSDPA
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_HSDPA: "hsdpa";
 /**
  * Enum value "hspa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * HSPA
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_HSPA: "hspa";
 /**
  * Enum value "hspap" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * HSPAP
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_HSPAP: "hspap";
 /**
  * Enum value "hsupa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * HSUPA
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_HSUPA: "hsupa";
 /**
  * Enum value "iden" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * IDEN
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_IDEN: "iden";
 /**
  * Enum value "iwlan" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * IWLAN
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_IWLAN: "iwlan";
 /**
  * Enum value "lte" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * LTE
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_LTE: "lte";
 /**
  * Enum value "lte_ca" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * LTE CA
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_LTE_CA: "lte_ca";
 /**
  * Enum value "nr" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * 5G NR (New Radio)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_NR: "nr";
 /**
  * Enum value "nrnsa" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * 5G NRNSA (New Radio Non-Standalone)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_NRNSA: "nrnsa";
 /**
  * Enum value "td_scdma" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * TD-SCDMA
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_TD_SCDMA: "td_scdma";
 /**
  * Enum value "umts" for attribute {@link ATTR_NETWORK_CONNECTION_SUBTYPE}.
+ *
+ * UMTS
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_SUBTYPE_VALUE_UMTS: "umts";
 /**
@@ -7808,22 +11429,32 @@ declare const NETWORK_CONNECTION_SUBTYPE_VALUE_UMTS: "umts";
 declare const ATTR_NETWORK_CONNECTION_TYPE: "network.connection.type";
 /**
  * Enum value "cell" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_TYPE_VALUE_CELL: "cell";
 /**
  * Enum value "unavailable" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_TYPE_VALUE_UNAVAILABLE: "unavailable";
 /**
  * Enum value "unknown" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_TYPE_VALUE_UNKNOWN: "unknown";
 /**
  * Enum value "wifi" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_TYPE_VALUE_WIFI: "wifi";
 /**
  * Enum value "wired" for attribute {@link ATTR_NETWORK_CONNECTION_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_CONNECTION_TYPE_VALUE_WIRED: "wired";
 /**
@@ -7845,10 +11476,14 @@ declare const ATTR_NETWORK_INTERFACE_NAME: "network.interface.name";
 declare const ATTR_NETWORK_IO_DIRECTION: "network.io.direction";
 /**
  * Enum value "receive" for attribute {@link ATTR_NETWORK_IO_DIRECTION}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_IO_DIRECTION_VALUE_RECEIVE: "receive";
 /**
  * Enum value "transmit" for attribute {@link ATTR_NETWORK_IO_DIRECTION}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NETWORK_IO_DIRECTION_VALUE_TRANSMIT: "transmit";
 /**
@@ -7859,10 +11494,18 @@ declare const NETWORK_IO_DIRECTION_VALUE_TRANSMIT: "transmit";
 declare const ATTR_NODEJS_EVENTLOOP_STATE: "nodejs.eventloop.state";
 /**
  * Enum value "active" for attribute {@link ATTR_NODEJS_EVENTLOOP_STATE}.
+ *
+ * Active time.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NODEJS_EVENTLOOP_STATE_VALUE_ACTIVE: "active";
 /**
  * Enum value "idle" for attribute {@link ATTR_NODEJS_EVENTLOOP_STATE}.
+ *
+ * Idle time.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const NODEJS_EVENTLOOP_STATE_VALUE_IDLE: "idle";
 /**
@@ -7877,6 +11520,48 @@ declare const NODEJS_EVENTLOOP_STATE_VALUE_IDLE: "idle";
  */
 declare const ATTR_OCI_MANIFEST_DIGEST: "oci.manifest.digest";
 /**
+ * The service tier requested. May be a specific tier, default, or auto.
+ *
+ * @example auto
+ * @example default
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_OPENAI_REQUEST_SERVICE_TIER: "openai.request.service_tier";
+/**
+ * Enum value "auto" for attribute {@link ATTR_OPENAI_REQUEST_SERVICE_TIER}.
+ *
+ * The system will utilize scale tier credits until they are exhausted.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO: "auto";
+/**
+ * Enum value "default" for attribute {@link ATTR_OPENAI_REQUEST_SERVICE_TIER}.
+ *
+ * The system will utilize the default scale tier.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT: "default";
+/**
+ * The service tier used for the response.
+ *
+ * @example scale
+ * @example default
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_OPENAI_RESPONSE_SERVICE_TIER: "openai.response.service_tier";
+/**
+ * A fingerprint to track any eventual change in the Generative AI environment.
+ *
+ * @example fp_44709d6fcb
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_OPENAI_RESPONSE_SYSTEM_FINGERPRINT: "openai.response.system_fingerprint";
+/**
  * Parent-child Reference type
  *
  * @note The causal relationship between a child Span and a parent Span.
@@ -7886,10 +11571,18 @@ declare const ATTR_OCI_MANIFEST_DIGEST: "oci.manifest.digest";
 declare const ATTR_OPENTRACING_REF_TYPE: "opentracing.ref_type";
 /**
  * Enum value "child_of" for attribute {@link ATTR_OPENTRACING_REF_TYPE}.
+ *
+ * The parent Span depends on the child Span in some capacity
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OPENTRACING_REF_TYPE_VALUE_CHILD_OF: "child_of";
 /**
  * Enum value "follows_from" for attribute {@link ATTR_OPENTRACING_REF_TYPE}.
+ *
+ * The parent Span doesn't depend in any way on the result of the child Span
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OPENTRACING_REF_TYPE_VALUE_FOLLOWS_FROM: "follows_from";
 /**
@@ -7929,48 +11622,102 @@ declare const ATTR_OS_NAME: "os.name";
 declare const ATTR_OS_TYPE: "os.type";
 /**
  * Enum value "aix" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * AIX (Advanced Interactive eXecutive)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OS_TYPE_VALUE_AIX: "aix";
 /**
  * Enum value "darwin" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * Apple Darwin
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OS_TYPE_VALUE_DARWIN: "darwin";
 /**
  * Enum value "dragonflybsd" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * DragonFly BSD
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OS_TYPE_VALUE_DRAGONFLYBSD: "dragonflybsd";
 /**
  * Enum value "freebsd" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * FreeBSD
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OS_TYPE_VALUE_FREEBSD: "freebsd";
 /**
  * Enum value "hpux" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * HP-UX (Hewlett Packard Unix)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OS_TYPE_VALUE_HPUX: "hpux";
 /**
  * Enum value "linux" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * Linux
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OS_TYPE_VALUE_LINUX: "linux";
 /**
  * Enum value "netbsd" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * NetBSD
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OS_TYPE_VALUE_NETBSD: "netbsd";
 /**
  * Enum value "openbsd" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * OpenBSD
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OS_TYPE_VALUE_OPENBSD: "openbsd";
 /**
  * Enum value "solaris" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * SunOS, Oracle Solaris
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OS_TYPE_VALUE_SOLARIS: "solaris";
 /**
  * Enum value "windows" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * Microsoft Windows
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OS_TYPE_VALUE_WINDOWS: "windows";
 /**
  * Enum value "z_os" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * Deprecated. Use `zos` instead.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `zos`.
  */
 declare const OS_TYPE_VALUE_Z_OS: "z_os";
+/**
+ * Enum value "zos" for attribute {@link ATTR_OS_TYPE}.
+ *
+ * IBM z/OS
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const OS_TYPE_VALUE_ZOS: "zos";
 /**
  * The version string of the operating system as defined in [Version Attributes](/docs/resource/README.md#version-attributes).
  *
@@ -8017,60 +11764,132 @@ declare const ATTR_OTEL_COMPONENT_NAME: "otel.component.name";
 declare const ATTR_OTEL_COMPONENT_TYPE: "otel.component.type";
 /**
  * Enum value "batching_log_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * The builtin SDK batching log record processor
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_BATCHING_LOG_PROCESSOR: "batching_log_processor";
 /**
  * Enum value "batching_span_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * The builtin SDK batching span processor
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_BATCHING_SPAN_PROCESSOR: "batching_span_processor";
 /**
  * Enum value "otlp_grpc_log_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * OTLP log record exporter over gRPC with protobuf serialization
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_LOG_EXPORTER: "otlp_grpc_log_exporter";
 /**
  * Enum value "otlp_grpc_metric_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * OTLP metric exporter over gRPC with protobuf serialization
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_METRIC_EXPORTER: "otlp_grpc_metric_exporter";
 /**
  * Enum value "otlp_grpc_span_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * OTLP span exporter over gRPC with protobuf serialization
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_SPAN_EXPORTER: "otlp_grpc_span_exporter";
 /**
  * Enum value "otlp_http_json_log_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * OTLP log record exporter over HTTP with JSON serialization
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_LOG_EXPORTER: "otlp_http_json_log_exporter";
 /**
  * Enum value "otlp_http_json_metric_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * OTLP metric exporter over HTTP with JSON serialization
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_METRIC_EXPORTER: "otlp_http_json_metric_exporter";
 /**
  * Enum value "otlp_http_json_span_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * OTLP span exporter over HTTP with JSON serialization
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_SPAN_EXPORTER: "otlp_http_json_span_exporter";
 /**
  * Enum value "otlp_http_log_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * OTLP log record exporter over HTTP with protobuf serialization
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_LOG_EXPORTER: "otlp_http_log_exporter";
 /**
  * Enum value "otlp_http_metric_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * OTLP metric exporter over HTTP with protobuf serialization
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_METRIC_EXPORTER: "otlp_http_metric_exporter";
 /**
  * Enum value "otlp_http_span_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * OTLP span exporter over HTTP with protobuf serialization
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_SPAN_EXPORTER: "otlp_http_span_exporter";
 /**
  * Enum value "periodic_metric_reader" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * The builtin SDK periodically exporting metric reader
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_PERIODIC_METRIC_READER: "periodic_metric_reader";
 /**
+ * Enum value "prometheus_http_text_metric_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * Prometheus metric exporter over HTTP with the default text-based format
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const OTEL_COMPONENT_TYPE_VALUE_PROMETHEUS_HTTP_TEXT_METRIC_EXPORTER: "prometheus_http_text_metric_exporter";
+/**
  * Enum value "simple_log_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * The builtin SDK simple log record processor
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_SIMPLE_LOG_PROCESSOR: "simple_log_processor";
 /**
  * Enum value "simple_span_processor" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * The builtin SDK simple span processor
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_COMPONENT_TYPE_VALUE_SIMPLE_SPAN_PROCESSOR: "simple_span_processor";
+/**
+ * Enum value "zipkin_http_span_exporter" for attribute {@link ATTR_OTEL_COMPONENT_TYPE}.
+ *
+ * Zipkin span exporter over HTTP
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const OTEL_COMPONENT_TYPE_VALUE_ZIPKIN_HTTP_SPAN_EXPORTER: "zipkin_http_span_exporter";
 /**
  * Deprecated. Use the `otel.scope.name` attribute
  *
@@ -8092,6 +11911,44 @@ declare const ATTR_OTEL_LIBRARY_NAME: "otel.library.name";
  */
 declare const ATTR_OTEL_LIBRARY_VERSION: "otel.library.version";
 /**
+ * The schema URL of the instrumentation scope.
+ *
+ * @example https://opentelemetry.io/schemas/1.31.0
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_OTEL_SCOPE_SCHEMA_URL: "otel.scope.schema_url";
+/**
+ * Determines whether the span has a parent span, and if so, [whether it is a remote parent](https://opentelemetry.io/docs/specs/otel/trace/api/#isremote)
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_OTEL_SPAN_PARENT_ORIGIN: "otel.span.parent.origin";
+/**
+ * Enum value "local" for attribute {@link ATTR_OTEL_SPAN_PARENT_ORIGIN}.
+ *
+ * The span has a parent and the parent's span context [isRemote()](https://opentelemetry.io/docs/specs/otel/trace/api/#isremote) is false
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const OTEL_SPAN_PARENT_ORIGIN_VALUE_LOCAL: "local";
+/**
+ * Enum value "none" for attribute {@link ATTR_OTEL_SPAN_PARENT_ORIGIN}.
+ *
+ * The span does not have a parent, it is a root span
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const OTEL_SPAN_PARENT_ORIGIN_VALUE_NONE: "none";
+/**
+ * Enum value "remote" for attribute {@link ATTR_OTEL_SPAN_PARENT_ORIGIN}.
+ *
+ * The span has a parent and the parent's span context [isRemote()](https://opentelemetry.io/docs/specs/otel/trace/api/#isremote) is true
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const OTEL_SPAN_PARENT_ORIGIN_VALUE_REMOTE: "remote";
+/**
  * The result value of the sampler for this span
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
@@ -8099,14 +11956,26 @@ declare const ATTR_OTEL_LIBRARY_VERSION: "otel.library.version";
 declare const ATTR_OTEL_SPAN_SAMPLING_RESULT: "otel.span.sampling_result";
 /**
  * Enum value "DROP" for attribute {@link ATTR_OTEL_SPAN_SAMPLING_RESULT}.
+ *
+ * The span is not sampled and not recording
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_SPAN_SAMPLING_RESULT_VALUE_DROP: "DROP";
 /**
  * Enum value "RECORD_AND_SAMPLE" for attribute {@link ATTR_OTEL_SPAN_SAMPLING_RESULT}.
+ *
+ * The span is sampled and recording
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_AND_SAMPLE: "RECORD_AND_SAMPLE";
 /**
  * Enum value "RECORD_ONLY" for attribute {@link ATTR_OTEL_SPAN_SAMPLING_RESULT}.
+ *
+ * The span is not sampled, but recording
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_ONLY: "RECORD_ONLY";
 /**
@@ -8169,10 +12038,14 @@ declare const ATTR_PROCESS_COMMAND_LINE: "process.command_line";
 declare const ATTR_PROCESS_CONTEXT_SWITCH_TYPE: "process.context_switch_type";
 /**
  * Enum value "involuntary" for attribute {@link ATTR_PROCESS_CONTEXT_SWITCH_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROCESS_CONTEXT_SWITCH_TYPE_VALUE_INVOLUNTARY: "involuntary";
 /**
  * Enum value "voluntary" for attribute {@link ATTR_PROCESS_CONTEXT_SWITCH_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROCESS_CONTEXT_SWITCH_TYPE_VALUE_VOLUNTARY: "voluntary";
 /**
@@ -8185,14 +12058,20 @@ declare const PROCESS_CONTEXT_SWITCH_TYPE_VALUE_VOLUNTARY: "voluntary";
 declare const ATTR_PROCESS_CPU_STATE: "process.cpu.state";
 /**
  * Enum value "system" for attribute {@link ATTR_PROCESS_CPU_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROCESS_CPU_STATE_VALUE_SYSTEM: "system";
 /**
  * Enum value "user" for attribute {@link ATTR_PROCESS_CPU_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROCESS_CPU_STATE_VALUE_USER: "user";
 /**
  * Enum value "wait" for attribute {@link ATTR_PROCESS_CPU_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROCESS_CPU_STATE_VALUE_WAIT: "wait";
 /**
@@ -8204,7 +12083,7 @@ declare const PROCESS_CPU_STATE_VALUE_WAIT: "wait";
  */
 declare const ATTR_PROCESS_CREATION_TIME: "process.creation.time";
 /**
- * Process environment variables, <key> being the environment variable name, the value being the environment variable value.
+ * Process environment variables, `<key>` being the environment variable name, the value being the environment variable value.
  *
  * @example ubuntu
  * @example /usr/local/bin:/usr/bin
@@ -8327,10 +12206,14 @@ declare const ATTR_PROCESS_OWNER: "process.owner";
 declare const ATTR_PROCESS_PAGING_FAULT_TYPE: "process.paging.fault_type";
 /**
  * Enum value "major" for attribute {@link ATTR_PROCESS_PAGING_FAULT_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROCESS_PAGING_FAULT_TYPE_VALUE_MAJOR: "major";
 /**
  * Enum value "minor" for attribute {@link ATTR_PROCESS_PAGING_FAULT_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROCESS_PAGING_FAULT_TYPE_VALUE_MINOR: "minor";
 /**
@@ -8469,50 +12352,98 @@ declare const ATTR_PROCESS_WORKING_DIRECTORY: "process.working_directory";
 declare const ATTR_PROFILE_FRAME_TYPE: "profile.frame.type";
 /**
  * Enum value "beam" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * [Erlang](https://en.wikipedia.org/wiki/BEAM_(Erlang_virtual_machine))
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_BEAM: "beam";
 /**
  * Enum value "cpython" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * [Python](https://wikipedia.org/wiki/Python_(programming_language))
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_CPYTHON: "cpython";
 /**
  * Enum value "dotnet" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * [.NET](https://wikipedia.org/wiki/.NET)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_DOTNET: "dotnet";
 /**
  * Enum value "go" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * [Go](https://wikipedia.org/wiki/Go_(programming_language)),
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_GO: "go";
 /**
  * Enum value "jvm" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * [JVM](https://wikipedia.org/wiki/Java_virtual_machine)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_JVM: "jvm";
 /**
  * Enum value "kernel" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * [Kernel](https://wikipedia.org/wiki/Kernel_(operating_system))
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_KERNEL: "kernel";
 /**
  * Enum value "native" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * Can be one of but not limited to [C](https://wikipedia.org/wiki/C_(programming_language)), [C++](https://wikipedia.org/wiki/C%2B%2B), [Go](https://wikipedia.org/wiki/Go_(programming_language)) or [Rust](https://wikipedia.org/wiki/Rust_(programming_language)). If possible, a more precise value **MUST** be used.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_NATIVE: "native";
 /**
  * Enum value "perl" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * [Perl](https://wikipedia.org/wiki/Perl)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_PERL: "perl";
 /**
  * Enum value "php" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * [PHP](https://wikipedia.org/wiki/PHP)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_PHP: "php";
 /**
  * Enum value "ruby" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * [Ruby](https://wikipedia.org/wiki/Ruby_(programming_language))
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_RUBY: "ruby";
 /**
  * Enum value "rust" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * [Rust](https://wikipedia.org/wiki/Rust_(programming_language))
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_RUST: "rust";
 /**
  * Enum value "v8js" for attribute {@link ATTR_PROFILE_FRAME_TYPE}.
+ *
+ * [V8JS](https://wikipedia.org/wiki/V8_(JavaScript_engine))
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const PROFILE_FRAME_TYPE_VALUE_V8JS: "v8js";
 /**
@@ -8523,66 +12454,98 @@ declare const PROFILE_FRAME_TYPE_VALUE_V8JS: "v8js";
 declare const ATTR_RPC_CONNECT_RPC_ERROR_CODE: "rpc.connect_rpc.error_code";
 /**
  * Enum value "aborted" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_ABORTED: "aborted";
 /**
  * Enum value "already_exists" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_ALREADY_EXISTS: "already_exists";
 /**
  * Enum value "cancelled" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_CANCELLED: "cancelled";
 /**
  * Enum value "data_loss" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_DATA_LOSS: "data_loss";
 /**
  * Enum value "deadline_exceeded" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_DEADLINE_EXCEEDED: "deadline_exceeded";
 /**
  * Enum value "failed_precondition" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_FAILED_PRECONDITION: "failed_precondition";
 /**
  * Enum value "internal" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_INTERNAL: "internal";
 /**
  * Enum value "invalid_argument" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_INVALID_ARGUMENT: "invalid_argument";
 /**
  * Enum value "not_found" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_NOT_FOUND: "not_found";
 /**
  * Enum value "out_of_range" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_OUT_OF_RANGE: "out_of_range";
 /**
  * Enum value "permission_denied" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_PERMISSION_DENIED: "permission_denied";
 /**
  * Enum value "resource_exhausted" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_RESOURCE_EXHAUSTED: "resource_exhausted";
 /**
  * Enum value "unauthenticated" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAUTHENTICATED: "unauthenticated";
 /**
  * Enum value "unavailable" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAVAILABLE: "unavailable";
 /**
  * Enum value "unimplemented" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNIMPLEMENTED: "unimplemented";
 /**
  * Enum value "unknown" for attribute {@link ATTR_RPC_CONNECT_RPC_ERROR_CODE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNKNOWN: "unknown";
 /**
@@ -8649,70 +12612,138 @@ declare const ATTR_RPC_GRPC_RESPONSE_METADATA: (key: string) => string;
 declare const ATTR_RPC_GRPC_STATUS_CODE: "rpc.grpc.status_code";
 /**
  * Enum value 0 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * OK
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_OK: 0;
 /**
  * Enum value 1 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * CANCELLED
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_CANCELLED: 1;
 /**
  * Enum value 2 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * UNKNOWN
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_UNKNOWN: 2;
 /**
  * Enum value 3 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * INVALID_ARGUMENT
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_INVALID_ARGUMENT: 3;
 /**
  * Enum value 4 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * DEADLINE_EXCEEDED
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_DEADLINE_EXCEEDED: 4;
 /**
  * Enum value 5 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * NOT_FOUND
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_NOT_FOUND: 5;
 /**
  * Enum value 6 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * ALREADY_EXISTS
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_ALREADY_EXISTS: 6;
 /**
  * Enum value 7 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * PERMISSION_DENIED
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_PERMISSION_DENIED: 7;
 /**
  * Enum value 8 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * RESOURCE_EXHAUSTED
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_RESOURCE_EXHAUSTED: 8;
 /**
  * Enum value 9 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * FAILED_PRECONDITION
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_FAILED_PRECONDITION: 9;
 /**
  * Enum value 10 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * ABORTED
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_ABORTED: 10;
 /**
  * Enum value 11 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * OUT_OF_RANGE
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_OUT_OF_RANGE: 11;
 /**
  * Enum value 12 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * UNIMPLEMENTED
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_UNIMPLEMENTED: 12;
 /**
  * Enum value 13 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * INTERNAL
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_INTERNAL: 13;
 /**
  * Enum value 14 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * UNAVAILABLE
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_UNAVAILABLE: 14;
 /**
  * Enum value 15 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * DATA_LOSS
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_DATA_LOSS: 15;
 /**
  * Enum value 16 for attribute {@link ATTR_RPC_GRPC_STATUS_CODE}.
+ *
+ * UNAUTHENTICATED
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_GRPC_STATUS_CODE_VALUE_UNAUTHENTICATED: 16;
 /**
@@ -8773,10 +12804,14 @@ declare const ATTR_RPC_MESSAGE_ID: "rpc.message.id";
 declare const ATTR_RPC_MESSAGE_TYPE: "rpc.message.type";
 /**
  * Enum value "RECEIVED" for attribute {@link ATTR_RPC_MESSAGE_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_MESSAGE_TYPE_VALUE_RECEIVED: "RECEIVED";
 /**
  * Enum value "SENT" for attribute {@link ATTR_RPC_MESSAGE_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_MESSAGE_TYPE_VALUE_SENT: "SENT";
 /**
@@ -8813,22 +12848,42 @@ declare const ATTR_RPC_SERVICE: "rpc.service";
 declare const ATTR_RPC_SYSTEM: "rpc.system";
 /**
  * Enum value "apache_dubbo" for attribute {@link ATTR_RPC_SYSTEM}.
+ *
+ * Apache Dubbo
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_SYSTEM_VALUE_APACHE_DUBBO: "apache_dubbo";
 /**
  * Enum value "connect_rpc" for attribute {@link ATTR_RPC_SYSTEM}.
+ *
+ * Connect RPC
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_SYSTEM_VALUE_CONNECT_RPC: "connect_rpc";
 /**
  * Enum value "dotnet_wcf" for attribute {@link ATTR_RPC_SYSTEM}.
+ *
+ * .NET WCF
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_SYSTEM_VALUE_DOTNET_WCF: "dotnet_wcf";
 /**
  * Enum value "grpc" for attribute {@link ATTR_RPC_SYSTEM}.
+ *
+ * gRPC
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_SYSTEM_VALUE_GRPC: "grpc";
 /**
  * Enum value "java_rmi" for attribute {@link ATTR_RPC_SYSTEM}.
+ *
+ * Java RMI
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_SYSTEM_VALUE_JAVA_RMI: "java_rmi";
 /**
@@ -8992,10 +13047,14 @@ declare const ATTR_SOURCE_PORT: "source.port";
 declare const ATTR_STATE: "state";
 /**
  * Enum value "idle" for attribute {@link ATTR_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const STATE_VALUE_IDLE: "idle";
 /**
  * Enum value "used" for attribute {@link ATTR_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const STATE_VALUE_USED: "used";
 /**
@@ -9019,30 +13078,44 @@ declare const ATTR_SYSTEM_CPU_LOGICAL_NUMBER: "system.cpu.logical_number";
 declare const ATTR_SYSTEM_CPU_STATE: "system.cpu.state";
 /**
  * Enum value "idle" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_CPU_STATE_VALUE_IDLE: "idle";
 /**
  * Enum value "interrupt" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_CPU_STATE_VALUE_INTERRUPT: "interrupt";
 /**
  * Enum value "iowait" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_CPU_STATE_VALUE_IOWAIT: "iowait";
 /**
  * Enum value "nice" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_CPU_STATE_VALUE_NICE: "nice";
 /**
  * Enum value "steal" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_CPU_STATE_VALUE_STEAL: "steal";
 /**
  * Enum value "system" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_CPU_STATE_VALUE_SYSTEM: "system";
 /**
  * Enum value "user" for attribute {@link ATTR_SYSTEM_CPU_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_CPU_STATE_VALUE_USER: "user";
 /**
@@ -9079,14 +13152,20 @@ declare const ATTR_SYSTEM_FILESYSTEM_MOUNTPOINT: "system.filesystem.mountpoint";
 declare const ATTR_SYSTEM_FILESYSTEM_STATE: "system.filesystem.state";
 /**
  * Enum value "free" for attribute {@link ATTR_SYSTEM_FILESYSTEM_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_FILESYSTEM_STATE_VALUE_FREE: "free";
 /**
  * Enum value "reserved" for attribute {@link ATTR_SYSTEM_FILESYSTEM_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_FILESYSTEM_STATE_VALUE_RESERVED: "reserved";
 /**
  * Enum value "used" for attribute {@link ATTR_SYSTEM_FILESYSTEM_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_FILESYSTEM_STATE_VALUE_USED: "used";
 /**
@@ -9099,26 +13178,38 @@ declare const SYSTEM_FILESYSTEM_STATE_VALUE_USED: "used";
 declare const ATTR_SYSTEM_FILESYSTEM_TYPE: "system.filesystem.type";
 /**
  * Enum value "exfat" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_EXFAT: "exfat";
 /**
  * Enum value "ext4" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_EXT4: "ext4";
 /**
  * Enum value "fat32" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_FAT32: "fat32";
 /**
  * Enum value "hfsplus" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_HFSPLUS: "hfsplus";
 /**
  * Enum value "ntfs" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_NTFS: "ntfs";
 /**
  * Enum value "refs" for attribute {@link ATTR_SYSTEM_FILESYSTEM_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_FILESYSTEM_TYPE_VALUE_REFS: "refs";
 /**
@@ -9132,22 +13223,36 @@ declare const SYSTEM_FILESYSTEM_TYPE_VALUE_REFS: "refs";
 declare const ATTR_SYSTEM_MEMORY_STATE: "system.memory.state";
 /**
  * Enum value "buffers" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_MEMORY_STATE_VALUE_BUFFERS: "buffers";
 /**
  * Enum value "cached" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_MEMORY_STATE_VALUE_CACHED: "cached";
 /**
  * Enum value "free" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_MEMORY_STATE_VALUE_FREE: "free";
 /**
  * Enum value "shared" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Removed, report shared memory usage with `metric.system.memory.shared` metric
  */
 declare const SYSTEM_MEMORY_STATE_VALUE_SHARED: "shared";
 /**
  * Enum value "used" for attribute {@link ATTR_SYSTEM_MEMORY_STATE}.
+ *
+ * Actual used virtual memory in bytes.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_MEMORY_STATE_VALUE_USED: "used";
 /**
@@ -9162,50 +13267,74 @@ declare const SYSTEM_MEMORY_STATE_VALUE_USED: "used";
 declare const ATTR_SYSTEM_NETWORK_STATE: "system.network.state";
 /**
  * Enum value "close" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_CLOSE: "close";
 /**
  * Enum value "close_wait" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_CLOSE_WAIT: "close_wait";
 /**
  * Enum value "closing" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_CLOSING: "closing";
 /**
  * Enum value "delete" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_DELETE: "delete";
 /**
  * Enum value "established" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_ESTABLISHED: "established";
 /**
  * Enum value "fin_wait_1" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_1: "fin_wait_1";
 /**
  * Enum value "fin_wait_2" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_2: "fin_wait_2";
 /**
  * Enum value "last_ack" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_LAST_ACK: "last_ack";
 /**
  * Enum value "listen" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_LISTEN: "listen";
 /**
  * Enum value "syn_recv" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_SYN_RECV: "syn_recv";
 /**
  * Enum value "syn_sent" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_SYN_SENT: "syn_sent";
 /**
  * Enum value "time_wait" for attribute {@link ATTR_SYSTEM_NETWORK_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_NETWORK_STATE_VALUE_TIME_WAIT: "time_wait";
 /**
@@ -9218,10 +13347,14 @@ declare const SYSTEM_NETWORK_STATE_VALUE_TIME_WAIT: "time_wait";
 declare const ATTR_SYSTEM_PAGING_DIRECTION: "system.paging.direction";
 /**
  * Enum value "in" for attribute {@link ATTR_SYSTEM_PAGING_DIRECTION}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PAGING_DIRECTION_VALUE_IN: "in";
 /**
  * Enum value "out" for attribute {@link ATTR_SYSTEM_PAGING_DIRECTION}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PAGING_DIRECTION_VALUE_OUT: "out";
 /**
@@ -9234,10 +13367,14 @@ declare const SYSTEM_PAGING_DIRECTION_VALUE_OUT: "out";
 declare const ATTR_SYSTEM_PAGING_STATE: "system.paging.state";
 /**
  * Enum value "free" for attribute {@link ATTR_SYSTEM_PAGING_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PAGING_STATE_VALUE_FREE: "free";
 /**
  * Enum value "used" for attribute {@link ATTR_SYSTEM_PAGING_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PAGING_STATE_VALUE_USED: "used";
 /**
@@ -9250,10 +13387,14 @@ declare const SYSTEM_PAGING_STATE_VALUE_USED: "used";
 declare const ATTR_SYSTEM_PAGING_TYPE: "system.paging.type";
 /**
  * Enum value "major" for attribute {@link ATTR_SYSTEM_PAGING_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PAGING_TYPE_VALUE_MAJOR: "major";
 /**
  * Enum value "minor" for attribute {@link ATTR_SYSTEM_PAGING_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PAGING_TYPE_VALUE_MINOR: "minor";
 /**
@@ -9266,18 +13407,26 @@ declare const SYSTEM_PAGING_TYPE_VALUE_MINOR: "minor";
 declare const ATTR_SYSTEM_PROCESS_STATUS: "system.process.status";
 /**
  * Enum value "defunct" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PROCESS_STATUS_VALUE_DEFUNCT: "defunct";
 /**
  * Enum value "running" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PROCESS_STATUS_VALUE_RUNNING: "running";
 /**
  * Enum value "sleeping" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PROCESS_STATUS_VALUE_SLEEPING: "sleeping";
 /**
  * Enum value "stopped" for attribute {@link ATTR_SYSTEM_PROCESS_STATUS}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PROCESS_STATUS_VALUE_STOPPED: "stopped";
 /**
@@ -9292,18 +13441,26 @@ declare const SYSTEM_PROCESS_STATUS_VALUE_STOPPED: "stopped";
 declare const ATTR_SYSTEM_PROCESSES_STATUS: "system.processes.status";
 /**
  * Enum value "defunct" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PROCESSES_STATUS_VALUE_DEFUNCT: "defunct";
 /**
  * Enum value "running" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PROCESSES_STATUS_VALUE_RUNNING: "running";
 /**
  * Enum value "sleeping" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PROCESSES_STATUS_VALUE_SLEEPING: "sleeping";
 /**
  * Enum value "stopped" for attribute {@link ATTR_SYSTEM_PROCESSES_STATUS}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const SYSTEM_PROCESSES_STATUS_VALUE_STOPPED: "stopped";
 /**
@@ -9346,10 +13503,18 @@ declare const ATTR_TEST_CASE_NAME: "test.case.name";
 declare const ATTR_TEST_CASE_RESULT_STATUS: "test.case.result.status";
 /**
  * Enum value "fail" for attribute {@link ATTR_TEST_CASE_RESULT_STATUS}.
+ *
+ * fail
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const TEST_CASE_RESULT_STATUS_VALUE_FAIL: "fail";
 /**
  * Enum value "pass" for attribute {@link ATTR_TEST_CASE_RESULT_STATUS}.
+ *
+ * pass
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const TEST_CASE_RESULT_STATUS_VALUE_PASS: "pass";
 /**
@@ -9375,26 +13540,50 @@ declare const ATTR_TEST_SUITE_NAME: "test.suite.name";
 declare const ATTR_TEST_SUITE_RUN_STATUS: "test.suite.run.status";
 /**
  * Enum value "aborted" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ *
+ * aborted
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const TEST_SUITE_RUN_STATUS_VALUE_ABORTED: "aborted";
 /**
  * Enum value "failure" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ *
+ * failure
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const TEST_SUITE_RUN_STATUS_VALUE_FAILURE: "failure";
 /**
  * Enum value "in_progress" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ *
+ * in_progress
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const TEST_SUITE_RUN_STATUS_VALUE_IN_PROGRESS: "in_progress";
 /**
  * Enum value "skipped" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ *
+ * skipped
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const TEST_SUITE_RUN_STATUS_VALUE_SKIPPED: "skipped";
 /**
  * Enum value "success" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ *
+ * success
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const TEST_SUITE_RUN_STATUS_VALUE_SUCCESS: "success";
 /**
  * Enum value "timed_out" for attribute {@link ATTR_TEST_SUITE_RUN_STATUS}.
+ *
+ * timed_out
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const TEST_SUITE_RUN_STATUS_VALUE_TIMED_OUT: "timed_out";
 /**
@@ -9554,10 +13743,14 @@ declare const ATTR_TLS_NEXT_PROTOCOL: "tls.next_protocol";
 declare const ATTR_TLS_PROTOCOL_NAME: "tls.protocol.name";
 /**
  * Enum value "ssl" for attribute {@link ATTR_TLS_PROTOCOL_NAME}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const TLS_PROTOCOL_NAME_VALUE_SSL: "ssl";
 /**
  * Enum value "tls" for attribute {@link ATTR_TLS_PROTOCOL_NAME}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const TLS_PROTOCOL_NAME_VALUE_TLS: "tls";
 /**
@@ -9838,10 +14031,18 @@ declare const ATTR_USER_AGENT_OS_VERSION: "user_agent.os.version";
 declare const ATTR_USER_AGENT_SYNTHETIC_TYPE: "user_agent.synthetic.type";
 /**
  * Enum value "bot" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
+ *
+ * Bot source.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const USER_AGENT_SYNTHETIC_TYPE_VALUE_BOT: "bot";
 /**
  * Enum value "test" for attribute {@link ATTR_USER_AGENT_SYNTHETIC_TYPE}.
+ *
+ * Synthetic test source.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const USER_AGENT_SYNTHETIC_TYPE_VALUE_TEST: "test";
 /**
@@ -9863,18 +14064,34 @@ declare const ATTR_USER_AGENT_VERSION: "user_agent.version";
 declare const ATTR_V8JS_GC_TYPE: "v8js.gc.type";
 /**
  * Enum value "incremental" for attribute {@link ATTR_V8JS_GC_TYPE}.
+ *
+ * Incremental (Incremental Marking).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const V8JS_GC_TYPE_VALUE_INCREMENTAL: "incremental";
 /**
  * Enum value "major" for attribute {@link ATTR_V8JS_GC_TYPE}.
+ *
+ * Major (Mark Sweep Compact).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const V8JS_GC_TYPE_VALUE_MAJOR: "major";
 /**
  * Enum value "minor" for attribute {@link ATTR_V8JS_GC_TYPE}.
+ *
+ * Minor (Scavenge).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const V8JS_GC_TYPE_VALUE_MINOR: "minor";
 /**
  * Enum value "weakcb" for attribute {@link ATTR_V8JS_GC_TYPE}.
+ *
+ * Weak Callbacks (Process Weak Callbacks).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const V8JS_GC_TYPE_VALUE_WEAKCB: "weakcb";
 /**
@@ -9887,22 +14104,42 @@ declare const V8JS_GC_TYPE_VALUE_WEAKCB: "weakcb";
 declare const ATTR_V8JS_HEAP_SPACE_NAME: "v8js.heap.space.name";
 /**
  * Enum value "code_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
+ *
+ * Code memory space.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const V8JS_HEAP_SPACE_NAME_VALUE_CODE_SPACE: "code_space";
 /**
  * Enum value "large_object_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
+ *
+ * Large object memory space.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const V8JS_HEAP_SPACE_NAME_VALUE_LARGE_OBJECT_SPACE: "large_object_space";
 /**
  * Enum value "map_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
+ *
+ * Map memory space.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const V8JS_HEAP_SPACE_NAME_VALUE_MAP_SPACE: "map_space";
 /**
  * Enum value "new_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
+ *
+ * New memory space.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const V8JS_HEAP_SPACE_NAME_VALUE_NEW_SPACE: "new_space";
 /**
  * Enum value "old_space" for attribute {@link ATTR_V8JS_HEAP_SPACE_NAME}.
+ *
+ * Old memory space.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const V8JS_HEAP_SPACE_NAME_VALUE_OLD_SPACE: "old_space";
 /**
@@ -9925,18 +14162,34 @@ declare const ATTR_VCS_CHANGE_ID: "vcs.change.id";
 declare const ATTR_VCS_CHANGE_STATE: "vcs.change.state";
 /**
  * Enum value "closed" for attribute {@link ATTR_VCS_CHANGE_STATE}.
+ *
+ * Closed means the merge request has been closed without merging. This can happen for various reasons, such as the changes being deemed unnecessary, the issue being resolved in another way, or the author deciding to withdraw the request.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_CHANGE_STATE_VALUE_CLOSED: "closed";
 /**
  * Enum value "merged" for attribute {@link ATTR_VCS_CHANGE_STATE}.
+ *
+ * Merged indicates that the change has been successfully integrated into the target codebase.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_CHANGE_STATE_VALUE_MERGED: "merged";
 /**
  * Enum value "open" for attribute {@link ATTR_VCS_CHANGE_STATE}.
+ *
+ * Open means the change is currently active and under review. It hasn't been merged into the target branch yet, and it's still possible to make changes or add comments.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_CHANGE_STATE_VALUE_OPEN: "open";
 /**
  * Enum value "wip" for attribute {@link ATTR_VCS_CHANGE_STATE}.
+ *
+ * WIP (work-in-progress, draft) means the change is still in progress and not yet ready for a full review. It might still undergo significant changes.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_CHANGE_STATE_VALUE_WIP: "wip";
 /**
@@ -9960,10 +14213,18 @@ declare const ATTR_VCS_CHANGE_TITLE: "vcs.change.title";
 declare const ATTR_VCS_LINE_CHANGE_TYPE: "vcs.line_change.type";
 /**
  * Enum value "added" for attribute {@link ATTR_VCS_LINE_CHANGE_TYPE}.
+ *
+ * How many lines were added.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_LINE_CHANGE_TYPE_VALUE_ADDED: "added";
 /**
  * Enum value "removed" for attribute {@link ATTR_VCS_LINE_CHANGE_TYPE}.
+ *
+ * How many lines were removed.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_LINE_CHANGE_TYPE_VALUE_REMOVED: "removed";
 /**
@@ -9989,22 +14250,44 @@ declare const ATTR_VCS_OWNER_NAME: "vcs.owner.name";
 declare const ATTR_VCS_PROVIDER_NAME: "vcs.provider.name";
 /**
  * Enum value "bitbucket" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
+ *
+ * [Bitbucket](https://bitbucket.org)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_PROVIDER_NAME_VALUE_BITBUCKET: "bitbucket";
 /**
  * Enum value "gitea" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
+ *
+ * [Gitea](https://gitea.io)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_PROVIDER_NAME_VALUE_GITEA: "gitea";
 /**
  * Enum value "github" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
+ *
+ * [GitHub](https://github.com)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_PROVIDER_NAME_VALUE_GITHUB: "github";
 /**
  * Enum value "gitlab" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
+ *
+ * [GitLab](https://gitlab.com)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_PROVIDER_NAME_VALUE_GITLAB: "gitlab";
 /**
  * Enum value "gittea" for attribute {@link ATTR_VCS_PROVIDER_NAME}.
+ *
+ * Deprecated, use `gitea` instead.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `gitea`.
  */
 declare const VCS_PROVIDER_NAME_VALUE_GITTEA: "gittea";
 /**
@@ -10060,10 +14343,18 @@ declare const ATTR_VCS_REF_BASE_REVISION: "vcs.ref.base.revision";
 declare const ATTR_VCS_REF_BASE_TYPE: "vcs.ref.base.type";
 /**
  * Enum value "branch" for attribute {@link ATTR_VCS_REF_BASE_TYPE}.
+ *
+ * [branch](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_REF_BASE_TYPE_VALUE_BRANCH: "branch";
 /**
  * Enum value "tag" for attribute {@link ATTR_VCS_REF_BASE_TYPE}.
+ *
+ * [tag](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddeftagatag)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_REF_BASE_TYPE_VALUE_TAG: "tag";
 /**
@@ -10115,10 +14406,18 @@ declare const ATTR_VCS_REF_HEAD_REVISION: "vcs.ref.head.revision";
 declare const ATTR_VCS_REF_HEAD_TYPE: "vcs.ref.head.type";
 /**
  * Enum value "branch" for attribute {@link ATTR_VCS_REF_HEAD_TYPE}.
+ *
+ * [branch](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_REF_HEAD_TYPE_VALUE_BRANCH: "branch";
 /**
  * Enum value "tag" for attribute {@link ATTR_VCS_REF_HEAD_TYPE}.
+ *
+ * [tag](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddeftagatag)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_REF_HEAD_TYPE_VALUE_TAG: "tag";
 /**
@@ -10132,10 +14431,18 @@ declare const VCS_REF_HEAD_TYPE_VALUE_TAG: "tag";
 declare const ATTR_VCS_REF_TYPE: "vcs.ref.type";
 /**
  * Enum value "branch" for attribute {@link ATTR_VCS_REF_TYPE}.
+ *
+ * [branch](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_REF_TYPE_VALUE_BRANCH: "branch";
 /**
  * Enum value "tag" for attribute {@link ATTR_VCS_REF_TYPE}.
+ *
+ * [tag](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddeftagatag)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_REF_TYPE_VALUE_TAG: "tag";
 /**
@@ -10210,10 +14517,18 @@ declare const ATTR_VCS_REPOSITORY_REF_REVISION: "vcs.repository.ref.revision";
 declare const ATTR_VCS_REPOSITORY_REF_TYPE: "vcs.repository.ref.type";
 /**
  * Enum value "branch" for attribute {@link ATTR_VCS_REPOSITORY_REF_TYPE}.
+ *
+ * [branch](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbranchabranch)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_REPOSITORY_REF_TYPE_VALUE_BRANCH: "branch";
 /**
  * Enum value "tag" for attribute {@link ATTR_VCS_REPOSITORY_REF_TYPE}.
+ *
+ * [tag](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddeftagatag)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_REPOSITORY_REF_TYPE_VALUE_TAG: "tag";
 /**
@@ -10239,10 +14554,18 @@ declare const ATTR_VCS_REPOSITORY_URL_FULL: "vcs.repository.url.full";
 declare const ATTR_VCS_REVISION_DELTA_DIRECTION: "vcs.revision_delta.direction";
 /**
  * Enum value "ahead" for attribute {@link ATTR_VCS_REVISION_DELTA_DIRECTION}.
+ *
+ * How many revisions the change is ahead of the target ref.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_REVISION_DELTA_DIRECTION_VALUE_AHEAD: "ahead";
 /**
  * Enum value "behind" for attribute {@link ATTR_VCS_REVISION_DELTA_DIRECTION}.
+ *
+ * How many revisions the change is behind the target ref.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const VCS_REVISION_DELTA_DIRECTION_VALUE_BEHIND: "behind";
 /**
@@ -10269,15 +14592,207 @@ declare const ATTR_WEBENGINE_NAME: "webengine.name";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_WEBENGINE_VERSION: "webengine.version";
+/**
+ * The System Management Facility (SMF) Identifier uniquely identified a z/OS system within a SYSPLEX or mainframe environment and is used for system and performance analysis.
+ *
+ * @example SYS1
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ZOS_SMF_ID: "zos.smf.id";
+/**
+ * The name of the SYSPLEX to which the z/OS system belongs too.
+ *
+ * @example SYSPLEX1
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ZOS_SYSPLEX_NAME: "zos.sysplex.name";
 
 /**
- * Number of active client instances
+ * The authentication duration for a request.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Authentication`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_AUTHENTICATION_AUTHENTICATE_DURATION: "aspnetcore.authentication.authenticate.duration";
+/**
+ * The total number of times a scheme is challenged.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Authentication`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_AUTHENTICATION_CHALLENGES: "aspnetcore.authentication.challenges";
+/**
+ * The total number of times an authenticated user attempts to access a resource they are not permitted to access.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Authentication`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_AUTHENTICATION_FORBIDS: "aspnetcore.authentication.forbids";
+/**
+ * The total number of times a principal is signed in with a scheme.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Authentication`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_AUTHENTICATION_SIGN_INS: "aspnetcore.authentication.sign_ins";
+/**
+ * The total number of times a principal is signed out with a scheme.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Authentication`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_AUTHENTICATION_SIGN_OUTS: "aspnetcore.authentication.sign_outs";
+/**
+ * The total number of authorization attempts.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Authorization`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_AUTHORIZATION_ATTEMPTS: "aspnetcore.authorization.attempts";
+/**
+ * The duration of authenticate attempts. The authenticate metrics is recorded by sign in methods such as PasswordSignInAsync and TwoFactorSignInAsync.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_SIGN_IN_AUTHENTICATE_DURATION: "aspnetcore.identity.sign_in.authenticate.duration";
+/**
+ * The total number of check password attempts. Checks that the account is in a state that can log in and that the password is valid using the UserManager.CheckPasswordAsync method.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_SIGN_IN_CHECK_PASSWORD_ATTEMPTS: "aspnetcore.identity.sign_in.check_password_attempts";
+/**
+ * The total number of calls to sign in user principals.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_SIGN_IN_SIGN_INS: "aspnetcore.identity.sign_in.sign_ins";
+/**
+ * The total number of calls to sign out user principals.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_SIGN_IN_SIGN_OUTS: "aspnetcore.identity.sign_in.sign_outs";
+/**
+ * The total number of two factor clients forgotten.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_SIGN_IN_TWO_FACTOR_CLIENTS_FORGOTTEN: "aspnetcore.identity.sign_in.two_factor_clients_forgotten";
+/**
+ * The total number of two factor clients remembered.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_SIGN_IN_TWO_FACTOR_CLIENTS_REMEMBERED: "aspnetcore.identity.sign_in.two_factor_clients_remembered";
+/**
+ * The number of check password attempts. Only checks whether the password is valid and not whether the user account is in a state that can log in.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_USER_CHECK_PASSWORD_ATTEMPTS: "aspnetcore.identity.user.check_password_attempts";
+/**
+ * The duration of user creation operations.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_USER_CREATE_DURATION: "aspnetcore.identity.user.create.duration";
+/**
+ * The duration of user deletion operations.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_USER_DELETE_DURATION: "aspnetcore.identity.user.delete.duration";
+/**
+ * The total number of token generations.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_USER_GENERATED_TOKENS: "aspnetcore.identity.user.generated_tokens";
+/**
+ * The duration of user update operations.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_USER_UPDATE_DURATION: "aspnetcore.identity.user.update.duration";
+/**
+ * The total number of token verification attempts.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.Identity`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_IDENTITY_USER_VERIFY_TOKEN_ATTEMPTS: "aspnetcore.identity.user.verify_token_attempts";
+/**
+ * Total number of bytes allocated by the memory pool. Allocation occurs when a memory rental request exceeds the available pooled memory.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.MemoryPool`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_MEMORY_POOL_ALLOCATED: "aspnetcore.memory_pool.allocated";
+/**
+ * Total number of bytes evicted from the memory pool. Eviction occurs when idle pooled memory is reclaimed.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.MemoryPool`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_MEMORY_POOL_EVICTED: "aspnetcore.memory_pool.evicted";
+/**
+ * Number of bytes currently pooled and available for reuse.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.MemoryPool`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_MEMORY_POOL_POOLED: "aspnetcore.memory_pool.pooled";
+/**
+ * Total number of bytes rented from the memory pool.
+ *
+ * @note Meter name: `Microsoft.AspNetCore.MemoryPool`; Added in: ASP.NET Core 10.0
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_ASPNETCORE_MEMORY_POOL_RENTED: "aspnetcore.memory_pool.rented";
+/**
+ * Number of active client instances.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_AZURE_COSMOSDB_CLIENT_ACTIVE_INSTANCE_COUNT: "azure.cosmosdb.client.active_instance.count";
 /**
- * [Request units](https://learn.microsoft.com/azure/cosmos-db/request-units) consumed by the operation
+ * [Request units](https://learn.microsoft.com/azure/cosmos-db/request-units) consumed by the operation.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -10317,7 +14832,7 @@ declare const METRIC_CICD_SYSTEM_ERRORS: "cicd.system.errors";
  */
 declare const METRIC_CICD_WORKER_COUNT: "cicd.worker.count";
 /**
- * Total CPU time consumed
+ * Total CPU time consumed.
  *
  * @note Total CPU time consumed by the specific container on all available CPU cores
  *
@@ -10325,7 +14840,7 @@ declare const METRIC_CICD_WORKER_COUNT: "cicd.worker.count";
  */
 declare const METRIC_CONTAINER_CPU_TIME: "container.cpu.time";
 /**
- * Container's CPU usage, measured in cpus. Range from 0 to the number of allocatable CPUs
+ * Container's CPU usage, measured in cpus. Range from 0 to the number of allocatable CPUs.
  *
  * @note CPU usage of the specific container on all available CPU cores, averaged over the sample window
  *
@@ -10340,6 +14855,41 @@ declare const METRIC_CONTAINER_CPU_USAGE: "container.cpu.usage";
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_CONTAINER_DISK_IO: "container.disk.io";
+/**
+ * Container filesystem available bytes.
+ *
+ * @note In K8s, this metric is derived from the
+ * [FsStats.AvailableBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#FsStats) field
+ * of the [ContainerStats.Rootfs](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#ContainerStats)
+ * of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_CONTAINER_FILESYSTEM_AVAILABLE: "container.filesystem.available";
+/**
+ * Container filesystem capacity.
+ *
+ * @note In K8s, this metric is derived from the
+ * [FsStats.CapacityBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#FsStats) field
+ * of the [ContainerStats.Rootfs](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#ContainerStats)
+ * of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_CONTAINER_FILESYSTEM_CAPACITY: "container.filesystem.capacity";
+/**
+ * Container filesystem usage.
+ *
+ * @note This may not equal capacity - available.
+ *
+ * In K8s, this metric is derived from the
+ * [FsStats.UsedBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#FsStats) field
+ * of the [ContainerStats.Rootfs](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#ContainerStats)
+ * of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_CONTAINER_FILESYSTEM_USAGE: "container.filesystem.usage";
 /**
  * Memory usage of the container.
  *
@@ -10357,7 +14907,7 @@ declare const METRIC_CONTAINER_MEMORY_USAGE: "container.memory.usage";
  */
 declare const METRIC_CONTAINER_NETWORK_IO: "container.network.io";
 /**
- * The time the container has been running
+ * The time the container has been running.
  *
  * @note Instrumentations **SHOULD** use a gauge with type `double` and measure uptime in seconds as a floating point number with the highest precision available.
  * The actual accuracy would depend on the instrumentation and operating system.
@@ -10366,21 +14916,27 @@ declare const METRIC_CONTAINER_NETWORK_IO: "container.network.io";
  */
 declare const METRIC_CONTAINER_UPTIME: "container.uptime";
 /**
- * Operating frequency of the logical CPU in Hertz.
+ * Deprecated. Use `system.cpu.frequency` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `system.cpu.frequency`.
  */
 declare const METRIC_CPU_FREQUENCY: "cpu.frequency";
 /**
- * Seconds each logical CPU spent on each mode
+ * Deprecated. Use `system.cpu.time` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `system.cpu.time`.
  */
 declare const METRIC_CPU_TIME: "cpu.time";
 /**
- * For each logical CPU, the utilization is calculated as the change in cumulative CPU time (cpu.time) over a measurement interval, divided by the elapsed time.
+ * Deprecated. Use `system.cpu.utilization` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `system.cpu.utilization`.
  */
 declare const METRIC_CPU_UTILIZATION: "cpu.utilization";
 /**
@@ -10408,55 +14964,55 @@ declare const METRIC_CPYTHON_GC_COLLECTIONS: "cpython.gc.collections";
  */
 declare const METRIC_CPYTHON_GC_UNCOLLECTABLE_OBJECTS: "cpython.gc.uncollectable_objects";
 /**
- * The number of connections that are currently in state described by the `state` attribute
+ * The number of connections that are currently in state described by the `state` attribute.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_DB_CLIENT_CONNECTION_COUNT: "db.client.connection.count";
 /**
- * The time it took to create a new connection
+ * The time it took to create a new connection.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_DB_CLIENT_CONNECTION_CREATE_TIME: "db.client.connection.create_time";
 /**
- * The maximum number of idle open connections allowed
+ * The maximum number of idle open connections allowed.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_DB_CLIENT_CONNECTION_IDLE_MAX: "db.client.connection.idle.max";
 /**
- * The minimum number of idle open connections allowed
+ * The minimum number of idle open connections allowed.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_DB_CLIENT_CONNECTION_IDLE_MIN: "db.client.connection.idle.min";
 /**
- * The maximum number of open connections allowed
+ * The maximum number of open connections allowed.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_DB_CLIENT_CONNECTION_MAX: "db.client.connection.max";
 /**
- * The number of current pending requests for an open connection
+ * The number of current pending requests for an open connection.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_DB_CLIENT_CONNECTION_PENDING_REQUESTS: "db.client.connection.pending_requests";
 /**
- * The number of connection timeouts that have occurred trying to obtain a connection from the pool
+ * The number of connection timeouts that have occurred trying to obtain a connection from the pool.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_DB_CLIENT_CONNECTION_TIMEOUTS: "db.client.connection.timeouts";
 /**
- * The time between borrowing a connection and returning it to the pool
+ * The time between borrowing a connection and returning it to the pool.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_DB_CLIENT_CONNECTION_USE_TIME: "db.client.connection.use_time";
 /**
- * The time it took to obtain an open connection from the pool
+ * The time it took to obtain an open connection from the pool.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -10562,85 +15118,85 @@ declare const METRIC_DB_CLIENT_RESPONSE_RETURNED_ROWS: "db.client.response.retur
  */
 declare const METRIC_DNS_LOOKUP_DURATION: "dns.lookup.duration";
 /**
- * Number of invocation cold starts
+ * Number of invocation cold starts.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_FAAS_COLDSTARTS: "faas.coldstarts";
 /**
- * Distribution of CPU usage per invocation
+ * Distribution of CPU usage per invocation.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_FAAS_CPU_USAGE: "faas.cpu_usage";
 /**
- * Number of invocation errors
+ * Number of invocation errors.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_FAAS_ERRORS: "faas.errors";
 /**
- * Measures the duration of the function's initialization, such as a cold start
+ * Measures the duration of the function's initialization, such as a cold start.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_FAAS_INIT_DURATION: "faas.init_duration";
 /**
- * Number of successful invocations
+ * Number of successful invocations.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_FAAS_INVOCATIONS: "faas.invocations";
 /**
- * Measures the duration of the function's logic execution
+ * Measures the duration of the function's logic execution.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_FAAS_INVOKE_DURATION: "faas.invoke_duration";
 /**
- * Distribution of max memory usage per invocation
+ * Distribution of max memory usage per invocation.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_FAAS_MEM_USAGE: "faas.mem_usage";
 /**
- * Distribution of net I/O usage per invocation
+ * Distribution of net I/O usage per invocation.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_FAAS_NET_IO: "faas.net_io";
 /**
- * Number of invocation timeouts
+ * Number of invocation timeouts.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_FAAS_TIMEOUTS: "faas.timeouts";
 /**
- * GenAI operation duration
+ * GenAI operation duration.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_GEN_AI_CLIENT_OPERATION_DURATION: "gen_ai.client.operation.duration";
 /**
- * Measures number of input and output tokens used
+ * Number of input and output tokens used.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_GEN_AI_CLIENT_TOKEN_USAGE: "gen_ai.client.token.usage";
 /**
- * Generative AI server request duration such as time-to-last byte or last output token
+ * Generative AI server request duration such as time-to-last byte or last output token.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_GEN_AI_SERVER_REQUEST_DURATION: "gen_ai.server.request.duration";
 /**
- * Time per output token generated after the first token for successful responses
+ * Time per output token generated after the first token for successful responses.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_GEN_AI_SERVER_TIME_PER_OUTPUT_TOKEN: "gen_ai.server.time_per_output_token";
 /**
- * Time to generate first token for successful responses
+ * Time to generate first token for successful responses.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -10774,25 +15330,103 @@ declare const METRIC_HTTP_SERVER_REQUEST_BODY_SIZE: "http.server.request.body.si
  */
 declare const METRIC_HTTP_SERVER_RESPONSE_BODY_SIZE: "http.server.response.body.size";
 /**
- * Energy consumed by the component
+ * Remaining fraction of battery charge.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_BATTERY_CHARGE: "hw.battery.charge";
+/**
+ * Lower limit of battery charge fraction to ensure proper operation.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_BATTERY_CHARGE_LIMIT: "hw.battery.charge.limit";
+/**
+ * Time left before battery is completely charged or discharged.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_BATTERY_TIME_LEFT: "hw.battery.time_left";
+/**
+ * CPU current frequency.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_CPU_SPEED: "hw.cpu.speed";
+/**
+ * CPU maximum frequency.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_CPU_SPEED_LIMIT: "hw.cpu.speed.limit";
+/**
+ * Energy consumed by the component.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_HW_ENERGY: "hw.energy";
 /**
- * Number of errors encountered by the component
+ * Number of errors encountered by the component.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_HW_ERRORS: "hw.errors";
 /**
- * Ambient (external) temperature of the physical host
+ * Fan speed in revolutions per minute.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_FAN_SPEED: "hw.fan.speed";
+/**
+ * Speed limit in rpm.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_FAN_SPEED_LIMIT: "hw.fan.speed.limit";
+/**
+ * Fan speed expressed as a fraction of its maximum speed.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_FAN_SPEED_RATIO: "hw.fan.speed_ratio";
+/**
+ * Received and transmitted bytes by the GPU.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_GPU_IO: "hw.gpu.io";
+/**
+ * Size of the GPU memory.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_GPU_MEMORY_LIMIT: "hw.gpu.memory.limit";
+/**
+ * GPU memory used.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_GPU_MEMORY_USAGE: "hw.gpu.memory.usage";
+/**
+ * Fraction of GPU memory used.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_GPU_MEMORY_UTILIZATION: "hw.gpu.memory.utilization";
+/**
+ * Fraction of time spent in a specific task.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_GPU_UTILIZATION: "hw.gpu.utilization";
+/**
+ * Ambient (external) temperature of the physical host.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_HW_HOST_AMBIENT_TEMPERATURE: "hw.host.ambient_temperature";
 /**
- * Total energy consumed by the entire physical host, in joules
+ * Total energy consumed by the entire physical host, in joules.
  *
  * @note The overall energy usage of a host **MUST** be reported using the specific `hw.host.energy` and `hw.host.power` metrics **only**, instead of the generic `hw.energy` and `hw.power` described in the previous section, to prevent summing up overlapping values.
  *
@@ -10800,13 +15434,13 @@ declare const METRIC_HW_HOST_AMBIENT_TEMPERATURE: "hw.host.ambient_temperature";
  */
 declare const METRIC_HW_HOST_ENERGY: "hw.host.energy";
 /**
- * By how many degrees Celsius the temperature of the physical host can be increased, before reaching a warning threshold on one of the internal sensors
+ * By how many degrees Celsius the temperature of the physical host can be increased, before reaching a warning threshold on one of the internal sensors.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_HW_HOST_HEATING_MARGIN: "hw.host.heating_margin";
 /**
- * Instantaneous power consumed by the entire physical host in Watts (`hw.host.energy` is preferred)
+ * Instantaneous power consumed by the entire physical host in Watts (`hw.host.energy` is preferred).
  *
  * @note The overall energy usage of a host **MUST** be reported using the specific `hw.host.energy` and `hw.host.power` metrics **only**, instead of the generic `hw.energy` and `hw.power` described in the previous section, to prevent summing up overlapping values.
  *
@@ -10814,7 +15448,79 @@ declare const METRIC_HW_HOST_HEATING_MARGIN: "hw.host.heating_margin";
  */
 declare const METRIC_HW_HOST_POWER: "hw.host.power";
 /**
- * Instantaneous power consumed by the component
+ * Size of the logical disk.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_LOGICAL_DISK_LIMIT: "hw.logical_disk.limit";
+/**
+ * Logical disk space usage.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_LOGICAL_DISK_USAGE: "hw.logical_disk.usage";
+/**
+ * Logical disk space utilization as a fraction.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_LOGICAL_DISK_UTILIZATION: "hw.logical_disk.utilization";
+/**
+ * Size of the memory module.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_MEMORY_SIZE: "hw.memory.size";
+/**
+ * Link speed.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_NETWORK_BANDWIDTH_LIMIT: "hw.network.bandwidth.limit";
+/**
+ * Utilization of the network bandwidth as a fraction.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_NETWORK_BANDWIDTH_UTILIZATION: "hw.network.bandwidth.utilization";
+/**
+ * Received and transmitted network traffic in bytes.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_NETWORK_IO: "hw.network.io";
+/**
+ * Received and transmitted network traffic in packets (or frames).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_NETWORK_PACKETS: "hw.network.packets";
+/**
+ * Link status: `1` (up) or `0` (down).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_NETWORK_UP: "hw.network.up";
+/**
+ * Endurance remaining for this SSD disk.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_PHYSICAL_DISK_ENDURANCE_UTILIZATION: "hw.physical_disk.endurance_utilization";
+/**
+ * Size of the disk.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_PHYSICAL_DISK_SIZE: "hw.physical_disk.size";
+/**
+ * Value of the corresponding [S.M.A.R.T.](https://wikipedia.org/wiki/S.M.A.R.T.) (Self-Monitoring, Analysis, and Reporting Technology) attribute.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_PHYSICAL_DISK_SMART: "hw.physical_disk.smart";
+/**
+ * Instantaneous power consumed by the component.
  *
  * @note It is recommended to report `hw.energy` instead of `hw.power` when possible.
  *
@@ -10822,13 +15528,67 @@ declare const METRIC_HW_HOST_POWER: "hw.host.power";
  */
 declare const METRIC_HW_POWER: "hw.power";
 /**
- * Operational status: `1` (true) or `0` (false) for each of the possible states
+ * Maximum power output of the power supply.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_POWER_SUPPLY_LIMIT: "hw.power_supply.limit";
+/**
+ * Current power output of the power supply.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_POWER_SUPPLY_USAGE: "hw.power_supply.usage";
+/**
+ * Utilization of the power supply as a fraction of its maximum output.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_POWER_SUPPLY_UTILIZATION: "hw.power_supply.utilization";
+/**
+ * Operational status: `1` (true) or `0` (false) for each of the possible states.
  *
  * @note `hw.status` is currently specified as an *UpDownCounter* but would ideally be represented using a [*StateSet* as defined in OpenMetrics](https://github.com/prometheus/OpenMetrics/blob/v1.0.0/specification/OpenMetrics.md#stateset). This semantic convention will be updated once *StateSet* is specified in OpenTelemetry. This planned change is not expected to have any consequence on the way users query their timeseries backend to retrieve the values of `hw.status` over time.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_HW_STATUS: "hw.status";
+/**
+ * Operations performed by the tape drive.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_TAPE_DRIVE_OPERATIONS: "hw.tape_drive.operations";
+/**
+ * Temperature in degrees Celsius.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_TEMPERATURE: "hw.temperature";
+/**
+ * Temperature limit in degrees Celsius.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_TEMPERATURE_LIMIT: "hw.temperature.limit";
+/**
+ * Voltage measured by the sensor.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_VOLTAGE: "hw.voltage";
+/**
+ * Voltage limit in Volts.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_VOLTAGE_LIMIT: "hw.voltage.limit";
+/**
+ * Nominal (expected) voltage.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_HW_VOLTAGE_NOMINAL: "hw.voltage.nominal";
 /**
  * Number of buffers in the pool.
  *
@@ -10884,193 +15644,281 @@ declare const METRIC_JVM_SYSTEM_CPU_LOAD_1M: "jvm.system.cpu.load_1m";
  */
 declare const METRIC_JVM_SYSTEM_CPU_UTILIZATION: "jvm.system.cpu.utilization";
 /**
- * The number of actively running jobs for a cronjob
+ * Maximum CPU resource limit set for the container.
+ *
+ * @note See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcerequirements-v1-core for details.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_CPU_LIMIT: "k8s.container.cpu.limit";
+/**
+ * CPU resource requested for the container.
+ *
+ * @note See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcerequirements-v1-core for details.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_CPU_REQUEST: "k8s.container.cpu.request";
+/**
+ * Maximum ephemeral storage resource limit set for the container.
+ *
+ * @note See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcerequirements-v1-core for details.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_EPHEMERAL_STORAGE_LIMIT: "k8s.container.ephemeral_storage.limit";
+/**
+ * Ephemeral storage resource requested for the container.
+ *
+ * @note See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcerequirements-v1-core for details.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_EPHEMERAL_STORAGE_REQUEST: "k8s.container.ephemeral_storage.request";
+/**
+ * Maximum memory resource limit set for the container.
+ *
+ * @note See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcerequirements-v1-core for details.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_MEMORY_LIMIT: "k8s.container.memory.limit";
+/**
+ * Memory resource requested for the container.
+ *
+ * @note See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcerequirements-v1-core for details.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_MEMORY_REQUEST: "k8s.container.memory.request";
+/**
+ * Indicates whether the container is currently marked as ready to accept traffic, based on its readiness probe (1 = ready, 0 = not ready).
+ *
+ * @note This metric **SHOULD** reflect the value of the `ready` field in the
+ * [K8s ContainerStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#containerstatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_READY: "k8s.container.ready";
+/**
+ * Describes how many times the container has restarted (since the last counter reset).
+ *
+ * @note This value is pulled directly from the K8s API and the value can go indefinitely high and be reset to 0
+ * at any time depending on how your kubelet is configured to prune dead containers.
+ * It is best to not depend too much on the exact value but rather look at it as
+ * either == 0, in which case you can conclude there were no restarts in the recent past, or > 0, in which case
+ * you can conclude there were restarts in the recent past, and not try and analyze the value beyond that.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_RESTART_COUNT: "k8s.container.restart.count";
+/**
+ * Describes the number of K8s containers that are currently in a state for a given reason.
+ *
+ * @note All possible container state reasons will be reported at each time interval to avoid missing metrics.
+ * Only the value corresponding to the current state reason will be non-zero.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_STATUS_REASON: "k8s.container.status.reason";
+/**
+ * Describes the number of K8s containers that are currently in a given state.
+ *
+ * @note All possible container states will be reported at each time interval to avoid missing metrics.
+ * Only the value corresponding to the current state will be non-zero.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_STATUS_STATE: "k8s.container.status.state";
+/**
+ * Maximum storage resource limit set for the container.
+ *
+ * @note See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcerequirements-v1-core for details.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_STORAGE_LIMIT: "k8s.container.storage.limit";
+/**
+ * Storage resource requested for the container.
+ *
+ * @note See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcerequirements-v1-core for details.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_STORAGE_REQUEST: "k8s.container.storage.request";
+/**
+ * The number of actively running jobs for a cronjob.
  *
  * @note This metric aligns with the `active` field of the
  * [K8s CronJobStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#cronjobstatus-v1-batch).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.cronjob`](../resource/k8s.md#cronjob) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_CRONJOB_ACTIVE_JOBS: "k8s.cronjob.active_jobs";
 /**
- * Number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod
+ * Number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod.
  *
  * @note This metric aligns with the `currentNumberScheduled` field of the
  * [K8s DaemonSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#daemonsetstatus-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.daemonset`](../resource/k8s.md#daemonset) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_DAEMONSET_CURRENT_SCHEDULED_NODES: "k8s.daemonset.current_scheduled_nodes";
 /**
- * Number of nodes that should be running the daemon pod (including nodes currently running the daemon pod)
+ * Number of nodes that should be running the daemon pod (including nodes currently running the daemon pod).
  *
  * @note This metric aligns with the `desiredNumberScheduled` field of the
  * [K8s DaemonSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#daemonsetstatus-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.daemonset`](../resource/k8s.md#daemonset) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_DAEMONSET_DESIRED_SCHEDULED_NODES: "k8s.daemonset.desired_scheduled_nodes";
 /**
- * Number of nodes that are running the daemon pod, but are not supposed to run the daemon pod
+ * Number of nodes that are running the daemon pod, but are not supposed to run the daemon pod.
  *
  * @note This metric aligns with the `numberMisscheduled` field of the
  * [K8s DaemonSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#daemonsetstatus-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.daemonset`](../resource/k8s.md#daemonset) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_DAEMONSET_MISSCHEDULED_NODES: "k8s.daemonset.misscheduled_nodes";
 /**
- * Number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready
+ * Number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
  *
  * @note This metric aligns with the `numberReady` field of the
  * [K8s DaemonSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#daemonsetstatus-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.daemonset`](../resource/k8s.md#daemonset) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_DAEMONSET_READY_NODES: "k8s.daemonset.ready_nodes";
 /**
- * Total number of available replica pods (ready for at least minReadySeconds) targeted by this deployment
+ * Total number of available replica pods (ready for at least minReadySeconds) targeted by this deployment.
  *
  * @note This metric aligns with the `availableReplicas` field of the
  * [K8s DeploymentStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#deploymentstatus-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.deployment`](../resource/k8s.md#deployment) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_DEPLOYMENT_AVAILABLE_PODS: "k8s.deployment.available_pods";
 /**
- * Number of desired replica pods in this deployment
+ * Number of desired replica pods in this deployment.
  *
  * @note This metric aligns with the `replicas` field of the
  * [K8s DeploymentSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#deploymentspec-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.deployment`](../resource/k8s.md#deployment) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_DEPLOYMENT_DESIRED_PODS: "k8s.deployment.desired_pods";
 /**
- * Current number of replica pods managed by this horizontal pod autoscaler, as last seen by the autoscaler
+ * Current number of replica pods managed by this horizontal pod autoscaler, as last seen by the autoscaler.
  *
  * @note This metric aligns with the `currentReplicas` field of the
  * [K8s HorizontalPodAutoscalerStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#horizontalpodautoscalerstatus-v2-autoscaling)
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.hpa`](../resource/k8s.md#horizontalpodautoscaler) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_HPA_CURRENT_PODS: "k8s.hpa.current_pods";
 /**
- * Desired number of replica pods managed by this horizontal pod autoscaler, as last calculated by the autoscaler
+ * Desired number of replica pods managed by this horizontal pod autoscaler, as last calculated by the autoscaler.
  *
  * @note This metric aligns with the `desiredReplicas` field of the
  * [K8s HorizontalPodAutoscalerStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#horizontalpodautoscalerstatus-v2-autoscaling)
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.hpa`](../resource/k8s.md#horizontalpodautoscaler) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_HPA_DESIRED_PODS: "k8s.hpa.desired_pods";
 /**
- * The upper limit for the number of replica pods to which the autoscaler can scale up
+ * The upper limit for the number of replica pods to which the autoscaler can scale up.
  *
  * @note This metric aligns with the `maxReplicas` field of the
  * [K8s HorizontalPodAutoscalerSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#horizontalpodautoscalerspec-v2-autoscaling)
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.hpa`](../resource/k8s.md#horizontalpodautoscaler) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_HPA_MAX_PODS: "k8s.hpa.max_pods";
 /**
- * The lower limit for the number of replica pods to which the autoscaler can scale down
+ * Target average utilization, in percentage, for CPU resource in HPA config.
+ *
+ * @note This metric aligns with the `averageUtilization` field of the
+ * [K8s HPA MetricTarget](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#metrictarget-v2-autoscaling).
+ * If the type of the metric is [`ContainerResource`](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-metrics-apis),
+ * the `k8s.container.name` attribute **MUST** be set to identify the specific container within the pod to which the metric applies.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_HPA_METRIC_TARGET_CPU_AVERAGE_UTILIZATION: "k8s.hpa.metric.target.cpu.average_utilization";
+/**
+ * Target average value for CPU resource in HPA config.
+ *
+ * @note This metric aligns with the `averageValue` field of the
+ * [K8s HPA MetricTarget](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#metrictarget-v2-autoscaling).
+ * If the type of the metric is [`ContainerResource`](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-metrics-apis),
+ * the `k8s.container.name` attribute **MUST** be set to identify the specific container within the pod to which the metric applies.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_HPA_METRIC_TARGET_CPU_AVERAGE_VALUE: "k8s.hpa.metric.target.cpu.average_value";
+/**
+ * Target value for CPU resource in HPA config.
+ *
+ * @note This metric aligns with the `value` field of the
+ * [K8s HPA MetricTarget](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#metrictarget-v2-autoscaling).
+ * If the type of the metric is [`ContainerResource`](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-metrics-apis),
+ * the `k8s.container.name` attribute **MUST** be set to identify the specific container within the pod to which the metric applies.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_HPA_METRIC_TARGET_CPU_VALUE: "k8s.hpa.metric.target.cpu.value";
+/**
+ * The lower limit for the number of replica pods to which the autoscaler can scale down.
  *
  * @note This metric aligns with the `minReplicas` field of the
  * [K8s HorizontalPodAutoscalerSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#horizontalpodautoscalerspec-v2-autoscaling)
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.hpa`](../resource/k8s.md#horizontalpodautoscaler) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_HPA_MIN_PODS: "k8s.hpa.min_pods";
 /**
- * The number of pending and actively running pods for a job
+ * The number of pending and actively running pods for a job.
  *
  * @note This metric aligns with the `active` field of the
  * [K8s JobStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobstatus-v1-batch).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.job`](../resource/k8s.md#job) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_JOB_ACTIVE_PODS: "k8s.job.active_pods";
 /**
- * The desired number of successfully finished pods the job should be run with
+ * The desired number of successfully finished pods the job should be run with.
  *
  * @note This metric aligns with the `completions` field of the
- * [K8s JobSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobspec-v1-batch).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.job`](../resource/k8s.md#job) resource.
+ * [K8s JobSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobspec-v1-batch)..
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_JOB_DESIRED_SUCCESSFUL_PODS: "k8s.job.desired_successful_pods";
 /**
- * The number of pods which reached phase Failed for a job
+ * The number of pods which reached phase Failed for a job.
  *
  * @note This metric aligns with the `failed` field of the
  * [K8s JobStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobstatus-v1-batch).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.job`](../resource/k8s.md#job) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_JOB_FAILED_PODS: "k8s.job.failed_pods";
 /**
- * The max desired number of pods the job should run at any given time
+ * The max desired number of pods the job should run at any given time.
  *
  * @note This metric aligns with the `parallelism` field of the
  * [K8s JobSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobspec-v1-batch).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.job`](../resource/k8s.md#job) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_JOB_MAX_PARALLEL_PODS: "k8s.job.max_parallel_pods";
 /**
- * The number of pods which reached phase Succeeded for a job
+ * The number of pods which reached phase Succeeded for a job.
  *
  * @note This metric aligns with the `succeeded` field of the
  * [K8s JobStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobstatus-v1-batch).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.job`](../resource/k8s.md#job) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -11078,14 +15926,43 @@ declare const METRIC_K8S_JOB_SUCCESSFUL_PODS: "k8s.job.successful_pods";
 /**
  * Describes number of K8s namespaces that are currently in a given phase.
  *
- * @note This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.namespace`](../resource/k8s.md#namespace) resource.
- *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_NAMESPACE_PHASE: "k8s.namespace.phase";
 /**
- * Total CPU time consumed
+ * Amount of cpu allocatable on the node.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_ALLOCATABLE_CPU: "k8s.node.allocatable.cpu";
+/**
+ * Amount of ephemeral-storage allocatable on the node.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_ALLOCATABLE_EPHEMERAL_STORAGE: "k8s.node.allocatable.ephemeral_storage";
+/**
+ * Amount of memory allocatable on the node.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_ALLOCATABLE_MEMORY: "k8s.node.allocatable.memory";
+/**
+ * Amount of pods allocatable on the node.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_ALLOCATABLE_PODS: "k8s.node.allocatable.pods";
+/**
+ * Describes the condition of a particular Node.
+ *
+ * @note All possible node condition pairs (type and status) will be reported at each time interval to avoid missing metrics. Condition pairs corresponding to the current conditions' statuses will be non-zero.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_CONDITION_STATUS: "k8s.node.condition.status";
+/**
+ * Total CPU time consumed.
  *
  * @note Total CPU time consumed by the specific Node on all available CPU cores
  *
@@ -11093,7 +15970,7 @@ declare const METRIC_K8S_NAMESPACE_PHASE: "k8s.namespace.phase";
  */
 declare const METRIC_K8S_NODE_CPU_TIME: "k8s.node.cpu.time";
 /**
- * Node's CPU usage, measured in cpus. Range from 0 to the number of allocatable CPUs
+ * Node's CPU usage, measured in cpus. Range from 0 to the number of allocatable CPUs.
  *
  * @note CPU usage of the specific Node on all available CPU cores, averaged over the sample window
  *
@@ -11101,7 +15978,42 @@ declare const METRIC_K8S_NODE_CPU_TIME: "k8s.node.cpu.time";
  */
 declare const METRIC_K8S_NODE_CPU_USAGE: "k8s.node.cpu.usage";
 /**
- * Memory usage of the Node
+ * Node filesystem available bytes.
+ *
+ * @note This metric is derived from the
+ * [FsStats.AvailableBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#FsStats) field
+ * of the [NodeStats.Fs](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#NodeStats)
+ * of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_FILESYSTEM_AVAILABLE: "k8s.node.filesystem.available";
+/**
+ * Node filesystem capacity.
+ *
+ * @note This metric is derived from the
+ * [FsStats.CapacityBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#FsStats) field
+ * of the [NodeStats.Fs](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#NodeStats)
+ * of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_FILESYSTEM_CAPACITY: "k8s.node.filesystem.capacity";
+/**
+ * Node filesystem usage.
+ *
+ * @note This may not equal capacity - available.
+ *
+ * This metric is derived from the
+ * [FsStats.UsedBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#FsStats) field
+ * of the [NodeStats.Fs](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#NodeStats)
+ * of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_FILESYSTEM_USAGE: "k8s.node.filesystem.usage";
+/**
+ * Memory usage of the Node.
  *
  * @note Total memory usage of the Node
  *
@@ -11109,19 +16021,19 @@ declare const METRIC_K8S_NODE_CPU_USAGE: "k8s.node.cpu.usage";
  */
 declare const METRIC_K8S_NODE_MEMORY_USAGE: "k8s.node.memory.usage";
 /**
- * Node network errors
+ * Node network errors.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_NODE_NETWORK_ERRORS: "k8s.node.network.errors";
 /**
- * Network bytes for the Node
+ * Network bytes for the Node.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_NODE_NETWORK_IO: "k8s.node.network.io";
 /**
- * The time the Node has been running
+ * The time the Node has been running.
  *
  * @note Instrumentations **SHOULD** use a gauge with type `double` and measure uptime in seconds as a floating point number with the highest precision available.
  * The actual accuracy would depend on the instrumentation and operating system.
@@ -11130,7 +16042,7 @@ declare const METRIC_K8S_NODE_NETWORK_IO: "k8s.node.network.io";
  */
 declare const METRIC_K8S_NODE_UPTIME: "k8s.node.uptime";
 /**
- * Total CPU time consumed
+ * Total CPU time consumed.
  *
  * @note Total CPU time consumed by the specific Pod on all available CPU cores
  *
@@ -11138,7 +16050,7 @@ declare const METRIC_K8S_NODE_UPTIME: "k8s.node.uptime";
  */
 declare const METRIC_K8S_POD_CPU_TIME: "k8s.pod.cpu.time";
 /**
- * Pod's CPU usage, measured in cpus. Range from 0 to the number of allocatable CPUs
+ * Pod's CPU usage, measured in cpus. Range from 0 to the number of allocatable CPUs.
  *
  * @note CPU usage of the specific Pod on all available CPU cores, averaged over the sample window
  *
@@ -11146,7 +16058,42 @@ declare const METRIC_K8S_POD_CPU_TIME: "k8s.pod.cpu.time";
  */
 declare const METRIC_K8S_POD_CPU_USAGE: "k8s.pod.cpu.usage";
 /**
- * Memory usage of the Pod
+ * Pod filesystem available bytes.
+ *
+ * @note This metric is derived from the
+ * [FsStats.AvailableBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#FsStats) field
+ * of the [PodStats.EphemeralStorage](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#PodStats)
+ * of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_FILESYSTEM_AVAILABLE: "k8s.pod.filesystem.available";
+/**
+ * Pod filesystem capacity.
+ *
+ * @note This metric is derived from the
+ * [FsStats.CapacityBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#FsStats) field
+ * of the [PodStats.EphemeralStorage](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#PodStats)
+ * of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_FILESYSTEM_CAPACITY: "k8s.pod.filesystem.capacity";
+/**
+ * Pod filesystem usage.
+ *
+ * @note This may not equal capacity - available.
+ *
+ * This metric is derived from the
+ * [FsStats.UsedBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#FsStats) field
+ * of the [PodStats.EphemeralStorage](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#PodStats)
+ * of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_FILESYSTEM_USAGE: "k8s.pod.filesystem.usage";
+/**
+ * Memory usage of the Pod.
  *
  * @note Total memory usage of the Pod
  *
@@ -11154,19 +16101,19 @@ declare const METRIC_K8S_POD_CPU_USAGE: "k8s.pod.cpu.usage";
  */
 declare const METRIC_K8S_POD_MEMORY_USAGE: "k8s.pod.memory.usage";
 /**
- * Pod network errors
+ * Pod network errors.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_POD_NETWORK_ERRORS: "k8s.pod.network.errors";
 /**
- * Network bytes for the Pod
+ * Network bytes for the Pod.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_POD_NETWORK_IO: "k8s.pod.network.io";
 /**
- * The time the Pod has been running
+ * The time the Pod has been running.
  *
  * @note Instrumentations **SHOULD** use a gauge with type `double` and measure uptime in seconds as a floating point number with the highest precision available.
  * The actual accuracy would depend on the instrumentation and operating system.
@@ -11175,25 +16122,89 @@ declare const METRIC_K8S_POD_NETWORK_IO: "k8s.pod.network.io";
  */
 declare const METRIC_K8S_POD_UPTIME: "k8s.pod.uptime";
 /**
- * Total number of available replica pods (ready for at least minReadySeconds) targeted by this replicaset
+ * Pod volume storage space available.
+ *
+ * @note This metric is derived from the
+ * [VolumeStats.AvailableBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#VolumeStats) field
+ * of the [PodStats](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#PodStats) of the
+ * Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_VOLUME_AVAILABLE: "k8s.pod.volume.available";
+/**
+ * Pod volume total capacity.
+ *
+ * @note This metric is derived from the
+ * [VolumeStats.CapacityBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#VolumeStats) field
+ * of the [PodStats](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#PodStats) of the
+ * Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_VOLUME_CAPACITY: "k8s.pod.volume.capacity";
+/**
+ * The total inodes in the filesystem of the Pod's volume.
+ *
+ * @note This metric is derived from the
+ * [VolumeStats.Inodes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#VolumeStats) field
+ * of the [PodStats](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#PodStats) of the
+ * Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_VOLUME_INODE_COUNT: "k8s.pod.volume.inode.count";
+/**
+ * The free inodes in the filesystem of the Pod's volume.
+ *
+ * @note This metric is derived from the
+ * [VolumeStats.InodesFree](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#VolumeStats) field
+ * of the [PodStats](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#PodStats) of the
+ * Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_VOLUME_INODE_FREE: "k8s.pod.volume.inode.free";
+/**
+ * The inodes used by the filesystem of the Pod's volume.
+ *
+ * @note This metric is derived from the
+ * [VolumeStats.InodesUsed](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#VolumeStats) field
+ * of the [PodStats](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#PodStats) of the
+ * Kubelet's stats API.
+ *
+ * This may not be equal to `inodes - free` because filesystem may share inodes with other filesystems.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_VOLUME_INODE_USED: "k8s.pod.volume.inode.used";
+/**
+ * Pod volume usage.
+ *
+ * @note This may not equal capacity - available.
+ *
+ * This metric is derived from the
+ * [VolumeStats.UsedBytes](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#VolumeStats) field
+ * of the [PodStats](https://pkg.go.dev/k8s.io/kubelet@v0.33.0/pkg/apis/stats/v1alpha1#PodStats) of the
+ * Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_VOLUME_USAGE: "k8s.pod.volume.usage";
+/**
+ * Total number of available replica pods (ready for at least minReadySeconds) targeted by this replicaset.
  *
  * @note This metric aligns with the `availableReplicas` field of the
  * [K8s ReplicaSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#replicasetstatus-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.replicaset`](../resource/k8s.md#replicaset) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_REPLICASET_AVAILABLE_PODS: "k8s.replicaset.available_pods";
 /**
- * Number of desired replica pods in this replicaset
+ * Number of desired replica pods in this replicaset.
  *
  * @note This metric aligns with the `replicas` field of the
  * [K8s ReplicaSetSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#replicasetspec-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.replicaset`](../resource/k8s.md#replicaset) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -11215,73 +16226,267 @@ declare const METRIC_K8S_REPLICATION_CONTROLLER_AVAILABLE_PODS: "k8s.replication
  */
 declare const METRIC_K8S_REPLICATION_CONTROLLER_DESIRED_PODS: "k8s.replication_controller.desired_pods";
 /**
- * Total number of available replica pods (ready for at least minReadySeconds) targeted by this replication controller
+ * Total number of available replica pods (ready for at least minReadySeconds) targeted by this replication controller.
  *
  * @note This metric aligns with the `availableReplicas` field of the
  * [K8s ReplicationControllerStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#replicationcontrollerstatus-v1-core)
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.replicationcontroller`](../resource/k8s.md#replicationcontroller) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_REPLICATIONCONTROLLER_AVAILABLE_PODS: "k8s.replicationcontroller.available_pods";
 /**
- * Number of desired replica pods in this replication controller
+ * Number of desired replica pods in this replication controller.
  *
  * @note This metric aligns with the `replicas` field of the
  * [K8s ReplicationControllerSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#replicationcontrollerspec-v1-core)
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.replicationcontroller`](../resource/k8s.md#replicationcontroller) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_REPLICATIONCONTROLLER_DESIRED_PODS: "k8s.replicationcontroller.desired_pods";
 /**
- * The number of replica pods created by the statefulset controller from the statefulset version indicated by currentRevision
+ * The CPU limits in a specific namespace.
+ * The value represents the configured quota limit of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_CPU_LIMIT_HARD: "k8s.resourcequota.cpu.limit.hard";
+/**
+ * The CPU limits in a specific namespace.
+ * The value represents the current observed total usage of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_CPU_LIMIT_USED: "k8s.resourcequota.cpu.limit.used";
+/**
+ * The CPU requests in a specific namespace.
+ * The value represents the configured quota limit of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_CPU_REQUEST_HARD: "k8s.resourcequota.cpu.request.hard";
+/**
+ * The CPU requests in a specific namespace.
+ * The value represents the current observed total usage of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_CPU_REQUEST_USED: "k8s.resourcequota.cpu.request.used";
+/**
+ * The sum of local ephemeral storage limits in the namespace.
+ * The value represents the configured quota limit of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_LIMIT_HARD: "k8s.resourcequota.ephemeral_storage.limit.hard";
+/**
+ * The sum of local ephemeral storage limits in the namespace.
+ * The value represents the current observed total usage of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_LIMIT_USED: "k8s.resourcequota.ephemeral_storage.limit.used";
+/**
+ * The sum of local ephemeral storage requests in the namespace.
+ * The value represents the configured quota limit of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_REQUEST_HARD: "k8s.resourcequota.ephemeral_storage.request.hard";
+/**
+ * The sum of local ephemeral storage requests in the namespace.
+ * The value represents the current observed total usage of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_REQUEST_USED: "k8s.resourcequota.ephemeral_storage.request.used";
+/**
+ * The huge page requests in a specific namespace.
+ * The value represents the configured quota limit of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_HUGEPAGE_COUNT_REQUEST_HARD: "k8s.resourcequota.hugepage_count.request.hard";
+/**
+ * The huge page requests in a specific namespace.
+ * The value represents the current observed total usage of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_HUGEPAGE_COUNT_REQUEST_USED: "k8s.resourcequota.hugepage_count.request.used";
+/**
+ * The memory limits in a specific namespace.
+ * The value represents the configured quota limit of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_MEMORY_LIMIT_HARD: "k8s.resourcequota.memory.limit.hard";
+/**
+ * The memory limits in a specific namespace.
+ * The value represents the current observed total usage of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_MEMORY_LIMIT_USED: "k8s.resourcequota.memory.limit.used";
+/**
+ * The memory requests in a specific namespace.
+ * The value represents the configured quota limit of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_MEMORY_REQUEST_HARD: "k8s.resourcequota.memory.request.hard";
+/**
+ * The memory requests in a specific namespace.
+ * The value represents the current observed total usage of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_MEMORY_REQUEST_USED: "k8s.resourcequota.memory.request.used";
+/**
+ * The object count limits in a specific namespace.
+ * The value represents the configured quota limit of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_OBJECT_COUNT_HARD: "k8s.resourcequota.object_count.hard";
+/**
+ * The object count limits in a specific namespace.
+ * The value represents the current observed total usage of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_OBJECT_COUNT_USED: "k8s.resourcequota.object_count.used";
+/**
+ * The total number of PersistentVolumeClaims that can exist in the namespace.
+ * The value represents the configured quota limit of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * The `k8s.storageclass.name` should be required when a resource quota is defined for a specific
+ * storage class.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_PERSISTENTVOLUMECLAIM_COUNT_HARD: "k8s.resourcequota.persistentvolumeclaim_count.hard";
+/**
+ * The total number of PersistentVolumeClaims that can exist in the namespace.
+ * The value represents the current observed total usage of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * The `k8s.storageclass.name` should be required when a resource quota is defined for a specific
+ * storage class.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_PERSISTENTVOLUMECLAIM_COUNT_USED: "k8s.resourcequota.persistentvolumeclaim_count.used";
+/**
+ * The storage requests in a specific namespace.
+ * The value represents the configured quota limit of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * The `k8s.storageclass.name` should be required when a resource quota is defined for a specific
+ * storage class.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_STORAGE_REQUEST_HARD: "k8s.resourcequota.storage.request.hard";
+/**
+ * The storage requests in a specific namespace.
+ * The value represents the current observed total usage of the resource in the namespace.
+ *
+ * @note This metric is retrieved from the `used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core).
+ *
+ * The `k8s.storageclass.name` should be required when a resource quota is defined for a specific
+ * storage class.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_RESOURCEQUOTA_STORAGE_REQUEST_USED: "k8s.resourcequota.storage.request.used";
+/**
+ * The number of replica pods created by the statefulset controller from the statefulset version indicated by currentRevision.
  *
  * @note This metric aligns with the `currentReplicas` field of the
  * [K8s StatefulSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#statefulsetstatus-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.statefulset`](../resource/k8s.md#statefulset) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_STATEFULSET_CURRENT_PODS: "k8s.statefulset.current_pods";
 /**
- * Number of desired replica pods in this statefulset
+ * Number of desired replica pods in this statefulset.
  *
  * @note This metric aligns with the `replicas` field of the
  * [K8s StatefulSetSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#statefulsetspec-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.statefulset`](../resource/k8s.md#statefulset) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_STATEFULSET_DESIRED_PODS: "k8s.statefulset.desired_pods";
 /**
- * The number of replica pods created for this statefulset with a Ready Condition
+ * The number of replica pods created for this statefulset with a Ready Condition.
  *
  * @note This metric aligns with the `readyReplicas` field of the
  * [K8s StatefulSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#statefulsetstatus-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.statefulset`](../resource/k8s.md#statefulset) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_STATEFULSET_READY_PODS: "k8s.statefulset.ready_pods";
 /**
- * Number of replica pods created by the statefulset controller from the statefulset version indicated by updateRevision
+ * Number of replica pods created by the statefulset controller from the statefulset version indicated by updateRevision.
  *
  * @note This metric aligns with the `updatedReplicas` field of the
  * [K8s StatefulSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#statefulsetstatus-v1-apps).
- *
- * This metric **SHOULD**, at a minimum, be reported against a
- * [`k8s.statefulset`](../resource/k8s.md#statefulset) resource.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -11440,7 +16645,7 @@ declare const METRIC_NODEJS_EVENTLOOP_TIME: "nodejs.eventloop.time";
  */
 declare const METRIC_NODEJS_EVENTLOOP_UTILIZATION: "nodejs.eventloop.utilization";
 /**
- * The number of log records for which the export has finished, either successful or failed
+ * The number of log records for which the export has finished, either successful or failed.
  *
  * @note For successful exports, `error.type` **MUST NOT** be set. For failed exports, `error.type` **MUST** contain the failure cause.
  * For exporters with partial success semantics (e.g. OTLP with `rejected_log_records`), rejected log records **MUST** count as failed and only non-rejected log records count as success.
@@ -11450,7 +16655,7 @@ declare const METRIC_NODEJS_EVENTLOOP_UTILIZATION: "nodejs.eventloop.utilization
  */
 declare const METRIC_OTEL_SDK_EXPORTER_LOG_EXPORTED: "otel.sdk.exporter.log.exported";
 /**
- * The number of log records which were passed to the exporter, but that have not been exported yet (neither successful, nor failed)
+ * The number of log records which were passed to the exporter, but that have not been exported yet (neither successful, nor failed).
  *
  * @note For successful exports, `error.type` **MUST NOT** be set. For failed exports, `error.type` **MUST** contain the failure cause.
  *
@@ -11458,7 +16663,7 @@ declare const METRIC_OTEL_SDK_EXPORTER_LOG_EXPORTED: "otel.sdk.exporter.log.expo
  */
 declare const METRIC_OTEL_SDK_EXPORTER_LOG_INFLIGHT: "otel.sdk.exporter.log.inflight";
 /**
- * The number of metric data points for which the export has finished, either successful or failed
+ * The number of metric data points for which the export has finished, either successful or failed.
  *
  * @note For successful exports, `error.type` **MUST NOT** be set. For failed exports, `error.type` **MUST** contain the failure cause.
  * For exporters with partial success semantics (e.g. OTLP with `rejected_data_points`), rejected data points **MUST** count as failed and only non-rejected data points count as success.
@@ -11468,7 +16673,7 @@ declare const METRIC_OTEL_SDK_EXPORTER_LOG_INFLIGHT: "otel.sdk.exporter.log.infl
  */
 declare const METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_EXPORTED: "otel.sdk.exporter.metric_data_point.exported";
 /**
- * The number of metric data points which were passed to the exporter, but that have not been exported yet (neither successful, nor failed)
+ * The number of metric data points which were passed to the exporter, but that have not been exported yet (neither successful, nor failed).
  *
  * @note For successful exports, `error.type` **MUST NOT** be set. For failed exports, `error.type` **MUST** contain the failure cause.
  *
@@ -11486,7 +16691,7 @@ declare const METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_INFLIGHT: "otel.sdk.exp
  */
 declare const METRIC_OTEL_SDK_EXPORTER_OPERATION_DURATION: "otel.sdk.exporter.operation.duration";
 /**
- * The number of spans for which the export has finished, either successful or failed
+ * The number of spans for which the export has finished, either successful or failed.
  *
  * @note For successful exports, `error.type` **MUST NOT** be set. For failed exports, `error.type` **MUST** contain the failure cause.
  * For exporters with partial success semantics (e.g. OTLP with `rejected_spans`), rejected spans **MUST** count as failed and only non-rejected spans count as success.
@@ -11504,7 +16709,7 @@ declare const METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED: "otel.sdk.exporter.span.ex
  */
 declare const METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED_COUNT: "otel.sdk.exporter.span.exported.count";
 /**
- * The number of spans which were passed to the exporter, but that have not been exported yet (neither successful, nor failed)
+ * The number of spans which were passed to the exporter, but that have not been exported yet (neither successful, nor failed).
  *
  * @note For successful exports, `error.type` **MUST NOT** be set. For failed exports, `error.type` **MUST** contain the failure cause.
  *
@@ -11520,7 +16725,7 @@ declare const METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT: "otel.sdk.exporter.span.in
  */
 declare const METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT_COUNT: "otel.sdk.exporter.span.inflight.count";
 /**
- * The number of logs submitted to enabled SDK Loggers
+ * The number of logs submitted to enabled SDK Loggers.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -11535,7 +16740,7 @@ declare const METRIC_OTEL_SDK_LOG_CREATED: "otel.sdk.log.created";
  */
 declare const METRIC_OTEL_SDK_METRIC_READER_COLLECTION_DURATION: "otel.sdk.metric_reader.collection.duration";
 /**
- * The number of log records for which the processing has finished, either successful or failed
+ * The number of log records for which the processing has finished, either successful or failed.
  *
  * @note For successful processing, `error.type` **MUST NOT** be set. For failed processing, `error.type` **MUST** contain the failure cause.
  * For the SDK Simple and Batching Log Record Processor a log record is considered to be processed already when it has been submitted to the exporter,
@@ -11545,7 +16750,7 @@ declare const METRIC_OTEL_SDK_METRIC_READER_COLLECTION_DURATION: "otel.sdk.metri
  */
 declare const METRIC_OTEL_SDK_PROCESSOR_LOG_PROCESSED: "otel.sdk.processor.log.processed";
 /**
- * The maximum number of log records the queue of a given instance of an SDK Log Record processor can hold
+ * The maximum number of log records the queue of a given instance of an SDK Log Record processor can hold.
  *
  * @note Only applies to Log Record processors which use a queue, e.g. the SDK Batching Log Record Processor.
  *
@@ -11553,7 +16758,7 @@ declare const METRIC_OTEL_SDK_PROCESSOR_LOG_PROCESSED: "otel.sdk.processor.log.p
  */
 declare const METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_CAPACITY: "otel.sdk.processor.log.queue.capacity";
 /**
- * The number of log records in the queue of a given instance of an SDK log processor
+ * The number of log records in the queue of a given instance of an SDK log processor.
  *
  * @note Only applies to log record processors which use a queue, e.g. the SDK Batching Log Record Processor.
  *
@@ -11561,7 +16766,7 @@ declare const METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_CAPACITY: "otel.sdk.processor.
  */
 declare const METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_SIZE: "otel.sdk.processor.log.queue.size";
 /**
- * The number of spans for which the processing has finished, either successful or failed
+ * The number of spans for which the processing has finished, either successful or failed.
  *
  * @note For successful processing, `error.type` **MUST NOT** be set. For failed processing, `error.type` **MUST** contain the failure cause.
  * For the SDK Simple and Batching Span Processor a span is considered to be processed already when it has been submitted to the exporter, not when the corresponding export call has finished.
@@ -11578,7 +16783,7 @@ declare const METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED: "otel.sdk.processor.span
  */
 declare const METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED_COUNT: "otel.sdk.processor.span.processed.count";
 /**
- * The maximum number of spans the queue of a given instance of an SDK span processor can hold
+ * The maximum number of spans the queue of a given instance of an SDK span processor can hold.
  *
  * @note Only applies to span processors which use a queue, e.g. the SDK Batching Span Processor.
  *
@@ -11586,7 +16791,7 @@ declare const METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED_COUNT: "otel.sdk.processo
  */
 declare const METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_CAPACITY: "otel.sdk.processor.span.queue.capacity";
 /**
- * The number of spans in the queue of a given instance of an SDK span processor
+ * The number of spans in the queue of a given instance of an SDK span processor.
  *
  * @note Only applies to span processors which use a queue, e.g. the SDK Batching Span Processor.
  *
@@ -11594,27 +16799,23 @@ declare const METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_CAPACITY: "otel.sdk.processor
  */
 declare const METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_SIZE: "otel.sdk.processor.span.queue.size";
 /**
- * The number of created spans for which the end operation was called
- *
- * @note For spans with `recording=true`: Implementations **MUST** record both `otel.sdk.span.live` and `otel.sdk.span.ended`.
- * For spans with `recording=false`: If implementations decide to record this metric, they **MUST** also record `otel.sdk.span.live`.
+ * Use `otel.sdk.span.started` minus `otel.sdk.span.live` to derive this value.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Obsoleted.
  */
 declare const METRIC_OTEL_SDK_SPAN_ENDED: "otel.sdk.span.ended";
 /**
- * Deprecated, use `otel.sdk.span.ended` instead.
+ * Use `otel.sdk.span.started` minus `otel.sdk.span.live` to derive this value.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `otel.sdk.span.ended`.
+ * @deprecated Obsoleted.
  */
 declare const METRIC_OTEL_SDK_SPAN_ENDED_COUNT: "otel.sdk.span.ended.count";
 /**
- * The number of created spans for which the end operation has not been called yet
- *
- * @note For spans with `recording=true`: Implementations **MUST** record both `otel.sdk.span.live` and `otel.sdk.span.ended`.
- * For spans with `recording=false`: If implementations decide to record this metric, they **MUST** also record `otel.sdk.span.ended`.
+ * The number of created spans with `recording=true` for which the end operation has not been called yet.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -11627,6 +16828,14 @@ declare const METRIC_OTEL_SDK_SPAN_LIVE: "otel.sdk.span.live";
  * @deprecated Replaced by `otel.sdk.span.live`.
  */
 declare const METRIC_OTEL_SDK_SPAN_LIVE_COUNT: "otel.sdk.span.live.count";
+/**
+ * The number of created spans.
+ *
+ * @note Implementations **MUST** record this metric for all spans, even for non-recording ones.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OTEL_SDK_SPAN_STARTED: "otel.sdk.span.started";
 /**
  * Number of times the process has been context switched.
  *
@@ -11791,49 +17000,45 @@ declare const METRIC_RPC_SERVER_RESPONSE_SIZE: "rpc.server.response.size";
  */
 declare const METRIC_RPC_SERVER_RESPONSES_PER_RPC: "rpc.server.responses_per_rpc";
 /**
- * Deprecated. Use `cpu.frequency` instead.
+ * Operating frequency of the logical CPU in Hertz.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
- *
- * @deprecated Replaced by `cpu.frequency`.
  */
 declare const METRIC_SYSTEM_CPU_FREQUENCY: "system.cpu.frequency";
 /**
- * Reports the number of logical (virtual) processor cores created by the operating system to manage multitasking
+ * Reports the number of logical (virtual) processor cores created by the operating system to manage multitasking.
  *
  * @note Calculated by multiplying the number of sockets by the number of cores per socket, and then by the number of threads per core
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_CPU_LOGICAL_COUNT: "system.cpu.logical.count";
 /**
- * Reports the number of actual physical processor cores on the hardware
+ * Reports the number of actual physical processor cores on the hardware.
  *
  * @note Calculated by multiplying the number of sockets by the number of cores per socket
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_CPU_PHYSICAL_COUNT: "system.cpu.physical.count";
 /**
- * Deprecated. Use `cpu.time` instead.
+ * Seconds each logical CPU spent on each mode.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
- *
- * @deprecated Replaced by `cpu.time`.
  */
 declare const METRIC_SYSTEM_CPU_TIME: "system.cpu.time";
 /**
- * Deprecated. Use `cpu.utilization` instead.
+ * For each logical CPU, the utilization is calculated as the change in cumulative CPU time (cpu.time) over a measurement interval, divided by the elapsed time.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
- *
- * @deprecated Replaced by `cpu.utilization`.
  */
 declare const METRIC_SYSTEM_CPU_UTILIZATION: "system.cpu.utilization";
 /**
+ * TODO.
+ *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_DISK_IO: "system.disk.io";
 /**
- * Time disk spent activated
+ * Time disk spent activated.
  *
  * @note The real elapsed time ("wall clock") used in the I/O path (time from operations running in parallel are not counted). Measured as:
  *
@@ -11846,17 +17051,19 @@ declare const METRIC_SYSTEM_DISK_IO: "system.disk.io";
  */
 declare const METRIC_SYSTEM_DISK_IO_TIME: "system.disk.io_time";
 /**
- * The total storage capacity of the disk
+ * The total storage capacity of the disk.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_DISK_LIMIT: "system.disk.limit";
 /**
+ * TODO.
+ *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_DISK_MERGED: "system.disk.merged";
 /**
- * Sum of the time each operation took to complete
+ * Sum of the time each operation took to complete.
  *
  * @note Because it is the sum of time each request took, parallel-issued requests each contribute to make the count grow. Measured as:
  *
@@ -11867,11 +17074,13 @@ declare const METRIC_SYSTEM_DISK_MERGED: "system.disk.merged";
  */
 declare const METRIC_SYSTEM_DISK_OPERATION_TIME: "system.disk.operation_time";
 /**
+ * TODO.
+ *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_DISK_OPERATIONS: "system.disk.operations";
 /**
- * The total storage capacity of the filesystem
+ * The total storage capacity of the filesystem.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -11886,11 +17095,13 @@ declare const METRIC_SYSTEM_FILESYSTEM_LIMIT: "system.filesystem.limit";
  */
 declare const METRIC_SYSTEM_FILESYSTEM_USAGE: "system.filesystem.usage";
 /**
+ * TODO.
+ *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_FILESYSTEM_UTILIZATION: "system.filesystem.utilization";
 /**
- * An estimate of how much memory is available for starting new applications, without causing swapping
+ * An estimate of how much memory is available for starting new applications, without causing swapping.
  *
  * @note This is an alternative to `system.memory.usage` metric with `state=free`.
  * Linux starting from 3.14 exports "available" memory. It takes "free" memory as a baseline, and then factors in kernel-specific values.
@@ -11912,9 +17123,7 @@ declare const METRIC_SYSTEM_LINUX_MEMORY_AVAILABLE: "system.linux.memory.availab
  */
 declare const METRIC_SYSTEM_LINUX_MEMORY_SLAB_USAGE: "system.linux.memory.slab.usage";
 /**
- * Total memory available in the system.
- *
- * @note Its value **SHOULD** equal the sum of `system.memory.state` over all states.
+ * Total virtual memory available in the system.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -11931,38 +17140,35 @@ declare const METRIC_SYSTEM_MEMORY_SHARED: "system.memory.shared";
 /**
  * Reports memory in use by state.
  *
- * @note The sum over all `system.memory.state` values **SHOULD** equal the total memory
- * available on the system, that is `system.memory.limit`.
- *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_MEMORY_USAGE: "system.memory.usage";
 /**
+ * TODO.
+ *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_MEMORY_UTILIZATION: "system.memory.utilization";
 /**
+ * TODO.
+ *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_SYSTEM_NETWORK_CONNECTION_COUNT: "system.network.connection.count";
+/**
+ * Deprecated, use `system.network.connection.count` instead.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `system.network.connection.count`.
  */
 declare const METRIC_SYSTEM_NETWORK_CONNECTIONS: "system.network.connections";
 /**
- * Count of packets that are dropped or discarded even though there was no error
+ * Count of network errors detected.
  *
  * @note Measured as:
  *
- *   - Linux: the `drop` column in `/proc/dev/net` ([source](https://web.archive.org/web/20180321091318/http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html))
- *   - Windows: [`InDiscards`/`OutDiscards`](https://docs.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_if_row2)
- *     from [`GetIfEntry2`](https://docs.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getifentry2)
- *
- * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
- */
-declare const METRIC_SYSTEM_NETWORK_DROPPED: "system.network.dropped";
-/**
- * Count of network errors detected
- *
- * @note Measured as:
- *
- *   - Linux: the `errs` column in `/proc/dev/net` ([source](https://web.archive.org/web/20180321091318/http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html)).
+ *   - Linux: the `errs` column in `/proc/net/dev` ([source](https://web.archive.org/web/20180321091318/http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html)).
  *   - Windows: [`InErrors`/`OutErrors`](https://docs.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_if_row2)
  *     from [`GetIfEntry2`](https://docs.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getifentry2).
  *
@@ -11970,45 +17176,67 @@ declare const METRIC_SYSTEM_NETWORK_DROPPED: "system.network.dropped";
  */
 declare const METRIC_SYSTEM_NETWORK_ERRORS: "system.network.errors";
 /**
+ * TODO.
+ *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_NETWORK_IO: "system.network.io";
 /**
+ * TODO.
+ *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_SYSTEM_NETWORK_PACKETS: "system.network.packets";
+declare const METRIC_SYSTEM_NETWORK_PACKET_COUNT: "system.network.packet.count";
 /**
+ * Count of packets that are dropped or discarded even though there was no error.
+ *
+ * @note Measured as:
+ *
+ *   - Linux: the `drop` column in `/proc/net/dev` ([source](https://web.archive.org/web/20180321091318/http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html))
+ *   - Windows: [`InDiscards`/`OutDiscards`](https://docs.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_if_row2)
+ *     from [`GetIfEntry2`](https://docs.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getifentry2)
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_SYSTEM_NETWORK_PACKET_DROPPED: "system.network.packet.dropped";
+/**
+ * TODO.
+ *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_PAGING_FAULTS: "system.paging.faults";
 /**
+ * TODO.
+ *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_PAGING_OPERATIONS: "system.paging.operations";
 /**
- * Unix swap or windows pagefile usage
+ * Unix swap or windows pagefile usage.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_PAGING_USAGE: "system.paging.usage";
 /**
+ * TODO.
+ *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_PAGING_UTILIZATION: "system.paging.utilization";
 /**
- * Total number of processes in each state
+ * Total number of processes in each state.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_PROCESS_COUNT: "system.process.count";
 /**
- * Total number of processes created over uptime of the host
+ * Total number of processes created over uptime of the host.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_PROCESS_CREATED: "system.process.created";
 /**
- * The time the system has been running
+ * The time the system has been running.
  *
  * @note Instrumentations **SHOULD** use a gauge with type `double` and measure uptime in seconds as a floating point number with the highest precision available.
  * The actual accuracy would depend on the instrumentation and operating system.
@@ -12057,7 +17285,7 @@ declare const METRIC_V8JS_MEMORY_HEAP_LIMIT: "v8js.memory.heap.limit";
  */
 declare const METRIC_V8JS_MEMORY_HEAP_USED: "v8js.memory.heap.used";
 /**
- * The number of changes (pull requests/merge requests/changelists) in a repository, categorized by their state (e.g. open or merged)
+ * The number of changes (pull requests/merge requests/changelists) in a repository, categorized by their state (e.g. open or merged).
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -12081,7 +17309,7 @@ declare const METRIC_VCS_CHANGE_TIME_TO_APPROVAL: "vcs.change.time_to_approval";
  */
 declare const METRIC_VCS_CHANGE_TIME_TO_MERGE: "vcs.change.time_to_merge";
 /**
- * The number of unique contributors to a repository
+ * The number of unique contributors to a repository.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -12103,7 +17331,7 @@ declare const METRIC_VCS_REF_COUNT: "vcs.ref.count";
  */
 declare const METRIC_VCS_REF_LINES_DELTA: "vcs.ref.lines_delta";
 /**
- * The number of revisions (commits) a ref (branch) is ahead/behind the branch from the `vcs.ref.base.name` attribute
+ * The number of revisions (commits) a ref (branch) is ahead/behind the branch from the `vcs.ref.base.name` attribute.
  *
  * @note This metric should be reported for each `vcs.revision_delta.direction` value. For example if branch `a` is 3 commits behind and 2 commits ahead of `trunk`,
  * instrumentation **SHOULD** report two measurements: 3 and 2 (both positive numbers) and `vcs.ref.base.name` is set to `trunk`.
@@ -12112,7 +17340,7 @@ declare const METRIC_VCS_REF_LINES_DELTA: "vcs.ref.lines_delta";
  */
 declare const METRIC_VCS_REF_REVISIONS_DELTA: "vcs.ref.revisions_delta";
 /**
- * Time a ref (branch) created from the default branch (trunk) has existed. The `ref.type` attribute will always be `branch`
+ * Time a ref (branch) created from the default branch (trunk) has existed. The `ref.type` attribute will always be `branch`.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -12124,4 +17352,140 @@ declare const METRIC_VCS_REF_TIME: "vcs.ref.time";
  */
 declare const METRIC_VCS_REPOSITORY_COUNT: "vcs.repository.count";
 
-export { ANDROID_APP_STATE_VALUE_BACKGROUND, ANDROID_APP_STATE_VALUE_CREATED, ANDROID_APP_STATE_VALUE_FOREGROUND, ANDROID_STATE_VALUE_BACKGROUND, ANDROID_STATE_VALUE_CREATED, ANDROID_STATE_VALUE_FOREGROUND, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_ABORTED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_HANDLED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_SKIPPED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_UNHANDLED, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ACQUIRED, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ENDPOINT_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_GLOBAL_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_REQUEST_CANCELED, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_FAILURE, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_SUCCESS, ATTR_ANDROID_APP_STATE, ATTR_ANDROID_OS_API_LEVEL, ATTR_ANDROID_STATE, ATTR_APP_INSTALLATION_ID, ATTR_APP_SCREEN_COORDINATE_X, ATTR_APP_SCREEN_COORDINATE_Y, ATTR_APP_WIDGET_ID, ATTR_APP_WIDGET_NAME, ATTR_ARTIFACT_ATTESTATION_FILENAME, ATTR_ARTIFACT_ATTESTATION_HASH, ATTR_ARTIFACT_ATTESTATION_ID, ATTR_ARTIFACT_FILENAME, ATTR_ARTIFACT_HASH, ATTR_ARTIFACT_PURL, ATTR_ARTIFACT_VERSION, ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT, ATTR_ASPNETCORE_DIAGNOSTICS_HANDLER_TYPE, ATTR_ASPNETCORE_RATE_LIMITING_POLICY, ATTR_ASPNETCORE_RATE_LIMITING_RESULT, ATTR_ASPNETCORE_REQUEST_IS_UNHANDLED, ATTR_ASPNETCORE_ROUTING_IS_FALLBACK, ATTR_ASPNETCORE_ROUTING_MATCH_STATUS, ATTR_AWS_BEDROCK_GUARDRAIL_ID, ATTR_AWS_BEDROCK_KNOWLEDGE_BASE_ID, ATTR_AWS_DYNAMODB_ATTRIBUTES_TO_GET, ATTR_AWS_DYNAMODB_ATTRIBUTE_DEFINITIONS, ATTR_AWS_DYNAMODB_CONSISTENT_READ, ATTR_AWS_DYNAMODB_CONSUMED_CAPACITY, ATTR_AWS_DYNAMODB_COUNT, ATTR_AWS_DYNAMODB_EXCLUSIVE_START_TABLE, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEX_UPDATES, ATTR_AWS_DYNAMODB_INDEX_NAME, ATTR_AWS_DYNAMODB_ITEM_COLLECTION_METRICS, ATTR_AWS_DYNAMODB_LIMIT, ATTR_AWS_DYNAMODB_LOCAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_PROJECTION, ATTR_AWS_DYNAMODB_PROVISIONED_READ_CAPACITY, ATTR_AWS_DYNAMODB_PROVISIONED_WRITE_CAPACITY, ATTR_AWS_DYNAMODB_SCANNED_COUNT, ATTR_AWS_DYNAMODB_SCAN_FORWARD, ATTR_AWS_DYNAMODB_SEGMENT, ATTR_AWS_DYNAMODB_SELECT, ATTR_AWS_DYNAMODB_TABLE_COUNT, ATTR_AWS_DYNAMODB_TABLE_NAMES, ATTR_AWS_DYNAMODB_TOTAL_SEGMENTS, ATTR_AWS_ECS_CLUSTER_ARN, ATTR_AWS_ECS_CONTAINER_ARN, ATTR_AWS_ECS_LAUNCHTYPE, ATTR_AWS_ECS_TASK_ARN, ATTR_AWS_ECS_TASK_FAMILY, ATTR_AWS_ECS_TASK_ID, ATTR_AWS_ECS_TASK_REVISION, ATTR_AWS_EKS_CLUSTER_ARN, ATTR_AWS_EXTENDED_REQUEST_ID, ATTR_AWS_KINESIS_STREAM_NAME, ATTR_AWS_LAMBDA_INVOKED_ARN, ATTR_AWS_LAMBDA_RESOURCE_MAPPING_ID, ATTR_AWS_LOG_GROUP_ARNS, ATTR_AWS_LOG_GROUP_NAMES, ATTR_AWS_LOG_STREAM_ARNS, ATTR_AWS_LOG_STREAM_NAMES, ATTR_AWS_REQUEST_ID, ATTR_AWS_S3_BUCKET, ATTR_AWS_S3_COPY_SOURCE, ATTR_AWS_S3_DELETE, ATTR_AWS_S3_KEY, ATTR_AWS_S3_PART_NUMBER, ATTR_AWS_S3_UPLOAD_ID, ATTR_AWS_SECRETSMANAGER_SECRET_ARN, ATTR_AWS_SNS_TOPIC_ARN, ATTR_AWS_SQS_QUEUE_URL, ATTR_AWS_STEP_FUNCTIONS_ACTIVITY_ARN, ATTR_AWS_STEP_FUNCTIONS_STATE_MACHINE_ARN, ATTR_AZURE_CLIENT_ID, ATTR_AZURE_COSMOSDB_CONNECTION_MODE, ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL, ATTR_AZURE_COSMOSDB_OPERATION_CONTACTED_REGIONS, ATTR_AZURE_COSMOSDB_OPERATION_REQUEST_CHARGE, ATTR_AZURE_COSMOSDB_REQUEST_BODY_SIZE, ATTR_AZURE_COSMOSDB_RESPONSE_SUB_STATUS_CODE, ATTR_AZ_NAMESPACE, ATTR_AZ_SERVICE_REQUEST_ID, ATTR_BROWSER_BRANDS, ATTR_BROWSER_LANGUAGE, ATTR_BROWSER_MOBILE, ATTR_BROWSER_PLATFORM, ATTR_CASSANDRA_CONSISTENCY_LEVEL, ATTR_CASSANDRA_COORDINATOR_DC, ATTR_CASSANDRA_COORDINATOR_ID, ATTR_CASSANDRA_PAGE_SIZE, ATTR_CASSANDRA_QUERY_IDEMPOTENT, ATTR_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_CICD_PIPELINE_ACTION_NAME, ATTR_CICD_PIPELINE_NAME, ATTR_CICD_PIPELINE_RESULT, ATTR_CICD_PIPELINE_RUN_ID, ATTR_CICD_PIPELINE_RUN_STATE, ATTR_CICD_PIPELINE_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_NAME, ATTR_CICD_PIPELINE_TASK_RUN_ID, ATTR_CICD_PIPELINE_TASK_RUN_RESULT, ATTR_CICD_PIPELINE_TASK_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_TYPE, ATTR_CICD_SYSTEM_COMPONENT, ATTR_CICD_WORKER_ID, ATTR_CICD_WORKER_NAME, ATTR_CICD_WORKER_STATE, ATTR_CICD_WORKER_URL_FULL, ATTR_CLIENT_ADDRESS, ATTR_CLIENT_PORT, ATTR_CLOUDEVENTS_EVENT_ID, ATTR_CLOUDEVENTS_EVENT_SOURCE, ATTR_CLOUDEVENTS_EVENT_SPEC_VERSION, ATTR_CLOUDEVENTS_EVENT_SUBJECT, ATTR_CLOUDEVENTS_EVENT_TYPE, ATTR_CLOUDFOUNDRY_APP_ID, ATTR_CLOUDFOUNDRY_APP_INSTANCE_ID, ATTR_CLOUDFOUNDRY_APP_NAME, ATTR_CLOUDFOUNDRY_ORG_ID, ATTR_CLOUDFOUNDRY_ORG_NAME, ATTR_CLOUDFOUNDRY_PROCESS_ID, ATTR_CLOUDFOUNDRY_PROCESS_TYPE, ATTR_CLOUDFOUNDRY_SPACE_ID, ATTR_CLOUDFOUNDRY_SPACE_NAME, ATTR_CLOUDFOUNDRY_SYSTEM_ID, ATTR_CLOUDFOUNDRY_SYSTEM_INSTANCE_ID, ATTR_CLOUD_ACCOUNT_ID, ATTR_CLOUD_AVAILABILITY_ZONE, ATTR_CLOUD_PLATFORM, ATTR_CLOUD_PROVIDER, ATTR_CLOUD_REGION, ATTR_CLOUD_RESOURCE_ID, ATTR_CODE_COLUMN, ATTR_CODE_COLUMN_NUMBER, ATTR_CODE_FILEPATH, ATTR_CODE_FILE_PATH, ATTR_CODE_FUNCTION, ATTR_CODE_FUNCTION_NAME, ATTR_CODE_LINENO, ATTR_CODE_LINE_NUMBER, ATTR_CODE_NAMESPACE, ATTR_CODE_STACKTRACE, ATTR_CONTAINER_COMMAND, ATTR_CONTAINER_COMMAND_ARGS, ATTR_CONTAINER_COMMAND_LINE, ATTR_CONTAINER_CPU_STATE, ATTR_CONTAINER_CSI_PLUGIN_NAME, ATTR_CONTAINER_CSI_VOLUME_ID, ATTR_CONTAINER_ID, ATTR_CONTAINER_IMAGE_ID, ATTR_CONTAINER_IMAGE_NAME, ATTR_CONTAINER_IMAGE_REPO_DIGESTS, ATTR_CONTAINER_IMAGE_TAGS, ATTR_CONTAINER_LABEL, ATTR_CONTAINER_LABELS, ATTR_CONTAINER_NAME, ATTR_CONTAINER_RUNTIME, ATTR_CPU_LOGICAL_NUMBER, ATTR_CPU_MODE, ATTR_CPYTHON_GC_GENERATION, ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL, ATTR_DB_CASSANDRA_COORDINATOR_DC, ATTR_DB_CASSANDRA_COORDINATOR_ID, ATTR_DB_CASSANDRA_IDEMPOTENCE, ATTR_DB_CASSANDRA_PAGE_SIZE, ATTR_DB_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_DB_CASSANDRA_TABLE, ATTR_DB_CLIENT_CONNECTIONS_POOL_NAME, ATTR_DB_CLIENT_CONNECTIONS_STATE, ATTR_DB_CLIENT_CONNECTION_POOL_NAME, ATTR_DB_CLIENT_CONNECTION_STATE, ATTR_DB_COLLECTION_NAME, ATTR_DB_CONNECTION_STRING, ATTR_DB_COSMOSDB_CLIENT_ID, ATTR_DB_COSMOSDB_CONNECTION_MODE, ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL, ATTR_DB_COSMOSDB_CONTAINER, ATTR_DB_COSMOSDB_OPERATION_TYPE, ATTR_DB_COSMOSDB_REGIONS_CONTACTED, ATTR_DB_COSMOSDB_REQUEST_CHARGE, ATTR_DB_COSMOSDB_REQUEST_CONTENT_LENGTH, ATTR_DB_COSMOSDB_STATUS_CODE, ATTR_DB_COSMOSDB_SUB_STATUS_CODE, ATTR_DB_ELASTICSEARCH_CLUSTER_NAME, ATTR_DB_ELASTICSEARCH_NODE_NAME, ATTR_DB_ELASTICSEARCH_PATH_PARTS, ATTR_DB_INSTANCE_ID, ATTR_DB_JDBC_DRIVER_CLASSNAME, ATTR_DB_MONGODB_COLLECTION, ATTR_DB_MSSQL_INSTANCE_NAME, ATTR_DB_NAME, ATTR_DB_NAMESPACE, ATTR_DB_OPERATION, ATTR_DB_OPERATION_BATCH_SIZE, ATTR_DB_OPERATION_NAME, ATTR_DB_OPERATION_PARAMETER, ATTR_DB_QUERY_PARAMETER, ATTR_DB_QUERY_SUMMARY, ATTR_DB_QUERY_TEXT, ATTR_DB_REDIS_DATABASE_INDEX, ATTR_DB_RESPONSE_RETURNED_ROWS, ATTR_DB_RESPONSE_STATUS_CODE, ATTR_DB_SQL_TABLE, ATTR_DB_STATEMENT, ATTR_DB_STORED_PROCEDURE_NAME, ATTR_DB_SYSTEM, ATTR_DB_SYSTEM_NAME, ATTR_DB_USER, ATTR_DEPLOYMENT_ENVIRONMENT, ATTR_DEPLOYMENT_ENVIRONMENT_NAME, ATTR_DEPLOYMENT_ID, ATTR_DEPLOYMENT_NAME, ATTR_DEPLOYMENT_STATUS, ATTR_DESTINATION_ADDRESS, ATTR_DESTINATION_PORT, ATTR_DEVICE_ID, ATTR_DEVICE_MANUFACTURER, ATTR_DEVICE_MODEL_IDENTIFIER, ATTR_DEVICE_MODEL_NAME, ATTR_DISK_IO_DIRECTION, ATTR_DNS_QUESTION_NAME, ATTR_DOTNET_GC_HEAP_GENERATION, ATTR_ELASTICSEARCH_NODE_NAME, ATTR_ENDUSER_ID, ATTR_ENDUSER_PSEUDO_ID, ATTR_ENDUSER_ROLE, ATTR_ENDUSER_SCOPE, ATTR_ERROR_MESSAGE, ATTR_ERROR_TYPE, ATTR_EVENT_NAME, ATTR_EXCEPTION_ESCAPED, ATTR_EXCEPTION_MESSAGE, ATTR_EXCEPTION_STACKTRACE, ATTR_EXCEPTION_TYPE, ATTR_FAAS_COLDSTART, ATTR_FAAS_CRON, ATTR_FAAS_DOCUMENT_COLLECTION, ATTR_FAAS_DOCUMENT_NAME, ATTR_FAAS_DOCUMENT_OPERATION, ATTR_FAAS_DOCUMENT_TIME, ATTR_FAAS_INSTANCE, ATTR_FAAS_INVOCATION_ID, ATTR_FAAS_INVOKED_NAME, ATTR_FAAS_INVOKED_PROVIDER, ATTR_FAAS_INVOKED_REGION, ATTR_FAAS_MAX_MEMORY, ATTR_FAAS_NAME, ATTR_FAAS_TIME, ATTR_FAAS_TRIGGER, ATTR_FAAS_VERSION, ATTR_FEATURE_FLAG_CONTEXT_ID, ATTR_FEATURE_FLAG_EVALUATION_ERROR_MESSAGE, ATTR_FEATURE_FLAG_EVALUATION_REASON, ATTR_FEATURE_FLAG_KEY, ATTR_FEATURE_FLAG_PROVIDER_NAME, ATTR_FEATURE_FLAG_RESULT_REASON, ATTR_FEATURE_FLAG_RESULT_VALUE, ATTR_FEATURE_FLAG_RESULT_VARIANT, ATTR_FEATURE_FLAG_SET_ID, ATTR_FEATURE_FLAG_VARIANT, ATTR_FEATURE_FLAG_VERSION, ATTR_FILE_ACCESSED, ATTR_FILE_ATTRIBUTES, ATTR_FILE_CHANGED, ATTR_FILE_CREATED, ATTR_FILE_DIRECTORY, ATTR_FILE_EXTENSION, ATTR_FILE_FORK_NAME, ATTR_FILE_GROUP_ID, ATTR_FILE_GROUP_NAME, ATTR_FILE_INODE, ATTR_FILE_MODE, ATTR_FILE_MODIFIED, ATTR_FILE_NAME, ATTR_FILE_OWNER_ID, ATTR_FILE_OWNER_NAME, ATTR_FILE_PATH, ATTR_FILE_SIZE, ATTR_FILE_SYMBOLIC_LINK_TARGET_PATH, ATTR_GCP_APPHUB_APPLICATION_CONTAINER, ATTR_GCP_APPHUB_APPLICATION_ID, ATTR_GCP_APPHUB_APPLICATION_LOCATION, ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE, ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_SERVICE_ID, ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ID, ATTR_GCP_CLIENT_SERVICE, ATTR_GCP_CLOUD_RUN_JOB_EXECUTION, ATTR_GCP_CLOUD_RUN_JOB_TASK_INDEX, ATTR_GCP_GCE_INSTANCE_HOSTNAME, ATTR_GCP_GCE_INSTANCE_NAME, ATTR_GEN_AI_AGENT_DESCRIPTION, ATTR_GEN_AI_AGENT_ID, ATTR_GEN_AI_AGENT_NAME, ATTR_GEN_AI_COMPLETION, ATTR_GEN_AI_CONVERSATION_ID, ATTR_GEN_AI_DATA_SOURCE_ID, ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT, ATTR_GEN_AI_OPENAI_REQUEST_SEED, ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SYSTEM_FINGERPRINT, ATTR_GEN_AI_OPERATION_NAME, ATTR_GEN_AI_OUTPUT_TYPE, ATTR_GEN_AI_PROMPT, ATTR_GEN_AI_REQUEST_CHOICE_COUNT, ATTR_GEN_AI_REQUEST_ENCODING_FORMATS, ATTR_GEN_AI_REQUEST_FREQUENCY_PENALTY, ATTR_GEN_AI_REQUEST_MAX_TOKENS, ATTR_GEN_AI_REQUEST_MODEL, ATTR_GEN_AI_REQUEST_PRESENCE_PENALTY, ATTR_GEN_AI_REQUEST_SEED, ATTR_GEN_AI_REQUEST_STOP_SEQUENCES, ATTR_GEN_AI_REQUEST_TEMPERATURE, ATTR_GEN_AI_REQUEST_TOP_K, ATTR_GEN_AI_REQUEST_TOP_P, ATTR_GEN_AI_RESPONSE_FINISH_REASONS, ATTR_GEN_AI_RESPONSE_ID, ATTR_GEN_AI_RESPONSE_MODEL, ATTR_GEN_AI_SYSTEM, ATTR_GEN_AI_TOKEN_TYPE, ATTR_GEN_AI_TOOL_CALL_ID, ATTR_GEN_AI_TOOL_DESCRIPTION, ATTR_GEN_AI_TOOL_NAME, ATTR_GEN_AI_TOOL_TYPE, ATTR_GEN_AI_USAGE_COMPLETION_TOKENS, ATTR_GEN_AI_USAGE_INPUT_TOKENS, ATTR_GEN_AI_USAGE_OUTPUT_TOKENS, ATTR_GEN_AI_USAGE_PROMPT_TOKENS, ATTR_GEO_CONTINENT_CODE, ATTR_GEO_COUNTRY_ISO_CODE, ATTR_GEO_LOCALITY_NAME, ATTR_GEO_LOCATION_LAT, ATTR_GEO_LOCATION_LON, ATTR_GEO_POSTAL_CODE, ATTR_GEO_REGION_ISO_CODE, ATTR_GO_MEMORY_TYPE, ATTR_GRAPHQL_DOCUMENT, ATTR_GRAPHQL_OPERATION_NAME, ATTR_GRAPHQL_OPERATION_TYPE, ATTR_HEROKU_APP_ID, ATTR_HEROKU_RELEASE_COMMIT, ATTR_HEROKU_RELEASE_CREATION_TIMESTAMP, ATTR_HOST_ARCH, ATTR_HOST_CPU_CACHE_L2_SIZE, ATTR_HOST_CPU_FAMILY, ATTR_HOST_CPU_MODEL_ID, ATTR_HOST_CPU_MODEL_NAME, ATTR_HOST_CPU_STEPPING, ATTR_HOST_CPU_VENDOR_ID, ATTR_HOST_ID, ATTR_HOST_IMAGE_ID, ATTR_HOST_IMAGE_NAME, ATTR_HOST_IMAGE_VERSION, ATTR_HOST_IP, ATTR_HOST_MAC, ATTR_HOST_NAME, ATTR_HOST_TYPE, ATTR_HTTP_CLIENT_IP, ATTR_HTTP_CONNECTION_STATE, ATTR_HTTP_FLAVOR, ATTR_HTTP_HOST, ATTR_HTTP_METHOD, ATTR_HTTP_REQUEST_BODY_SIZE, ATTR_HTTP_REQUEST_CONTENT_LENGTH, ATTR_HTTP_REQUEST_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_REQUEST_HEADER, ATTR_HTTP_REQUEST_METHOD, ATTR_HTTP_REQUEST_METHOD_ORIGINAL, ATTR_HTTP_REQUEST_RESEND_COUNT, ATTR_HTTP_REQUEST_SIZE, ATTR_HTTP_RESPONSE_BODY_SIZE, ATTR_HTTP_RESPONSE_CONTENT_LENGTH, ATTR_HTTP_RESPONSE_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_RESPONSE_HEADER, ATTR_HTTP_RESPONSE_SIZE, ATTR_HTTP_RESPONSE_STATUS_CODE, ATTR_HTTP_ROUTE, ATTR_HTTP_SCHEME, ATTR_HTTP_SERVER_NAME, ATTR_HTTP_STATUS_CODE, ATTR_HTTP_TARGET, ATTR_HTTP_URL, ATTR_HTTP_USER_AGENT, ATTR_HW_ID, ATTR_HW_NAME, ATTR_HW_PARENT, ATTR_HW_STATE, ATTR_HW_TYPE, ATTR_IOS_APP_STATE, ATTR_IOS_STATE, ATTR_JVM_BUFFER_POOL_NAME, ATTR_JVM_GC_ACTION, ATTR_JVM_GC_CAUSE, ATTR_JVM_GC_NAME, ATTR_JVM_MEMORY_POOL_NAME, ATTR_JVM_MEMORY_TYPE, ATTR_JVM_THREAD_DAEMON, ATTR_JVM_THREAD_STATE, ATTR_K8S_CLUSTER_NAME, ATTR_K8S_CLUSTER_UID, ATTR_K8S_CONTAINER_NAME, ATTR_K8S_CONTAINER_RESTART_COUNT, ATTR_K8S_CONTAINER_STATUS_LAST_TERMINATED_REASON, ATTR_K8S_CRONJOB_ANNOTATION, ATTR_K8S_CRONJOB_LABEL, ATTR_K8S_CRONJOB_NAME, ATTR_K8S_CRONJOB_UID, ATTR_K8S_DAEMONSET_ANNOTATION, ATTR_K8S_DAEMONSET_LABEL, ATTR_K8S_DAEMONSET_NAME, ATTR_K8S_DAEMONSET_UID, ATTR_K8S_DEPLOYMENT_ANNOTATION, ATTR_K8S_DEPLOYMENT_LABEL, ATTR_K8S_DEPLOYMENT_NAME, ATTR_K8S_DEPLOYMENT_UID, ATTR_K8S_HPA_NAME, ATTR_K8S_HPA_UID, ATTR_K8S_JOB_ANNOTATION, ATTR_K8S_JOB_LABEL, ATTR_K8S_JOB_NAME, ATTR_K8S_JOB_UID, ATTR_K8S_NAMESPACE_ANNOTATION, ATTR_K8S_NAMESPACE_LABEL, ATTR_K8S_NAMESPACE_NAME, ATTR_K8S_NAMESPACE_PHASE, ATTR_K8S_NODE_ANNOTATION, ATTR_K8S_NODE_LABEL, ATTR_K8S_NODE_NAME, ATTR_K8S_NODE_UID, ATTR_K8S_POD_ANNOTATION, ATTR_K8S_POD_LABEL, ATTR_K8S_POD_LABELS, ATTR_K8S_POD_NAME, ATTR_K8S_POD_UID, ATTR_K8S_REPLICASET_ANNOTATION, ATTR_K8S_REPLICASET_LABEL, ATTR_K8S_REPLICASET_NAME, ATTR_K8S_REPLICASET_UID, ATTR_K8S_REPLICATIONCONTROLLER_NAME, ATTR_K8S_REPLICATIONCONTROLLER_UID, ATTR_K8S_RESOURCEQUOTA_NAME, ATTR_K8S_RESOURCEQUOTA_UID, ATTR_K8S_STATEFULSET_ANNOTATION, ATTR_K8S_STATEFULSET_LABEL, ATTR_K8S_STATEFULSET_NAME, ATTR_K8S_STATEFULSET_UID, ATTR_K8S_VOLUME_NAME, ATTR_K8S_VOLUME_TYPE, ATTR_LINUX_MEMORY_SLAB_STATE, ATTR_LOG_FILE_NAME, ATTR_LOG_FILE_NAME_RESOLVED, ATTR_LOG_FILE_PATH, ATTR_LOG_FILE_PATH_RESOLVED, ATTR_LOG_IOSTREAM, ATTR_LOG_RECORD_ORIGINAL, ATTR_LOG_RECORD_UID, ATTR_MESSAGE_COMPRESSED_SIZE, ATTR_MESSAGE_ID, ATTR_MESSAGE_TYPE, ATTR_MESSAGE_UNCOMPRESSED_SIZE, ATTR_MESSAGING_BATCH_MESSAGE_COUNT, ATTR_MESSAGING_CLIENT_ID, ATTR_MESSAGING_CONSUMER_GROUP_NAME, ATTR_MESSAGING_DESTINATION_ANONYMOUS, ATTR_MESSAGING_DESTINATION_NAME, ATTR_MESSAGING_DESTINATION_PARTITION_ID, ATTR_MESSAGING_DESTINATION_PUBLISH_ANONYMOUS, ATTR_MESSAGING_DESTINATION_PUBLISH_NAME, ATTR_MESSAGING_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_DESTINATION_TEMPLATE, ATTR_MESSAGING_DESTINATION_TEMPORARY, ATTR_MESSAGING_EVENTHUBS_CONSUMER_GROUP, ATTR_MESSAGING_EVENTHUBS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_DEADLINE, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_ID, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_DELIVERY_ATTEMPT, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ORDERING_KEY, ATTR_MESSAGING_KAFKA_CONSUMER_GROUP, ATTR_MESSAGING_KAFKA_DESTINATION_PARTITION, ATTR_MESSAGING_KAFKA_MESSAGE_KEY, ATTR_MESSAGING_KAFKA_MESSAGE_OFFSET, ATTR_MESSAGING_KAFKA_MESSAGE_TOMBSTONE, ATTR_MESSAGING_KAFKA_OFFSET, ATTR_MESSAGING_MESSAGE_BODY_SIZE, ATTR_MESSAGING_MESSAGE_CONVERSATION_ID, ATTR_MESSAGING_MESSAGE_ENVELOPE_SIZE, ATTR_MESSAGING_MESSAGE_ID, ATTR_MESSAGING_OPERATION, ATTR_MESSAGING_OPERATION_NAME, ATTR_MESSAGING_OPERATION_TYPE, ATTR_MESSAGING_RABBITMQ_DESTINATION_ROUTING_KEY, ATTR_MESSAGING_RABBITMQ_MESSAGE_DELIVERY_TAG, ATTR_MESSAGING_ROCKETMQ_CLIENT_GROUP, ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELAY_TIME_LEVEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELIVERY_TIMESTAMP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_GROUP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_KEYS, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TAG, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE, ATTR_MESSAGING_ROCKETMQ_NAMESPACE, ATTR_MESSAGING_SERVICEBUS_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS, ATTR_MESSAGING_SERVICEBUS_MESSAGE_DELIVERY_COUNT, ATTR_MESSAGING_SERVICEBUS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_SYSTEM, ATTR_NETWORK_CARRIER_ICC, ATTR_NETWORK_CARRIER_MCC, ATTR_NETWORK_CARRIER_MNC, ATTR_NETWORK_CARRIER_NAME, ATTR_NETWORK_CONNECTION_STATE, ATTR_NETWORK_CONNECTION_SUBTYPE, ATTR_NETWORK_CONNECTION_TYPE, ATTR_NETWORK_INTERFACE_NAME, ATTR_NETWORK_IO_DIRECTION, ATTR_NETWORK_LOCAL_ADDRESS, ATTR_NETWORK_LOCAL_PORT, ATTR_NETWORK_PEER_ADDRESS, ATTR_NETWORK_PEER_PORT, ATTR_NETWORK_PROTOCOL_NAME, ATTR_NETWORK_PROTOCOL_VERSION, ATTR_NETWORK_TRANSPORT, ATTR_NETWORK_TYPE, ATTR_NET_HOST_IP, ATTR_NET_HOST_NAME, ATTR_NET_HOST_PORT, ATTR_NET_PEER_IP, ATTR_NET_PEER_NAME, ATTR_NET_PEER_PORT, ATTR_NET_PROTOCOL_NAME, ATTR_NET_PROTOCOL_VERSION, ATTR_NET_SOCK_FAMILY, ATTR_NET_SOCK_HOST_ADDR, ATTR_NET_SOCK_HOST_PORT, ATTR_NET_SOCK_PEER_ADDR, ATTR_NET_SOCK_PEER_NAME, ATTR_NET_SOCK_PEER_PORT, ATTR_NET_TRANSPORT, ATTR_NODEJS_EVENTLOOP_STATE, ATTR_OCI_MANIFEST_DIGEST, ATTR_OPENTRACING_REF_TYPE, ATTR_OS_BUILD_ID, ATTR_OS_DESCRIPTION, ATTR_OS_NAME, ATTR_OS_TYPE, ATTR_OS_VERSION, ATTR_OTEL_COMPONENT_NAME, ATTR_OTEL_COMPONENT_TYPE, ATTR_OTEL_LIBRARY_NAME, ATTR_OTEL_LIBRARY_VERSION, ATTR_OTEL_SCOPE_NAME, ATTR_OTEL_SCOPE_VERSION, ATTR_OTEL_SPAN_SAMPLING_RESULT, ATTR_OTEL_STATUS_CODE, ATTR_OTEL_STATUS_DESCRIPTION, ATTR_PEER_SERVICE, ATTR_POOL_NAME, ATTR_PROCESS_ARGS_COUNT, ATTR_PROCESS_COMMAND, ATTR_PROCESS_COMMAND_ARGS, ATTR_PROCESS_COMMAND_LINE, ATTR_PROCESS_CONTEXT_SWITCH_TYPE, ATTR_PROCESS_CPU_STATE, ATTR_PROCESS_CREATION_TIME, ATTR_PROCESS_ENVIRONMENT_VARIABLE, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GNU, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GO, ATTR_PROCESS_EXECUTABLE_BUILD_ID_HTLHASH, ATTR_PROCESS_EXECUTABLE_BUILD_ID_PROFILING, ATTR_PROCESS_EXECUTABLE_NAME, ATTR_PROCESS_EXECUTABLE_PATH, ATTR_PROCESS_EXIT_CODE, ATTR_PROCESS_EXIT_TIME, ATTR_PROCESS_GROUP_LEADER_PID, ATTR_PROCESS_INTERACTIVE, ATTR_PROCESS_LINUX_CGROUP, ATTR_PROCESS_OWNER, ATTR_PROCESS_PAGING_FAULT_TYPE, ATTR_PROCESS_PARENT_PID, ATTR_PROCESS_PID, ATTR_PROCESS_REAL_USER_ID, ATTR_PROCESS_REAL_USER_NAME, ATTR_PROCESS_RUNTIME_DESCRIPTION, ATTR_PROCESS_RUNTIME_NAME, ATTR_PROCESS_RUNTIME_VERSION, ATTR_PROCESS_SAVED_USER_ID, ATTR_PROCESS_SAVED_USER_NAME, ATTR_PROCESS_SESSION_LEADER_PID, ATTR_PROCESS_TITLE, ATTR_PROCESS_USER_ID, ATTR_PROCESS_USER_NAME, ATTR_PROCESS_VPID, ATTR_PROCESS_WORKING_DIRECTORY, ATTR_PROFILE_FRAME_TYPE, ATTR_RPC_CONNECT_RPC_ERROR_CODE, ATTR_RPC_CONNECT_RPC_REQUEST_METADATA, ATTR_RPC_CONNECT_RPC_RESPONSE_METADATA, ATTR_RPC_GRPC_REQUEST_METADATA, ATTR_RPC_GRPC_RESPONSE_METADATA, ATTR_RPC_GRPC_STATUS_CODE, ATTR_RPC_JSONRPC_ERROR_CODE, ATTR_RPC_JSONRPC_ERROR_MESSAGE, ATTR_RPC_JSONRPC_REQUEST_ID, ATTR_RPC_JSONRPC_VERSION, ATTR_RPC_MESSAGE_COMPRESSED_SIZE, ATTR_RPC_MESSAGE_ID, ATTR_RPC_MESSAGE_TYPE, ATTR_RPC_MESSAGE_UNCOMPRESSED_SIZE, ATTR_RPC_METHOD, ATTR_RPC_SERVICE, ATTR_RPC_SYSTEM, ATTR_SECURITY_RULE_CATEGORY, ATTR_SECURITY_RULE_DESCRIPTION, ATTR_SECURITY_RULE_LICENSE, ATTR_SECURITY_RULE_NAME, ATTR_SECURITY_RULE_REFERENCE, ATTR_SECURITY_RULE_RULESET_NAME, ATTR_SECURITY_RULE_UUID, ATTR_SECURITY_RULE_VERSION, ATTR_SERVER_ADDRESS, ATTR_SERVER_PORT, ATTR_SERVICE_INSTANCE_ID, ATTR_SERVICE_NAME, ATTR_SERVICE_NAMESPACE, ATTR_SERVICE_VERSION, ATTR_SESSION_ID, ATTR_SESSION_PREVIOUS_ID, ATTR_SIGNALR_CONNECTION_STATUS, ATTR_SIGNALR_TRANSPORT, ATTR_SOURCE_ADDRESS, ATTR_SOURCE_PORT, ATTR_STATE, ATTR_SYSTEM_CPU_LOGICAL_NUMBER, ATTR_SYSTEM_CPU_STATE, ATTR_SYSTEM_DEVICE, ATTR_SYSTEM_FILESYSTEM_MODE, ATTR_SYSTEM_FILESYSTEM_MOUNTPOINT, ATTR_SYSTEM_FILESYSTEM_STATE, ATTR_SYSTEM_FILESYSTEM_TYPE, ATTR_SYSTEM_MEMORY_STATE, ATTR_SYSTEM_NETWORK_STATE, ATTR_SYSTEM_PAGING_DIRECTION, ATTR_SYSTEM_PAGING_STATE, ATTR_SYSTEM_PAGING_TYPE, ATTR_SYSTEM_PROCESSES_STATUS, ATTR_SYSTEM_PROCESS_STATUS, ATTR_TELEMETRY_DISTRO_NAME, ATTR_TELEMETRY_DISTRO_VERSION, ATTR_TELEMETRY_SDK_LANGUAGE, ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_VERSION, ATTR_TEST_CASE_NAME, ATTR_TEST_CASE_RESULT_STATUS, ATTR_TEST_SUITE_NAME, ATTR_TEST_SUITE_RUN_STATUS, ATTR_THREAD_ID, ATTR_THREAD_NAME, ATTR_TLS_CIPHER, ATTR_TLS_CLIENT_CERTIFICATE, ATTR_TLS_CLIENT_CERTIFICATE_CHAIN, ATTR_TLS_CLIENT_HASH_MD5, ATTR_TLS_CLIENT_HASH_SHA1, ATTR_TLS_CLIENT_HASH_SHA256, ATTR_TLS_CLIENT_ISSUER, ATTR_TLS_CLIENT_JA3, ATTR_TLS_CLIENT_NOT_AFTER, ATTR_TLS_CLIENT_NOT_BEFORE, ATTR_TLS_CLIENT_SERVER_NAME, ATTR_TLS_CLIENT_SUBJECT, ATTR_TLS_CLIENT_SUPPORTED_CIPHERS, ATTR_TLS_CURVE, ATTR_TLS_ESTABLISHED, ATTR_TLS_NEXT_PROTOCOL, ATTR_TLS_PROTOCOL_NAME, ATTR_TLS_PROTOCOL_VERSION, ATTR_TLS_RESUMED, ATTR_TLS_SERVER_CERTIFICATE, ATTR_TLS_SERVER_CERTIFICATE_CHAIN, ATTR_TLS_SERVER_HASH_MD5, ATTR_TLS_SERVER_HASH_SHA1, ATTR_TLS_SERVER_HASH_SHA256, ATTR_TLS_SERVER_ISSUER, ATTR_TLS_SERVER_JA3S, ATTR_TLS_SERVER_NOT_AFTER, ATTR_TLS_SERVER_NOT_BEFORE, ATTR_TLS_SERVER_SUBJECT, ATTR_URL_DOMAIN, ATTR_URL_EXTENSION, ATTR_URL_FRAGMENT, ATTR_URL_FULL, ATTR_URL_ORIGINAL, ATTR_URL_PATH, ATTR_URL_PORT, ATTR_URL_QUERY, ATTR_URL_REGISTERED_DOMAIN, ATTR_URL_SCHEME, ATTR_URL_SUBDOMAIN, ATTR_URL_TEMPLATE, ATTR_URL_TOP_LEVEL_DOMAIN, ATTR_USER_AGENT_NAME, ATTR_USER_AGENT_ORIGINAL, ATTR_USER_AGENT_OS_NAME, ATTR_USER_AGENT_OS_VERSION, ATTR_USER_AGENT_SYNTHETIC_TYPE, ATTR_USER_AGENT_VERSION, ATTR_USER_EMAIL, ATTR_USER_FULL_NAME, ATTR_USER_HASH, ATTR_USER_ID, ATTR_USER_NAME, ATTR_USER_ROLES, ATTR_V8JS_GC_TYPE, ATTR_V8JS_HEAP_SPACE_NAME, ATTR_VCS_CHANGE_ID, ATTR_VCS_CHANGE_STATE, ATTR_VCS_CHANGE_TITLE, ATTR_VCS_LINE_CHANGE_TYPE, ATTR_VCS_OWNER_NAME, ATTR_VCS_PROVIDER_NAME, ATTR_VCS_REF_BASE_NAME, ATTR_VCS_REF_BASE_REVISION, ATTR_VCS_REF_BASE_TYPE, ATTR_VCS_REF_HEAD_NAME, ATTR_VCS_REF_HEAD_REVISION, ATTR_VCS_REF_HEAD_TYPE, ATTR_VCS_REF_TYPE, ATTR_VCS_REPOSITORY_CHANGE_ID, ATTR_VCS_REPOSITORY_CHANGE_TITLE, ATTR_VCS_REPOSITORY_NAME, ATTR_VCS_REPOSITORY_REF_NAME, ATTR_VCS_REPOSITORY_REF_REVISION, ATTR_VCS_REPOSITORY_REF_TYPE, ATTR_VCS_REPOSITORY_URL_FULL, ATTR_VCS_REVISION_DELTA_DIRECTION, ATTR_WEBENGINE_DESCRIPTION, ATTR_WEBENGINE_NAME, ATTR_WEBENGINE_VERSION, AWS_ECS_LAUNCHTYPE_VALUE_EC2, AWS_ECS_LAUNCHTYPE_VALUE_FARGATE, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, CICD_PIPELINE_ACTION_NAME_VALUE_BUILD, CICD_PIPELINE_ACTION_NAME_VALUE_RUN, CICD_PIPELINE_ACTION_NAME_VALUE_SYNC, CICD_PIPELINE_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_RESULT_VALUE_ERROR, CICD_PIPELINE_RESULT_VALUE_FAILURE, CICD_PIPELINE_RESULT_VALUE_SKIP, CICD_PIPELINE_RESULT_VALUE_SUCCESS, CICD_PIPELINE_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_RUN_STATE_VALUE_EXECUTING, CICD_PIPELINE_RUN_STATE_VALUE_FINALIZING, CICD_PIPELINE_RUN_STATE_VALUE_PENDING, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_ERROR, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_FAILURE, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SKIP, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SUCCESS, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_TASK_TYPE_VALUE_BUILD, CICD_PIPELINE_TASK_TYPE_VALUE_DEPLOY, CICD_PIPELINE_TASK_TYPE_VALUE_TEST, CICD_WORKER_STATE_VALUE_AVAILABLE, CICD_WORKER_STATE_VALUE_BUSY, CICD_WORKER_STATE_VALUE_OFFLINE, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_ECS, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_FC, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_AWS_APP_RUNNER, CLOUD_PLATFORM_VALUE_AWS_EC2, CLOUD_PLATFORM_VALUE_AWS_ECS, CLOUD_PLATFORM_VALUE_AWS_EKS, CLOUD_PLATFORM_VALUE_AWS_ELASTIC_BEANSTALK, CLOUD_PLATFORM_VALUE_AWS_LAMBDA, CLOUD_PLATFORM_VALUE_AWS_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_AKS, CLOUD_PLATFORM_VALUE_AZURE_APP_SERVICE, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_APPS, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_INSTANCES, CLOUD_PLATFORM_VALUE_AZURE_FUNCTIONS, CLOUD_PLATFORM_VALUE_AZURE_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_VM, CLOUD_PLATFORM_VALUE_GCP_APP_ENGINE, CLOUD_PLATFORM_VALUE_GCP_BARE_METAL_SOLUTION, CLOUD_PLATFORM_VALUE_GCP_CLOUD_FUNCTIONS, CLOUD_PLATFORM_VALUE_GCP_CLOUD_RUN, CLOUD_PLATFORM_VALUE_GCP_COMPUTE_ENGINE, CLOUD_PLATFORM_VALUE_GCP_KUBERNETES_ENGINE, CLOUD_PLATFORM_VALUE_GCP_OPENSHIFT, CLOUD_PLATFORM_VALUE_IBM_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_COMPUTE, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_OKE, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_CVM, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_EKS, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_SCF, CLOUD_PROVIDER_VALUE_ALIBABA_CLOUD, CLOUD_PROVIDER_VALUE_AWS, CLOUD_PROVIDER_VALUE_AZURE, CLOUD_PROVIDER_VALUE_GCP, CLOUD_PROVIDER_VALUE_HEROKU, CLOUD_PROVIDER_VALUE_IBM_CLOUD, CLOUD_PROVIDER_VALUE_ORACLE_CLOUD, CLOUD_PROVIDER_VALUE_TENCENT_CLOUD, CONTAINER_CPU_STATE_VALUE_KERNEL, CONTAINER_CPU_STATE_VALUE_SYSTEM, CONTAINER_CPU_STATE_VALUE_USER, CPU_MODE_VALUE_IDLE, CPU_MODE_VALUE_INTERRUPT, CPU_MODE_VALUE_IOWAIT, CPU_MODE_VALUE_KERNEL, CPU_MODE_VALUE_NICE, CPU_MODE_VALUE_STEAL, CPU_MODE_VALUE_SYSTEM, CPU_MODE_VALUE_USER, CPYTHON_GC_GENERATION_VALUE_GENERATION_0, CPYTHON_GC_GENERATION_VALUE_GENERATION_1, CPYTHON_GC_GENERATION_VALUE_GENERATION_2, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, DB_CLIENT_CONNECTIONS_STATE_VALUE_IDLE, DB_CLIENT_CONNECTIONS_STATE_VALUE_USED, DB_CLIENT_CONNECTION_STATE_VALUE_IDLE, DB_CLIENT_CONNECTION_STATE_VALUE_USED, DB_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, DB_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, DB_COSMOSDB_OPERATION_TYPE_VALUE_BATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_CREATE, DB_COSMOSDB_OPERATION_TYPE_VALUE_DELETE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE_JAVASCRIPT, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_INVALID, DB_COSMOSDB_OPERATION_TYPE_VALUE_PATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY_PLAN, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_REPLACE, DB_COSMOSDB_OPERATION_TYPE_VALUE_UPSERT, DB_SYSTEM_NAME_VALUE_ACTIAN_INGRES, DB_SYSTEM_NAME_VALUE_AWS_DYNAMODB, DB_SYSTEM_NAME_VALUE_AWS_REDSHIFT, DB_SYSTEM_NAME_VALUE_AZURE_COSMOSDB, DB_SYSTEM_NAME_VALUE_CASSANDRA, DB_SYSTEM_NAME_VALUE_CLICKHOUSE, DB_SYSTEM_NAME_VALUE_COCKROACHDB, DB_SYSTEM_NAME_VALUE_COUCHBASE, DB_SYSTEM_NAME_VALUE_COUCHDB, DB_SYSTEM_NAME_VALUE_DERBY, DB_SYSTEM_NAME_VALUE_ELASTICSEARCH, DB_SYSTEM_NAME_VALUE_FIREBIRDSQL, DB_SYSTEM_NAME_VALUE_GCP_SPANNER, DB_SYSTEM_NAME_VALUE_GEODE, DB_SYSTEM_NAME_VALUE_H2DATABASE, DB_SYSTEM_NAME_VALUE_HBASE, DB_SYSTEM_NAME_VALUE_HIVE, DB_SYSTEM_NAME_VALUE_HSQLDB, DB_SYSTEM_NAME_VALUE_IBM_DB2, DB_SYSTEM_NAME_VALUE_IBM_INFORMIX, DB_SYSTEM_NAME_VALUE_IBM_NETEZZA, DB_SYSTEM_NAME_VALUE_INFLUXDB, DB_SYSTEM_NAME_VALUE_INSTANTDB, DB_SYSTEM_NAME_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_NAME_VALUE_MARIADB, DB_SYSTEM_NAME_VALUE_MEMCACHED, DB_SYSTEM_NAME_VALUE_MICROSOFT_SQL_SERVER, DB_SYSTEM_NAME_VALUE_MONGODB, DB_SYSTEM_NAME_VALUE_MYSQL, DB_SYSTEM_NAME_VALUE_NEO4J, DB_SYSTEM_NAME_VALUE_OPENSEARCH, DB_SYSTEM_NAME_VALUE_ORACLE_DB, DB_SYSTEM_NAME_VALUE_OTHER_SQL, DB_SYSTEM_NAME_VALUE_POSTGRESQL, DB_SYSTEM_NAME_VALUE_REDIS, DB_SYSTEM_NAME_VALUE_SAP_HANA, DB_SYSTEM_NAME_VALUE_SAP_MAXDB, DB_SYSTEM_NAME_VALUE_SOFTWAREAG_ADABAS, DB_SYSTEM_NAME_VALUE_SQLITE, DB_SYSTEM_NAME_VALUE_TERADATA, DB_SYSTEM_NAME_VALUE_TRINO, DB_SYSTEM_VALUE_ADABAS, DB_SYSTEM_VALUE_CACHE, DB_SYSTEM_VALUE_CASSANDRA, DB_SYSTEM_VALUE_CLICKHOUSE, DB_SYSTEM_VALUE_CLOUDSCAPE, DB_SYSTEM_VALUE_COCKROACHDB, DB_SYSTEM_VALUE_COLDFUSION, DB_SYSTEM_VALUE_COSMOSDB, DB_SYSTEM_VALUE_COUCHBASE, DB_SYSTEM_VALUE_COUCHDB, DB_SYSTEM_VALUE_DB2, DB_SYSTEM_VALUE_DERBY, DB_SYSTEM_VALUE_DYNAMODB, DB_SYSTEM_VALUE_EDB, DB_SYSTEM_VALUE_ELASTICSEARCH, DB_SYSTEM_VALUE_FILEMAKER, DB_SYSTEM_VALUE_FIREBIRD, DB_SYSTEM_VALUE_FIRSTSQL, DB_SYSTEM_VALUE_GEODE, DB_SYSTEM_VALUE_H2, DB_SYSTEM_VALUE_HANADB, DB_SYSTEM_VALUE_HBASE, DB_SYSTEM_VALUE_HIVE, DB_SYSTEM_VALUE_HSQLDB, DB_SYSTEM_VALUE_INFLUXDB, DB_SYSTEM_VALUE_INFORMIX, DB_SYSTEM_VALUE_INGRES, DB_SYSTEM_VALUE_INSTANTDB, DB_SYSTEM_VALUE_INTERBASE, DB_SYSTEM_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_VALUE_MARIADB, DB_SYSTEM_VALUE_MAXDB, DB_SYSTEM_VALUE_MEMCACHED, DB_SYSTEM_VALUE_MONGODB, DB_SYSTEM_VALUE_MSSQL, DB_SYSTEM_VALUE_MSSQLCOMPACT, DB_SYSTEM_VALUE_MYSQL, DB_SYSTEM_VALUE_NEO4J, DB_SYSTEM_VALUE_NETEZZA, DB_SYSTEM_VALUE_OPENSEARCH, DB_SYSTEM_VALUE_ORACLE, DB_SYSTEM_VALUE_OTHER_SQL, DB_SYSTEM_VALUE_PERVASIVE, DB_SYSTEM_VALUE_POINTBASE, DB_SYSTEM_VALUE_POSTGRESQL, DB_SYSTEM_VALUE_PROGRESS, DB_SYSTEM_VALUE_REDIS, DB_SYSTEM_VALUE_REDSHIFT, DB_SYSTEM_VALUE_SPANNER, DB_SYSTEM_VALUE_SQLITE, DB_SYSTEM_VALUE_SYBASE, DB_SYSTEM_VALUE_TERADATA, DB_SYSTEM_VALUE_TRINO, DB_SYSTEM_VALUE_VERTICA, DEPLOYMENT_STATUS_VALUE_FAILED, DEPLOYMENT_STATUS_VALUE_SUCCEEDED, DISK_IO_DIRECTION_VALUE_READ, DISK_IO_DIRECTION_VALUE_WRITE, DOTNET_GC_HEAP_GENERATION_VALUE_GEN0, DOTNET_GC_HEAP_GENERATION_VALUE_GEN1, DOTNET_GC_HEAP_GENERATION_VALUE_GEN2, DOTNET_GC_HEAP_GENERATION_VALUE_LOH, DOTNET_GC_HEAP_GENERATION_VALUE_POH, ERROR_TYPE_VALUE_OTHER, FAAS_DOCUMENT_OPERATION_VALUE_DELETE, FAAS_DOCUMENT_OPERATION_VALUE_EDIT, FAAS_DOCUMENT_OPERATION_VALUE_INSERT, FAAS_INVOKED_PROVIDER_VALUE_ALIBABA_CLOUD, FAAS_INVOKED_PROVIDER_VALUE_AWS, FAAS_INVOKED_PROVIDER_VALUE_AZURE, FAAS_INVOKED_PROVIDER_VALUE_GCP, FAAS_INVOKED_PROVIDER_VALUE_TENCENT_CLOUD, FAAS_TRIGGER_VALUE_DATASOURCE, FAAS_TRIGGER_VALUE_HTTP, FAAS_TRIGGER_VALUE_OTHER, FAAS_TRIGGER_VALUE_PUBSUB, FAAS_TRIGGER_VALUE_TIMER, FEATURE_FLAG_EVALUATION_REASON_VALUE_CACHED, FEATURE_FLAG_EVALUATION_REASON_VALUE_DEFAULT, FEATURE_FLAG_EVALUATION_REASON_VALUE_DISABLED, FEATURE_FLAG_EVALUATION_REASON_VALUE_ERROR, FEATURE_FLAG_EVALUATION_REASON_VALUE_SPLIT, FEATURE_FLAG_EVALUATION_REASON_VALUE_STALE, FEATURE_FLAG_EVALUATION_REASON_VALUE_STATIC, FEATURE_FLAG_EVALUATION_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_EVALUATION_REASON_VALUE_UNKNOWN, FEATURE_FLAG_RESULT_REASON_VALUE_CACHED, FEATURE_FLAG_RESULT_REASON_VALUE_DEFAULT, FEATURE_FLAG_RESULT_REASON_VALUE_DISABLED, FEATURE_FLAG_RESULT_REASON_VALUE_ERROR, FEATURE_FLAG_RESULT_REASON_VALUE_SPLIT, FEATURE_FLAG_RESULT_REASON_VALUE_STALE, FEATURE_FLAG_RESULT_REASON_VALUE_STATIC, FEATURE_FLAG_RESULT_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_RESULT_REASON_VALUE_UNKNOWN, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_TEST, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_TEST, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_OBJECT, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_SCHEMA, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_TEXT, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT, GEN_AI_OPERATION_NAME_VALUE_CHAT, GEN_AI_OPERATION_NAME_VALUE_CREATE_AGENT, GEN_AI_OPERATION_NAME_VALUE_EMBEDDINGS, GEN_AI_OPERATION_NAME_VALUE_EXECUTE_TOOL, GEN_AI_OPERATION_NAME_VALUE_GENERATE_CONTENT, GEN_AI_OPERATION_NAME_VALUE_INVOKE_AGENT, GEN_AI_OPERATION_NAME_VALUE_TEXT_COMPLETION, GEN_AI_OUTPUT_TYPE_VALUE_IMAGE, GEN_AI_OUTPUT_TYPE_VALUE_JSON, GEN_AI_OUTPUT_TYPE_VALUE_SPEECH, GEN_AI_OUTPUT_TYPE_VALUE_TEXT, GEN_AI_SYSTEM_VALUE_ANTHROPIC, GEN_AI_SYSTEM_VALUE_AWS_BEDROCK, GEN_AI_SYSTEM_VALUE_AZ_AI_INFERENCE, GEN_AI_SYSTEM_VALUE_AZ_AI_OPENAI, GEN_AI_SYSTEM_VALUE_COHERE, GEN_AI_SYSTEM_VALUE_DEEPSEEK, GEN_AI_SYSTEM_VALUE_GCP_GEMINI, GEN_AI_SYSTEM_VALUE_GCP_GEN_AI, GEN_AI_SYSTEM_VALUE_GCP_VERTEX_AI, GEN_AI_SYSTEM_VALUE_GEMINI, GEN_AI_SYSTEM_VALUE_GROQ, GEN_AI_SYSTEM_VALUE_IBM_WATSONX_AI, GEN_AI_SYSTEM_VALUE_MISTRAL_AI, GEN_AI_SYSTEM_VALUE_OPENAI, GEN_AI_SYSTEM_VALUE_PERPLEXITY, GEN_AI_SYSTEM_VALUE_VERTEX_AI, GEN_AI_SYSTEM_VALUE_XAI, GEN_AI_TOKEN_TYPE_VALUE_COMPLETION, GEN_AI_TOKEN_TYPE_VALUE_INPUT, GEN_AI_TOKEN_TYPE_VALUE_OUTPUT, GEO_CONTINENT_CODE_VALUE_AF, GEO_CONTINENT_CODE_VALUE_AN, GEO_CONTINENT_CODE_VALUE_AS, GEO_CONTINENT_CODE_VALUE_EU, GEO_CONTINENT_CODE_VALUE_NA, GEO_CONTINENT_CODE_VALUE_OC, GEO_CONTINENT_CODE_VALUE_SA, GO_MEMORY_TYPE_VALUE_OTHER, GO_MEMORY_TYPE_VALUE_STACK, GRAPHQL_OPERATION_TYPE_VALUE_MUTATION, GRAPHQL_OPERATION_TYPE_VALUE_QUERY, GRAPHQL_OPERATION_TYPE_VALUE_SUBSCRIPTION, HOST_ARCH_VALUE_AMD64, HOST_ARCH_VALUE_ARM32, HOST_ARCH_VALUE_ARM64, HOST_ARCH_VALUE_IA64, HOST_ARCH_VALUE_PPC32, HOST_ARCH_VALUE_PPC64, HOST_ARCH_VALUE_S390X, HOST_ARCH_VALUE_X86, HTTP_CONNECTION_STATE_VALUE_ACTIVE, HTTP_CONNECTION_STATE_VALUE_IDLE, HTTP_FLAVOR_VALUE_HTTP_1_0, HTTP_FLAVOR_VALUE_HTTP_1_1, HTTP_FLAVOR_VALUE_HTTP_2_0, HTTP_FLAVOR_VALUE_HTTP_3_0, HTTP_FLAVOR_VALUE_QUIC, HTTP_FLAVOR_VALUE_SPDY, HTTP_REQUEST_METHOD_VALUE_CONNECT, HTTP_REQUEST_METHOD_VALUE_DELETE, HTTP_REQUEST_METHOD_VALUE_GET, HTTP_REQUEST_METHOD_VALUE_HEAD, HTTP_REQUEST_METHOD_VALUE_OPTIONS, HTTP_REQUEST_METHOD_VALUE_OTHER, HTTP_REQUEST_METHOD_VALUE_PATCH, HTTP_REQUEST_METHOD_VALUE_POST, HTTP_REQUEST_METHOD_VALUE_PUT, HTTP_REQUEST_METHOD_VALUE_TRACE, HW_STATE_VALUE_DEGRADED, HW_STATE_VALUE_FAILED, HW_STATE_VALUE_OK, HW_TYPE_VALUE_BATTERY, HW_TYPE_VALUE_CPU, HW_TYPE_VALUE_DISK_CONTROLLER, HW_TYPE_VALUE_ENCLOSURE, HW_TYPE_VALUE_FAN, HW_TYPE_VALUE_GPU, HW_TYPE_VALUE_LOGICAL_DISK, HW_TYPE_VALUE_MEMORY, HW_TYPE_VALUE_NETWORK, HW_TYPE_VALUE_PHYSICAL_DISK, HW_TYPE_VALUE_POWER_SUPPLY, HW_TYPE_VALUE_TAPE_DRIVE, HW_TYPE_VALUE_TEMPERATURE, HW_TYPE_VALUE_VOLTAGE, IOS_APP_STATE_VALUE_ACTIVE, IOS_APP_STATE_VALUE_BACKGROUND, IOS_APP_STATE_VALUE_FOREGROUND, IOS_APP_STATE_VALUE_INACTIVE, IOS_APP_STATE_VALUE_TERMINATE, IOS_STATE_VALUE_ACTIVE, IOS_STATE_VALUE_BACKGROUND, IOS_STATE_VALUE_FOREGROUND, IOS_STATE_VALUE_INACTIVE, IOS_STATE_VALUE_TERMINATE, JVM_MEMORY_TYPE_VALUE_HEAP, JVM_MEMORY_TYPE_VALUE_NON_HEAP, JVM_THREAD_STATE_VALUE_BLOCKED, JVM_THREAD_STATE_VALUE_NEW, JVM_THREAD_STATE_VALUE_RUNNABLE, JVM_THREAD_STATE_VALUE_TERMINATED, JVM_THREAD_STATE_VALUE_TIMED_WAITING, JVM_THREAD_STATE_VALUE_WAITING, K8S_NAMESPACE_PHASE_VALUE_ACTIVE, K8S_NAMESPACE_PHASE_VALUE_TERMINATING, K8S_VOLUME_TYPE_VALUE_CONFIG_MAP, K8S_VOLUME_TYPE_VALUE_DOWNWARD_API, K8S_VOLUME_TYPE_VALUE_EMPTY_DIR, K8S_VOLUME_TYPE_VALUE_LOCAL, K8S_VOLUME_TYPE_VALUE_PERSISTENT_VOLUME_CLAIM, K8S_VOLUME_TYPE_VALUE_SECRET, LINUX_MEMORY_SLAB_STATE_VALUE_RECLAIMABLE, LINUX_MEMORY_SLAB_STATE_VALUE_UNRECLAIMABLE, LOG_IOSTREAM_VALUE_STDERR, LOG_IOSTREAM_VALUE_STDOUT, MESSAGE_TYPE_VALUE_RECEIVED, MESSAGE_TYPE_VALUE_SENT, MESSAGING_OPERATION_TYPE_VALUE_CREATE, MESSAGING_OPERATION_TYPE_VALUE_DELIVER, MESSAGING_OPERATION_TYPE_VALUE_PROCESS, MESSAGING_OPERATION_TYPE_VALUE_PUBLISH, MESSAGING_OPERATION_TYPE_VALUE_RECEIVE, MESSAGING_OPERATION_TYPE_VALUE_SEND, MESSAGING_OPERATION_TYPE_VALUE_SETTLE, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_BROADCASTING, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_CLUSTERING, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_DELAY, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_FIFO, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_NORMAL, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_TRANSACTION, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_ABANDON, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_COMPLETE, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEAD_LETTER, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEFER, MESSAGING_SYSTEM_VALUE_ACTIVEMQ, MESSAGING_SYSTEM_VALUE_AWS_SQS, MESSAGING_SYSTEM_VALUE_EVENTGRID, MESSAGING_SYSTEM_VALUE_EVENTHUBS, MESSAGING_SYSTEM_VALUE_GCP_PUBSUB, MESSAGING_SYSTEM_VALUE_JMS, MESSAGING_SYSTEM_VALUE_KAFKA, MESSAGING_SYSTEM_VALUE_PULSAR, MESSAGING_SYSTEM_VALUE_RABBITMQ, MESSAGING_SYSTEM_VALUE_ROCKETMQ, MESSAGING_SYSTEM_VALUE_SERVICEBUS, METRIC_ASPNETCORE_DIAGNOSTICS_EXCEPTIONS, METRIC_ASPNETCORE_RATE_LIMITING_ACTIVE_REQUEST_LEASES, METRIC_ASPNETCORE_RATE_LIMITING_QUEUED_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_LEASE_DURATION, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_TIME_IN_QUEUE, METRIC_ASPNETCORE_ROUTING_MATCH_ATTEMPTS, METRIC_AZURE_COSMOSDB_CLIENT_ACTIVE_INSTANCE_COUNT, METRIC_AZURE_COSMOSDB_CLIENT_OPERATION_REQUEST_CHARGE, METRIC_CICD_PIPELINE_RUN_ACTIVE, METRIC_CICD_PIPELINE_RUN_DURATION, METRIC_CICD_PIPELINE_RUN_ERRORS, METRIC_CICD_SYSTEM_ERRORS, METRIC_CICD_WORKER_COUNT, METRIC_CONTAINER_CPU_TIME, METRIC_CONTAINER_CPU_USAGE, METRIC_CONTAINER_DISK_IO, METRIC_CONTAINER_MEMORY_USAGE, METRIC_CONTAINER_NETWORK_IO, METRIC_CONTAINER_UPTIME, METRIC_CPU_FREQUENCY, METRIC_CPU_TIME, METRIC_CPU_UTILIZATION, METRIC_CPYTHON_GC_COLLECTED_OBJECTS, METRIC_CPYTHON_GC_COLLECTIONS, METRIC_CPYTHON_GC_UNCOLLECTABLE_OBJECTS, METRIC_DB_CLIENT_CONNECTIONS_CREATE_TIME, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MAX, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MIN, METRIC_DB_CLIENT_CONNECTIONS_MAX, METRIC_DB_CLIENT_CONNECTIONS_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTIONS_TIMEOUTS, METRIC_DB_CLIENT_CONNECTIONS_USAGE, METRIC_DB_CLIENT_CONNECTIONS_USE_TIME, METRIC_DB_CLIENT_CONNECTIONS_WAIT_TIME, METRIC_DB_CLIENT_CONNECTION_COUNT, METRIC_DB_CLIENT_CONNECTION_CREATE_TIME, METRIC_DB_CLIENT_CONNECTION_IDLE_MAX, METRIC_DB_CLIENT_CONNECTION_IDLE_MIN, METRIC_DB_CLIENT_CONNECTION_MAX, METRIC_DB_CLIENT_CONNECTION_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTION_TIMEOUTS, METRIC_DB_CLIENT_CONNECTION_USE_TIME, METRIC_DB_CLIENT_CONNECTION_WAIT_TIME, METRIC_DB_CLIENT_COSMOSDB_ACTIVE_INSTANCE_COUNT, METRIC_DB_CLIENT_COSMOSDB_OPERATION_REQUEST_CHARGE, METRIC_DB_CLIENT_OPERATION_DURATION, METRIC_DB_CLIENT_RESPONSE_RETURNED_ROWS, METRIC_DNS_LOOKUP_DURATION, METRIC_DOTNET_ASSEMBLY_COUNT, METRIC_DOTNET_EXCEPTIONS, METRIC_DOTNET_GC_COLLECTIONS, METRIC_DOTNET_GC_HEAP_TOTAL_ALLOCATED, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_FRAGMENTATION_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_MEMORY_COMMITTED_SIZE, METRIC_DOTNET_GC_PAUSE_TIME, METRIC_DOTNET_JIT_COMPILATION_TIME, METRIC_DOTNET_JIT_COMPILED_IL_SIZE, METRIC_DOTNET_JIT_COMPILED_METHODS, METRIC_DOTNET_MONITOR_LOCK_CONTENTIONS, METRIC_DOTNET_PROCESS_CPU_COUNT, METRIC_DOTNET_PROCESS_CPU_TIME, METRIC_DOTNET_PROCESS_MEMORY_WORKING_SET, METRIC_DOTNET_THREAD_POOL_QUEUE_LENGTH, METRIC_DOTNET_THREAD_POOL_THREAD_COUNT, METRIC_DOTNET_THREAD_POOL_WORK_ITEM_COUNT, METRIC_DOTNET_TIMER_COUNT, METRIC_FAAS_COLDSTARTS, METRIC_FAAS_CPU_USAGE, METRIC_FAAS_ERRORS, METRIC_FAAS_INIT_DURATION, METRIC_FAAS_INVOCATIONS, METRIC_FAAS_INVOKE_DURATION, METRIC_FAAS_MEM_USAGE, METRIC_FAAS_NET_IO, METRIC_FAAS_TIMEOUTS, METRIC_GEN_AI_CLIENT_OPERATION_DURATION, METRIC_GEN_AI_CLIENT_TOKEN_USAGE, METRIC_GEN_AI_SERVER_REQUEST_DURATION, METRIC_GEN_AI_SERVER_TIME_PER_OUTPUT_TOKEN, METRIC_GEN_AI_SERVER_TIME_TO_FIRST_TOKEN, METRIC_GO_CONFIG_GOGC, METRIC_GO_GOROUTINE_COUNT, METRIC_GO_MEMORY_ALLOCATED, METRIC_GO_MEMORY_ALLOCATIONS, METRIC_GO_MEMORY_GC_GOAL, METRIC_GO_MEMORY_LIMIT, METRIC_GO_MEMORY_USED, METRIC_GO_PROCESSOR_LIMIT, METRIC_GO_SCHEDULE_DURATION, METRIC_HTTP_CLIENT_ACTIVE_REQUESTS, METRIC_HTTP_CLIENT_CONNECTION_DURATION, METRIC_HTTP_CLIENT_OPEN_CONNECTIONS, METRIC_HTTP_CLIENT_REQUEST_BODY_SIZE, METRIC_HTTP_CLIENT_REQUEST_DURATION, METRIC_HTTP_CLIENT_RESPONSE_BODY_SIZE, METRIC_HTTP_SERVER_ACTIVE_REQUESTS, METRIC_HTTP_SERVER_REQUEST_BODY_SIZE, METRIC_HTTP_SERVER_REQUEST_DURATION, METRIC_HTTP_SERVER_RESPONSE_BODY_SIZE, METRIC_HW_ENERGY, METRIC_HW_ERRORS, METRIC_HW_HOST_AMBIENT_TEMPERATURE, METRIC_HW_HOST_ENERGY, METRIC_HW_HOST_HEATING_MARGIN, METRIC_HW_HOST_POWER, METRIC_HW_POWER, METRIC_HW_STATUS, METRIC_JVM_BUFFER_COUNT, METRIC_JVM_BUFFER_MEMORY_LIMIT, METRIC_JVM_BUFFER_MEMORY_USAGE, METRIC_JVM_BUFFER_MEMORY_USED, METRIC_JVM_CLASS_COUNT, METRIC_JVM_CLASS_LOADED, METRIC_JVM_CLASS_UNLOADED, METRIC_JVM_CPU_COUNT, METRIC_JVM_CPU_RECENT_UTILIZATION, METRIC_JVM_CPU_TIME, METRIC_JVM_FILE_DESCRIPTOR_COUNT, METRIC_JVM_GC_DURATION, METRIC_JVM_MEMORY_COMMITTED, METRIC_JVM_MEMORY_INIT, METRIC_JVM_MEMORY_LIMIT, METRIC_JVM_MEMORY_USED, METRIC_JVM_MEMORY_USED_AFTER_LAST_GC, METRIC_JVM_SYSTEM_CPU_LOAD_1M, METRIC_JVM_SYSTEM_CPU_UTILIZATION, METRIC_JVM_THREAD_COUNT, METRIC_K8S_CRONJOB_ACTIVE_JOBS, METRIC_K8S_DAEMONSET_CURRENT_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_DESIRED_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_MISSCHEDULED_NODES, METRIC_K8S_DAEMONSET_READY_NODES, METRIC_K8S_DEPLOYMENT_AVAILABLE_PODS, METRIC_K8S_DEPLOYMENT_DESIRED_PODS, METRIC_K8S_HPA_CURRENT_PODS, METRIC_K8S_HPA_DESIRED_PODS, METRIC_K8S_HPA_MAX_PODS, METRIC_K8S_HPA_MIN_PODS, METRIC_K8S_JOB_ACTIVE_PODS, METRIC_K8S_JOB_DESIRED_SUCCESSFUL_PODS, METRIC_K8S_JOB_FAILED_PODS, METRIC_K8S_JOB_MAX_PARALLEL_PODS, METRIC_K8S_JOB_SUCCESSFUL_PODS, METRIC_K8S_NAMESPACE_PHASE, METRIC_K8S_NODE_CPU_TIME, METRIC_K8S_NODE_CPU_USAGE, METRIC_K8S_NODE_MEMORY_USAGE, METRIC_K8S_NODE_NETWORK_ERRORS, METRIC_K8S_NODE_NETWORK_IO, METRIC_K8S_NODE_UPTIME, METRIC_K8S_POD_CPU_TIME, METRIC_K8S_POD_CPU_USAGE, METRIC_K8S_POD_MEMORY_USAGE, METRIC_K8S_POD_NETWORK_ERRORS, METRIC_K8S_POD_NETWORK_IO, METRIC_K8S_POD_UPTIME, METRIC_K8S_REPLICASET_AVAILABLE_PODS, METRIC_K8S_REPLICASET_DESIRED_PODS, METRIC_K8S_REPLICATIONCONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATIONCONTROLLER_DESIRED_PODS, METRIC_K8S_REPLICATION_CONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATION_CONTROLLER_DESIRED_PODS, METRIC_K8S_STATEFULSET_CURRENT_PODS, METRIC_K8S_STATEFULSET_DESIRED_PODS, METRIC_K8S_STATEFULSET_READY_PODS, METRIC_K8S_STATEFULSET_UPDATED_PODS, METRIC_KESTREL_ACTIVE_CONNECTIONS, METRIC_KESTREL_ACTIVE_TLS_HANDSHAKES, METRIC_KESTREL_CONNECTION_DURATION, METRIC_KESTREL_QUEUED_CONNECTIONS, METRIC_KESTREL_QUEUED_REQUESTS, METRIC_KESTREL_REJECTED_CONNECTIONS, METRIC_KESTREL_TLS_HANDSHAKE_DURATION, METRIC_KESTREL_UPGRADED_CONNECTIONS, METRIC_MESSAGING_CLIENT_CONSUMED_MESSAGES, METRIC_MESSAGING_CLIENT_OPERATION_DURATION, METRIC_MESSAGING_CLIENT_PUBLISHED_MESSAGES, METRIC_MESSAGING_CLIENT_SENT_MESSAGES, METRIC_MESSAGING_PROCESS_DURATION, METRIC_MESSAGING_PROCESS_MESSAGES, METRIC_MESSAGING_PUBLISH_DURATION, METRIC_MESSAGING_PUBLISH_MESSAGES, METRIC_MESSAGING_RECEIVE_DURATION, METRIC_MESSAGING_RECEIVE_MESSAGES, METRIC_NODEJS_EVENTLOOP_DELAY_MAX, METRIC_NODEJS_EVENTLOOP_DELAY_MEAN, METRIC_NODEJS_EVENTLOOP_DELAY_MIN, METRIC_NODEJS_EVENTLOOP_DELAY_P50, METRIC_NODEJS_EVENTLOOP_DELAY_P90, METRIC_NODEJS_EVENTLOOP_DELAY_P99, METRIC_NODEJS_EVENTLOOP_DELAY_STDDEV, METRIC_NODEJS_EVENTLOOP_TIME, METRIC_NODEJS_EVENTLOOP_UTILIZATION, METRIC_OTEL_SDK_EXPORTER_LOG_EXPORTED, METRIC_OTEL_SDK_EXPORTER_LOG_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_EXPORTED, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_OPERATION_DURATION, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED_COUNT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT_COUNT, METRIC_OTEL_SDK_LOG_CREATED, METRIC_OTEL_SDK_METRIC_READER_COLLECTION_DURATION, METRIC_OTEL_SDK_PROCESSOR_LOG_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_SIZE, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED_COUNT, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_SIZE, METRIC_OTEL_SDK_SPAN_ENDED, METRIC_OTEL_SDK_SPAN_ENDED_COUNT, METRIC_OTEL_SDK_SPAN_LIVE, METRIC_OTEL_SDK_SPAN_LIVE_COUNT, METRIC_PROCESS_CONTEXT_SWITCHES, METRIC_PROCESS_CPU_TIME, METRIC_PROCESS_CPU_UTILIZATION, METRIC_PROCESS_DISK_IO, METRIC_PROCESS_MEMORY_USAGE, METRIC_PROCESS_MEMORY_VIRTUAL, METRIC_PROCESS_NETWORK_IO, METRIC_PROCESS_OPEN_FILE_DESCRIPTOR_COUNT, METRIC_PROCESS_PAGING_FAULTS, METRIC_PROCESS_THREAD_COUNT, METRIC_PROCESS_UPTIME, METRIC_RPC_CLIENT_DURATION, METRIC_RPC_CLIENT_REQUESTS_PER_RPC, METRIC_RPC_CLIENT_REQUEST_SIZE, METRIC_RPC_CLIENT_RESPONSES_PER_RPC, METRIC_RPC_CLIENT_RESPONSE_SIZE, METRIC_RPC_SERVER_DURATION, METRIC_RPC_SERVER_REQUESTS_PER_RPC, METRIC_RPC_SERVER_REQUEST_SIZE, METRIC_RPC_SERVER_RESPONSES_PER_RPC, METRIC_RPC_SERVER_RESPONSE_SIZE, METRIC_SIGNALR_SERVER_ACTIVE_CONNECTIONS, METRIC_SIGNALR_SERVER_CONNECTION_DURATION, METRIC_SYSTEM_CPU_FREQUENCY, METRIC_SYSTEM_CPU_LOGICAL_COUNT, METRIC_SYSTEM_CPU_PHYSICAL_COUNT, METRIC_SYSTEM_CPU_TIME, METRIC_SYSTEM_CPU_UTILIZATION, METRIC_SYSTEM_DISK_IO, METRIC_SYSTEM_DISK_IO_TIME, METRIC_SYSTEM_DISK_LIMIT, METRIC_SYSTEM_DISK_MERGED, METRIC_SYSTEM_DISK_OPERATIONS, METRIC_SYSTEM_DISK_OPERATION_TIME, METRIC_SYSTEM_FILESYSTEM_LIMIT, METRIC_SYSTEM_FILESYSTEM_USAGE, METRIC_SYSTEM_FILESYSTEM_UTILIZATION, METRIC_SYSTEM_LINUX_MEMORY_AVAILABLE, METRIC_SYSTEM_LINUX_MEMORY_SLAB_USAGE, METRIC_SYSTEM_MEMORY_LIMIT, METRIC_SYSTEM_MEMORY_SHARED, METRIC_SYSTEM_MEMORY_USAGE, METRIC_SYSTEM_MEMORY_UTILIZATION, METRIC_SYSTEM_NETWORK_CONNECTIONS, METRIC_SYSTEM_NETWORK_DROPPED, METRIC_SYSTEM_NETWORK_ERRORS, METRIC_SYSTEM_NETWORK_IO, METRIC_SYSTEM_NETWORK_PACKETS, METRIC_SYSTEM_PAGING_FAULTS, METRIC_SYSTEM_PAGING_OPERATIONS, METRIC_SYSTEM_PAGING_USAGE, METRIC_SYSTEM_PAGING_UTILIZATION, METRIC_SYSTEM_PROCESS_COUNT, METRIC_SYSTEM_PROCESS_CREATED, METRIC_SYSTEM_UPTIME, METRIC_V8JS_GC_DURATION, METRIC_V8JS_HEAP_SPACE_AVAILABLE_SIZE, METRIC_V8JS_HEAP_SPACE_PHYSICAL_SIZE, METRIC_V8JS_MEMORY_HEAP_LIMIT, METRIC_V8JS_MEMORY_HEAP_USED, METRIC_VCS_CHANGE_COUNT, METRIC_VCS_CHANGE_DURATION, METRIC_VCS_CHANGE_TIME_TO_APPROVAL, METRIC_VCS_CHANGE_TIME_TO_MERGE, METRIC_VCS_CONTRIBUTOR_COUNT, METRIC_VCS_REF_COUNT, METRIC_VCS_REF_LINES_DELTA, METRIC_VCS_REF_REVISIONS_DELTA, METRIC_VCS_REF_TIME, METRIC_VCS_REPOSITORY_COUNT, NETWORK_CONNECTION_STATE_VALUE_CLOSED, NETWORK_CONNECTION_STATE_VALUE_CLOSE_WAIT, NETWORK_CONNECTION_STATE_VALUE_CLOSING, NETWORK_CONNECTION_STATE_VALUE_ESTABLISHED, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_1, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_2, NETWORK_CONNECTION_STATE_VALUE_LAST_ACK, NETWORK_CONNECTION_STATE_VALUE_LISTEN, NETWORK_CONNECTION_STATE_VALUE_SYN_RECEIVED, NETWORK_CONNECTION_STATE_VALUE_SYN_SENT, NETWORK_CONNECTION_STATE_VALUE_TIME_WAIT, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA2000_1XRTT, NETWORK_CONNECTION_SUBTYPE_VALUE_EDGE, NETWORK_CONNECTION_SUBTYPE_VALUE_EHRPD, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_0, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_A, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_B, NETWORK_CONNECTION_SUBTYPE_VALUE_GPRS, NETWORK_CONNECTION_SUBTYPE_VALUE_GSM, NETWORK_CONNECTION_SUBTYPE_VALUE_HSDPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPAP, NETWORK_CONNECTION_SUBTYPE_VALUE_HSUPA, NETWORK_CONNECTION_SUBTYPE_VALUE_IDEN, NETWORK_CONNECTION_SUBTYPE_VALUE_IWLAN, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE_CA, NETWORK_CONNECTION_SUBTYPE_VALUE_NR, NETWORK_CONNECTION_SUBTYPE_VALUE_NRNSA, NETWORK_CONNECTION_SUBTYPE_VALUE_TD_SCDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_UMTS, NETWORK_CONNECTION_TYPE_VALUE_CELL, NETWORK_CONNECTION_TYPE_VALUE_UNAVAILABLE, NETWORK_CONNECTION_TYPE_VALUE_UNKNOWN, NETWORK_CONNECTION_TYPE_VALUE_WIFI, NETWORK_CONNECTION_TYPE_VALUE_WIRED, NETWORK_IO_DIRECTION_VALUE_RECEIVE, NETWORK_IO_DIRECTION_VALUE_TRANSMIT, NETWORK_TRANSPORT_VALUE_PIPE, NETWORK_TRANSPORT_VALUE_QUIC, NETWORK_TRANSPORT_VALUE_TCP, NETWORK_TRANSPORT_VALUE_UDP, NETWORK_TRANSPORT_VALUE_UNIX, NETWORK_TYPE_VALUE_IPV4, NETWORK_TYPE_VALUE_IPV6, NET_SOCK_FAMILY_VALUE_INET, NET_SOCK_FAMILY_VALUE_INET6, NET_SOCK_FAMILY_VALUE_UNIX, NET_TRANSPORT_VALUE_INPROC, NET_TRANSPORT_VALUE_IP_TCP, NET_TRANSPORT_VALUE_IP_UDP, NET_TRANSPORT_VALUE_OTHER, NET_TRANSPORT_VALUE_PIPE, NODEJS_EVENTLOOP_STATE_VALUE_ACTIVE, NODEJS_EVENTLOOP_STATE_VALUE_IDLE, OPENTRACING_REF_TYPE_VALUE_CHILD_OF, OPENTRACING_REF_TYPE_VALUE_FOLLOWS_FROM, OS_TYPE_VALUE_AIX, OS_TYPE_VALUE_DARWIN, OS_TYPE_VALUE_DRAGONFLYBSD, OS_TYPE_VALUE_FREEBSD, OS_TYPE_VALUE_HPUX, OS_TYPE_VALUE_LINUX, OS_TYPE_VALUE_NETBSD, OS_TYPE_VALUE_OPENBSD, OS_TYPE_VALUE_SOLARIS, OS_TYPE_VALUE_WINDOWS, OS_TYPE_VALUE_Z_OS, OTEL_COMPONENT_TYPE_VALUE_BATCHING_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_BATCHING_SPAN_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_PERIODIC_METRIC_READER, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_SPAN_PROCESSOR, OTEL_SPAN_SAMPLING_RESULT_VALUE_DROP, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_AND_SAMPLE, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_ONLY, OTEL_STATUS_CODE_VALUE_ERROR, OTEL_STATUS_CODE_VALUE_OK, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_INVOLUNTARY, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_VOLUNTARY, PROCESS_CPU_STATE_VALUE_SYSTEM, PROCESS_CPU_STATE_VALUE_USER, PROCESS_CPU_STATE_VALUE_WAIT, PROCESS_PAGING_FAULT_TYPE_VALUE_MAJOR, PROCESS_PAGING_FAULT_TYPE_VALUE_MINOR, PROFILE_FRAME_TYPE_VALUE_BEAM, PROFILE_FRAME_TYPE_VALUE_CPYTHON, PROFILE_FRAME_TYPE_VALUE_DOTNET, PROFILE_FRAME_TYPE_VALUE_GO, PROFILE_FRAME_TYPE_VALUE_JVM, PROFILE_FRAME_TYPE_VALUE_KERNEL, PROFILE_FRAME_TYPE_VALUE_NATIVE, PROFILE_FRAME_TYPE_VALUE_PERL, PROFILE_FRAME_TYPE_VALUE_PHP, PROFILE_FRAME_TYPE_VALUE_RUBY, PROFILE_FRAME_TYPE_VALUE_RUST, PROFILE_FRAME_TYPE_VALUE_V8JS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ABORTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ALREADY_EXISTS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_CANCELLED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DATA_LOSS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DEADLINE_EXCEEDED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_FAILED_PRECONDITION, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INTERNAL, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INVALID_ARGUMENT, RPC_CONNECT_RPC_ERROR_CODE_VALUE_NOT_FOUND, RPC_CONNECT_RPC_ERROR_CODE_VALUE_OUT_OF_RANGE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_PERMISSION_DENIED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAUTHENTICATED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAVAILABLE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNIMPLEMENTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNKNOWN, RPC_GRPC_STATUS_CODE_VALUE_ABORTED, RPC_GRPC_STATUS_CODE_VALUE_ALREADY_EXISTS, RPC_GRPC_STATUS_CODE_VALUE_CANCELLED, RPC_GRPC_STATUS_CODE_VALUE_DATA_LOSS, RPC_GRPC_STATUS_CODE_VALUE_DEADLINE_EXCEEDED, RPC_GRPC_STATUS_CODE_VALUE_FAILED_PRECONDITION, RPC_GRPC_STATUS_CODE_VALUE_INTERNAL, RPC_GRPC_STATUS_CODE_VALUE_INVALID_ARGUMENT, RPC_GRPC_STATUS_CODE_VALUE_NOT_FOUND, RPC_GRPC_STATUS_CODE_VALUE_OK, RPC_GRPC_STATUS_CODE_VALUE_OUT_OF_RANGE, RPC_GRPC_STATUS_CODE_VALUE_PERMISSION_DENIED, RPC_GRPC_STATUS_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_GRPC_STATUS_CODE_VALUE_UNAUTHENTICATED, RPC_GRPC_STATUS_CODE_VALUE_UNAVAILABLE, RPC_GRPC_STATUS_CODE_VALUE_UNIMPLEMENTED, RPC_GRPC_STATUS_CODE_VALUE_UNKNOWN, RPC_MESSAGE_TYPE_VALUE_RECEIVED, RPC_MESSAGE_TYPE_VALUE_SENT, RPC_SYSTEM_VALUE_APACHE_DUBBO, RPC_SYSTEM_VALUE_CONNECT_RPC, RPC_SYSTEM_VALUE_DOTNET_WCF, RPC_SYSTEM_VALUE_GRPC, RPC_SYSTEM_VALUE_JAVA_RMI, SIGNALR_CONNECTION_STATUS_VALUE_APP_SHUTDOWN, SIGNALR_CONNECTION_STATUS_VALUE_NORMAL_CLOSURE, SIGNALR_CONNECTION_STATUS_VALUE_TIMEOUT, SIGNALR_TRANSPORT_VALUE_LONG_POLLING, SIGNALR_TRANSPORT_VALUE_SERVER_SENT_EVENTS, SIGNALR_TRANSPORT_VALUE_WEB_SOCKETS, STATE_VALUE_IDLE, STATE_VALUE_USED, SYSTEM_CPU_STATE_VALUE_IDLE, SYSTEM_CPU_STATE_VALUE_INTERRUPT, SYSTEM_CPU_STATE_VALUE_IOWAIT, SYSTEM_CPU_STATE_VALUE_NICE, SYSTEM_CPU_STATE_VALUE_STEAL, SYSTEM_CPU_STATE_VALUE_SYSTEM, SYSTEM_CPU_STATE_VALUE_USER, SYSTEM_FILESYSTEM_STATE_VALUE_FREE, SYSTEM_FILESYSTEM_STATE_VALUE_RESERVED, SYSTEM_FILESYSTEM_STATE_VALUE_USED, SYSTEM_FILESYSTEM_TYPE_VALUE_EXFAT, SYSTEM_FILESYSTEM_TYPE_VALUE_EXT4, SYSTEM_FILESYSTEM_TYPE_VALUE_FAT32, SYSTEM_FILESYSTEM_TYPE_VALUE_HFSPLUS, SYSTEM_FILESYSTEM_TYPE_VALUE_NTFS, SYSTEM_FILESYSTEM_TYPE_VALUE_REFS, SYSTEM_MEMORY_STATE_VALUE_BUFFERS, SYSTEM_MEMORY_STATE_VALUE_CACHED, SYSTEM_MEMORY_STATE_VALUE_FREE, SYSTEM_MEMORY_STATE_VALUE_SHARED, SYSTEM_MEMORY_STATE_VALUE_USED, SYSTEM_NETWORK_STATE_VALUE_CLOSE, SYSTEM_NETWORK_STATE_VALUE_CLOSE_WAIT, SYSTEM_NETWORK_STATE_VALUE_CLOSING, SYSTEM_NETWORK_STATE_VALUE_DELETE, SYSTEM_NETWORK_STATE_VALUE_ESTABLISHED, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_1, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_2, SYSTEM_NETWORK_STATE_VALUE_LAST_ACK, SYSTEM_NETWORK_STATE_VALUE_LISTEN, SYSTEM_NETWORK_STATE_VALUE_SYN_RECV, SYSTEM_NETWORK_STATE_VALUE_SYN_SENT, SYSTEM_NETWORK_STATE_VALUE_TIME_WAIT, SYSTEM_PAGING_DIRECTION_VALUE_IN, SYSTEM_PAGING_DIRECTION_VALUE_OUT, SYSTEM_PAGING_STATE_VALUE_FREE, SYSTEM_PAGING_STATE_VALUE_USED, SYSTEM_PAGING_TYPE_VALUE_MAJOR, SYSTEM_PAGING_TYPE_VALUE_MINOR, SYSTEM_PROCESSES_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESSES_STATUS_VALUE_RUNNING, SYSTEM_PROCESSES_STATUS_VALUE_SLEEPING, SYSTEM_PROCESSES_STATUS_VALUE_STOPPED, SYSTEM_PROCESS_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESS_STATUS_VALUE_RUNNING, SYSTEM_PROCESS_STATUS_VALUE_SLEEPING, SYSTEM_PROCESS_STATUS_VALUE_STOPPED, TELEMETRY_SDK_LANGUAGE_VALUE_CPP, TELEMETRY_SDK_LANGUAGE_VALUE_DOTNET, TELEMETRY_SDK_LANGUAGE_VALUE_ERLANG, TELEMETRY_SDK_LANGUAGE_VALUE_GO, TELEMETRY_SDK_LANGUAGE_VALUE_JAVA, TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS, TELEMETRY_SDK_LANGUAGE_VALUE_PHP, TELEMETRY_SDK_LANGUAGE_VALUE_PYTHON, TELEMETRY_SDK_LANGUAGE_VALUE_RUBY, TELEMETRY_SDK_LANGUAGE_VALUE_RUST, TELEMETRY_SDK_LANGUAGE_VALUE_SWIFT, TELEMETRY_SDK_LANGUAGE_VALUE_WEBJS, TEST_CASE_RESULT_STATUS_VALUE_FAIL, TEST_CASE_RESULT_STATUS_VALUE_PASS, TEST_SUITE_RUN_STATUS_VALUE_ABORTED, TEST_SUITE_RUN_STATUS_VALUE_FAILURE, TEST_SUITE_RUN_STATUS_VALUE_IN_PROGRESS, TEST_SUITE_RUN_STATUS_VALUE_SKIPPED, TEST_SUITE_RUN_STATUS_VALUE_SUCCESS, TEST_SUITE_RUN_STATUS_VALUE_TIMED_OUT, TLS_PROTOCOL_NAME_VALUE_SSL, TLS_PROTOCOL_NAME_VALUE_TLS, USER_AGENT_SYNTHETIC_TYPE_VALUE_BOT, USER_AGENT_SYNTHETIC_TYPE_VALUE_TEST, V8JS_GC_TYPE_VALUE_INCREMENTAL, V8JS_GC_TYPE_VALUE_MAJOR, V8JS_GC_TYPE_VALUE_MINOR, V8JS_GC_TYPE_VALUE_WEAKCB, V8JS_HEAP_SPACE_NAME_VALUE_CODE_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_LARGE_OBJECT_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_MAP_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_NEW_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_OLD_SPACE, VCS_CHANGE_STATE_VALUE_CLOSED, VCS_CHANGE_STATE_VALUE_MERGED, VCS_CHANGE_STATE_VALUE_OPEN, VCS_CHANGE_STATE_VALUE_WIP, VCS_LINE_CHANGE_TYPE_VALUE_ADDED, VCS_LINE_CHANGE_TYPE_VALUE_REMOVED, VCS_PROVIDER_NAME_VALUE_BITBUCKET, VCS_PROVIDER_NAME_VALUE_GITEA, VCS_PROVIDER_NAME_VALUE_GITHUB, VCS_PROVIDER_NAME_VALUE_GITLAB, VCS_PROVIDER_NAME_VALUE_GITTEA, VCS_REF_BASE_TYPE_VALUE_BRANCH, VCS_REF_BASE_TYPE_VALUE_TAG, VCS_REF_HEAD_TYPE_VALUE_BRANCH, VCS_REF_HEAD_TYPE_VALUE_TAG, VCS_REF_TYPE_VALUE_BRANCH, VCS_REF_TYPE_VALUE_TAG, VCS_REPOSITORY_REF_TYPE_VALUE_BRANCH, VCS_REPOSITORY_REF_TYPE_VALUE_TAG, VCS_REVISION_DELTA_DIRECTION_VALUE_AHEAD, VCS_REVISION_DELTA_DIRECTION_VALUE_BEHIND };
+/**
+ * This event indicates that the application has detected substandard UI rendering performance.
+ *
+ * @note Jank happens when the UI is rendered slowly enough for the user to experience some disruption or sluggishness.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_APP_JANK: "app.jank";
+/**
+ * This event represents an instantaneous click on the screen of an application.
+ *
+ * @note The `app.screen.click` event can be used to indicate that a user has clicked or tapped on the screen portion of an application. Clicks outside of an application's active area **SHOULD NOT** generate this event. This event does not differentiate between touch/mouse down and touch/mouse up. Implementations **SHOULD** give preference to generating this event at the time the click is complete, typically on touch release or mouse up. The location of the click event **MUST** be provided in absolute screen pixels.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_APP_SCREEN_CLICK: "app.screen.click";
+/**
+ * This event indicates that an application widget has been clicked.
+ *
+ * @note Use this event to indicate that visual application component has been clicked, typically through a user's manual interaction.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_APP_WIDGET_CLICK: "app.widget.click";
+/**
+ * Deprecated. Use `azure.resource.log` instead.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `azure.resource.log`.
+ */
+declare const EVENT_AZ_RESOURCE_LOG: "az.resource.log";
+/**
+ * Describes Azure Resource Log event, see [Azure Resource Log Top-level Schema](https://learn.microsoft.com/azure/azure-monitor/essentials/resource-logs-schema#top-level-common-schema) for more details.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_AZURE_RESOURCE_LOG: "azure.resource.log";
+/**
+ * This event describes the website performance metrics introduced by Google, See [web vitals](https://web.dev/vitals).
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_BROWSER_WEB_VITAL: "browser.web_vital";
+/**
+ * This event represents an occurrence of a lifecycle transition on Android or iOS platform.
+ *
+ * @note The event body fields **MUST** be used to describe the state of the application at the time of the event.
+ * This event is meant to be used in conjunction with `os.name` [resource semantic convention](/docs/resource/os.md) to identify the mobile operating system (e.g. Android, iOS).
+ * The `android.app.state` and `ios.app.state` fields are mutually exclusive and **MUST NOT** be used together, each field **MUST** be used with its corresponding `os.name` value.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_DEVICE_APP_LIFECYCLE: "device.app.lifecycle";
+/**
+ * Defines feature flag evaluation as an event.
+ *
+ * @note A `feature_flag.evaluation` event **SHOULD** be emitted whenever a feature flag value is evaluated, which may happen many times over the course of an application lifecycle. For example, a website A/B testing different animations may evaluate a flag each time a button is clicked. A `feature_flag.evaluation` event is emitted on each evaluation even if the result is the same.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_FEATURE_FLAG_EVALUATION: "feature_flag.evaluation";
+/**
+ * This event describes the assistant message passed to GenAI system.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Chat history is reported on `gen_ai.input.messages` attribute on spans or `gen_ai.client.inference.operation.details` event.
+ */
+declare const EVENT_GEN_AI_ASSISTANT_MESSAGE: "gen_ai.assistant.message";
+/**
+ * This event describes the Gen AI response message.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Chat history is reported on `gen_ai.output.messages` attribute on spans or `gen_ai.client.inference.operation.details` event.
+ */
+declare const EVENT_GEN_AI_CHOICE: "gen_ai.choice";
+/**
+ * Describes the details of a GenAI completion request including chat history and parameters.
+ *
+ * @note This event is opt-in and could be used to store input and output details independently from traces.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_GEN_AI_CLIENT_INFERENCE_OPERATION_DETAILS: "gen_ai.client.inference.operation.details";
+/**
+ * This event describes the system instructions passed to the GenAI model.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Chat history is reported on `gen_ai.system_instructions` attribute on spans or `gen_ai.client.inference.operation.details` event.
+ */
+declare const EVENT_GEN_AI_SYSTEM_MESSAGE: "gen_ai.system.message";
+/**
+ * This event describes the response from a tool or function call passed to the GenAI model.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Chat history is reported on `gen_ai.input.messages` attribute on spans or `gen_ai.client.inference.operation.details` event.
+ */
+declare const EVENT_GEN_AI_TOOL_MESSAGE: "gen_ai.tool.message";
+/**
+ * This event describes the user message passed to the GenAI model.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Chat history is reported on `gen_ai.input.messages` attribute on spans or `gen_ai.client.inference.operation.details` event.
+ */
+declare const EVENT_GEN_AI_USER_MESSAGE: "gen_ai.user.message";
+/**
+ * Describes a message sent or received within the context of an RPC call.
+ *
+ * @note In the lifetime of an RPC stream, an event for each message sent/received on client and server spans **SHOULD** be created. In case of unary calls only one sent and one received message will be recorded for both client and server spans.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_RPC_MESSAGE: "rpc.message";
+/**
+ * Indicates that a session has ended.
+ *
+ * @note For instrumentation that tracks user behavior during user sessions, a `session.end` event **SHOULD** be emitted every time a session ends. When a session ends and continues as a new session, this event **SHOULD** be emitted prior to the `session.start` event.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_SESSION_END: "session.end";
+/**
+ * Indicates that a new session has been started, optionally linking to the prior session.
+ *
+ * @note For instrumentation that tracks user behavior during user sessions, a `session.start` event **MUST** be emitted every time a session is created. When a new session is created as a continuation of a prior session, the `session.previous_id` **SHOULD** be included in the event. The values of `session.id` and `session.previous_id` **MUST** be different.
+ * When the `session.start` event contains both `session.id` and `session.previous_id` fields, the event indicates that the previous session has ended. If the session ID in `session.previous_id` has not yet ended via explicit `session.end` event, then the consumer **SHOULD** treat this continuation event as semantically equivalent to `session.end(session.previous_id)` and `session.start(session.id)`.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_SESSION_START: "session.start";
+
+export { ANDROID_APP_STATE_VALUE_BACKGROUND, ANDROID_APP_STATE_VALUE_CREATED, ANDROID_APP_STATE_VALUE_FOREGROUND, ANDROID_STATE_VALUE_BACKGROUND, ANDROID_STATE_VALUE_CREATED, ANDROID_STATE_VALUE_FOREGROUND, ASPNETCORE_AUTHENTICATION_RESULT_VALUE_FAILURE, ASPNETCORE_AUTHENTICATION_RESULT_VALUE_NONE, ASPNETCORE_AUTHENTICATION_RESULT_VALUE_SUCCESS, ASPNETCORE_AUTHORIZATION_RESULT_VALUE_FAILURE, ASPNETCORE_AUTHORIZATION_RESULT_VALUE_SUCCESS, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_ABORTED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_HANDLED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_SKIPPED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_UNHANDLED, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_FAILURE, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_PASSWORD_MISSING, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_SUCCESS, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_SUCCESS_REHASH_NEEDED, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_USER_MISSING, ASPNETCORE_IDENTITY_RESULT_VALUE_FAILURE, ASPNETCORE_IDENTITY_RESULT_VALUE_SUCCESS, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_FAILURE, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_LOCKED_OUT, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_NOT_ALLOWED, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_REQUIRES_TWO_FACTOR, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_SUCCESS, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_EXTERNAL, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_PASSKEY, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_PASSWORD, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR_AUTHENTICATOR, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR_RECOVERY_CODE, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_CHANGE_EMAIL, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_CHANGE_PHONE_NUMBER, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_EMAIL_CONFIRMATION, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_OTHER, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_RESET_PASSWORD, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_TWO_FACTOR, ASPNETCORE_IDENTITY_TOKEN_VERIFIED_VALUE_FAILURE, ASPNETCORE_IDENTITY_TOKEN_VERIFIED_VALUE_SUCCESS, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ACCESS_FAILED, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_CLAIMS, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_LOGIN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_TO_ROLES, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_EMAIL, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_PHONE_NUMBER, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CONFIRM_EMAIL, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_GENERATE_NEW_TWO_FACTOR_RECOVERY_CODES, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_OTHER, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_PASSWORD_REHASH, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REDEEM_TWO_FACTOR_RECOVERY_CODE, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_AUTHENTICATION_TOKEN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_CLAIMS, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_FROM_ROLES, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_LOGIN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_PASSKEY, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REPLACE_CLAIM, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_ACCESS_FAILED_COUNT, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_AUTHENTICATOR_KEY, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SECURITY_STAMP, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_AUTHENTICATION_TOKEN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_EMAIL, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_LOCKOUT_ENABLED, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_LOCKOUT_END_DATE, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_PASSKEY, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_PHONE_NUMBER, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_TWO_FACTOR_ENABLED, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_UPDATE, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_USER_NAME, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ACQUIRED, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ENDPOINT_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_GLOBAL_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_REQUEST_CANCELED, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_FAILURE, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_SUCCESS, ATTR_ANDROID_APP_STATE, ATTR_ANDROID_OS_API_LEVEL, ATTR_ANDROID_STATE, ATTR_APP_BUILD_ID, ATTR_APP_INSTALLATION_ID, ATTR_APP_JANK_FRAME_COUNT, ATTR_APP_JANK_PERIOD, ATTR_APP_JANK_THRESHOLD, ATTR_APP_SCREEN_COORDINATE_X, ATTR_APP_SCREEN_COORDINATE_Y, ATTR_APP_WIDGET_ID, ATTR_APP_WIDGET_NAME, ATTR_ARTIFACT_ATTESTATION_FILENAME, ATTR_ARTIFACT_ATTESTATION_HASH, ATTR_ARTIFACT_ATTESTATION_ID, ATTR_ARTIFACT_FILENAME, ATTR_ARTIFACT_HASH, ATTR_ARTIFACT_PURL, ATTR_ARTIFACT_VERSION, ATTR_ASPNETCORE_AUTHENTICATION_RESULT, ATTR_ASPNETCORE_AUTHENTICATION_SCHEME, ATTR_ASPNETCORE_AUTHORIZATION_POLICY, ATTR_ASPNETCORE_AUTHORIZATION_RESULT, ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT, ATTR_ASPNETCORE_DIAGNOSTICS_HANDLER_TYPE, ATTR_ASPNETCORE_IDENTITY_ERROR_CODE, ATTR_ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT, ATTR_ASPNETCORE_IDENTITY_RESULT, ATTR_ASPNETCORE_IDENTITY_SIGN_IN_RESULT, ATTR_ASPNETCORE_IDENTITY_SIGN_IN_TYPE, ATTR_ASPNETCORE_IDENTITY_TOKEN_PURPOSE, ATTR_ASPNETCORE_IDENTITY_TOKEN_VERIFIED, ATTR_ASPNETCORE_IDENTITY_USER_TYPE, ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE, ATTR_ASPNETCORE_MEMORY_POOL_OWNER, ATTR_ASPNETCORE_RATE_LIMITING_POLICY, ATTR_ASPNETCORE_RATE_LIMITING_RESULT, ATTR_ASPNETCORE_REQUEST_IS_UNHANDLED, ATTR_ASPNETCORE_ROUTING_IS_FALLBACK, ATTR_ASPNETCORE_ROUTING_MATCH_STATUS, ATTR_ASPNETCORE_SIGN_IN_IS_PERSISTENT, ATTR_ASPNETCORE_USER_IS_AUTHENTICATED, ATTR_AWS_BEDROCK_GUARDRAIL_ID, ATTR_AWS_BEDROCK_KNOWLEDGE_BASE_ID, ATTR_AWS_DYNAMODB_ATTRIBUTES_TO_GET, ATTR_AWS_DYNAMODB_ATTRIBUTE_DEFINITIONS, ATTR_AWS_DYNAMODB_CONSISTENT_READ, ATTR_AWS_DYNAMODB_CONSUMED_CAPACITY, ATTR_AWS_DYNAMODB_COUNT, ATTR_AWS_DYNAMODB_EXCLUSIVE_START_TABLE, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEX_UPDATES, ATTR_AWS_DYNAMODB_INDEX_NAME, ATTR_AWS_DYNAMODB_ITEM_COLLECTION_METRICS, ATTR_AWS_DYNAMODB_LIMIT, ATTR_AWS_DYNAMODB_LOCAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_PROJECTION, ATTR_AWS_DYNAMODB_PROVISIONED_READ_CAPACITY, ATTR_AWS_DYNAMODB_PROVISIONED_WRITE_CAPACITY, ATTR_AWS_DYNAMODB_SCANNED_COUNT, ATTR_AWS_DYNAMODB_SCAN_FORWARD, ATTR_AWS_DYNAMODB_SEGMENT, ATTR_AWS_DYNAMODB_SELECT, ATTR_AWS_DYNAMODB_TABLE_COUNT, ATTR_AWS_DYNAMODB_TABLE_NAMES, ATTR_AWS_DYNAMODB_TOTAL_SEGMENTS, ATTR_AWS_ECS_CLUSTER_ARN, ATTR_AWS_ECS_CONTAINER_ARN, ATTR_AWS_ECS_LAUNCHTYPE, ATTR_AWS_ECS_TASK_ARN, ATTR_AWS_ECS_TASK_FAMILY, ATTR_AWS_ECS_TASK_ID, ATTR_AWS_ECS_TASK_REVISION, ATTR_AWS_EKS_CLUSTER_ARN, ATTR_AWS_EXTENDED_REQUEST_ID, ATTR_AWS_KINESIS_STREAM_NAME, ATTR_AWS_LAMBDA_INVOKED_ARN, ATTR_AWS_LAMBDA_RESOURCE_MAPPING_ID, ATTR_AWS_LOG_GROUP_ARNS, ATTR_AWS_LOG_GROUP_NAMES, ATTR_AWS_LOG_STREAM_ARNS, ATTR_AWS_LOG_STREAM_NAMES, ATTR_AWS_REQUEST_ID, ATTR_AWS_S3_BUCKET, ATTR_AWS_S3_COPY_SOURCE, ATTR_AWS_S3_DELETE, ATTR_AWS_S3_KEY, ATTR_AWS_S3_PART_NUMBER, ATTR_AWS_S3_UPLOAD_ID, ATTR_AWS_SECRETSMANAGER_SECRET_ARN, ATTR_AWS_SNS_TOPIC_ARN, ATTR_AWS_SQS_QUEUE_URL, ATTR_AWS_STEP_FUNCTIONS_ACTIVITY_ARN, ATTR_AWS_STEP_FUNCTIONS_STATE_MACHINE_ARN, ATTR_AZURE_CLIENT_ID, ATTR_AZURE_COSMOSDB_CONNECTION_MODE, ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL, ATTR_AZURE_COSMOSDB_OPERATION_CONTACTED_REGIONS, ATTR_AZURE_COSMOSDB_OPERATION_REQUEST_CHARGE, ATTR_AZURE_COSMOSDB_REQUEST_BODY_SIZE, ATTR_AZURE_COSMOSDB_RESPONSE_SUB_STATUS_CODE, ATTR_AZURE_RESOURCE_PROVIDER_NAMESPACE, ATTR_AZURE_SERVICE_REQUEST_ID, ATTR_AZ_NAMESPACE, ATTR_AZ_SERVICE_REQUEST_ID, ATTR_BROWSER_BRANDS, ATTR_BROWSER_LANGUAGE, ATTR_BROWSER_MOBILE, ATTR_BROWSER_PLATFORM, ATTR_CASSANDRA_CONSISTENCY_LEVEL, ATTR_CASSANDRA_COORDINATOR_DC, ATTR_CASSANDRA_COORDINATOR_ID, ATTR_CASSANDRA_PAGE_SIZE, ATTR_CASSANDRA_QUERY_IDEMPOTENT, ATTR_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_CICD_PIPELINE_ACTION_NAME, ATTR_CICD_PIPELINE_NAME, ATTR_CICD_PIPELINE_RESULT, ATTR_CICD_PIPELINE_RUN_ID, ATTR_CICD_PIPELINE_RUN_STATE, ATTR_CICD_PIPELINE_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_NAME, ATTR_CICD_PIPELINE_TASK_RUN_ID, ATTR_CICD_PIPELINE_TASK_RUN_RESULT, ATTR_CICD_PIPELINE_TASK_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_TYPE, ATTR_CICD_SYSTEM_COMPONENT, ATTR_CICD_WORKER_ID, ATTR_CICD_WORKER_NAME, ATTR_CICD_WORKER_STATE, ATTR_CICD_WORKER_URL_FULL, ATTR_CLIENT_ADDRESS, ATTR_CLIENT_PORT, ATTR_CLOUDEVENTS_EVENT_ID, ATTR_CLOUDEVENTS_EVENT_SOURCE, ATTR_CLOUDEVENTS_EVENT_SPEC_VERSION, ATTR_CLOUDEVENTS_EVENT_SUBJECT, ATTR_CLOUDEVENTS_EVENT_TYPE, ATTR_CLOUDFOUNDRY_APP_ID, ATTR_CLOUDFOUNDRY_APP_INSTANCE_ID, ATTR_CLOUDFOUNDRY_APP_NAME, ATTR_CLOUDFOUNDRY_ORG_ID, ATTR_CLOUDFOUNDRY_ORG_NAME, ATTR_CLOUDFOUNDRY_PROCESS_ID, ATTR_CLOUDFOUNDRY_PROCESS_TYPE, ATTR_CLOUDFOUNDRY_SPACE_ID, ATTR_CLOUDFOUNDRY_SPACE_NAME, ATTR_CLOUDFOUNDRY_SYSTEM_ID, ATTR_CLOUDFOUNDRY_SYSTEM_INSTANCE_ID, ATTR_CLOUD_ACCOUNT_ID, ATTR_CLOUD_AVAILABILITY_ZONE, ATTR_CLOUD_PLATFORM, ATTR_CLOUD_PROVIDER, ATTR_CLOUD_REGION, ATTR_CLOUD_RESOURCE_ID, ATTR_CODE_COLUMN, ATTR_CODE_COLUMN_NUMBER, ATTR_CODE_FILEPATH, ATTR_CODE_FILE_PATH, ATTR_CODE_FUNCTION, ATTR_CODE_FUNCTION_NAME, ATTR_CODE_LINENO, ATTR_CODE_LINE_NUMBER, ATTR_CODE_NAMESPACE, ATTR_CODE_STACKTRACE, ATTR_CONTAINER_COMMAND, ATTR_CONTAINER_COMMAND_ARGS, ATTR_CONTAINER_COMMAND_LINE, ATTR_CONTAINER_CPU_STATE, ATTR_CONTAINER_CSI_PLUGIN_NAME, ATTR_CONTAINER_CSI_VOLUME_ID, ATTR_CONTAINER_ID, ATTR_CONTAINER_IMAGE_ID, ATTR_CONTAINER_IMAGE_NAME, ATTR_CONTAINER_IMAGE_REPO_DIGESTS, ATTR_CONTAINER_IMAGE_TAGS, ATTR_CONTAINER_LABEL, ATTR_CONTAINER_LABELS, ATTR_CONTAINER_NAME, ATTR_CONTAINER_RUNTIME, ATTR_CONTAINER_RUNTIME_DESCRIPTION, ATTR_CONTAINER_RUNTIME_NAME, ATTR_CONTAINER_RUNTIME_VERSION, ATTR_CPU_LOGICAL_NUMBER, ATTR_CPU_MODE, ATTR_CPYTHON_GC_GENERATION, ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL, ATTR_DB_CASSANDRA_COORDINATOR_DC, ATTR_DB_CASSANDRA_COORDINATOR_ID, ATTR_DB_CASSANDRA_IDEMPOTENCE, ATTR_DB_CASSANDRA_PAGE_SIZE, ATTR_DB_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_DB_CASSANDRA_TABLE, ATTR_DB_CLIENT_CONNECTIONS_POOL_NAME, ATTR_DB_CLIENT_CONNECTIONS_STATE, ATTR_DB_CLIENT_CONNECTION_POOL_NAME, ATTR_DB_CLIENT_CONNECTION_STATE, ATTR_DB_COLLECTION_NAME, ATTR_DB_CONNECTION_STRING, ATTR_DB_COSMOSDB_CLIENT_ID, ATTR_DB_COSMOSDB_CONNECTION_MODE, ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL, ATTR_DB_COSMOSDB_CONTAINER, ATTR_DB_COSMOSDB_OPERATION_TYPE, ATTR_DB_COSMOSDB_REGIONS_CONTACTED, ATTR_DB_COSMOSDB_REQUEST_CHARGE, ATTR_DB_COSMOSDB_REQUEST_CONTENT_LENGTH, ATTR_DB_COSMOSDB_STATUS_CODE, ATTR_DB_COSMOSDB_SUB_STATUS_CODE, ATTR_DB_ELASTICSEARCH_CLUSTER_NAME, ATTR_DB_ELASTICSEARCH_NODE_NAME, ATTR_DB_ELASTICSEARCH_PATH_PARTS, ATTR_DB_INSTANCE_ID, ATTR_DB_JDBC_DRIVER_CLASSNAME, ATTR_DB_MONGODB_COLLECTION, ATTR_DB_MSSQL_INSTANCE_NAME, ATTR_DB_NAME, ATTR_DB_NAMESPACE, ATTR_DB_OPERATION, ATTR_DB_OPERATION_BATCH_SIZE, ATTR_DB_OPERATION_NAME, ATTR_DB_OPERATION_PARAMETER, ATTR_DB_QUERY_PARAMETER, ATTR_DB_QUERY_SUMMARY, ATTR_DB_QUERY_TEXT, ATTR_DB_REDIS_DATABASE_INDEX, ATTR_DB_RESPONSE_RETURNED_ROWS, ATTR_DB_RESPONSE_STATUS_CODE, ATTR_DB_SQL_TABLE, ATTR_DB_STATEMENT, ATTR_DB_STORED_PROCEDURE_NAME, ATTR_DB_SYSTEM, ATTR_DB_SYSTEM_NAME, ATTR_DB_USER, ATTR_DEPLOYMENT_ENVIRONMENT, ATTR_DEPLOYMENT_ENVIRONMENT_NAME, ATTR_DEPLOYMENT_ID, ATTR_DEPLOYMENT_NAME, ATTR_DEPLOYMENT_STATUS, ATTR_DESTINATION_ADDRESS, ATTR_DESTINATION_PORT, ATTR_DEVICE_ID, ATTR_DEVICE_MANUFACTURER, ATTR_DEVICE_MODEL_IDENTIFIER, ATTR_DEVICE_MODEL_NAME, ATTR_DISK_IO_DIRECTION, ATTR_DNS_ANSWERS, ATTR_DNS_QUESTION_NAME, ATTR_DOTNET_GC_HEAP_GENERATION, ATTR_ELASTICSEARCH_NODE_NAME, ATTR_ENDUSER_ID, ATTR_ENDUSER_PSEUDO_ID, ATTR_ENDUSER_ROLE, ATTR_ENDUSER_SCOPE, ATTR_ERROR_MESSAGE, ATTR_ERROR_TYPE, ATTR_EVENT_NAME, ATTR_EXCEPTION_ESCAPED, ATTR_EXCEPTION_MESSAGE, ATTR_EXCEPTION_STACKTRACE, ATTR_EXCEPTION_TYPE, ATTR_FAAS_COLDSTART, ATTR_FAAS_CRON, ATTR_FAAS_DOCUMENT_COLLECTION, ATTR_FAAS_DOCUMENT_NAME, ATTR_FAAS_DOCUMENT_OPERATION, ATTR_FAAS_DOCUMENT_TIME, ATTR_FAAS_INSTANCE, ATTR_FAAS_INVOCATION_ID, ATTR_FAAS_INVOKED_NAME, ATTR_FAAS_INVOKED_PROVIDER, ATTR_FAAS_INVOKED_REGION, ATTR_FAAS_MAX_MEMORY, ATTR_FAAS_NAME, ATTR_FAAS_TIME, ATTR_FAAS_TRIGGER, ATTR_FAAS_VERSION, ATTR_FEATURE_FLAG_CONTEXT_ID, ATTR_FEATURE_FLAG_EVALUATION_ERROR_MESSAGE, ATTR_FEATURE_FLAG_EVALUATION_REASON, ATTR_FEATURE_FLAG_KEY, ATTR_FEATURE_FLAG_PROVIDER_NAME, ATTR_FEATURE_FLAG_RESULT_REASON, ATTR_FEATURE_FLAG_RESULT_VALUE, ATTR_FEATURE_FLAG_RESULT_VARIANT, ATTR_FEATURE_FLAG_SET_ID, ATTR_FEATURE_FLAG_VARIANT, ATTR_FEATURE_FLAG_VERSION, ATTR_FILE_ACCESSED, ATTR_FILE_ATTRIBUTES, ATTR_FILE_CHANGED, ATTR_FILE_CREATED, ATTR_FILE_DIRECTORY, ATTR_FILE_EXTENSION, ATTR_FILE_FORK_NAME, ATTR_FILE_GROUP_ID, ATTR_FILE_GROUP_NAME, ATTR_FILE_INODE, ATTR_FILE_MODE, ATTR_FILE_MODIFIED, ATTR_FILE_NAME, ATTR_FILE_OWNER_ID, ATTR_FILE_OWNER_NAME, ATTR_FILE_PATH, ATTR_FILE_SIZE, ATTR_FILE_SYMBOLIC_LINK_TARGET_PATH, ATTR_GCP_APPHUB_APPLICATION_CONTAINER, ATTR_GCP_APPHUB_APPLICATION_ID, ATTR_GCP_APPHUB_APPLICATION_LOCATION, ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE, ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_SERVICE_ID, ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ID, ATTR_GCP_CLIENT_SERVICE, ATTR_GCP_CLOUD_RUN_JOB_EXECUTION, ATTR_GCP_CLOUD_RUN_JOB_TASK_INDEX, ATTR_GCP_GCE_INSTANCE_HOSTNAME, ATTR_GCP_GCE_INSTANCE_NAME, ATTR_GEN_AI_AGENT_DESCRIPTION, ATTR_GEN_AI_AGENT_ID, ATTR_GEN_AI_AGENT_NAME, ATTR_GEN_AI_COMPLETION, ATTR_GEN_AI_CONVERSATION_ID, ATTR_GEN_AI_DATA_SOURCE_ID, ATTR_GEN_AI_INPUT_MESSAGES, ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT, ATTR_GEN_AI_OPENAI_REQUEST_SEED, ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SYSTEM_FINGERPRINT, ATTR_GEN_AI_OPERATION_NAME, ATTR_GEN_AI_OUTPUT_MESSAGES, ATTR_GEN_AI_OUTPUT_TYPE, ATTR_GEN_AI_PROMPT, ATTR_GEN_AI_PROVIDER_NAME, ATTR_GEN_AI_REQUEST_CHOICE_COUNT, ATTR_GEN_AI_REQUEST_ENCODING_FORMATS, ATTR_GEN_AI_REQUEST_FREQUENCY_PENALTY, ATTR_GEN_AI_REQUEST_MAX_TOKENS, ATTR_GEN_AI_REQUEST_MODEL, ATTR_GEN_AI_REQUEST_PRESENCE_PENALTY, ATTR_GEN_AI_REQUEST_SEED, ATTR_GEN_AI_REQUEST_STOP_SEQUENCES, ATTR_GEN_AI_REQUEST_TEMPERATURE, ATTR_GEN_AI_REQUEST_TOP_K, ATTR_GEN_AI_REQUEST_TOP_P, ATTR_GEN_AI_RESPONSE_FINISH_REASONS, ATTR_GEN_AI_RESPONSE_ID, ATTR_GEN_AI_RESPONSE_MODEL, ATTR_GEN_AI_SYSTEM, ATTR_GEN_AI_SYSTEM_INSTRUCTIONS, ATTR_GEN_AI_TOKEN_TYPE, ATTR_GEN_AI_TOOL_CALL_ID, ATTR_GEN_AI_TOOL_DESCRIPTION, ATTR_GEN_AI_TOOL_NAME, ATTR_GEN_AI_TOOL_TYPE, ATTR_GEN_AI_USAGE_COMPLETION_TOKENS, ATTR_GEN_AI_USAGE_INPUT_TOKENS, ATTR_GEN_AI_USAGE_OUTPUT_TOKENS, ATTR_GEN_AI_USAGE_PROMPT_TOKENS, ATTR_GEO_CONTINENT_CODE, ATTR_GEO_COUNTRY_ISO_CODE, ATTR_GEO_LOCALITY_NAME, ATTR_GEO_LOCATION_LAT, ATTR_GEO_LOCATION_LON, ATTR_GEO_POSTAL_CODE, ATTR_GEO_REGION_ISO_CODE, ATTR_GO_MEMORY_TYPE, ATTR_GRAPHQL_DOCUMENT, ATTR_GRAPHQL_OPERATION_NAME, ATTR_GRAPHQL_OPERATION_TYPE, ATTR_HEROKU_APP_ID, ATTR_HEROKU_RELEASE_COMMIT, ATTR_HEROKU_RELEASE_CREATION_TIMESTAMP, ATTR_HOST_ARCH, ATTR_HOST_CPU_CACHE_L2_SIZE, ATTR_HOST_CPU_FAMILY, ATTR_HOST_CPU_MODEL_ID, ATTR_HOST_CPU_MODEL_NAME, ATTR_HOST_CPU_STEPPING, ATTR_HOST_CPU_VENDOR_ID, ATTR_HOST_ID, ATTR_HOST_IMAGE_ID, ATTR_HOST_IMAGE_NAME, ATTR_HOST_IMAGE_VERSION, ATTR_HOST_IP, ATTR_HOST_MAC, ATTR_HOST_NAME, ATTR_HOST_TYPE, ATTR_HTTP_CLIENT_IP, ATTR_HTTP_CONNECTION_STATE, ATTR_HTTP_FLAVOR, ATTR_HTTP_HOST, ATTR_HTTP_METHOD, ATTR_HTTP_REQUEST_BODY_SIZE, ATTR_HTTP_REQUEST_CONTENT_LENGTH, ATTR_HTTP_REQUEST_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_REQUEST_HEADER, ATTR_HTTP_REQUEST_METHOD, ATTR_HTTP_REQUEST_METHOD_ORIGINAL, ATTR_HTTP_REQUEST_RESEND_COUNT, ATTR_HTTP_REQUEST_SIZE, ATTR_HTTP_RESPONSE_BODY_SIZE, ATTR_HTTP_RESPONSE_CONTENT_LENGTH, ATTR_HTTP_RESPONSE_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_RESPONSE_HEADER, ATTR_HTTP_RESPONSE_SIZE, ATTR_HTTP_RESPONSE_STATUS_CODE, ATTR_HTTP_ROUTE, ATTR_HTTP_SCHEME, ATTR_HTTP_SERVER_NAME, ATTR_HTTP_STATUS_CODE, ATTR_HTTP_TARGET, ATTR_HTTP_URL, ATTR_HTTP_USER_AGENT, ATTR_HW_BATTERY_CAPACITY, ATTR_HW_BATTERY_CHEMISTRY, ATTR_HW_BATTERY_STATE, ATTR_HW_BIOS_VERSION, ATTR_HW_DRIVER_VERSION, ATTR_HW_ENCLOSURE_TYPE, ATTR_HW_FIRMWARE_VERSION, ATTR_HW_GPU_TASK, ATTR_HW_ID, ATTR_HW_LIMIT_TYPE, ATTR_HW_LOGICAL_DISK_RAID_LEVEL, ATTR_HW_LOGICAL_DISK_STATE, ATTR_HW_MEMORY_TYPE, ATTR_HW_MODEL, ATTR_HW_NAME, ATTR_HW_NETWORK_LOGICAL_ADDRESSES, ATTR_HW_NETWORK_PHYSICAL_ADDRESS, ATTR_HW_PARENT, ATTR_HW_PHYSICAL_DISK_SMART_ATTRIBUTE, ATTR_HW_PHYSICAL_DISK_STATE, ATTR_HW_PHYSICAL_DISK_TYPE, ATTR_HW_SENSOR_LOCATION, ATTR_HW_SERIAL_NUMBER, ATTR_HW_STATE, ATTR_HW_TAPE_DRIVE_OPERATION_TYPE, ATTR_HW_TYPE, ATTR_HW_VENDOR, ATTR_IOS_APP_STATE, ATTR_IOS_STATE, ATTR_JVM_BUFFER_POOL_NAME, ATTR_JVM_GC_ACTION, ATTR_JVM_GC_CAUSE, ATTR_JVM_GC_NAME, ATTR_JVM_MEMORY_POOL_NAME, ATTR_JVM_MEMORY_TYPE, ATTR_JVM_THREAD_DAEMON, ATTR_JVM_THREAD_STATE, ATTR_K8S_CLUSTER_NAME, ATTR_K8S_CLUSTER_UID, ATTR_K8S_CONTAINER_NAME, ATTR_K8S_CONTAINER_RESTART_COUNT, ATTR_K8S_CONTAINER_STATUS_LAST_TERMINATED_REASON, ATTR_K8S_CONTAINER_STATUS_REASON, ATTR_K8S_CONTAINER_STATUS_STATE, ATTR_K8S_CRONJOB_ANNOTATION, ATTR_K8S_CRONJOB_LABEL, ATTR_K8S_CRONJOB_NAME, ATTR_K8S_CRONJOB_UID, ATTR_K8S_DAEMONSET_ANNOTATION, ATTR_K8S_DAEMONSET_LABEL, ATTR_K8S_DAEMONSET_NAME, ATTR_K8S_DAEMONSET_UID, ATTR_K8S_DEPLOYMENT_ANNOTATION, ATTR_K8S_DEPLOYMENT_LABEL, ATTR_K8S_DEPLOYMENT_NAME, ATTR_K8S_DEPLOYMENT_UID, ATTR_K8S_HPA_METRIC_TYPE, ATTR_K8S_HPA_NAME, ATTR_K8S_HPA_SCALETARGETREF_API_VERSION, ATTR_K8S_HPA_SCALETARGETREF_KIND, ATTR_K8S_HPA_SCALETARGETREF_NAME, ATTR_K8S_HPA_UID, ATTR_K8S_HUGEPAGE_SIZE, ATTR_K8S_JOB_ANNOTATION, ATTR_K8S_JOB_LABEL, ATTR_K8S_JOB_NAME, ATTR_K8S_JOB_UID, ATTR_K8S_NAMESPACE_ANNOTATION, ATTR_K8S_NAMESPACE_LABEL, ATTR_K8S_NAMESPACE_NAME, ATTR_K8S_NAMESPACE_PHASE, ATTR_K8S_NODE_ANNOTATION, ATTR_K8S_NODE_CONDITION_STATUS, ATTR_K8S_NODE_CONDITION_TYPE, ATTR_K8S_NODE_LABEL, ATTR_K8S_NODE_NAME, ATTR_K8S_NODE_UID, ATTR_K8S_POD_ANNOTATION, ATTR_K8S_POD_LABEL, ATTR_K8S_POD_LABELS, ATTR_K8S_POD_NAME, ATTR_K8S_POD_UID, ATTR_K8S_REPLICASET_ANNOTATION, ATTR_K8S_REPLICASET_LABEL, ATTR_K8S_REPLICASET_NAME, ATTR_K8S_REPLICASET_UID, ATTR_K8S_REPLICATIONCONTROLLER_NAME, ATTR_K8S_REPLICATIONCONTROLLER_UID, ATTR_K8S_RESOURCEQUOTA_NAME, ATTR_K8S_RESOURCEQUOTA_RESOURCE_NAME, ATTR_K8S_RESOURCEQUOTA_UID, ATTR_K8S_STATEFULSET_ANNOTATION, ATTR_K8S_STATEFULSET_LABEL, ATTR_K8S_STATEFULSET_NAME, ATTR_K8S_STATEFULSET_UID, ATTR_K8S_STORAGECLASS_NAME, ATTR_K8S_VOLUME_NAME, ATTR_K8S_VOLUME_TYPE, ATTR_LINUX_MEMORY_SLAB_STATE, ATTR_LOG_FILE_NAME, ATTR_LOG_FILE_NAME_RESOLVED, ATTR_LOG_FILE_PATH, ATTR_LOG_FILE_PATH_RESOLVED, ATTR_LOG_IOSTREAM, ATTR_LOG_RECORD_ORIGINAL, ATTR_LOG_RECORD_UID, ATTR_MAINFRAME_LPAR_NAME, ATTR_MESSAGE_COMPRESSED_SIZE, ATTR_MESSAGE_ID, ATTR_MESSAGE_TYPE, ATTR_MESSAGE_UNCOMPRESSED_SIZE, ATTR_MESSAGING_BATCH_MESSAGE_COUNT, ATTR_MESSAGING_CLIENT_ID, ATTR_MESSAGING_CONSUMER_GROUP_NAME, ATTR_MESSAGING_DESTINATION_ANONYMOUS, ATTR_MESSAGING_DESTINATION_NAME, ATTR_MESSAGING_DESTINATION_PARTITION_ID, ATTR_MESSAGING_DESTINATION_PUBLISH_ANONYMOUS, ATTR_MESSAGING_DESTINATION_PUBLISH_NAME, ATTR_MESSAGING_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_DESTINATION_TEMPLATE, ATTR_MESSAGING_DESTINATION_TEMPORARY, ATTR_MESSAGING_EVENTHUBS_CONSUMER_GROUP, ATTR_MESSAGING_EVENTHUBS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_DEADLINE, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_ID, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_DELIVERY_ATTEMPT, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ORDERING_KEY, ATTR_MESSAGING_KAFKA_CONSUMER_GROUP, ATTR_MESSAGING_KAFKA_DESTINATION_PARTITION, ATTR_MESSAGING_KAFKA_MESSAGE_KEY, ATTR_MESSAGING_KAFKA_MESSAGE_OFFSET, ATTR_MESSAGING_KAFKA_MESSAGE_TOMBSTONE, ATTR_MESSAGING_KAFKA_OFFSET, ATTR_MESSAGING_MESSAGE_BODY_SIZE, ATTR_MESSAGING_MESSAGE_CONVERSATION_ID, ATTR_MESSAGING_MESSAGE_ENVELOPE_SIZE, ATTR_MESSAGING_MESSAGE_ID, ATTR_MESSAGING_OPERATION, ATTR_MESSAGING_OPERATION_NAME, ATTR_MESSAGING_OPERATION_TYPE, ATTR_MESSAGING_RABBITMQ_DESTINATION_ROUTING_KEY, ATTR_MESSAGING_RABBITMQ_MESSAGE_DELIVERY_TAG, ATTR_MESSAGING_ROCKETMQ_CLIENT_GROUP, ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELAY_TIME_LEVEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELIVERY_TIMESTAMP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_GROUP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_KEYS, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TAG, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE, ATTR_MESSAGING_ROCKETMQ_NAMESPACE, ATTR_MESSAGING_SERVICEBUS_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS, ATTR_MESSAGING_SERVICEBUS_MESSAGE_DELIVERY_COUNT, ATTR_MESSAGING_SERVICEBUS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_SYSTEM, ATTR_NETWORK_CARRIER_ICC, ATTR_NETWORK_CARRIER_MCC, ATTR_NETWORK_CARRIER_MNC, ATTR_NETWORK_CARRIER_NAME, ATTR_NETWORK_CONNECTION_STATE, ATTR_NETWORK_CONNECTION_SUBTYPE, ATTR_NETWORK_CONNECTION_TYPE, ATTR_NETWORK_INTERFACE_NAME, ATTR_NETWORK_IO_DIRECTION, ATTR_NETWORK_LOCAL_ADDRESS, ATTR_NETWORK_LOCAL_PORT, ATTR_NETWORK_PEER_ADDRESS, ATTR_NETWORK_PEER_PORT, ATTR_NETWORK_PROTOCOL_NAME, ATTR_NETWORK_PROTOCOL_VERSION, ATTR_NETWORK_TRANSPORT, ATTR_NETWORK_TYPE, ATTR_NET_HOST_IP, ATTR_NET_HOST_NAME, ATTR_NET_HOST_PORT, ATTR_NET_PEER_IP, ATTR_NET_PEER_NAME, ATTR_NET_PEER_PORT, ATTR_NET_PROTOCOL_NAME, ATTR_NET_PROTOCOL_VERSION, ATTR_NET_SOCK_FAMILY, ATTR_NET_SOCK_HOST_ADDR, ATTR_NET_SOCK_HOST_PORT, ATTR_NET_SOCK_PEER_ADDR, ATTR_NET_SOCK_PEER_NAME, ATTR_NET_SOCK_PEER_PORT, ATTR_NET_TRANSPORT, ATTR_NODEJS_EVENTLOOP_STATE, ATTR_OCI_MANIFEST_DIGEST, ATTR_OPENAI_REQUEST_SERVICE_TIER, ATTR_OPENAI_RESPONSE_SERVICE_TIER, ATTR_OPENAI_RESPONSE_SYSTEM_FINGERPRINT, ATTR_OPENTRACING_REF_TYPE, ATTR_OS_BUILD_ID, ATTR_OS_DESCRIPTION, ATTR_OS_NAME, ATTR_OS_TYPE, ATTR_OS_VERSION, ATTR_OTEL_COMPONENT_NAME, ATTR_OTEL_COMPONENT_TYPE, ATTR_OTEL_LIBRARY_NAME, ATTR_OTEL_LIBRARY_VERSION, ATTR_OTEL_SCOPE_NAME, ATTR_OTEL_SCOPE_SCHEMA_URL, ATTR_OTEL_SCOPE_VERSION, ATTR_OTEL_SPAN_PARENT_ORIGIN, ATTR_OTEL_SPAN_SAMPLING_RESULT, ATTR_OTEL_STATUS_CODE, ATTR_OTEL_STATUS_DESCRIPTION, ATTR_PEER_SERVICE, ATTR_POOL_NAME, ATTR_PROCESS_ARGS_COUNT, ATTR_PROCESS_COMMAND, ATTR_PROCESS_COMMAND_ARGS, ATTR_PROCESS_COMMAND_LINE, ATTR_PROCESS_CONTEXT_SWITCH_TYPE, ATTR_PROCESS_CPU_STATE, ATTR_PROCESS_CREATION_TIME, ATTR_PROCESS_ENVIRONMENT_VARIABLE, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GNU, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GO, ATTR_PROCESS_EXECUTABLE_BUILD_ID_HTLHASH, ATTR_PROCESS_EXECUTABLE_BUILD_ID_PROFILING, ATTR_PROCESS_EXECUTABLE_NAME, ATTR_PROCESS_EXECUTABLE_PATH, ATTR_PROCESS_EXIT_CODE, ATTR_PROCESS_EXIT_TIME, ATTR_PROCESS_GROUP_LEADER_PID, ATTR_PROCESS_INTERACTIVE, ATTR_PROCESS_LINUX_CGROUP, ATTR_PROCESS_OWNER, ATTR_PROCESS_PAGING_FAULT_TYPE, ATTR_PROCESS_PARENT_PID, ATTR_PROCESS_PID, ATTR_PROCESS_REAL_USER_ID, ATTR_PROCESS_REAL_USER_NAME, ATTR_PROCESS_RUNTIME_DESCRIPTION, ATTR_PROCESS_RUNTIME_NAME, ATTR_PROCESS_RUNTIME_VERSION, ATTR_PROCESS_SAVED_USER_ID, ATTR_PROCESS_SAVED_USER_NAME, ATTR_PROCESS_SESSION_LEADER_PID, ATTR_PROCESS_TITLE, ATTR_PROCESS_USER_ID, ATTR_PROCESS_USER_NAME, ATTR_PROCESS_VPID, ATTR_PROCESS_WORKING_DIRECTORY, ATTR_PROFILE_FRAME_TYPE, ATTR_RPC_CONNECT_RPC_ERROR_CODE, ATTR_RPC_CONNECT_RPC_REQUEST_METADATA, ATTR_RPC_CONNECT_RPC_RESPONSE_METADATA, ATTR_RPC_GRPC_REQUEST_METADATA, ATTR_RPC_GRPC_RESPONSE_METADATA, ATTR_RPC_GRPC_STATUS_CODE, ATTR_RPC_JSONRPC_ERROR_CODE, ATTR_RPC_JSONRPC_ERROR_MESSAGE, ATTR_RPC_JSONRPC_REQUEST_ID, ATTR_RPC_JSONRPC_VERSION, ATTR_RPC_MESSAGE_COMPRESSED_SIZE, ATTR_RPC_MESSAGE_ID, ATTR_RPC_MESSAGE_TYPE, ATTR_RPC_MESSAGE_UNCOMPRESSED_SIZE, ATTR_RPC_METHOD, ATTR_RPC_SERVICE, ATTR_RPC_SYSTEM, ATTR_SECURITY_RULE_CATEGORY, ATTR_SECURITY_RULE_DESCRIPTION, ATTR_SECURITY_RULE_LICENSE, ATTR_SECURITY_RULE_NAME, ATTR_SECURITY_RULE_REFERENCE, ATTR_SECURITY_RULE_RULESET_NAME, ATTR_SECURITY_RULE_UUID, ATTR_SECURITY_RULE_VERSION, ATTR_SERVER_ADDRESS, ATTR_SERVER_PORT, ATTR_SERVICE_INSTANCE_ID, ATTR_SERVICE_NAME, ATTR_SERVICE_NAMESPACE, ATTR_SERVICE_VERSION, ATTR_SESSION_ID, ATTR_SESSION_PREVIOUS_ID, ATTR_SIGNALR_CONNECTION_STATUS, ATTR_SIGNALR_TRANSPORT, ATTR_SOURCE_ADDRESS, ATTR_SOURCE_PORT, ATTR_STATE, ATTR_SYSTEM_CPU_LOGICAL_NUMBER, ATTR_SYSTEM_CPU_STATE, ATTR_SYSTEM_DEVICE, ATTR_SYSTEM_FILESYSTEM_MODE, ATTR_SYSTEM_FILESYSTEM_MOUNTPOINT, ATTR_SYSTEM_FILESYSTEM_STATE, ATTR_SYSTEM_FILESYSTEM_TYPE, ATTR_SYSTEM_MEMORY_STATE, ATTR_SYSTEM_NETWORK_STATE, ATTR_SYSTEM_PAGING_DIRECTION, ATTR_SYSTEM_PAGING_STATE, ATTR_SYSTEM_PAGING_TYPE, ATTR_SYSTEM_PROCESSES_STATUS, ATTR_SYSTEM_PROCESS_STATUS, ATTR_TELEMETRY_DISTRO_NAME, ATTR_TELEMETRY_DISTRO_VERSION, ATTR_TELEMETRY_SDK_LANGUAGE, ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_VERSION, ATTR_TEST_CASE_NAME, ATTR_TEST_CASE_RESULT_STATUS, ATTR_TEST_SUITE_NAME, ATTR_TEST_SUITE_RUN_STATUS, ATTR_THREAD_ID, ATTR_THREAD_NAME, ATTR_TLS_CIPHER, ATTR_TLS_CLIENT_CERTIFICATE, ATTR_TLS_CLIENT_CERTIFICATE_CHAIN, ATTR_TLS_CLIENT_HASH_MD5, ATTR_TLS_CLIENT_HASH_SHA1, ATTR_TLS_CLIENT_HASH_SHA256, ATTR_TLS_CLIENT_ISSUER, ATTR_TLS_CLIENT_JA3, ATTR_TLS_CLIENT_NOT_AFTER, ATTR_TLS_CLIENT_NOT_BEFORE, ATTR_TLS_CLIENT_SERVER_NAME, ATTR_TLS_CLIENT_SUBJECT, ATTR_TLS_CLIENT_SUPPORTED_CIPHERS, ATTR_TLS_CURVE, ATTR_TLS_ESTABLISHED, ATTR_TLS_NEXT_PROTOCOL, ATTR_TLS_PROTOCOL_NAME, ATTR_TLS_PROTOCOL_VERSION, ATTR_TLS_RESUMED, ATTR_TLS_SERVER_CERTIFICATE, ATTR_TLS_SERVER_CERTIFICATE_CHAIN, ATTR_TLS_SERVER_HASH_MD5, ATTR_TLS_SERVER_HASH_SHA1, ATTR_TLS_SERVER_HASH_SHA256, ATTR_TLS_SERVER_ISSUER, ATTR_TLS_SERVER_JA3S, ATTR_TLS_SERVER_NOT_AFTER, ATTR_TLS_SERVER_NOT_BEFORE, ATTR_TLS_SERVER_SUBJECT, ATTR_URL_DOMAIN, ATTR_URL_EXTENSION, ATTR_URL_FRAGMENT, ATTR_URL_FULL, ATTR_URL_ORIGINAL, ATTR_URL_PATH, ATTR_URL_PORT, ATTR_URL_QUERY, ATTR_URL_REGISTERED_DOMAIN, ATTR_URL_SCHEME, ATTR_URL_SUBDOMAIN, ATTR_URL_TEMPLATE, ATTR_URL_TOP_LEVEL_DOMAIN, ATTR_USER_AGENT_NAME, ATTR_USER_AGENT_ORIGINAL, ATTR_USER_AGENT_OS_NAME, ATTR_USER_AGENT_OS_VERSION, ATTR_USER_AGENT_SYNTHETIC_TYPE, ATTR_USER_AGENT_VERSION, ATTR_USER_EMAIL, ATTR_USER_FULL_NAME, ATTR_USER_HASH, ATTR_USER_ID, ATTR_USER_NAME, ATTR_USER_ROLES, ATTR_V8JS_GC_TYPE, ATTR_V8JS_HEAP_SPACE_NAME, ATTR_VCS_CHANGE_ID, ATTR_VCS_CHANGE_STATE, ATTR_VCS_CHANGE_TITLE, ATTR_VCS_LINE_CHANGE_TYPE, ATTR_VCS_OWNER_NAME, ATTR_VCS_PROVIDER_NAME, ATTR_VCS_REF_BASE_NAME, ATTR_VCS_REF_BASE_REVISION, ATTR_VCS_REF_BASE_TYPE, ATTR_VCS_REF_HEAD_NAME, ATTR_VCS_REF_HEAD_REVISION, ATTR_VCS_REF_HEAD_TYPE, ATTR_VCS_REF_TYPE, ATTR_VCS_REPOSITORY_CHANGE_ID, ATTR_VCS_REPOSITORY_CHANGE_TITLE, ATTR_VCS_REPOSITORY_NAME, ATTR_VCS_REPOSITORY_REF_NAME, ATTR_VCS_REPOSITORY_REF_REVISION, ATTR_VCS_REPOSITORY_REF_TYPE, ATTR_VCS_REPOSITORY_URL_FULL, ATTR_VCS_REVISION_DELTA_DIRECTION, ATTR_WEBENGINE_DESCRIPTION, ATTR_WEBENGINE_NAME, ATTR_WEBENGINE_VERSION, ATTR_ZOS_SMF_ID, ATTR_ZOS_SYSPLEX_NAME, AWS_ECS_LAUNCHTYPE_VALUE_EC2, AWS_ECS_LAUNCHTYPE_VALUE_FARGATE, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, CICD_PIPELINE_ACTION_NAME_VALUE_BUILD, CICD_PIPELINE_ACTION_NAME_VALUE_RUN, CICD_PIPELINE_ACTION_NAME_VALUE_SYNC, CICD_PIPELINE_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_RESULT_VALUE_ERROR, CICD_PIPELINE_RESULT_VALUE_FAILURE, CICD_PIPELINE_RESULT_VALUE_SKIP, CICD_PIPELINE_RESULT_VALUE_SUCCESS, CICD_PIPELINE_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_RUN_STATE_VALUE_EXECUTING, CICD_PIPELINE_RUN_STATE_VALUE_FINALIZING, CICD_PIPELINE_RUN_STATE_VALUE_PENDING, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_ERROR, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_FAILURE, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SKIP, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SUCCESS, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_TASK_TYPE_VALUE_BUILD, CICD_PIPELINE_TASK_TYPE_VALUE_DEPLOY, CICD_PIPELINE_TASK_TYPE_VALUE_TEST, CICD_WORKER_STATE_VALUE_AVAILABLE, CICD_WORKER_STATE_VALUE_BUSY, CICD_WORKER_STATE_VALUE_OFFLINE, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_ECS, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_FC, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_AWS_APP_RUNNER, CLOUD_PLATFORM_VALUE_AWS_EC2, CLOUD_PLATFORM_VALUE_AWS_ECS, CLOUD_PLATFORM_VALUE_AWS_EKS, CLOUD_PLATFORM_VALUE_AWS_ELASTIC_BEANSTALK, CLOUD_PLATFORM_VALUE_AWS_LAMBDA, CLOUD_PLATFORM_VALUE_AWS_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_AKS, CLOUD_PLATFORM_VALUE_AZURE_APP_SERVICE, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_APPS, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_INSTANCES, CLOUD_PLATFORM_VALUE_AZURE_FUNCTIONS, CLOUD_PLATFORM_VALUE_AZURE_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_VM, CLOUD_PLATFORM_VALUE_GCP_APP_ENGINE, CLOUD_PLATFORM_VALUE_GCP_BARE_METAL_SOLUTION, CLOUD_PLATFORM_VALUE_GCP_CLOUD_FUNCTIONS, CLOUD_PLATFORM_VALUE_GCP_CLOUD_RUN, CLOUD_PLATFORM_VALUE_GCP_COMPUTE_ENGINE, CLOUD_PLATFORM_VALUE_GCP_KUBERNETES_ENGINE, CLOUD_PLATFORM_VALUE_GCP_OPENSHIFT, CLOUD_PLATFORM_VALUE_IBM_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_COMPUTE, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_OKE, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_CVM, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_EKS, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_SCF, CLOUD_PROVIDER_VALUE_ALIBABA_CLOUD, CLOUD_PROVIDER_VALUE_AWS, CLOUD_PROVIDER_VALUE_AZURE, CLOUD_PROVIDER_VALUE_GCP, CLOUD_PROVIDER_VALUE_HEROKU, CLOUD_PROVIDER_VALUE_IBM_CLOUD, CLOUD_PROVIDER_VALUE_ORACLE_CLOUD, CLOUD_PROVIDER_VALUE_TENCENT_CLOUD, CONTAINER_CPU_STATE_VALUE_KERNEL, CONTAINER_CPU_STATE_VALUE_SYSTEM, CONTAINER_CPU_STATE_VALUE_USER, CPU_MODE_VALUE_IDLE, CPU_MODE_VALUE_INTERRUPT, CPU_MODE_VALUE_IOWAIT, CPU_MODE_VALUE_KERNEL, CPU_MODE_VALUE_NICE, CPU_MODE_VALUE_STEAL, CPU_MODE_VALUE_SYSTEM, CPU_MODE_VALUE_USER, CPYTHON_GC_GENERATION_VALUE_GENERATION_0, CPYTHON_GC_GENERATION_VALUE_GENERATION_1, CPYTHON_GC_GENERATION_VALUE_GENERATION_2, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, DB_CLIENT_CONNECTIONS_STATE_VALUE_IDLE, DB_CLIENT_CONNECTIONS_STATE_VALUE_USED, DB_CLIENT_CONNECTION_STATE_VALUE_IDLE, DB_CLIENT_CONNECTION_STATE_VALUE_USED, DB_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, DB_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, DB_COSMOSDB_OPERATION_TYPE_VALUE_BATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_CREATE, DB_COSMOSDB_OPERATION_TYPE_VALUE_DELETE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE_JAVASCRIPT, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_INVALID, DB_COSMOSDB_OPERATION_TYPE_VALUE_PATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY_PLAN, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_REPLACE, DB_COSMOSDB_OPERATION_TYPE_VALUE_UPSERT, DB_SYSTEM_NAME_VALUE_ACTIAN_INGRES, DB_SYSTEM_NAME_VALUE_AWS_DYNAMODB, DB_SYSTEM_NAME_VALUE_AWS_REDSHIFT, DB_SYSTEM_NAME_VALUE_AZURE_COSMOSDB, DB_SYSTEM_NAME_VALUE_CASSANDRA, DB_SYSTEM_NAME_VALUE_CLICKHOUSE, DB_SYSTEM_NAME_VALUE_COCKROACHDB, DB_SYSTEM_NAME_VALUE_COUCHBASE, DB_SYSTEM_NAME_VALUE_COUCHDB, DB_SYSTEM_NAME_VALUE_DERBY, DB_SYSTEM_NAME_VALUE_ELASTICSEARCH, DB_SYSTEM_NAME_VALUE_FIREBIRDSQL, DB_SYSTEM_NAME_VALUE_GCP_SPANNER, DB_SYSTEM_NAME_VALUE_GEODE, DB_SYSTEM_NAME_VALUE_H2DATABASE, DB_SYSTEM_NAME_VALUE_HBASE, DB_SYSTEM_NAME_VALUE_HIVE, DB_SYSTEM_NAME_VALUE_HSQLDB, DB_SYSTEM_NAME_VALUE_IBM_DB2, DB_SYSTEM_NAME_VALUE_IBM_INFORMIX, DB_SYSTEM_NAME_VALUE_IBM_NETEZZA, DB_SYSTEM_NAME_VALUE_INFLUXDB, DB_SYSTEM_NAME_VALUE_INSTANTDB, DB_SYSTEM_NAME_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_NAME_VALUE_MARIADB, DB_SYSTEM_NAME_VALUE_MEMCACHED, DB_SYSTEM_NAME_VALUE_MICROSOFT_SQL_SERVER, DB_SYSTEM_NAME_VALUE_MONGODB, DB_SYSTEM_NAME_VALUE_MYSQL, DB_SYSTEM_NAME_VALUE_NEO4J, DB_SYSTEM_NAME_VALUE_OPENSEARCH, DB_SYSTEM_NAME_VALUE_ORACLE_DB, DB_SYSTEM_NAME_VALUE_OTHER_SQL, DB_SYSTEM_NAME_VALUE_POSTGRESQL, DB_SYSTEM_NAME_VALUE_REDIS, DB_SYSTEM_NAME_VALUE_SAP_HANA, DB_SYSTEM_NAME_VALUE_SAP_MAXDB, DB_SYSTEM_NAME_VALUE_SOFTWAREAG_ADABAS, DB_SYSTEM_NAME_VALUE_SQLITE, DB_SYSTEM_NAME_VALUE_TERADATA, DB_SYSTEM_NAME_VALUE_TRINO, DB_SYSTEM_VALUE_ADABAS, DB_SYSTEM_VALUE_CACHE, DB_SYSTEM_VALUE_CASSANDRA, DB_SYSTEM_VALUE_CLICKHOUSE, DB_SYSTEM_VALUE_CLOUDSCAPE, DB_SYSTEM_VALUE_COCKROACHDB, DB_SYSTEM_VALUE_COLDFUSION, DB_SYSTEM_VALUE_COSMOSDB, DB_SYSTEM_VALUE_COUCHBASE, DB_SYSTEM_VALUE_COUCHDB, DB_SYSTEM_VALUE_DB2, DB_SYSTEM_VALUE_DERBY, DB_SYSTEM_VALUE_DYNAMODB, DB_SYSTEM_VALUE_EDB, DB_SYSTEM_VALUE_ELASTICSEARCH, DB_SYSTEM_VALUE_FILEMAKER, DB_SYSTEM_VALUE_FIREBIRD, DB_SYSTEM_VALUE_FIRSTSQL, DB_SYSTEM_VALUE_GEODE, DB_SYSTEM_VALUE_H2, DB_SYSTEM_VALUE_HANADB, DB_SYSTEM_VALUE_HBASE, DB_SYSTEM_VALUE_HIVE, DB_SYSTEM_VALUE_HSQLDB, DB_SYSTEM_VALUE_INFLUXDB, DB_SYSTEM_VALUE_INFORMIX, DB_SYSTEM_VALUE_INGRES, DB_SYSTEM_VALUE_INSTANTDB, DB_SYSTEM_VALUE_INTERBASE, DB_SYSTEM_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_VALUE_MARIADB, DB_SYSTEM_VALUE_MAXDB, DB_SYSTEM_VALUE_MEMCACHED, DB_SYSTEM_VALUE_MONGODB, DB_SYSTEM_VALUE_MSSQL, DB_SYSTEM_VALUE_MSSQLCOMPACT, DB_SYSTEM_VALUE_MYSQL, DB_SYSTEM_VALUE_NEO4J, DB_SYSTEM_VALUE_NETEZZA, DB_SYSTEM_VALUE_OPENSEARCH, DB_SYSTEM_VALUE_ORACLE, DB_SYSTEM_VALUE_OTHER_SQL, DB_SYSTEM_VALUE_PERVASIVE, DB_SYSTEM_VALUE_POINTBASE, DB_SYSTEM_VALUE_POSTGRESQL, DB_SYSTEM_VALUE_PROGRESS, DB_SYSTEM_VALUE_REDIS, DB_SYSTEM_VALUE_REDSHIFT, DB_SYSTEM_VALUE_SPANNER, DB_SYSTEM_VALUE_SQLITE, DB_SYSTEM_VALUE_SYBASE, DB_SYSTEM_VALUE_TERADATA, DB_SYSTEM_VALUE_TRINO, DB_SYSTEM_VALUE_VERTICA, DEPLOYMENT_STATUS_VALUE_FAILED, DEPLOYMENT_STATUS_VALUE_SUCCEEDED, DISK_IO_DIRECTION_VALUE_READ, DISK_IO_DIRECTION_VALUE_WRITE, DOTNET_GC_HEAP_GENERATION_VALUE_GEN0, DOTNET_GC_HEAP_GENERATION_VALUE_GEN1, DOTNET_GC_HEAP_GENERATION_VALUE_GEN2, DOTNET_GC_HEAP_GENERATION_VALUE_LOH, DOTNET_GC_HEAP_GENERATION_VALUE_POH, ERROR_TYPE_VALUE_OTHER, EVENT_APP_JANK, EVENT_APP_SCREEN_CLICK, EVENT_APP_WIDGET_CLICK, EVENT_AZURE_RESOURCE_LOG, EVENT_AZ_RESOURCE_LOG, EVENT_BROWSER_WEB_VITAL, EVENT_DEVICE_APP_LIFECYCLE, EVENT_EXCEPTION, EVENT_FEATURE_FLAG_EVALUATION, EVENT_GEN_AI_ASSISTANT_MESSAGE, EVENT_GEN_AI_CHOICE, EVENT_GEN_AI_CLIENT_INFERENCE_OPERATION_DETAILS, EVENT_GEN_AI_SYSTEM_MESSAGE, EVENT_GEN_AI_TOOL_MESSAGE, EVENT_GEN_AI_USER_MESSAGE, EVENT_RPC_MESSAGE, EVENT_SESSION_END, EVENT_SESSION_START, FAAS_DOCUMENT_OPERATION_VALUE_DELETE, FAAS_DOCUMENT_OPERATION_VALUE_EDIT, FAAS_DOCUMENT_OPERATION_VALUE_INSERT, FAAS_INVOKED_PROVIDER_VALUE_ALIBABA_CLOUD, FAAS_INVOKED_PROVIDER_VALUE_AWS, FAAS_INVOKED_PROVIDER_VALUE_AZURE, FAAS_INVOKED_PROVIDER_VALUE_GCP, FAAS_INVOKED_PROVIDER_VALUE_TENCENT_CLOUD, FAAS_TRIGGER_VALUE_DATASOURCE, FAAS_TRIGGER_VALUE_HTTP, FAAS_TRIGGER_VALUE_OTHER, FAAS_TRIGGER_VALUE_PUBSUB, FAAS_TRIGGER_VALUE_TIMER, FEATURE_FLAG_EVALUATION_REASON_VALUE_CACHED, FEATURE_FLAG_EVALUATION_REASON_VALUE_DEFAULT, FEATURE_FLAG_EVALUATION_REASON_VALUE_DISABLED, FEATURE_FLAG_EVALUATION_REASON_VALUE_ERROR, FEATURE_FLAG_EVALUATION_REASON_VALUE_SPLIT, FEATURE_FLAG_EVALUATION_REASON_VALUE_STALE, FEATURE_FLAG_EVALUATION_REASON_VALUE_STATIC, FEATURE_FLAG_EVALUATION_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_EVALUATION_REASON_VALUE_UNKNOWN, FEATURE_FLAG_RESULT_REASON_VALUE_CACHED, FEATURE_FLAG_RESULT_REASON_VALUE_DEFAULT, FEATURE_FLAG_RESULT_REASON_VALUE_DISABLED, FEATURE_FLAG_RESULT_REASON_VALUE_ERROR, FEATURE_FLAG_RESULT_REASON_VALUE_SPLIT, FEATURE_FLAG_RESULT_REASON_VALUE_STALE, FEATURE_FLAG_RESULT_REASON_VALUE_STATIC, FEATURE_FLAG_RESULT_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_RESULT_REASON_VALUE_UNKNOWN, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_TEST, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_TEST, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_OBJECT, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_SCHEMA, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_TEXT, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT, GEN_AI_OPERATION_NAME_VALUE_CHAT, GEN_AI_OPERATION_NAME_VALUE_CREATE_AGENT, GEN_AI_OPERATION_NAME_VALUE_EMBEDDINGS, GEN_AI_OPERATION_NAME_VALUE_EXECUTE_TOOL, GEN_AI_OPERATION_NAME_VALUE_GENERATE_CONTENT, GEN_AI_OPERATION_NAME_VALUE_INVOKE_AGENT, GEN_AI_OPERATION_NAME_VALUE_TEXT_COMPLETION, GEN_AI_OUTPUT_TYPE_VALUE_IMAGE, GEN_AI_OUTPUT_TYPE_VALUE_JSON, GEN_AI_OUTPUT_TYPE_VALUE_SPEECH, GEN_AI_OUTPUT_TYPE_VALUE_TEXT, GEN_AI_PROVIDER_NAME_VALUE_ANTHROPIC, GEN_AI_PROVIDER_NAME_VALUE_AWS_BEDROCK, GEN_AI_PROVIDER_NAME_VALUE_AZURE_AI_INFERENCE, GEN_AI_PROVIDER_NAME_VALUE_AZURE_AI_OPENAI, GEN_AI_PROVIDER_NAME_VALUE_COHERE, GEN_AI_PROVIDER_NAME_VALUE_DEEPSEEK, GEN_AI_PROVIDER_NAME_VALUE_GCP_GEMINI, GEN_AI_PROVIDER_NAME_VALUE_GCP_GEN_AI, GEN_AI_PROVIDER_NAME_VALUE_GCP_VERTEX_AI, GEN_AI_PROVIDER_NAME_VALUE_GROQ, GEN_AI_PROVIDER_NAME_VALUE_IBM_WATSONX_AI, GEN_AI_PROVIDER_NAME_VALUE_MISTRAL_AI, GEN_AI_PROVIDER_NAME_VALUE_OPENAI, GEN_AI_PROVIDER_NAME_VALUE_PERPLEXITY, GEN_AI_PROVIDER_NAME_VALUE_X_AI, GEN_AI_SYSTEM_VALUE_ANTHROPIC, GEN_AI_SYSTEM_VALUE_AWS_BEDROCK, GEN_AI_SYSTEM_VALUE_AZURE_AI_INFERENCE, GEN_AI_SYSTEM_VALUE_AZURE_AI_OPENAI, GEN_AI_SYSTEM_VALUE_AZ_AI_INFERENCE, GEN_AI_SYSTEM_VALUE_AZ_AI_OPENAI, GEN_AI_SYSTEM_VALUE_COHERE, GEN_AI_SYSTEM_VALUE_DEEPSEEK, GEN_AI_SYSTEM_VALUE_GCP_GEMINI, GEN_AI_SYSTEM_VALUE_GCP_GEN_AI, GEN_AI_SYSTEM_VALUE_GCP_VERTEX_AI, GEN_AI_SYSTEM_VALUE_GEMINI, GEN_AI_SYSTEM_VALUE_GROQ, GEN_AI_SYSTEM_VALUE_IBM_WATSONX_AI, GEN_AI_SYSTEM_VALUE_MISTRAL_AI, GEN_AI_SYSTEM_VALUE_OPENAI, GEN_AI_SYSTEM_VALUE_PERPLEXITY, GEN_AI_SYSTEM_VALUE_VERTEX_AI, GEN_AI_SYSTEM_VALUE_XAI, GEN_AI_TOKEN_TYPE_VALUE_COMPLETION, GEN_AI_TOKEN_TYPE_VALUE_INPUT, GEN_AI_TOKEN_TYPE_VALUE_OUTPUT, GEO_CONTINENT_CODE_VALUE_AF, GEO_CONTINENT_CODE_VALUE_AN, GEO_CONTINENT_CODE_VALUE_AS, GEO_CONTINENT_CODE_VALUE_EU, GEO_CONTINENT_CODE_VALUE_NA, GEO_CONTINENT_CODE_VALUE_OC, GEO_CONTINENT_CODE_VALUE_SA, GO_MEMORY_TYPE_VALUE_OTHER, GO_MEMORY_TYPE_VALUE_STACK, GRAPHQL_OPERATION_TYPE_VALUE_MUTATION, GRAPHQL_OPERATION_TYPE_VALUE_QUERY, GRAPHQL_OPERATION_TYPE_VALUE_SUBSCRIPTION, HOST_ARCH_VALUE_AMD64, HOST_ARCH_VALUE_ARM32, HOST_ARCH_VALUE_ARM64, HOST_ARCH_VALUE_IA64, HOST_ARCH_VALUE_PPC32, HOST_ARCH_VALUE_PPC64, HOST_ARCH_VALUE_S390X, HOST_ARCH_VALUE_X86, HTTP_CONNECTION_STATE_VALUE_ACTIVE, HTTP_CONNECTION_STATE_VALUE_IDLE, HTTP_FLAVOR_VALUE_HTTP_1_0, HTTP_FLAVOR_VALUE_HTTP_1_1, HTTP_FLAVOR_VALUE_HTTP_2_0, HTTP_FLAVOR_VALUE_HTTP_3_0, HTTP_FLAVOR_VALUE_QUIC, HTTP_FLAVOR_VALUE_SPDY, HTTP_REQUEST_METHOD_VALUE_CONNECT, HTTP_REQUEST_METHOD_VALUE_DELETE, HTTP_REQUEST_METHOD_VALUE_GET, HTTP_REQUEST_METHOD_VALUE_HEAD, HTTP_REQUEST_METHOD_VALUE_OPTIONS, HTTP_REQUEST_METHOD_VALUE_OTHER, HTTP_REQUEST_METHOD_VALUE_PATCH, HTTP_REQUEST_METHOD_VALUE_POST, HTTP_REQUEST_METHOD_VALUE_PUT, HTTP_REQUEST_METHOD_VALUE_TRACE, HW_BATTERY_STATE_VALUE_CHARGING, HW_BATTERY_STATE_VALUE_DISCHARGING, HW_GPU_TASK_VALUE_DECODER, HW_GPU_TASK_VALUE_ENCODER, HW_GPU_TASK_VALUE_GENERAL, HW_LIMIT_TYPE_VALUE_CRITICAL, HW_LIMIT_TYPE_VALUE_DEGRADED, HW_LIMIT_TYPE_VALUE_HIGH_CRITICAL, HW_LIMIT_TYPE_VALUE_HIGH_DEGRADED, HW_LIMIT_TYPE_VALUE_LOW_CRITICAL, HW_LIMIT_TYPE_VALUE_LOW_DEGRADED, HW_LIMIT_TYPE_VALUE_MAX, HW_LIMIT_TYPE_VALUE_THROTTLED, HW_LIMIT_TYPE_VALUE_TURBO, HW_LOGICAL_DISK_STATE_VALUE_FREE, HW_LOGICAL_DISK_STATE_VALUE_USED, HW_PHYSICAL_DISK_STATE_VALUE_REMAINING, HW_STATE_VALUE_DEGRADED, HW_STATE_VALUE_FAILED, HW_STATE_VALUE_NEEDS_CLEANING, HW_STATE_VALUE_OK, HW_STATE_VALUE_PREDICTED_FAILURE, HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_CLEAN, HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_MOUNT, HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_UNMOUNT, HW_TYPE_VALUE_BATTERY, HW_TYPE_VALUE_CPU, HW_TYPE_VALUE_DISK_CONTROLLER, HW_TYPE_VALUE_ENCLOSURE, HW_TYPE_VALUE_FAN, HW_TYPE_VALUE_GPU, HW_TYPE_VALUE_LOGICAL_DISK, HW_TYPE_VALUE_MEMORY, HW_TYPE_VALUE_NETWORK, HW_TYPE_VALUE_PHYSICAL_DISK, HW_TYPE_VALUE_POWER_SUPPLY, HW_TYPE_VALUE_TAPE_DRIVE, HW_TYPE_VALUE_TEMPERATURE, HW_TYPE_VALUE_VOLTAGE, IOS_APP_STATE_VALUE_ACTIVE, IOS_APP_STATE_VALUE_BACKGROUND, IOS_APP_STATE_VALUE_FOREGROUND, IOS_APP_STATE_VALUE_INACTIVE, IOS_APP_STATE_VALUE_TERMINATE, IOS_STATE_VALUE_ACTIVE, IOS_STATE_VALUE_BACKGROUND, IOS_STATE_VALUE_FOREGROUND, IOS_STATE_VALUE_INACTIVE, IOS_STATE_VALUE_TERMINATE, JVM_MEMORY_TYPE_VALUE_HEAP, JVM_MEMORY_TYPE_VALUE_NON_HEAP, JVM_THREAD_STATE_VALUE_BLOCKED, JVM_THREAD_STATE_VALUE_NEW, JVM_THREAD_STATE_VALUE_RUNNABLE, JVM_THREAD_STATE_VALUE_TERMINATED, JVM_THREAD_STATE_VALUE_TIMED_WAITING, JVM_THREAD_STATE_VALUE_WAITING, K8S_CONTAINER_STATUS_REASON_VALUE_COMPLETED, K8S_CONTAINER_STATUS_REASON_VALUE_CONTAINER_CANNOT_RUN, K8S_CONTAINER_STATUS_REASON_VALUE_CONTAINER_CREATING, K8S_CONTAINER_STATUS_REASON_VALUE_CRASH_LOOP_BACK_OFF, K8S_CONTAINER_STATUS_REASON_VALUE_CREATE_CONTAINER_CONFIG_ERROR, K8S_CONTAINER_STATUS_REASON_VALUE_ERROR, K8S_CONTAINER_STATUS_REASON_VALUE_ERR_IMAGE_PULL, K8S_CONTAINER_STATUS_REASON_VALUE_IMAGE_PULL_BACK_OFF, K8S_CONTAINER_STATUS_REASON_VALUE_OOM_KILLED, K8S_CONTAINER_STATUS_STATE_VALUE_RUNNING, K8S_CONTAINER_STATUS_STATE_VALUE_TERMINATED, K8S_CONTAINER_STATUS_STATE_VALUE_WAITING, K8S_NAMESPACE_PHASE_VALUE_ACTIVE, K8S_NAMESPACE_PHASE_VALUE_TERMINATING, K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_FALSE, K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_TRUE, K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_UNKNOWN, K8S_NODE_CONDITION_TYPE_VALUE_DISK_PRESSURE, K8S_NODE_CONDITION_TYPE_VALUE_MEMORY_PRESSURE, K8S_NODE_CONDITION_TYPE_VALUE_NETWORK_UNAVAILABLE, K8S_NODE_CONDITION_TYPE_VALUE_PID_PRESSURE, K8S_NODE_CONDITION_TYPE_VALUE_READY, K8S_VOLUME_TYPE_VALUE_CONFIG_MAP, K8S_VOLUME_TYPE_VALUE_DOWNWARD_API, K8S_VOLUME_TYPE_VALUE_EMPTY_DIR, K8S_VOLUME_TYPE_VALUE_LOCAL, K8S_VOLUME_TYPE_VALUE_PERSISTENT_VOLUME_CLAIM, K8S_VOLUME_TYPE_VALUE_SECRET, LINUX_MEMORY_SLAB_STATE_VALUE_RECLAIMABLE, LINUX_MEMORY_SLAB_STATE_VALUE_UNRECLAIMABLE, LOG_IOSTREAM_VALUE_STDERR, LOG_IOSTREAM_VALUE_STDOUT, MESSAGE_TYPE_VALUE_RECEIVED, MESSAGE_TYPE_VALUE_SENT, MESSAGING_OPERATION_TYPE_VALUE_CREATE, MESSAGING_OPERATION_TYPE_VALUE_DELIVER, MESSAGING_OPERATION_TYPE_VALUE_PROCESS, MESSAGING_OPERATION_TYPE_VALUE_PUBLISH, MESSAGING_OPERATION_TYPE_VALUE_RECEIVE, MESSAGING_OPERATION_TYPE_VALUE_SEND, MESSAGING_OPERATION_TYPE_VALUE_SETTLE, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_BROADCASTING, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_CLUSTERING, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_DELAY, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_FIFO, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_NORMAL, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_TRANSACTION, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_ABANDON, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_COMPLETE, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEAD_LETTER, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEFER, MESSAGING_SYSTEM_VALUE_ACTIVEMQ, MESSAGING_SYSTEM_VALUE_AWS_SNS, MESSAGING_SYSTEM_VALUE_AWS_SQS, MESSAGING_SYSTEM_VALUE_EVENTGRID, MESSAGING_SYSTEM_VALUE_EVENTHUBS, MESSAGING_SYSTEM_VALUE_GCP_PUBSUB, MESSAGING_SYSTEM_VALUE_JMS, MESSAGING_SYSTEM_VALUE_KAFKA, MESSAGING_SYSTEM_VALUE_PULSAR, MESSAGING_SYSTEM_VALUE_RABBITMQ, MESSAGING_SYSTEM_VALUE_ROCKETMQ, MESSAGING_SYSTEM_VALUE_SERVICEBUS, METRIC_ASPNETCORE_AUTHENTICATION_AUTHENTICATE_DURATION, METRIC_ASPNETCORE_AUTHENTICATION_CHALLENGES, METRIC_ASPNETCORE_AUTHENTICATION_FORBIDS, METRIC_ASPNETCORE_AUTHENTICATION_SIGN_INS, METRIC_ASPNETCORE_AUTHENTICATION_SIGN_OUTS, METRIC_ASPNETCORE_AUTHORIZATION_ATTEMPTS, METRIC_ASPNETCORE_DIAGNOSTICS_EXCEPTIONS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_AUTHENTICATE_DURATION, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_CHECK_PASSWORD_ATTEMPTS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_SIGN_INS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_SIGN_OUTS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_TWO_FACTOR_CLIENTS_FORGOTTEN, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_TWO_FACTOR_CLIENTS_REMEMBERED, METRIC_ASPNETCORE_IDENTITY_USER_CHECK_PASSWORD_ATTEMPTS, METRIC_ASPNETCORE_IDENTITY_USER_CREATE_DURATION, METRIC_ASPNETCORE_IDENTITY_USER_DELETE_DURATION, METRIC_ASPNETCORE_IDENTITY_USER_GENERATED_TOKENS, METRIC_ASPNETCORE_IDENTITY_USER_UPDATE_DURATION, METRIC_ASPNETCORE_IDENTITY_USER_VERIFY_TOKEN_ATTEMPTS, METRIC_ASPNETCORE_MEMORY_POOL_ALLOCATED, METRIC_ASPNETCORE_MEMORY_POOL_EVICTED, METRIC_ASPNETCORE_MEMORY_POOL_POOLED, METRIC_ASPNETCORE_MEMORY_POOL_RENTED, METRIC_ASPNETCORE_RATE_LIMITING_ACTIVE_REQUEST_LEASES, METRIC_ASPNETCORE_RATE_LIMITING_QUEUED_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_LEASE_DURATION, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_TIME_IN_QUEUE, METRIC_ASPNETCORE_ROUTING_MATCH_ATTEMPTS, METRIC_AZURE_COSMOSDB_CLIENT_ACTIVE_INSTANCE_COUNT, METRIC_AZURE_COSMOSDB_CLIENT_OPERATION_REQUEST_CHARGE, METRIC_CICD_PIPELINE_RUN_ACTIVE, METRIC_CICD_PIPELINE_RUN_DURATION, METRIC_CICD_PIPELINE_RUN_ERRORS, METRIC_CICD_SYSTEM_ERRORS, METRIC_CICD_WORKER_COUNT, METRIC_CONTAINER_CPU_TIME, METRIC_CONTAINER_CPU_USAGE, METRIC_CONTAINER_DISK_IO, METRIC_CONTAINER_FILESYSTEM_AVAILABLE, METRIC_CONTAINER_FILESYSTEM_CAPACITY, METRIC_CONTAINER_FILESYSTEM_USAGE, METRIC_CONTAINER_MEMORY_USAGE, METRIC_CONTAINER_NETWORK_IO, METRIC_CONTAINER_UPTIME, METRIC_CPU_FREQUENCY, METRIC_CPU_TIME, METRIC_CPU_UTILIZATION, METRIC_CPYTHON_GC_COLLECTED_OBJECTS, METRIC_CPYTHON_GC_COLLECTIONS, METRIC_CPYTHON_GC_UNCOLLECTABLE_OBJECTS, METRIC_DB_CLIENT_CONNECTIONS_CREATE_TIME, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MAX, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MIN, METRIC_DB_CLIENT_CONNECTIONS_MAX, METRIC_DB_CLIENT_CONNECTIONS_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTIONS_TIMEOUTS, METRIC_DB_CLIENT_CONNECTIONS_USAGE, METRIC_DB_CLIENT_CONNECTIONS_USE_TIME, METRIC_DB_CLIENT_CONNECTIONS_WAIT_TIME, METRIC_DB_CLIENT_CONNECTION_COUNT, METRIC_DB_CLIENT_CONNECTION_CREATE_TIME, METRIC_DB_CLIENT_CONNECTION_IDLE_MAX, METRIC_DB_CLIENT_CONNECTION_IDLE_MIN, METRIC_DB_CLIENT_CONNECTION_MAX, METRIC_DB_CLIENT_CONNECTION_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTION_TIMEOUTS, METRIC_DB_CLIENT_CONNECTION_USE_TIME, METRIC_DB_CLIENT_CONNECTION_WAIT_TIME, METRIC_DB_CLIENT_COSMOSDB_ACTIVE_INSTANCE_COUNT, METRIC_DB_CLIENT_COSMOSDB_OPERATION_REQUEST_CHARGE, METRIC_DB_CLIENT_OPERATION_DURATION, METRIC_DB_CLIENT_RESPONSE_RETURNED_ROWS, METRIC_DNS_LOOKUP_DURATION, METRIC_DOTNET_ASSEMBLY_COUNT, METRIC_DOTNET_EXCEPTIONS, METRIC_DOTNET_GC_COLLECTIONS, METRIC_DOTNET_GC_HEAP_TOTAL_ALLOCATED, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_FRAGMENTATION_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_MEMORY_COMMITTED_SIZE, METRIC_DOTNET_GC_PAUSE_TIME, METRIC_DOTNET_JIT_COMPILATION_TIME, METRIC_DOTNET_JIT_COMPILED_IL_SIZE, METRIC_DOTNET_JIT_COMPILED_METHODS, METRIC_DOTNET_MONITOR_LOCK_CONTENTIONS, METRIC_DOTNET_PROCESS_CPU_COUNT, METRIC_DOTNET_PROCESS_CPU_TIME, METRIC_DOTNET_PROCESS_MEMORY_WORKING_SET, METRIC_DOTNET_THREAD_POOL_QUEUE_LENGTH, METRIC_DOTNET_THREAD_POOL_THREAD_COUNT, METRIC_DOTNET_THREAD_POOL_WORK_ITEM_COUNT, METRIC_DOTNET_TIMER_COUNT, METRIC_FAAS_COLDSTARTS, METRIC_FAAS_CPU_USAGE, METRIC_FAAS_ERRORS, METRIC_FAAS_INIT_DURATION, METRIC_FAAS_INVOCATIONS, METRIC_FAAS_INVOKE_DURATION, METRIC_FAAS_MEM_USAGE, METRIC_FAAS_NET_IO, METRIC_FAAS_TIMEOUTS, METRIC_GEN_AI_CLIENT_OPERATION_DURATION, METRIC_GEN_AI_CLIENT_TOKEN_USAGE, METRIC_GEN_AI_SERVER_REQUEST_DURATION, METRIC_GEN_AI_SERVER_TIME_PER_OUTPUT_TOKEN, METRIC_GEN_AI_SERVER_TIME_TO_FIRST_TOKEN, METRIC_GO_CONFIG_GOGC, METRIC_GO_GOROUTINE_COUNT, METRIC_GO_MEMORY_ALLOCATED, METRIC_GO_MEMORY_ALLOCATIONS, METRIC_GO_MEMORY_GC_GOAL, METRIC_GO_MEMORY_LIMIT, METRIC_GO_MEMORY_USED, METRIC_GO_PROCESSOR_LIMIT, METRIC_GO_SCHEDULE_DURATION, METRIC_HTTP_CLIENT_ACTIVE_REQUESTS, METRIC_HTTP_CLIENT_CONNECTION_DURATION, METRIC_HTTP_CLIENT_OPEN_CONNECTIONS, METRIC_HTTP_CLIENT_REQUEST_BODY_SIZE, METRIC_HTTP_CLIENT_REQUEST_DURATION, METRIC_HTTP_CLIENT_RESPONSE_BODY_SIZE, METRIC_HTTP_SERVER_ACTIVE_REQUESTS, METRIC_HTTP_SERVER_REQUEST_BODY_SIZE, METRIC_HTTP_SERVER_REQUEST_DURATION, METRIC_HTTP_SERVER_RESPONSE_BODY_SIZE, METRIC_HW_BATTERY_CHARGE, METRIC_HW_BATTERY_CHARGE_LIMIT, METRIC_HW_BATTERY_TIME_LEFT, METRIC_HW_CPU_SPEED, METRIC_HW_CPU_SPEED_LIMIT, METRIC_HW_ENERGY, METRIC_HW_ERRORS, METRIC_HW_FAN_SPEED, METRIC_HW_FAN_SPEED_LIMIT, METRIC_HW_FAN_SPEED_RATIO, METRIC_HW_GPU_IO, METRIC_HW_GPU_MEMORY_LIMIT, METRIC_HW_GPU_MEMORY_USAGE, METRIC_HW_GPU_MEMORY_UTILIZATION, METRIC_HW_GPU_UTILIZATION, METRIC_HW_HOST_AMBIENT_TEMPERATURE, METRIC_HW_HOST_ENERGY, METRIC_HW_HOST_HEATING_MARGIN, METRIC_HW_HOST_POWER, METRIC_HW_LOGICAL_DISK_LIMIT, METRIC_HW_LOGICAL_DISK_USAGE, METRIC_HW_LOGICAL_DISK_UTILIZATION, METRIC_HW_MEMORY_SIZE, METRIC_HW_NETWORK_BANDWIDTH_LIMIT, METRIC_HW_NETWORK_BANDWIDTH_UTILIZATION, METRIC_HW_NETWORK_IO, METRIC_HW_NETWORK_PACKETS, METRIC_HW_NETWORK_UP, METRIC_HW_PHYSICAL_DISK_ENDURANCE_UTILIZATION, METRIC_HW_PHYSICAL_DISK_SIZE, METRIC_HW_PHYSICAL_DISK_SMART, METRIC_HW_POWER, METRIC_HW_POWER_SUPPLY_LIMIT, METRIC_HW_POWER_SUPPLY_USAGE, METRIC_HW_POWER_SUPPLY_UTILIZATION, METRIC_HW_STATUS, METRIC_HW_TAPE_DRIVE_OPERATIONS, METRIC_HW_TEMPERATURE, METRIC_HW_TEMPERATURE_LIMIT, METRIC_HW_VOLTAGE, METRIC_HW_VOLTAGE_LIMIT, METRIC_HW_VOLTAGE_NOMINAL, METRIC_JVM_BUFFER_COUNT, METRIC_JVM_BUFFER_MEMORY_LIMIT, METRIC_JVM_BUFFER_MEMORY_USAGE, METRIC_JVM_BUFFER_MEMORY_USED, METRIC_JVM_CLASS_COUNT, METRIC_JVM_CLASS_LOADED, METRIC_JVM_CLASS_UNLOADED, METRIC_JVM_CPU_COUNT, METRIC_JVM_CPU_RECENT_UTILIZATION, METRIC_JVM_CPU_TIME, METRIC_JVM_FILE_DESCRIPTOR_COUNT, METRIC_JVM_GC_DURATION, METRIC_JVM_MEMORY_COMMITTED, METRIC_JVM_MEMORY_INIT, METRIC_JVM_MEMORY_LIMIT, METRIC_JVM_MEMORY_USED, METRIC_JVM_MEMORY_USED_AFTER_LAST_GC, METRIC_JVM_SYSTEM_CPU_LOAD_1M, METRIC_JVM_SYSTEM_CPU_UTILIZATION, METRIC_JVM_THREAD_COUNT, METRIC_K8S_CONTAINER_CPU_LIMIT, METRIC_K8S_CONTAINER_CPU_REQUEST, METRIC_K8S_CONTAINER_EPHEMERAL_STORAGE_LIMIT, METRIC_K8S_CONTAINER_EPHEMERAL_STORAGE_REQUEST, METRIC_K8S_CONTAINER_MEMORY_LIMIT, METRIC_K8S_CONTAINER_MEMORY_REQUEST, METRIC_K8S_CONTAINER_READY, METRIC_K8S_CONTAINER_RESTART_COUNT, METRIC_K8S_CONTAINER_STATUS_REASON, METRIC_K8S_CONTAINER_STATUS_STATE, METRIC_K8S_CONTAINER_STORAGE_LIMIT, METRIC_K8S_CONTAINER_STORAGE_REQUEST, METRIC_K8S_CRONJOB_ACTIVE_JOBS, METRIC_K8S_DAEMONSET_CURRENT_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_DESIRED_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_MISSCHEDULED_NODES, METRIC_K8S_DAEMONSET_READY_NODES, METRIC_K8S_DEPLOYMENT_AVAILABLE_PODS, METRIC_K8S_DEPLOYMENT_DESIRED_PODS, METRIC_K8S_HPA_CURRENT_PODS, METRIC_K8S_HPA_DESIRED_PODS, METRIC_K8S_HPA_MAX_PODS, METRIC_K8S_HPA_METRIC_TARGET_CPU_AVERAGE_UTILIZATION, METRIC_K8S_HPA_METRIC_TARGET_CPU_AVERAGE_VALUE, METRIC_K8S_HPA_METRIC_TARGET_CPU_VALUE, METRIC_K8S_HPA_MIN_PODS, METRIC_K8S_JOB_ACTIVE_PODS, METRIC_K8S_JOB_DESIRED_SUCCESSFUL_PODS, METRIC_K8S_JOB_FAILED_PODS, METRIC_K8S_JOB_MAX_PARALLEL_PODS, METRIC_K8S_JOB_SUCCESSFUL_PODS, METRIC_K8S_NAMESPACE_PHASE, METRIC_K8S_NODE_ALLOCATABLE_CPU, METRIC_K8S_NODE_ALLOCATABLE_EPHEMERAL_STORAGE, METRIC_K8S_NODE_ALLOCATABLE_MEMORY, METRIC_K8S_NODE_ALLOCATABLE_PODS, METRIC_K8S_NODE_CONDITION_STATUS, METRIC_K8S_NODE_CPU_TIME, METRIC_K8S_NODE_CPU_USAGE, METRIC_K8S_NODE_FILESYSTEM_AVAILABLE, METRIC_K8S_NODE_FILESYSTEM_CAPACITY, METRIC_K8S_NODE_FILESYSTEM_USAGE, METRIC_K8S_NODE_MEMORY_USAGE, METRIC_K8S_NODE_NETWORK_ERRORS, METRIC_K8S_NODE_NETWORK_IO, METRIC_K8S_NODE_UPTIME, METRIC_K8S_POD_CPU_TIME, METRIC_K8S_POD_CPU_USAGE, METRIC_K8S_POD_FILESYSTEM_AVAILABLE, METRIC_K8S_POD_FILESYSTEM_CAPACITY, METRIC_K8S_POD_FILESYSTEM_USAGE, METRIC_K8S_POD_MEMORY_USAGE, METRIC_K8S_POD_NETWORK_ERRORS, METRIC_K8S_POD_NETWORK_IO, METRIC_K8S_POD_UPTIME, METRIC_K8S_POD_VOLUME_AVAILABLE, METRIC_K8S_POD_VOLUME_CAPACITY, METRIC_K8S_POD_VOLUME_INODE_COUNT, METRIC_K8S_POD_VOLUME_INODE_FREE, METRIC_K8S_POD_VOLUME_INODE_USED, METRIC_K8S_POD_VOLUME_USAGE, METRIC_K8S_REPLICASET_AVAILABLE_PODS, METRIC_K8S_REPLICASET_DESIRED_PODS, METRIC_K8S_REPLICATIONCONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATIONCONTROLLER_DESIRED_PODS, METRIC_K8S_REPLICATION_CONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATION_CONTROLLER_DESIRED_PODS, METRIC_K8S_RESOURCEQUOTA_CPU_LIMIT_HARD, METRIC_K8S_RESOURCEQUOTA_CPU_LIMIT_USED, METRIC_K8S_RESOURCEQUOTA_CPU_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_CPU_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_LIMIT_HARD, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_LIMIT_USED, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_HUGEPAGE_COUNT_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_HUGEPAGE_COUNT_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_MEMORY_LIMIT_HARD, METRIC_K8S_RESOURCEQUOTA_MEMORY_LIMIT_USED, METRIC_K8S_RESOURCEQUOTA_MEMORY_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_MEMORY_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_OBJECT_COUNT_HARD, METRIC_K8S_RESOURCEQUOTA_OBJECT_COUNT_USED, METRIC_K8S_RESOURCEQUOTA_PERSISTENTVOLUMECLAIM_COUNT_HARD, METRIC_K8S_RESOURCEQUOTA_PERSISTENTVOLUMECLAIM_COUNT_USED, METRIC_K8S_RESOURCEQUOTA_STORAGE_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_STORAGE_REQUEST_USED, METRIC_K8S_STATEFULSET_CURRENT_PODS, METRIC_K8S_STATEFULSET_DESIRED_PODS, METRIC_K8S_STATEFULSET_READY_PODS, METRIC_K8S_STATEFULSET_UPDATED_PODS, METRIC_KESTREL_ACTIVE_CONNECTIONS, METRIC_KESTREL_ACTIVE_TLS_HANDSHAKES, METRIC_KESTREL_CONNECTION_DURATION, METRIC_KESTREL_QUEUED_CONNECTIONS, METRIC_KESTREL_QUEUED_REQUESTS, METRIC_KESTREL_REJECTED_CONNECTIONS, METRIC_KESTREL_TLS_HANDSHAKE_DURATION, METRIC_KESTREL_UPGRADED_CONNECTIONS, METRIC_MESSAGING_CLIENT_CONSUMED_MESSAGES, METRIC_MESSAGING_CLIENT_OPERATION_DURATION, METRIC_MESSAGING_CLIENT_PUBLISHED_MESSAGES, METRIC_MESSAGING_CLIENT_SENT_MESSAGES, METRIC_MESSAGING_PROCESS_DURATION, METRIC_MESSAGING_PROCESS_MESSAGES, METRIC_MESSAGING_PUBLISH_DURATION, METRIC_MESSAGING_PUBLISH_MESSAGES, METRIC_MESSAGING_RECEIVE_DURATION, METRIC_MESSAGING_RECEIVE_MESSAGES, METRIC_NODEJS_EVENTLOOP_DELAY_MAX, METRIC_NODEJS_EVENTLOOP_DELAY_MEAN, METRIC_NODEJS_EVENTLOOP_DELAY_MIN, METRIC_NODEJS_EVENTLOOP_DELAY_P50, METRIC_NODEJS_EVENTLOOP_DELAY_P90, METRIC_NODEJS_EVENTLOOP_DELAY_P99, METRIC_NODEJS_EVENTLOOP_DELAY_STDDEV, METRIC_NODEJS_EVENTLOOP_TIME, METRIC_NODEJS_EVENTLOOP_UTILIZATION, METRIC_OTEL_SDK_EXPORTER_LOG_EXPORTED, METRIC_OTEL_SDK_EXPORTER_LOG_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_EXPORTED, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_OPERATION_DURATION, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED_COUNT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT_COUNT, METRIC_OTEL_SDK_LOG_CREATED, METRIC_OTEL_SDK_METRIC_READER_COLLECTION_DURATION, METRIC_OTEL_SDK_PROCESSOR_LOG_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_SIZE, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED_COUNT, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_SIZE, METRIC_OTEL_SDK_SPAN_ENDED, METRIC_OTEL_SDK_SPAN_ENDED_COUNT, METRIC_OTEL_SDK_SPAN_LIVE, METRIC_OTEL_SDK_SPAN_LIVE_COUNT, METRIC_OTEL_SDK_SPAN_STARTED, METRIC_PROCESS_CONTEXT_SWITCHES, METRIC_PROCESS_CPU_TIME, METRIC_PROCESS_CPU_UTILIZATION, METRIC_PROCESS_DISK_IO, METRIC_PROCESS_MEMORY_USAGE, METRIC_PROCESS_MEMORY_VIRTUAL, METRIC_PROCESS_NETWORK_IO, METRIC_PROCESS_OPEN_FILE_DESCRIPTOR_COUNT, METRIC_PROCESS_PAGING_FAULTS, METRIC_PROCESS_THREAD_COUNT, METRIC_PROCESS_UPTIME, METRIC_RPC_CLIENT_DURATION, METRIC_RPC_CLIENT_REQUESTS_PER_RPC, METRIC_RPC_CLIENT_REQUEST_SIZE, METRIC_RPC_CLIENT_RESPONSES_PER_RPC, METRIC_RPC_CLIENT_RESPONSE_SIZE, METRIC_RPC_SERVER_DURATION, METRIC_RPC_SERVER_REQUESTS_PER_RPC, METRIC_RPC_SERVER_REQUEST_SIZE, METRIC_RPC_SERVER_RESPONSES_PER_RPC, METRIC_RPC_SERVER_RESPONSE_SIZE, METRIC_SIGNALR_SERVER_ACTIVE_CONNECTIONS, METRIC_SIGNALR_SERVER_CONNECTION_DURATION, METRIC_SYSTEM_CPU_FREQUENCY, METRIC_SYSTEM_CPU_LOGICAL_COUNT, METRIC_SYSTEM_CPU_PHYSICAL_COUNT, METRIC_SYSTEM_CPU_TIME, METRIC_SYSTEM_CPU_UTILIZATION, METRIC_SYSTEM_DISK_IO, METRIC_SYSTEM_DISK_IO_TIME, METRIC_SYSTEM_DISK_LIMIT, METRIC_SYSTEM_DISK_MERGED, METRIC_SYSTEM_DISK_OPERATIONS, METRIC_SYSTEM_DISK_OPERATION_TIME, METRIC_SYSTEM_FILESYSTEM_LIMIT, METRIC_SYSTEM_FILESYSTEM_USAGE, METRIC_SYSTEM_FILESYSTEM_UTILIZATION, METRIC_SYSTEM_LINUX_MEMORY_AVAILABLE, METRIC_SYSTEM_LINUX_MEMORY_SLAB_USAGE, METRIC_SYSTEM_MEMORY_LIMIT, METRIC_SYSTEM_MEMORY_SHARED, METRIC_SYSTEM_MEMORY_USAGE, METRIC_SYSTEM_MEMORY_UTILIZATION, METRIC_SYSTEM_NETWORK_CONNECTIONS, METRIC_SYSTEM_NETWORK_CONNECTION_COUNT, METRIC_SYSTEM_NETWORK_ERRORS, METRIC_SYSTEM_NETWORK_IO, METRIC_SYSTEM_NETWORK_PACKET_COUNT, METRIC_SYSTEM_NETWORK_PACKET_DROPPED, METRIC_SYSTEM_PAGING_FAULTS, METRIC_SYSTEM_PAGING_OPERATIONS, METRIC_SYSTEM_PAGING_USAGE, METRIC_SYSTEM_PAGING_UTILIZATION, METRIC_SYSTEM_PROCESS_COUNT, METRIC_SYSTEM_PROCESS_CREATED, METRIC_SYSTEM_UPTIME, METRIC_V8JS_GC_DURATION, METRIC_V8JS_HEAP_SPACE_AVAILABLE_SIZE, METRIC_V8JS_HEAP_SPACE_PHYSICAL_SIZE, METRIC_V8JS_MEMORY_HEAP_LIMIT, METRIC_V8JS_MEMORY_HEAP_USED, METRIC_VCS_CHANGE_COUNT, METRIC_VCS_CHANGE_DURATION, METRIC_VCS_CHANGE_TIME_TO_APPROVAL, METRIC_VCS_CHANGE_TIME_TO_MERGE, METRIC_VCS_CONTRIBUTOR_COUNT, METRIC_VCS_REF_COUNT, METRIC_VCS_REF_LINES_DELTA, METRIC_VCS_REF_REVISIONS_DELTA, METRIC_VCS_REF_TIME, METRIC_VCS_REPOSITORY_COUNT, NETWORK_CONNECTION_STATE_VALUE_CLOSED, NETWORK_CONNECTION_STATE_VALUE_CLOSE_WAIT, NETWORK_CONNECTION_STATE_VALUE_CLOSING, NETWORK_CONNECTION_STATE_VALUE_ESTABLISHED, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_1, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_2, NETWORK_CONNECTION_STATE_VALUE_LAST_ACK, NETWORK_CONNECTION_STATE_VALUE_LISTEN, NETWORK_CONNECTION_STATE_VALUE_SYN_RECEIVED, NETWORK_CONNECTION_STATE_VALUE_SYN_SENT, NETWORK_CONNECTION_STATE_VALUE_TIME_WAIT, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA2000_1XRTT, NETWORK_CONNECTION_SUBTYPE_VALUE_EDGE, NETWORK_CONNECTION_SUBTYPE_VALUE_EHRPD, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_0, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_A, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_B, NETWORK_CONNECTION_SUBTYPE_VALUE_GPRS, NETWORK_CONNECTION_SUBTYPE_VALUE_GSM, NETWORK_CONNECTION_SUBTYPE_VALUE_HSDPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPAP, NETWORK_CONNECTION_SUBTYPE_VALUE_HSUPA, NETWORK_CONNECTION_SUBTYPE_VALUE_IDEN, NETWORK_CONNECTION_SUBTYPE_VALUE_IWLAN, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE_CA, NETWORK_CONNECTION_SUBTYPE_VALUE_NR, NETWORK_CONNECTION_SUBTYPE_VALUE_NRNSA, NETWORK_CONNECTION_SUBTYPE_VALUE_TD_SCDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_UMTS, NETWORK_CONNECTION_TYPE_VALUE_CELL, NETWORK_CONNECTION_TYPE_VALUE_UNAVAILABLE, NETWORK_CONNECTION_TYPE_VALUE_UNKNOWN, NETWORK_CONNECTION_TYPE_VALUE_WIFI, NETWORK_CONNECTION_TYPE_VALUE_WIRED, NETWORK_IO_DIRECTION_VALUE_RECEIVE, NETWORK_IO_DIRECTION_VALUE_TRANSMIT, NETWORK_TRANSPORT_VALUE_PIPE, NETWORK_TRANSPORT_VALUE_QUIC, NETWORK_TRANSPORT_VALUE_TCP, NETWORK_TRANSPORT_VALUE_UDP, NETWORK_TRANSPORT_VALUE_UNIX, NETWORK_TYPE_VALUE_IPV4, NETWORK_TYPE_VALUE_IPV6, NET_SOCK_FAMILY_VALUE_INET, NET_SOCK_FAMILY_VALUE_INET6, NET_SOCK_FAMILY_VALUE_UNIX, NET_TRANSPORT_VALUE_INPROC, NET_TRANSPORT_VALUE_IP_TCP, NET_TRANSPORT_VALUE_IP_UDP, NET_TRANSPORT_VALUE_OTHER, NET_TRANSPORT_VALUE_PIPE, NODEJS_EVENTLOOP_STATE_VALUE_ACTIVE, NODEJS_EVENTLOOP_STATE_VALUE_IDLE, OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO, OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT, OPENTRACING_REF_TYPE_VALUE_CHILD_OF, OPENTRACING_REF_TYPE_VALUE_FOLLOWS_FROM, OS_TYPE_VALUE_AIX, OS_TYPE_VALUE_DARWIN, OS_TYPE_VALUE_DRAGONFLYBSD, OS_TYPE_VALUE_FREEBSD, OS_TYPE_VALUE_HPUX, OS_TYPE_VALUE_LINUX, OS_TYPE_VALUE_NETBSD, OS_TYPE_VALUE_OPENBSD, OS_TYPE_VALUE_SOLARIS, OS_TYPE_VALUE_WINDOWS, OS_TYPE_VALUE_ZOS, OS_TYPE_VALUE_Z_OS, OTEL_COMPONENT_TYPE_VALUE_BATCHING_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_BATCHING_SPAN_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_PERIODIC_METRIC_READER, OTEL_COMPONENT_TYPE_VALUE_PROMETHEUS_HTTP_TEXT_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_SPAN_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_ZIPKIN_HTTP_SPAN_EXPORTER, OTEL_SPAN_PARENT_ORIGIN_VALUE_LOCAL, OTEL_SPAN_PARENT_ORIGIN_VALUE_NONE, OTEL_SPAN_PARENT_ORIGIN_VALUE_REMOTE, OTEL_SPAN_SAMPLING_RESULT_VALUE_DROP, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_AND_SAMPLE, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_ONLY, OTEL_STATUS_CODE_VALUE_ERROR, OTEL_STATUS_CODE_VALUE_OK, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_INVOLUNTARY, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_VOLUNTARY, PROCESS_CPU_STATE_VALUE_SYSTEM, PROCESS_CPU_STATE_VALUE_USER, PROCESS_CPU_STATE_VALUE_WAIT, PROCESS_PAGING_FAULT_TYPE_VALUE_MAJOR, PROCESS_PAGING_FAULT_TYPE_VALUE_MINOR, PROFILE_FRAME_TYPE_VALUE_BEAM, PROFILE_FRAME_TYPE_VALUE_CPYTHON, PROFILE_FRAME_TYPE_VALUE_DOTNET, PROFILE_FRAME_TYPE_VALUE_GO, PROFILE_FRAME_TYPE_VALUE_JVM, PROFILE_FRAME_TYPE_VALUE_KERNEL, PROFILE_FRAME_TYPE_VALUE_NATIVE, PROFILE_FRAME_TYPE_VALUE_PERL, PROFILE_FRAME_TYPE_VALUE_PHP, PROFILE_FRAME_TYPE_VALUE_RUBY, PROFILE_FRAME_TYPE_VALUE_RUST, PROFILE_FRAME_TYPE_VALUE_V8JS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ABORTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ALREADY_EXISTS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_CANCELLED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DATA_LOSS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DEADLINE_EXCEEDED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_FAILED_PRECONDITION, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INTERNAL, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INVALID_ARGUMENT, RPC_CONNECT_RPC_ERROR_CODE_VALUE_NOT_FOUND, RPC_CONNECT_RPC_ERROR_CODE_VALUE_OUT_OF_RANGE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_PERMISSION_DENIED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAUTHENTICATED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAVAILABLE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNIMPLEMENTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNKNOWN, RPC_GRPC_STATUS_CODE_VALUE_ABORTED, RPC_GRPC_STATUS_CODE_VALUE_ALREADY_EXISTS, RPC_GRPC_STATUS_CODE_VALUE_CANCELLED, RPC_GRPC_STATUS_CODE_VALUE_DATA_LOSS, RPC_GRPC_STATUS_CODE_VALUE_DEADLINE_EXCEEDED, RPC_GRPC_STATUS_CODE_VALUE_FAILED_PRECONDITION, RPC_GRPC_STATUS_CODE_VALUE_INTERNAL, RPC_GRPC_STATUS_CODE_VALUE_INVALID_ARGUMENT, RPC_GRPC_STATUS_CODE_VALUE_NOT_FOUND, RPC_GRPC_STATUS_CODE_VALUE_OK, RPC_GRPC_STATUS_CODE_VALUE_OUT_OF_RANGE, RPC_GRPC_STATUS_CODE_VALUE_PERMISSION_DENIED, RPC_GRPC_STATUS_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_GRPC_STATUS_CODE_VALUE_UNAUTHENTICATED, RPC_GRPC_STATUS_CODE_VALUE_UNAVAILABLE, RPC_GRPC_STATUS_CODE_VALUE_UNIMPLEMENTED, RPC_GRPC_STATUS_CODE_VALUE_UNKNOWN, RPC_MESSAGE_TYPE_VALUE_RECEIVED, RPC_MESSAGE_TYPE_VALUE_SENT, RPC_SYSTEM_VALUE_APACHE_DUBBO, RPC_SYSTEM_VALUE_CONNECT_RPC, RPC_SYSTEM_VALUE_DOTNET_WCF, RPC_SYSTEM_VALUE_GRPC, RPC_SYSTEM_VALUE_JAVA_RMI, SIGNALR_CONNECTION_STATUS_VALUE_APP_SHUTDOWN, SIGNALR_CONNECTION_STATUS_VALUE_NORMAL_CLOSURE, SIGNALR_CONNECTION_STATUS_VALUE_TIMEOUT, SIGNALR_TRANSPORT_VALUE_LONG_POLLING, SIGNALR_TRANSPORT_VALUE_SERVER_SENT_EVENTS, SIGNALR_TRANSPORT_VALUE_WEB_SOCKETS, STATE_VALUE_IDLE, STATE_VALUE_USED, SYSTEM_CPU_STATE_VALUE_IDLE, SYSTEM_CPU_STATE_VALUE_INTERRUPT, SYSTEM_CPU_STATE_VALUE_IOWAIT, SYSTEM_CPU_STATE_VALUE_NICE, SYSTEM_CPU_STATE_VALUE_STEAL, SYSTEM_CPU_STATE_VALUE_SYSTEM, SYSTEM_CPU_STATE_VALUE_USER, SYSTEM_FILESYSTEM_STATE_VALUE_FREE, SYSTEM_FILESYSTEM_STATE_VALUE_RESERVED, SYSTEM_FILESYSTEM_STATE_VALUE_USED, SYSTEM_FILESYSTEM_TYPE_VALUE_EXFAT, SYSTEM_FILESYSTEM_TYPE_VALUE_EXT4, SYSTEM_FILESYSTEM_TYPE_VALUE_FAT32, SYSTEM_FILESYSTEM_TYPE_VALUE_HFSPLUS, SYSTEM_FILESYSTEM_TYPE_VALUE_NTFS, SYSTEM_FILESYSTEM_TYPE_VALUE_REFS, SYSTEM_MEMORY_STATE_VALUE_BUFFERS, SYSTEM_MEMORY_STATE_VALUE_CACHED, SYSTEM_MEMORY_STATE_VALUE_FREE, SYSTEM_MEMORY_STATE_VALUE_SHARED, SYSTEM_MEMORY_STATE_VALUE_USED, SYSTEM_NETWORK_STATE_VALUE_CLOSE, SYSTEM_NETWORK_STATE_VALUE_CLOSE_WAIT, SYSTEM_NETWORK_STATE_VALUE_CLOSING, SYSTEM_NETWORK_STATE_VALUE_DELETE, SYSTEM_NETWORK_STATE_VALUE_ESTABLISHED, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_1, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_2, SYSTEM_NETWORK_STATE_VALUE_LAST_ACK, SYSTEM_NETWORK_STATE_VALUE_LISTEN, SYSTEM_NETWORK_STATE_VALUE_SYN_RECV, SYSTEM_NETWORK_STATE_VALUE_SYN_SENT, SYSTEM_NETWORK_STATE_VALUE_TIME_WAIT, SYSTEM_PAGING_DIRECTION_VALUE_IN, SYSTEM_PAGING_DIRECTION_VALUE_OUT, SYSTEM_PAGING_STATE_VALUE_FREE, SYSTEM_PAGING_STATE_VALUE_USED, SYSTEM_PAGING_TYPE_VALUE_MAJOR, SYSTEM_PAGING_TYPE_VALUE_MINOR, SYSTEM_PROCESSES_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESSES_STATUS_VALUE_RUNNING, SYSTEM_PROCESSES_STATUS_VALUE_SLEEPING, SYSTEM_PROCESSES_STATUS_VALUE_STOPPED, SYSTEM_PROCESS_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESS_STATUS_VALUE_RUNNING, SYSTEM_PROCESS_STATUS_VALUE_SLEEPING, SYSTEM_PROCESS_STATUS_VALUE_STOPPED, TELEMETRY_SDK_LANGUAGE_VALUE_CPP, TELEMETRY_SDK_LANGUAGE_VALUE_DOTNET, TELEMETRY_SDK_LANGUAGE_VALUE_ERLANG, TELEMETRY_SDK_LANGUAGE_VALUE_GO, TELEMETRY_SDK_LANGUAGE_VALUE_JAVA, TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS, TELEMETRY_SDK_LANGUAGE_VALUE_PHP, TELEMETRY_SDK_LANGUAGE_VALUE_PYTHON, TELEMETRY_SDK_LANGUAGE_VALUE_RUBY, TELEMETRY_SDK_LANGUAGE_VALUE_RUST, TELEMETRY_SDK_LANGUAGE_VALUE_SWIFT, TELEMETRY_SDK_LANGUAGE_VALUE_WEBJS, TEST_CASE_RESULT_STATUS_VALUE_FAIL, TEST_CASE_RESULT_STATUS_VALUE_PASS, TEST_SUITE_RUN_STATUS_VALUE_ABORTED, TEST_SUITE_RUN_STATUS_VALUE_FAILURE, TEST_SUITE_RUN_STATUS_VALUE_IN_PROGRESS, TEST_SUITE_RUN_STATUS_VALUE_SKIPPED, TEST_SUITE_RUN_STATUS_VALUE_SUCCESS, TEST_SUITE_RUN_STATUS_VALUE_TIMED_OUT, TLS_PROTOCOL_NAME_VALUE_SSL, TLS_PROTOCOL_NAME_VALUE_TLS, USER_AGENT_SYNTHETIC_TYPE_VALUE_BOT, USER_AGENT_SYNTHETIC_TYPE_VALUE_TEST, V8JS_GC_TYPE_VALUE_INCREMENTAL, V8JS_GC_TYPE_VALUE_MAJOR, V8JS_GC_TYPE_VALUE_MINOR, V8JS_GC_TYPE_VALUE_WEAKCB, V8JS_HEAP_SPACE_NAME_VALUE_CODE_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_LARGE_OBJECT_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_MAP_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_NEW_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_OLD_SPACE, VCS_CHANGE_STATE_VALUE_CLOSED, VCS_CHANGE_STATE_VALUE_MERGED, VCS_CHANGE_STATE_VALUE_OPEN, VCS_CHANGE_STATE_VALUE_WIP, VCS_LINE_CHANGE_TYPE_VALUE_ADDED, VCS_LINE_CHANGE_TYPE_VALUE_REMOVED, VCS_PROVIDER_NAME_VALUE_BITBUCKET, VCS_PROVIDER_NAME_VALUE_GITEA, VCS_PROVIDER_NAME_VALUE_GITHUB, VCS_PROVIDER_NAME_VALUE_GITLAB, VCS_PROVIDER_NAME_VALUE_GITTEA, VCS_REF_BASE_TYPE_VALUE_BRANCH, VCS_REF_BASE_TYPE_VALUE_TAG, VCS_REF_HEAD_TYPE_VALUE_BRANCH, VCS_REF_HEAD_TYPE_VALUE_TAG, VCS_REF_TYPE_VALUE_BRANCH, VCS_REF_TYPE_VALUE_TAG, VCS_REPOSITORY_REF_TYPE_VALUE_BRANCH, VCS_REPOSITORY_REF_TYPE_VALUE_TAG, VCS_REVISION_DELTA_DIRECTION_VALUE_AHEAD, VCS_REVISION_DELTA_DIRECTION_VALUE_BEHIND };

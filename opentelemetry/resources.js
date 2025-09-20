@@ -36,16 +36,17 @@ const isPromiseLike = (val) => {
 class ResourceImpl {
 	_rawAttributes;
 	_asyncAttributesPending = false;
+	_schemaUrl;
 	_memoizedAttributes;
-	static FromAttributeList(attributes) {
-		const res = new ResourceImpl({});
+	static FromAttributeList(attributes, options) {
+		const res = new ResourceImpl({}, options);
 		res._rawAttributes = guardedRawAttributes(attributes);
 		res._asyncAttributesPending =
 			attributes.filter(([_, val]) => isPromiseLike(val)).length > 0;
 		return res;
 	}
 	constructor(
-	resource) {
+	resource, options) {
 		const attributes = resource.attributes ?? {};
 		this._rawAttributes = Object.entries(attributes).map(([k, v]) => {
 			if (isPromiseLike(v)) {
@@ -54,6 +55,7 @@ class ResourceImpl {
 			return [k, v];
 		});
 		this._rawAttributes = guardedRawAttributes(this._rawAttributes);
+		this._schemaUrl = validateSchemaUrl(options?.schemaUrl);
 	}
 	get asyncAttributesPending() {
 		return this._asyncAttributesPending;
@@ -93,20 +95,24 @@ class ResourceImpl {
 	getRawAttributes() {
 		return this._rawAttributes;
 	}
+	get schemaUrl() {
+		return this._schemaUrl;
+	}
 	merge(resource) {
 		if (resource == null)
 			return this;
-		return ResourceImpl.FromAttributeList([
-			...resource.getRawAttributes(),
-			...this.getRawAttributes(),
-		]);
+		const mergedSchemaUrl = mergeSchemaUrl(this, resource);
+		const mergedOptions = mergedSchemaUrl
+			? { schemaUrl: mergedSchemaUrl }
+			: undefined;
+		return ResourceImpl.FromAttributeList([...resource.getRawAttributes(), ...this.getRawAttributes()], mergedOptions);
 	}
 }
-function resourceFromAttributes(attributes) {
-	return ResourceImpl.FromAttributeList(Object.entries(attributes));
+function resourceFromAttributes(attributes, options) {
+	return ResourceImpl.FromAttributeList(Object.entries(attributes), options);
 }
-function resourceFromDetectedResource(detectedResource) {
-	return new ResourceImpl(detectedResource);
+function resourceFromDetectedResource(detectedResource, options) {
+	return new ResourceImpl(detectedResource, options);
 }
 function emptyResource() {
 	return resourceFromAttributes({});
@@ -132,6 +138,30 @@ function guardedRawAttributes(attributes) {
 		}
 		return [k, v];
 	});
+}
+function validateSchemaUrl(schemaUrl) {
+	if (typeof schemaUrl === 'string' || schemaUrl === undefined) {
+		return schemaUrl;
+	}
+	diag.warn('Schema URL must be string or undefined, got %s. Schema URL will be ignored.', schemaUrl);
+	return undefined;
+}
+function mergeSchemaUrl(old, updating) {
+	const oldSchemaUrl = old?.schemaUrl;
+	const updatingSchemaUrl = updating?.schemaUrl;
+	const isOldEmpty = oldSchemaUrl === undefined || oldSchemaUrl === '';
+	const isUpdatingEmpty = updatingSchemaUrl === undefined || updatingSchemaUrl === '';
+	if (isOldEmpty) {
+		return updatingSchemaUrl;
+	}
+	if (isUpdatingEmpty) {
+		return oldSchemaUrl;
+	}
+	if (oldSchemaUrl === updatingSchemaUrl) {
+		return oldSchemaUrl;
+	}
+	diag.warn('Schema URL merge conflict: old resource has "%s", updating resource has "%s". Resulting resource will have undefined Schema URL.', oldSchemaUrl, updatingSchemaUrl);
+	return undefined;
 }
 
 const detectResources = (config = {}) => {

@@ -102,10 +102,14 @@ function getOtlpEncoder(options) {
 }
 
 function createResource(resource) {
-	return {
+	const result = {
 		attributes: toAttributes(resource.attributes),
 		droppedAttributesCount: 0,
 	};
+	const schemaUrl = resource.schemaUrl;
+	if (schemaUrl && schemaUrl !== '')
+		result.schemaUrl = schemaUrl;
+	return result;
 }
 function createInstrumentationScope(scope) {
 	return {
@@ -173,17 +177,20 @@ function createResourceMap$1(logRecords) {
 }
 function logRecordsToResourceLogs(logRecords, encoder) {
 	const resourceMap = createResourceMap$1(logRecords);
-	return Array.from(resourceMap, ([resource, ismMap]) => ({
-		resource: createResource(resource),
-		scopeLogs: Array.from(ismMap, ([, scopeLogs]) => {
-			return {
-				scope: createInstrumentationScope(scopeLogs[0].instrumentationScope),
-				logRecords: scopeLogs.map(log => toLogRecord(log, encoder)),
-				schemaUrl: scopeLogs[0].instrumentationScope.schemaUrl,
-			};
-		}),
-		schemaUrl: undefined,
-	}));
+	return Array.from(resourceMap, ([resource, ismMap]) => {
+		const processedResource = createResource(resource);
+		return {
+			resource: processedResource,
+			scopeLogs: Array.from(ismMap, ([, scopeLogs]) => {
+				return {
+					scope: createInstrumentationScope(scopeLogs[0].instrumentationScope),
+					logRecords: scopeLogs.map(log => toLogRecord(log, encoder)),
+					schemaUrl: scopeLogs[0].instrumentationScope.schemaUrl,
+				};
+			}),
+			schemaUrl: processedResource.schemaUrl,
+		};
+	});
 }
 function toLogRecord(log, encoder) {
 	return {
@@ -192,6 +199,7 @@ function toLogRecord(log, encoder) {
 		severityNumber: toSeverityNumber(log.severityNumber),
 		severityText: log.severityText,
 		body: toAnyValue(log.body),
+		eventName: log.eventName,
 		attributes: toLogAttributes(log.attributes),
 		droppedAttributesCount: log.droppedAttributesCount,
 		flags: log.spanContext?.traceFlags,
@@ -224,11 +232,19 @@ const JsonLogsSerializer = {
 	},
 };
 
+var EAggregationTemporality;
+(function (EAggregationTemporality) {
+	EAggregationTemporality[EAggregationTemporality["AGGREGATION_TEMPORALITY_UNSPECIFIED"] = 0] = "AGGREGATION_TEMPORALITY_UNSPECIFIED";
+	EAggregationTemporality[EAggregationTemporality["AGGREGATION_TEMPORALITY_DELTA"] = 1] = "AGGREGATION_TEMPORALITY_DELTA";
+	EAggregationTemporality[EAggregationTemporality["AGGREGATION_TEMPORALITY_CUMULATIVE"] = 2] = "AGGREGATION_TEMPORALITY_CUMULATIVE";
+})(EAggregationTemporality || (EAggregationTemporality = {}));
+
 function toResourceMetrics(resourceMetrics, options) {
 	const encoder = getOtlpEncoder(options);
+	const processedResource = createResource(resourceMetrics.resource);
 	return {
-		resource: createResource(resourceMetrics.resource),
-		schemaUrl: undefined,
+		resource: processedResource,
+		schemaUrl: processedResource.schemaUrl,
 		scopeMetrics: toScopeMetrics(resourceMetrics.scopeMetrics, encoder),
 	};
 }
@@ -338,9 +354,9 @@ function toExponentialHistogramDataPoints(metricData, encoder) {
 function toAggregationTemporality(temporality) {
 	switch (temporality) {
 		case AggregationTemporality.DELTA:
-			return 1 ;
+			return EAggregationTemporality.AGGREGATION_TEMPORALITY_DELTA;
 		case AggregationTemporality.CUMULATIVE:
-			return 2 ;
+			return EAggregationTemporality.AGGREGATION_TEMPORALITY_CUMULATIVE;
 	}
 }
 function createExportMetricsServiceRequest(resourceMetrics, options) {
@@ -458,10 +474,11 @@ function spanRecordsToResourceSpans(readableSpans, encoder) {
 			}
 			ilmEntry = ilmIterator.next();
 		}
+		const processedResource = createResource(resource);
 		const transformedSpans = {
-			resource: createResource(resource),
+			resource: processedResource,
 			scopeSpans: scopeResourceSpans,
-			schemaUrl: undefined,
+			schemaUrl: processedResource.schemaUrl,
 		};
 		out.push(transformedSpans);
 		entry = entryIterator.next();

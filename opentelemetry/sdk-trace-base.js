@@ -373,6 +373,15 @@ class TraceIdRatioBasedSampler {
 	}
 }
 
+var TracesSamplerValues;
+(function (TracesSamplerValues) {
+	TracesSamplerValues["AlwaysOff"] = "always_off";
+	TracesSamplerValues["AlwaysOn"] = "always_on";
+	TracesSamplerValues["ParentBasedAlwaysOff"] = "parentbased_always_off";
+	TracesSamplerValues["ParentBasedAlwaysOn"] = "parentbased_always_on";
+	TracesSamplerValues["ParentBasedTraceIdRatio"] = "parentbased_traceidratio";
+	TracesSamplerValues["TraceIdRatio"] = "traceidratio";
+})(TracesSamplerValues || (TracesSamplerValues = {}));
 const DEFAULT_RATIO = 1;
 function loadDefaultConfig() {
 	return {
@@ -394,28 +403,28 @@ function loadDefaultConfig() {
 }
 function buildSamplerFromEnv() {
 	const sampler = getStringFromEnv('OTEL_TRACES_SAMPLER') ??
-		"parentbased_always_on" ;
+		TracesSamplerValues.ParentBasedAlwaysOn;
 	switch (sampler) {
-		case "always_on" :
+		case TracesSamplerValues.AlwaysOn:
 			return new AlwaysOnSampler();
-		case "always_off" :
+		case TracesSamplerValues.AlwaysOff:
 			return new AlwaysOffSampler();
-		case "parentbased_always_on" :
+		case TracesSamplerValues.ParentBasedAlwaysOn:
 			return new ParentBasedSampler({
 				root: new AlwaysOnSampler(),
 			});
-		case "parentbased_always_off" :
+		case TracesSamplerValues.ParentBasedAlwaysOff:
 			return new ParentBasedSampler({
 				root: new AlwaysOffSampler(),
 			});
-		case "traceidratio" :
+		case TracesSamplerValues.TraceIdRatio:
 			return new TraceIdRatioBasedSampler(getSamplerProbabilityFromEnv());
-		case "parentbased_traceidratio" :
+		case TracesSamplerValues.ParentBasedTraceIdRatio:
 			return new ParentBasedSampler({
 				root: new TraceIdRatioBasedSampler(getSamplerProbabilityFromEnv()),
 			});
 		default:
-			diag.error(`OTEL_TRACES_SAMPLER value "${sampler}" invalid, defaulting to "${"parentbased_always_on" }".`);
+			diag.error(`OTEL_TRACES_SAMPLER value "${sampler}" invalid, defaulting to "${TracesSamplerValues.ParentBasedAlwaysOn}".`);
 			return new ParentBasedSampler({
 				root: new AlwaysOnSampler(),
 			});
@@ -987,7 +996,7 @@ class SimpleSpanProcessor {
 		}
 		const pendingExport = this._doExport(span).catch(err => globalErrorHandler(err));
 		this._pendingExports.add(pendingExport);
-		pendingExport.finally(() => this._pendingExports.delete(pendingExport));
+		void pendingExport.finally(() => this._pendingExports.delete(pendingExport));
 	}
 	async _doExport(span) {
 		if (span.resource.asyncAttributesPending) {

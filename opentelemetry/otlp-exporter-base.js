@@ -15,7 +15,7 @@
  */
 /// <reference types="./otlp-exporter-base.d.ts" />
 
-import { ExportResultCode, parseKeyPairsIntoRecord } from './core.js';
+import { ExportResultCode, getStringFromEnv, parseKeyPairsIntoRecord } from './core.js';
 import { diag } from './api.js';
 
 class OTLPExporterBase {
@@ -97,7 +97,7 @@ class BoundedQueueExportPromiseHandler {
 		this._sendingPromises.push(promise);
 		const popPromise = () => {
 			const index = this._sendingPromises.indexOf(promise);
-			this._sendingPromises.splice(index, 1);
+			void this._sendingPromises.splice(index, 1);
 		};
 		promise.then(popPromise, popPromise);
 	}
@@ -221,6 +221,85 @@ function createOtlpNetworkExportDelegate(options, serializer, transport) {
 		serializer,
 		promiseHandler: createBoundedQueueExportPromiseHandler(options),
 	}, { timeout: options.timeoutMillis });
+}
+
+function validateAndNormalizeHeaders(partialHeaders) {
+	return () => {
+		const headers = {};
+		Object.entries(partialHeaders?.() ?? {}).forEach(([key, value]) => {
+			if (typeof value !== 'undefined') {
+				headers[key] = String(value);
+			}
+			else {
+				diag.warn(`Header "${key}" has invalid value (${value}) and will be ignored`);
+			}
+		});
+		return headers;
+	};
+}
+
+function mergeHeaders(userProvidedHeaders, fallbackHeaders, defaultHeaders) {
+	const requiredHeaders = {
+		...defaultHeaders(),
+	};
+	const headers = {};
+	return () => {
+		if (fallbackHeaders != null) {
+			Object.assign(headers, fallbackHeaders());
+		}
+		if (userProvidedHeaders != null) {
+			Object.assign(headers, userProvidedHeaders());
+		}
+		return Object.assign(headers, requiredHeaders);
+	};
+}
+function validateUserProvidedUrl(url) {
+	if (url == null) {
+		return undefined;
+	}
+	try {
+		const base = globalThis.location?.href;
+		return new URL(url, base).href;
+	}
+	catch {
+		throw new Error(`Configuration: Could not parse user-provided export URL: '${url}'`);
+	}
+}
+function mergeOtlpHttpConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration) {
+	return {
+		...mergeOtlpSharedConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration),
+		headers: mergeHeaders(validateAndNormalizeHeaders(userProvidedConfiguration.headers), fallbackConfiguration.headers, defaultConfiguration.headers),
+		url: validateUserProvidedUrl(userProvidedConfiguration.url) ??
+			fallbackConfiguration.url ??
+			defaultConfiguration.url,
+	};
+}
+function getHttpConfigurationDefaults(requiredHeaders, signalResourcePath) {
+	return {
+		...getSharedConfigurationDefaults(),
+		headers: () => requiredHeaders,
+		url: 'http://localhost:4318/' + signalResourcePath,
+	};
+}
+
+function httpAgentFactoryFromOptions(options ) {
+	return () => {
+		return globalThis.Deno.createHttpClient(options);
+	};
+}
+function mergeOtlpNodeHttpConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration) {
+	return {
+		...mergeOtlpHttpConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration),
+		agentFactory: userProvidedConfiguration.agentFactory ??
+			fallbackConfiguration.agentFactory ??
+			defaultConfiguration.agentFactory,
+	};
+}
+function getNodeHttpConfigurationDefaults(requiredHeaders, signalResourcePath) {
+	return {
+		...getHttpConfigurationDefaults(requiredHeaders, signalResourcePath),
+		agentFactory: httpAgentFactoryFromOptions({}),
+	};
 }
 
 function isExportRetryable(statusCode) {
@@ -372,68 +451,9 @@ function getSharedConfigurationFromEnvironment(signalIdentifier) {
 	};
 }
 
-function validateAndNormalizeHeaders(partialHeaders) {
-	return () => {
-		const headers = {};
-		Object.entries(partialHeaders?.() ?? {}).forEach(([key, value]) => {
-			if (typeof value !== 'undefined') {
-				headers[key] = String(value);
-			}
-			else {
-				diag.warn(`Header "${key}" has invalid value (${value}) and will be ignored`);
-			}
-		});
-		return headers;
-	};
-}
-
-function mergeHeaders(userProvidedHeaders, fallbackHeaders, defaultHeaders) {
-	const requiredHeaders = {
-		...defaultHeaders(),
-	};
-	const headers = {};
-	return () => {
-		if (fallbackHeaders != null) {
-			Object.assign(headers, fallbackHeaders());
-		}
-		if (userProvidedHeaders != null) {
-			Object.assign(headers, userProvidedHeaders());
-		}
-		return Object.assign(headers, requiredHeaders);
-	};
-}
-function validateUserProvidedUrl(url) {
-	if (url == null) {
-		return undefined;
-	}
-	try {
-		new URL(url);
-		return url;
-	}
-	catch (e) {
-		throw new Error(`Configuration: Could not parse user-provided export URL: '${url}'`);
-	}
-}
-function mergeOtlpHttpConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration) {
-	return {
-		...mergeOtlpSharedConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration),
-		headers: mergeHeaders(validateAndNormalizeHeaders(userProvidedConfiguration.headers), fallbackConfiguration.headers, defaultConfiguration.headers),
-		url: validateUserProvidedUrl(userProvidedConfiguration.url) ??
-			fallbackConfiguration.url ??
-			defaultConfiguration.url,
-	};
-}
-function getHttpConfigurationDefaults(requiredHeaders, signalResourcePath) {
-	return {
-		...getSharedConfigurationDefaults(),
-		headers: () => requiredHeaders,
-		url: 'http://localhost:4318/' + signalResourcePath,
-	};
-}
-
 function getStaticHeadersFromEnv(signalIdentifier) {
-	const signalSpecificRawHeaders = Deno.env.get(`OTEL_EXPORTER_OTLP_${signalIdentifier}_HEADERS`)?.trim();
-	const nonSignalSpecificRawHeaders = Deno.env.get('OTEL_EXPORTER_OTLP_HEADERS')?.trim();
+	const signalSpecificRawHeaders = getStringFromEnv(`OTEL_EXPORTER_OTLP_${signalIdentifier}_HEADERS`);
+	const nonSignalSpecificRawHeaders = getStringFromEnv('OTEL_EXPORTER_OTLP_HEADERS');
 	const signalSpecificHeaders = parseKeyPairsIntoRecord(signalSpecificRawHeaders);
 	const nonSignalSpecificHeaders = parseKeyPairsIntoRecord(nonSignalSpecificRawHeaders);
 	if (Object.keys(signalSpecificHeaders).length === 0 &&
@@ -474,20 +494,20 @@ function appendResourcePathToUrl(url, path) {
 	return url;
 }
 function getNonSpecificUrlFromEnv(signalResourcePath) {
-	const envUrl = Deno.env.get('OTEL_EXPORTER_OTLP_ENDPOINT')?.trim();
-	if (envUrl == null || envUrl === '') {
+	const envUrl = getStringFromEnv('OTEL_EXPORTER_OTLP_ENDPOINT');
+	if (envUrl === undefined) {
 		return undefined;
 	}
 	return appendResourcePathToUrl(envUrl, signalResourcePath);
 }
 function getSpecificUrlFromEnv(signalIdentifier) {
-	const envUrl = Deno.env.get(`OTEL_EXPORTER_OTLP_${signalIdentifier}_ENDPOINT`)?.trim();
-	if (envUrl == null || envUrl === '') {
+	const envUrl = getStringFromEnv(`OTEL_EXPORTER_OTLP_${signalIdentifier}_ENDPOINT`);
+	if (envUrl === undefined) {
 		return undefined;
 	}
 	return appendRootPathToUrlIfNeeded(envUrl);
 }
-function getHttpConfigurationFromEnvironment(signalIdentifier, signalResourcePath) {
+function getNodeHttpConfigurationFromEnvironment(signalIdentifier, signalResourcePath) {
 	return {
 		...getSharedConfigurationFromEnvironment(signalIdentifier),
 		url: getSpecificUrlFromEnv(signalIdentifier) ??
@@ -500,13 +520,13 @@ function convertLegacyHttpOptions(config, signalIdentifier, signalResourcePath, 
 	if (config.metadata) {
 		diag.warn('Metadata cannot be set when using http');
 	}
-	return mergeOtlpHttpConfigurationWithDefaults({
+	return mergeOtlpNodeHttpConfigurationWithDefaults({
 		url: config.url,
 		headers: wrapStaticHeadersInFunction(config.headers),
 		concurrencyLimit: config.concurrencyLimit,
 		timeoutMillis: config.timeoutMillis,
 		compression: config.compression,
-	}, getHttpConfigurationFromEnvironment(signalIdentifier, signalResourcePath), getHttpConfigurationDefaults(requiredHeaders, signalResourcePath));
+	}, getNodeHttpConfigurationFromEnvironment(signalIdentifier, signalResourcePath), getNodeHttpConfigurationDefaults(requiredHeaders, signalResourcePath));
 }
 
-export { CompressionAlgorithm, OTLPExporterBase, OTLPExporterError, convertLegacyHttpOptions, createOtlpHttpExportDelegate, createOtlpNetworkExportDelegate, getSharedConfigurationDefaults, getSharedConfigurationFromEnvironment, mergeOtlpSharedConfigurationWithDefaults };
+export { CompressionAlgorithm, OTLPExporterBase, OTLPExporterError, convertLegacyHttpOptions, createOtlpHttpExportDelegate, createOtlpNetworkExportDelegate, getSharedConfigurationDefaults, getSharedConfigurationFromEnvironment, httpAgentFactoryFromOptions, mergeOtlpSharedConfigurationWithDefaults };

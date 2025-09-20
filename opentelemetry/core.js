@@ -296,7 +296,7 @@ const _globalThis = typeof globalThis === 'object' ? globalThis : global;
 
 const otperformance = performance;
 
-const VERSION$1 = "2.0.1";
+const VERSION$1 = "2.1.0";
 
 const ATTR_PROCESS_RUNTIME_NAME = 'process.runtime.name';
 
@@ -638,7 +638,7 @@ function getRawTag(value) {
 		value[symToStringTag] = undefined;
 		unmasked = true;
 	}
-	catch (e) {
+	catch {
 	}
 	const result = nativeObjectToString.call(value);
 	if (unmasked) {

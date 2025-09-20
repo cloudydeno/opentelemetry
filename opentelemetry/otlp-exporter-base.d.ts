@@ -116,7 +116,13 @@ interface OtlpHttpConfiguration extends OtlpSharedConfiguration {
 	headers: () => Record<string, string>;
 }
 
-declare function createOtlpHttpExportDelegate<Internal, Response>(options: OtlpHttpConfiguration, serializer: ISerializer<Internal, Response>): IOtlpExportDelegate<Internal>;
+type HttpAgentFactory = () => any;
+interface OtlpNodeHttpConfiguration extends OtlpHttpConfiguration {
+	agentFactory: HttpAgentFactory;
+}
+declare function httpAgentFactoryFromOptions(options: any): HttpAgentFactory;
+
+declare function createOtlpHttpExportDelegate<Internal, Response>(options: OtlpNodeHttpConfiguration, serializer: ISerializer<Internal, Response>): IOtlpExportDelegate<Internal>;
 
 declare function getSharedConfigurationFromEnvironment(signalIdentifier: string): Partial<OtlpSharedConfiguration>;
 
@@ -127,6 +133,6 @@ declare function getSharedConfigurationFromEnvironment(signalIdentifier: string)
  * @param signalResourcePath
  * @param requiredHeaders
  */
-declare function convertLegacyHttpOptions(config: OTLPExporterNodeConfigBase, signalIdentifier: string, signalResourcePath: string, requiredHeaders: Record<string, string>): OtlpHttpConfiguration;
+declare function convertLegacyHttpOptions(config: OTLPExporterNodeConfigBase, signalIdentifier: string, signalResourcePath: string, requiredHeaders: Record<string, string>): OtlpNodeHttpConfiguration;
 
-export { CompressionAlgorithm, ExportResponse, ExportResponseFailure, ExportResponseRetryable, ExportResponseSuccess, IExporterTransport, IOtlpExportDelegate, OTLPExporterBase, OTLPExporterConfigBase, OTLPExporterError, OTLPExporterNodeConfigBase, OtlpSharedConfiguration, convertLegacyHttpOptions, createOtlpHttpExportDelegate, createOtlpNetworkExportDelegate, getSharedConfigurationDefaults, getSharedConfigurationFromEnvironment, mergeOtlpSharedConfigurationWithDefaults };
+export { CompressionAlgorithm, ExportResponse, ExportResponseFailure, ExportResponseRetryable, ExportResponseSuccess, IExporterTransport, IOtlpExportDelegate, OTLPExporterBase, OTLPExporterConfigBase, OTLPExporterError, OTLPExporterNodeConfigBase, OtlpSharedConfiguration, convertLegacyHttpOptions, createOtlpHttpExportDelegate, createOtlpNetworkExportDelegate, getSharedConfigurationDefaults, getSharedConfigurationFromEnvironment, httpAgentFactoryFromOptions, mergeOtlpSharedConfigurationWithDefaults };

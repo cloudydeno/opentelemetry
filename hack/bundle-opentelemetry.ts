@@ -208,14 +208,14 @@ await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-core/src/
 await Deno.readTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/configuration/convert-legacy-node-http-options.ts');
 await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/configuration/convert-legacy-node-http-options.ts', `
 import { OTLPExporterNodeConfigBase } from './legacy-node-configuration';
-import {
-  getHttpConfigurationDefaults,
-  mergeOtlpHttpConfigurationWithDefaults,
-  OtlpHttpConfiguration,
-} from './otlp-http-configuration';
-import { getHttpConfigurationFromEnvironment } from './otlp-http-env-configuration';
 import { diag } from '@opentelemetry/api';
 import { wrapStaticHeadersInFunction } from './shared-configuration';
+import {
+  getNodeHttpConfigurationDefaults,
+  mergeOtlpNodeHttpConfigurationWithDefaults,
+  OtlpNodeHttpConfiguration,
+} from './otlp-node-http-configuration';
+import { getNodeHttpConfigurationFromEnvironment } from './otlp-node-http-env-configuration';
 
 /**
  * @deprecated this will be removed in 2.0
@@ -229,13 +229,13 @@ export function convertLegacyHttpOptions(
   signalIdentifier: string,
   signalResourcePath: string,
   requiredHeaders: Record<string, string>
-): OtlpHttpConfiguration {
+): OtlpNodeHttpConfiguration {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if ((config as any).metadata) {
     diag.warn('Metadata cannot be set when using http');
   }
 
-  return mergeOtlpHttpConfigurationWithDefaults(
+  return mergeOtlpNodeHttpConfigurationWithDefaults(
     {
       url: config.url,
       headers: wrapStaticHeadersInFunction(config.headers),
@@ -243,8 +243,11 @@ export function convertLegacyHttpOptions(
       timeoutMillis: config.timeoutMillis,
       compression: config.compression,
     },
-    getHttpConfigurationFromEnvironment(signalIdentifier, signalResourcePath),
-    getHttpConfigurationDefaults(requiredHeaders, signalResourcePath)
+    getNodeHttpConfigurationFromEnvironment(
+      signalIdentifier,
+      signalResourcePath
+    ),
+    getNodeHttpConfigurationDefaults(requiredHeaders, signalResourcePath)
   );
 }
 `);
@@ -287,10 +290,83 @@ for (const file of [
 {
   let text = await Deno.readTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/configuration/legacy-node-configuration.ts');
   text = text.replaceAll(/^import type \*/gm, x => `// ${x}`);
+  text = text.replaceAll(/^import type { HttpAgentFactory/gm, x => `// ${x}`);
   text = text.replaceAll(/^ +.+httpAgentOptions.+$/gm, x => `// ${x}`);
   text = text.replaceAll(/^ +.+keepAlive.+$/gm, x => `// ${x}`);
   await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/configuration/legacy-node-configuration.ts', text);
 }
+
+{
+  let text = await Deno.readTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/configuration/convert-legacy-node-http-options.ts');
+  text = text.replaceAll(/^[^/].+httpAgentFactoryFromOptions/gm, x => `// ${x}`);
+  text = text.replaceAll('config.httpAgentOptions', 'null');
+  await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/configuration/convert-legacy-node-http-options.ts', text);
+}
+
+{
+  await Deno.readTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/transport/node-http-transport-types.ts');
+  await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/transport/node-http-transport-types.ts', `
+import { HttpRequestParameters } from './http-transport-types';
+export interface NodeHttpRequestParameters extends HttpRequestParameters {}
+`);
+}
+
+await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/configuration/otlp-node-http-configuration.ts', `
+import {
+  getHttpConfigurationDefaults,
+  mergeOtlpHttpConfigurationWithDefaults,
+  OtlpHttpConfiguration,
+} from './otlp-http-configuration';
+
+export type HttpAgentFactory = (
+) => any/*Deno.HttpClient | Promise<Deno.HttpClient>*/;
+
+export interface OtlpNodeHttpConfiguration extends OtlpHttpConfiguration {
+  agentFactory: HttpAgentFactory;
+}
+
+export function httpAgentFactoryFromOptions(
+  options: any/*Deno.CreateHttpClientOptions*/
+): HttpAgentFactory {
+  return () => {
+    return (globalThis as any).Deno.createHttpClient(options);
+  };
+}
+
+/**
+ * @param userProvidedConfiguration  Configuration options provided by the user in code.
+ * @param fallbackConfiguration Fallback to use when the {@link userProvidedConfiguration} does not specify an option.
+ * @param defaultConfiguration The defaults as defined by the exporter specification
+ */
+export function mergeOtlpNodeHttpConfigurationWithDefaults(
+  userProvidedConfiguration: Partial<OtlpNodeHttpConfiguration>,
+  fallbackConfiguration: Partial<OtlpNodeHttpConfiguration>,
+  defaultConfiguration: OtlpNodeHttpConfiguration
+): OtlpNodeHttpConfiguration {
+  return {
+    ...mergeOtlpHttpConfigurationWithDefaults(
+      userProvidedConfiguration,
+      fallbackConfiguration,
+      defaultConfiguration
+    ),
+    agentFactory:
+      userProvidedConfiguration.agentFactory ??
+      fallbackConfiguration.agentFactory ??
+      defaultConfiguration.agentFactory,
+  };
+}
+
+export function getNodeHttpConfigurationDefaults(
+  requiredHeaders: Record<string, string>,
+  signalResourcePath: string
+): OtlpNodeHttpConfiguration {
+  return {
+    ...getHttpConfigurationDefaults(requiredHeaders, signalResourcePath),
+    agentFactory: httpAgentFactoryFromOptions({}),
+  };
+}
+
+`);
 
 // A mix of experimental/packages/otlp-exporter-base/src/transport/http-exporter-transport.ts
 // and experimental/packages/otlp-exporter-base/src/transport/http-transport-utils.ts
@@ -359,7 +435,6 @@ const packagePaths = [
   "packages/opentelemetry-resources",
   "packages/opentelemetry-sdk-trace-base",
   "packages/sdk-metrics",
-  "experimental/packages/api-events",
   "experimental/packages/api-logs",
   "experimental/packages/exporter-logs-otlp-http",
   // "experimental/packages/exporter-logs-otlp-proto",
