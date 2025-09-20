@@ -15,9 +15,9 @@ with extra Deno-specific integrations.
 
 ```ts
 // set up the SDK:
+// (This is optional nowadays. You can instead set `OTEL_DENO=true` and use Deno's native OTel)
+// (More information in the Deno documentation on OTel / opentelemetry)
 import 'jsr:@cloudydeno/opentelemetry/register';
-// Can also use `OTEL_DENO=true deno` instead of the /register import.
-// See more setup in the deno documentation on OTel (short for opentelemetry)
 
 // Wrap an async function in a span:
 import { traceAsyncFunc } from 'jsr:@cloudydeno/opentelemetry/instrumentation/async.ts';
