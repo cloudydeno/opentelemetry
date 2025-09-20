@@ -1,4 +1,7 @@
-![CI](https://github.com/cloudydeno/opentelemetry/actions/workflows/deno-ci.yml/badge.svg?branch=main)
+[![CI](https://github.com/cloudydeno/opentelemetry/actions/workflows/deno-ci.yml/badge.svg)](https://github.com/cloudydeno/opentelemetry/actions/workflows/deno-ci.yml)
+[![JSR](https://jsr.io/badges/@cloudydeno/opentelemetry)](https://jsr.io/@cloudydeno/opentelemetry)
+[![JSR Score](https://jsr.io/badges/@cloudydeno/opentelemetry/score)](https://jsr.io/@cloudydeno/opentelemetry)
+
 
 # `@cloudydeno/opentelemetry` on JSR
 
