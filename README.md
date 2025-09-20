@@ -49,7 +49,7 @@ export function rollTheDice(rolls: number, min: number, max: number) {
   });
 }
 
-rollTheDics();
+rollTheDice();
 ```
 
 ### Wrap an async function in a span
