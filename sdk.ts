@@ -211,12 +211,7 @@ export class DenoTelemetrySdk {
     });
     metrics.setGlobalMeterProvider(this.meter);
 
-    this.logger = new LoggerProvider({
-      resource: this.resource,
-    });
-    logs.setGlobalLoggerProvider(this.logger);
-
-    const logProcs = props.logRecordProcessors
+    const logProcessors = props.logRecordProcessors
       ?? getEnvExporters('OTEL_LOGS_EXPORTER', 'otlp', 'Logger').flatMap(key => {
           switch (key) {
             case 'otlp': return new BatchLogRecordProcessor(new OTLPLogExporter());
@@ -225,9 +220,11 @@ export class DenoTelemetrySdk {
           }
           return [];
         });
-    for (const proc of logProcs) {
-      this.logger.addLogRecordProcessor(proc);
-    }
+    this.logger = new LoggerProvider({
+      resource: this.resource,
+      processors: logProcessors,
+    });
+    logs.setGlobalLoggerProvider(this.logger);
 
     registerInstrumentations({
       tracerProvider: this.tracer,
