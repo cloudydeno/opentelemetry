@@ -50,6 +50,12 @@ type RawResourceAttribute = [
 	string,
 	MaybePromise<AttributeValue | undefined>
 ];
+/**
+ * Options for creating a {@link Resource}.
+ */
+type ResourceOptions = {
+	schemaUrl?: string;
+};
 
 /**
  * ResourceDetectionConfig provides an interface for configuring resource auto-detection.
@@ -80,6 +86,10 @@ interface Resource {
 	* @returns the Resource's attributes.
 	*/
 	readonly attributes: Attributes;
+	/**
+	* @returns the Resource's schema URL or undefined if not set.
+	*/
+	readonly schemaUrl?: string;
 	/**
 	* Returns a promise that will never be rejected. Resolves when all async attributes have finished being added to
 	* this Resource's attributes. This is useful in exporters to block until resource detection
@@ -196,7 +206,7 @@ declare class ServiceInstanceIdDetector implements ResourceDetector {
  */
 declare const serviceInstanceIdDetector: ServiceInstanceIdDetector;
 
-declare function resourceFromAttributes(attributes: DetectedResourceAttributes): Resource;
+declare function resourceFromAttributes(attributes: DetectedResourceAttributes, options?: ResourceOptions): Resource;
 declare function emptyResource(): Resource;
 declare function defaultResource(): Resource;
 

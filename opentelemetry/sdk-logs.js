@@ -16,12 +16,12 @@
 /// <reference types="./sdk-logs.d.ts" />
 
 import * as api from './api.js';
-import { diag, context } from './api.js';
+import { context, diag } from './api.js';
 import { NOOP_LOGGER } from './api-logs.js';
 import { defaultResource } from './resources.js';
 import { timeInputToHrTime, isAttributeValue, getNumberFromEnv, callWithTimeout, merge, BindOnceFuture, hrTimeToMicroseconds, ExportResultCode, internal, globalErrorHandler, unrefTimer } from './core.js';
 
-class LogRecord {
+class LogRecordImpl {
 	hrTime;
 	hrTimeObserved;
 	spanContext;
@@ -31,6 +31,7 @@ class LogRecord {
 	_severityText;
 	_severityNumber;
 	_body;
+	_eventName;
 	totalAttributesCount = 0;
 	_isReadonly = false;
 	_logRecordLimits;
@@ -61,11 +62,20 @@ class LogRecord {
 	get body() {
 		return this._body;
 	}
+	get eventName() {
+		return this._eventName;
+	}
+	set eventName(eventName) {
+		if (this._isLogRecordReadonly()) {
+			return;
+		}
+		this._eventName = eventName;
+	}
 	get droppedAttributesCount() {
 		return this.totalAttributesCount - Object.keys(this.attributes).length;
 	}
 	constructor(_sharedState, instrumentationScope, logRecord) {
-		const { timestamp, observedTimestamp, severityNumber, severityText, body, attributes = {}, context, } = logRecord;
+		const { timestamp, observedTimestamp, eventName, severityNumber, severityText, body, attributes = {}, context, } = logRecord;
 		const now = Date.now();
 		this.hrTime = timeInputToHrTime(timestamp ?? now);
 		this.hrTimeObserved = timeInputToHrTime(observedTimestamp ?? now);
@@ -81,6 +91,7 @@ class LogRecord {
 		this.resource = _sharedState.resource;
 		this.instrumentationScope = instrumentationScope;
 		this._logRecordLimits = _sharedState.logRecordLimits;
+		this._eventName = eventName;
 		this.setAttributes(attributes);
 	}
 	setAttribute(key, value) {
@@ -128,6 +139,10 @@ class LogRecord {
 		this.body = body;
 		return this;
 	}
+	setEventName(eventName) {
+		this.eventName = eventName;
+		return this;
+	}
 	setSeverityNumber(severityNumber) {
 		this.severityNumber = severityNumber;
 		return this;
@@ -161,7 +176,7 @@ class LogRecord {
 	}
 	_isLogRecordReadonly() {
 		if (this._isReadonly) {
-			diag.warn('Can not execute the operation on emitted log record');
+			api.diag.warn('Can not execute the operation on emitted log record');
 		}
 		return this._isReadonly;
 	}
@@ -176,7 +191,7 @@ class Logger {
 	}
 	emit(logRecord) {
 		const currentContext = logRecord.context || context.active();
-		const logRecordInstance = new LogRecord(this._sharedState, this.instrumentationScope, {
+		const logRecordInstance = new LogRecordImpl(this._sharedState, this.instrumentationScope, {
 			context: currentContext,
 			...logRecord,
 		});
@@ -285,15 +300,6 @@ class LoggerProvider {
 			this._sharedState.loggers.set(key, new Logger({ name: loggerName, version, schemaUrl: options?.schemaUrl }, this._sharedState));
 		}
 		return this._sharedState.loggers.get(key);
-	}
-	addLogRecordProcessor(processor) {
-		if (this._sharedState.registeredLogRecordProcessors.length === 0) {
-			this._sharedState.activeProcessor
-				.shutdown()
-				.catch(err => diag.error('Error while trying to shutdown current log record processor', err));
-		}
-		this._sharedState.registeredLogRecordProcessors.push(processor);
-		this._sharedState.activeProcessor = new MultiLogRecordProcessor(this._sharedState.registeredLogRecordProcessors, this._sharedState.forceFlushTimeoutMillis);
 	}
 	forceFlush() {
 		if (this._shutdownOnce.isCalled) {
@@ -554,4 +560,4 @@ class BatchLogRecordProcessor extends BatchLogRecordProcessorBase {
 	onShutdown() { }
 }
 
-export { BatchLogRecordProcessor, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LogRecord, LoggerProvider, NoopLogRecordProcessor, SimpleLogRecordProcessor };
+export { BatchLogRecordProcessor, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LoggerProvider, NoopLogRecordProcessor, SimpleLogRecordProcessor };

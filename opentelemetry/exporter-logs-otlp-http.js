@@ -19,7 +19,7 @@ import { OTLPExporterBase } from './otlp-exporter-base.js';
 import { JsonLogsSerializer } from './otlp-transformer.js';
 import { createOtlpHttpExportDelegate, convertLegacyHttpOptions } from './otlp-exporter-base.js';
 
-const VERSION = "0.202.0";
+const VERSION = "0.205.0";
 
 class OTLPLogExporter extends OTLPExporterBase {
 	constructor(config = {}) {

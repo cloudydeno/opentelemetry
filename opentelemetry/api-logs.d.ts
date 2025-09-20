@@ -65,6 +65,10 @@ declare enum SeverityNumber {
 }
 interface LogRecord {
 	/**
+	* The unique identifier for the log record.
+	*/
+	eventName?: string;
+	/**
 	* The time when the log record occurred as UNIX Epoch time in nanoseconds.
 	*/
 	timestamp?: TimeInput;
@@ -166,18 +170,27 @@ declare class ProxyLogger implements Logger {
 	private _getLogger;
 }
 interface LoggerDelegator {
-	getDelegateLogger(name: string, version?: string, options?: LoggerOptions): Logger | undefined;
+	_getDelegateLogger(name: string, version?: string, options?: LoggerOptions): Logger | undefined;
 }
 
 declare class ProxyLoggerProvider implements LoggerProvider {
 	private _delegate?;
 	getLogger(name: string, version?: string | undefined, options?: LoggerOptions | undefined): Logger;
-	getDelegate(): LoggerProvider;
+	/**
+	* Get the delegate logger provider.
+	* Used by tests only.
+	* @internal
+	*/
+	_getDelegate(): LoggerProvider;
 	/**
 	* Set the delegate logger provider
+	* @internal
 	*/
-	setDelegate(delegate: LoggerProvider): void;
-	getDelegateLogger(name: string, version?: string | undefined, options?: LoggerOptions | undefined): Logger | undefined;
+	_setDelegate(delegate: LoggerProvider): void;
+	/**
+	* @internal
+	*/
+	_getDelegateLogger(name: string, version?: string | undefined, options?: LoggerOptions | undefined): Logger | undefined;
 }
 
 declare class LogsAPI {

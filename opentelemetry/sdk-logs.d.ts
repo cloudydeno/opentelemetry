@@ -15,71 +15,69 @@
  */
 
 import { Resource } from './resources.d.ts';
-import * as api from './api.d.ts';
 import { HrTime, SpanContext, Context } from './api.d.ts';
-import * as logsAPI from './api-logs.d.ts';
-import { SeverityNumber, LogBody, LogAttributes, Logger, AnyValue } from './api-logs.d.ts';
 import { InstrumentationScope, ExportResult } from './core.d.ts';
+import * as logsAPI from './api-logs.d.ts';
+import { LogAttributes, SeverityNumber, LogBody, AnyValue } from './api-logs.d.ts';
 
-interface ReadableLogRecord {
+/**
+ * A recording of a event. Typically the record includes a timestamp indicating when the
+ * event happened as well as other data that describes what happened, where it happened, etc.
+ *
+ * @remarks
+ * This interface is **not intended to be implemented by users**.
+ * To produce logs, use {@link Logger#emit}. To consume logs, implement {@link LogRecordProcessor#onEmit}.
+ * SdkLogRecord instances are created and managed by the SDK.
+ */
+interface SdkLogRecord {
 	readonly hrTime: HrTime;
 	readonly hrTimeObserved: HrTime;
 	readonly spanContext?: SpanContext;
-	readonly severityText?: string;
-	readonly severityNumber?: SeverityNumber;
-	readonly body?: LogBody;
 	readonly resource: Resource;
 	readonly instrumentationScope: InstrumentationScope;
 	readonly attributes: LogAttributes;
-	readonly droppedAttributesCount: number;
-}
-
-declare class LoggerProviderSharedState {
-	readonly resource: Resource;
-	readonly forceFlushTimeoutMillis: number;
-	readonly logRecordLimits: Required<LogRecordLimits>;
-	readonly processors: LogRecordProcessor[];
-	readonly loggers: Map<string, Logger>;
-	activeProcessor: LogRecordProcessor;
-	readonly registeredLogRecordProcessors: LogRecordProcessor[];
-	constructor(resource: Resource, forceFlushTimeoutMillis: number, logRecordLimits: Required<LogRecordLimits>, processors: LogRecordProcessor[]);
-}
-
-declare class LogRecord implements ReadableLogRecord {
-	readonly hrTime: api.HrTime;
-	readonly hrTimeObserved: api.HrTime;
-	readonly spanContext?: api.SpanContext;
-	readonly resource: Resource;
-	readonly instrumentationScope: InstrumentationScope;
-	readonly attributes: logsAPI.LogAttributes;
-	private _severityText?;
-	private _severityNumber?;
-	private _body?;
-	private totalAttributesCount;
-	private _isReadonly;
-	private readonly _logRecordLimits;
-	set severityText(severityText: string | undefined);
-	get severityText(): string | undefined;
-	set severityNumber(severityNumber: logsAPI.SeverityNumber | undefined);
-	get severityNumber(): logsAPI.SeverityNumber | undefined;
-	set body(body: LogBody | undefined);
-	get body(): LogBody | undefined;
-	get droppedAttributesCount(): number;
-	constructor(_sharedState: LoggerProviderSharedState, instrumentationScope: InstrumentationScope, logRecord: logsAPI.LogRecord);
-	setAttribute(key: string, value?: AnyValue): this;
-	setAttributes(attributes: LogAttributes): this;
-	setBody(body: LogBody): this;
-	setSeverityNumber(severityNumber: logsAPI.SeverityNumber): this;
-	setSeverityText(severityText: string): this;
+	severityText?: string;
+	severityNumber?: SeverityNumber;
+	body?: LogBody;
+	eventName?: string;
+	droppedAttributesCount: number;
 	/**
-	* @internal
-	* A LogRecordProcessor may freely modify logRecord for the duration of the OnEmit call.
-	* If logRecord is needed after OnEmit returns (i.e. for asynchronous processing) only reads are permitted.
+	* Sets a single attribute on the log record.
+	* @param key The attribute key.
+	* @param value The attribute value.
+	* @returns The updated SdkLogRecord.
 	*/
-	_makeReadonly(): void;
-	private _truncateToSize;
-	private _truncateToLimitUtil;
-	private _isLogRecordReadonly;
+	setAttribute(key: string, value?: AnyValue): SdkLogRecord;
+	/**
+	* Sets multiple attributes on the log record.
+	* @param attributes The attributes to set.
+	* @returns The updated SdkLogRecord.
+	*/
+	setAttributes(attributes: LogAttributes): SdkLogRecord;
+	/**
+	* Sets the body of the log record.
+	* @param body The log body.
+	* @returns The updated SdkLogRecord.
+	*/
+	setBody(body: LogBody): SdkLogRecord;
+	/**
+	* Sets the event name for the log record.
+	* @param eventName The event name.
+	* @returns The updated SdkLogRecord.
+	*/
+	setEventName(eventName: string): SdkLogRecord;
+	/**
+	* Sets the severity number for the log record.
+	* @param severityNumber The severity number.
+	* @returns The updated SdkLogRecord.
+	*/
+	setSeverityNumber(severityNumber: SeverityNumber): SdkLogRecord;
+	/**
+	* Sets the severity text (log level) for the log record.
+	* @param severityText The severity text.
+	* @returns The updated SdkLogRecord.
+	*/
+	setSeverityText(severityText: string): SdkLogRecord;
 }
 
 interface LogRecordProcessor {
@@ -92,7 +90,7 @@ interface LogRecordProcessor {
 	* @param logRecord the ReadWriteLogRecord that just emitted.
 	* @param context the current Context, or an empty Context if the Logger was obtained with include_trace_context=false
 	*/
-	onEmit(logRecord: LogRecord, context?: Context): void;
+	onEmit(logRecord: SdkLogRecord, context?: Context): void;
 	/**
 	* Shuts down the processor. Called when SDK is shut down. This is an
 	* opportunity for processor to do any cleanup required.
@@ -149,13 +147,6 @@ declare class LoggerProvider implements logsAPI.LoggerProvider {
 	*/
 	getLogger(name: string, version?: string, options?: logsAPI.LoggerOptions): logsAPI.Logger;
 	/**
-	* @deprecated add your processors in the constructors instead.
-	*
-	* Adds a new {@link LogRecordProcessor} to this logger.
-	* @param processor the new LogRecordProcessor to be added.
-	*/
-	addLogRecordProcessor(processor: LogRecordProcessor): void;
-	/**
 	* Notifies all registered LogRecordProcessor to flush any buffered data.
 	*
 	* Returns a promise which is resolved when all flushes are complete.
@@ -169,6 +160,20 @@ declare class LoggerProvider implements logsAPI.LoggerProvider {
 	*/
 	shutdown(): Promise<void>;
 	private _shutdown;
+}
+
+interface ReadableLogRecord {
+	readonly hrTime: HrTime;
+	readonly hrTimeObserved: HrTime;
+	readonly spanContext?: SpanContext;
+	readonly severityText?: string;
+	readonly severityNumber?: SeverityNumber;
+	readonly body?: LogBody;
+	readonly eventName?: string;
+	readonly resource: Resource;
+	readonly instrumentationScope: InstrumentationScope;
+	readonly attributes: LogAttributes;
+	readonly droppedAttributesCount: number;
 }
 
 declare class NoopLogRecordProcessor implements LogRecordProcessor {
@@ -222,7 +227,7 @@ declare class SimpleLogRecordProcessor implements LogRecordProcessor {
 	private _shutdownOnce;
 	private _unresolvedExports;
 	constructor(_exporter: LogRecordExporter);
-	onEmit(logRecord: LogRecord): void;
+	onEmit(logRecord: SdkLogRecord): void;
 	forceFlush(): Promise<void>;
 	shutdown(): Promise<void>;
 	private _shutdown;
@@ -256,7 +261,7 @@ declare abstract class BatchLogRecordProcessorBase<T extends BufferConfig> imple
 	private _timer;
 	private _shutdownOnce;
 	constructor(_exporter: LogRecordExporter, config?: T);
-	onEmit(logRecord: LogRecord): void;
+	onEmit(logRecord: SdkLogRecord): void;
 	forceFlush(): Promise<void>;
 	shutdown(): Promise<void>;
 	private _shutdown;
@@ -279,4 +284,4 @@ declare class BatchLogRecordProcessor extends BatchLogRecordProcessorBase<Buffer
 	protected onShutdown(): void;
 }
 
-export { BatchLogRecordProcessor, BatchLogRecordProcessorBrowserConfig, BufferConfig, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LogRecord, LogRecordExporter, LogRecordLimits, LogRecordProcessor, LoggerProvider, LoggerProviderConfig, NoopLogRecordProcessor, ReadableLogRecord, SimpleLogRecordProcessor };
+export { BatchLogRecordProcessor, BatchLogRecordProcessorBrowserConfig, BufferConfig, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LogRecordExporter, LogRecordLimits, LogRecordProcessor, LoggerProvider, LoggerProviderConfig, NoopLogRecordProcessor, ReadableLogRecord, SdkLogRecord, SimpleLogRecordProcessor };

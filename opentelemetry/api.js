@@ -145,8 +145,7 @@ function logProxy(funcName, namespace, args) {
 	if (!logger) {
 		return;
 	}
-	args.unshift(namespace);
-	return logger[funcName](...args);
+	return logger[funcName](namespace, ...args);
 }
 
 var DiagLogLevel;
@@ -551,13 +550,30 @@ function getSpanContext(context) {
 	return getSpan(context)?.spanContext();
 }
 
-const VALID_TRACEID_REGEX = /^([0-9a-f]{32})$/i;
-const VALID_SPANID_REGEX = /^[0-9a-f]{16}$/i;
+const isHex = new Uint8Array([
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1,
+	1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
+]);
+function isValidHex(id, length) {
+	if (typeof id !== 'string' || id.length !== length)
+		return false;
+	let r = 0;
+	for (let i = 0; i < id.length; i += 4) {
+		r +=
+			(isHex[id.charCodeAt(i)] | 0) +
+				(isHex[id.charCodeAt(i + 1)] | 0) +
+				(isHex[id.charCodeAt(i + 2)] | 0) +
+				(isHex[id.charCodeAt(i + 3)] | 0);
+	}
+	return r === length;
+}
 function isValidTraceId(traceId) {
-	return VALID_TRACEID_REGEX.test(traceId) && traceId !== INVALID_TRACEID;
+	return isValidHex(traceId, 32) && traceId !== INVALID_TRACEID;
 }
 function isValidSpanId(spanId) {
-	return VALID_SPANID_REGEX.test(spanId) && spanId !== INVALID_SPANID;
+	return isValidHex(spanId, 16) && spanId !== INVALID_SPANID;
 }
 function isSpanContextValid(spanContext) {
 	return (isValidTraceId(spanContext.traceId) && isValidSpanId(spanContext.spanId));
@@ -608,9 +624,13 @@ class NoopTracer {
 	}
 }
 function isSpanContext(spanContext) {
-	return (typeof spanContext === 'object' &&
+	return (spanContext !== null &&
+		typeof spanContext === 'object' &&
+		'spanId' in spanContext &&
 		typeof spanContext['spanId'] === 'string' &&
+		'traceId' in spanContext &&
 		typeof spanContext['traceId'] === 'string' &&
+		'traceFlags' in spanContext &&
 		typeof spanContext['traceFlags'] === 'number');
 }
 
