@@ -1,10 +1,10 @@
 #!/usr/bin/env -S deno run --watch --allow-read --allow-sys=hostname,osRelease --allow-env --allow-net --allow-run=uptime,sleep,ping,nonextant
-import { metrics, trace, ValueType } from "./opentelemetry/api.js";
-import { logs } from "./opentelemetry/api-logs.js";
-import { ATTR_HTTP_METHOD } from "./opentelemetry/semantic-conventions.js";
+import { metrics, trace, ValueType } from "@cloudydeno/opentelemetry/pkg/api";
+import { logs } from "@cloudydeno/opentelemetry/pkg/api-logs";
+import { ATTR_HTTP_METHOD } from "@cloudydeno/opentelemetry/pkg/semantic-conventions";
 
-import { DenoTelemetrySdk } from './sdk.ts'
-import { httpTracer } from "./instrumentation/http-server.ts";
+import { DenoTelemetrySdk } from '@cloudydeno/opentelemetry/sdk'
+import { httpTracer } from "@cloudydeno/opentelemetry/instrumentation/http-server.ts";
 
 new DenoTelemetrySdk({
   resourceAttrs: {

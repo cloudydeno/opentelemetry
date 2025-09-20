@@ -1,4 +1,4 @@
-import { InstrumentationBase } from "../opentelemetry/instrumentation.js";
+import type { InstrumentationBase } from "../opentelemetry/instrumentation.js";
 
 import { DenoCommandInstrumentation } from "./deno-command.ts";
 import { DenoKvInstrumentation } from "./deno-kv.ts";
