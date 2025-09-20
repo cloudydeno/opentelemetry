@@ -1,6 +1,6 @@
 {
   "name": "@cloudydeno/opentelemetry",
-  "version": "0.10.4",
+  "version": "0.11.0",
   "license": "MPL",
   "exports": {
 
@@ -13,7 +13,6 @@
     "./instrumentation/http-server.ts": "./instrumentation/http-server.ts",
 
     "./pkg/api": "./opentelemetry/api.js",
-    "./pkg/api-events": "./opentelemetry/api-events.js",
     "./pkg/api-logs": "./opentelemetry/api-logs.js",
     "./pkg/core": "./opentelemetry/core.js",
     "./pkg/exporter-logs-otlp-http": "./opentelemetry/exporter-logs-otlp-http.js",
