@@ -112,6 +112,22 @@ async function buildModuleWithRollup(directory: string, modName: string, externa
   }
 }
 
+if (Deno.args[0] == '--switch') {
+  console.error(`Resetting opentelemetry-js...`);
+  const git = new Deno.Command('sh', {
+    args: [ '-euxc', [
+      `git reset --hard`,
+      `git clean -f`,
+      `git switch --detach ${Deno.args[1]}`,
+    ].join('; ')],
+    cwd: 'hack/opentelemetry-js',
+    stdout: 'inherit',
+    stderr: 'inherit',
+  });
+  const gitOut = await git.output();
+  if (!gitOut.success) throw new Error(`git switch failed :(`);
+}
+
 console.error(`Patching opentelemetry-js installation to remove NodeJSisms...`);
 
 // use runtime's performance instead of node's

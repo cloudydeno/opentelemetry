@@ -1,7 +1,6 @@
 [![JSR](https://jsr.io/badges/@cloudydeno/opentelemetry)](https://jsr.io/@cloudydeno/opentelemetry)
 [![CI](https://github.com/cloudydeno/opentelemetry/actions/workflows/deno-ci.yml/badge.svg)](https://github.com/cloudydeno/opentelemetry/actions/workflows/deno-ci.yml)
 
-
 # `@cloudydeno/opentelemetry` on JSR
 
 A Deno-oriented build of [opentelemetry-js](https://github.com/open-telemetry/opentelemetry-js),
