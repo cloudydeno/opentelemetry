@@ -640,9 +640,7 @@ class BatchSpanProcessorBase {
 		if (this._timer !== undefined)
 			return;
 		this._timer = setTimeout(() => flush(), this._scheduledDelayMillis);
-		if (typeof this._timer !== 'number') {
-			this._timer.unref();
-		}
+		Deno.unrefTimer(this._timer);
 	}
 	_clearTimer() {
 		if (this._timer !== undefined) {

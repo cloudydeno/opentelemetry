@@ -1377,9 +1377,7 @@ class PeriodicExportingMetricReader extends MetricReader {
 		this._interval = setInterval(() => {
 			void this._runOnce();
 		}, this._exportInterval);
-		if (typeof this._interval !== 'number') {
-			this._interval.unref();
-		}
+		Deno.unrefTimer(this._interval);
 	}
 	async onForceFlush() {
 		await this._runOnce();

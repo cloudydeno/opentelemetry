@@ -104,6 +104,7 @@ async function buildModuleWithRollup(directory: string, modName: string, externa
     text = text.replace("HOST_NAME]: hostname(),", "HOST_NAME]: Deno.hostname?.(),");
     text = text.replace("OS_VERSION]: release(),", "OS_VERSION]: Deno.osRelease?.(),");
     text = text.replace("fs.readFile(", "Deno.readTextFile(");
+    text = text.replace(/^ +if \(typeof (this\._[a-z]+) !== 'number'\) {\n +this._[a-z]+.unref\(\);\n +}$/m, (_, x) => `        Deno.unrefTimer(${x});`);
     text = text.replace("http.AgentOptions | https.AgentOptions", "never"); // TODO: replace this functionality with Deno.HttpClient arg
     text = text.replace("DEFAULT_USER_AGENT = `OTel-", "DEFAULT_USER_AGENT = `Deno/${Deno.version.deno} OTel-");
     text = text.replaceAll(/^  +/gm, x => '\t\t\t\t\t\t\t\t'.slice(0, Math.floor(x.length / 4)));
