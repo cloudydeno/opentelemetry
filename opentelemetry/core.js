@@ -312,7 +312,7 @@ function getStringListFromEnv(key) {
 
 const _globalThis = globalThis;
 
-const VERSION$1 = "2.4.0";
+const VERSION$1 = "2.5.0";
 
 const ATTR_PROCESS_RUNTIME_NAME = 'process.runtime.name';
 

@@ -19,7 +19,39 @@ import * as api from './api.js';
 import { context, trace, isSpanContextValid, TraceFlags, diag } from './api.js';
 import { SeverityNumber, NOOP_LOGGER } from './api-logs.js';
 import { defaultResource } from './resources.js';
-import { timeInputToHrTime, isAttributeValue, getNumberFromEnv, callWithTimeout, merge, BindOnceFuture, hrTimeToMicroseconds, ExportResultCode, internal, globalErrorHandler } from './core.js';
+import { timeInputToHrTime, getNumberFromEnv, callWithTimeout, merge, BindOnceFuture, hrTimeToMicroseconds, ExportResultCode, internal, globalErrorHandler } from './core.js';
+
+function isLogAttributeValue(val) {
+	return isLogAttributeValueInternal(val, new WeakSet());
+}
+function isLogAttributeValueInternal(val, visited) {
+	if (val == null) {
+		return true;
+	}
+	if (typeof val === 'string' ||
+		typeof val === 'number' ||
+		typeof val === 'boolean') {
+		return true;
+	}
+	if (val instanceof Uint8Array) {
+		return true;
+	}
+	if (typeof val === 'object') {
+		if (visited.has(val)) {
+			return false;
+		}
+		visited.add(val);
+		if (Array.isArray(val)) {
+			return val.every(item => isLogAttributeValueInternal(item, visited));
+		}
+		const obj = val;
+		if (obj.constructor !== Object && obj.constructor !== undefined) {
+			return false;
+		}
+		return Object.values(obj).every(item => isLogAttributeValueInternal(item, visited));
+	}
+	return false;
+}
 
 class LogRecordImpl {
 	hrTime;
@@ -98,17 +130,11 @@ class LogRecordImpl {
 		if (this._isLogRecordReadonly()) {
 			return this;
 		}
-		if (value === null) {
-			return this;
-		}
 		if (key.length === 0) {
 			api.diag.warn(`Invalid attribute key: ${key}`);
 			return this;
 		}
-		if (!isAttributeValue(value) &&
-			!(typeof value === 'object' &&
-				!Array.isArray(value) &&
-				Object.keys(value).length > 0)) {
+		if (!isLogAttributeValue(value)) {
 			api.diag.warn(`Invalid attribute value set for key: ${key}`);
 			return this;
 		}
@@ -121,12 +147,7 @@ class LogRecordImpl {
 			}
 			return this;
 		}
-		if (isAttributeValue(value)) {
-			this.attributes[key] = this._truncateToSize(value);
-		}
-		else {
-			this.attributes[key] = value;
-		}
+		this.attributes[key] = this._truncateToSize(value);
 		return this;
 	}
 	setAttributes(attributes) {
@@ -160,11 +181,24 @@ class LogRecordImpl {
 			api.diag.warn(`Attribute value limit must be positive, got ${limit}`);
 			return value;
 		}
+		if (value == null) {
+			return value;
+		}
 		if (typeof value === 'string') {
 			return this._truncateToLimitUtil(value, limit);
 		}
+		if (value instanceof Uint8Array) {
+			return value;
+		}
 		if (Array.isArray(value)) {
-			return value.map(val => typeof val === 'string' ? this._truncateToLimitUtil(val, limit) : val);
+			return value.map(val => this._truncateToSize(val));
+		}
+		if (typeof value === 'object') {
+			const truncatedObj = {};
+			for (const [k, v] of Object.entries(value)) {
+				truncatedObj[k] = this._truncateToSize(v);
+			}
+			return truncatedObj;
 		}
 		return value;
 	}
@@ -382,6 +416,7 @@ class ConsoleLogRecordExporter {
 			traceFlags: logRecord.spanContext?.traceFlags,
 			severityText: logRecord.severityText,
 			severityNumber: logRecord.severityNumber,
+			eventName: logRecord.eventName,
 			body: logRecord.body,
 			attributes: logRecord.attributes,
 		};
@@ -592,14 +627,19 @@ class BatchLogRecordProcessorBase {
 			}
 		})
 			.catch(globalErrorHandler);
-		const pendingResources = logRecords
-			.map(logRecord => logRecord.resource)
-			.filter(resource => resource.asyncAttributesPending);
+		const pendingResources = [];
+		for (let i = 0; i < logRecords.length; i++) {
+			const resource = logRecords[i].resource;
+			if (resource.asyncAttributesPending &&
+				typeof resource.waitForAsyncAttributes === 'function') {
+				pendingResources.push(resource.waitForAsyncAttributes());
+			}
+		}
 		if (pendingResources.length === 0) {
 			return doExport();
 		}
 		else {
-			return Promise.all(pendingResources.map(resource => resource.waitForAsyncAttributes?.())).then(doExport, globalErrorHandler);
+			return Promise.all(pendingResources).then(doExport, globalErrorHandler);
 		}
 	}
 }

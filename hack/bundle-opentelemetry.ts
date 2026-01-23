@@ -142,6 +142,8 @@ await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-resources
 `export function defaultServiceName(): string {
   return 'unknown_service:deno';
 }
+/** @internal For testing purposes only */
+export function _clearDefaultServiceNameCache(): void {}
 `);
 
 // await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/platform/node/utils.ts',

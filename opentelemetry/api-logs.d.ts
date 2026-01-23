@@ -145,26 +145,6 @@ declare class NoopLogger implements Logger {
 }
 declare const NOOP_LOGGER: NoopLogger;
 
-declare class ProxyLoggerProvider implements LoggerProvider {
-	private _delegate?;
-	getLogger(name: string, version?: string | undefined, options?: LoggerOptions | undefined): Logger;
-	/**
-	* Get the delegate logger provider.
-	* Used by tests only.
-	* @internal
-	*/
-	_getDelegate(): LoggerProvider;
-	/**
-	* Set the delegate logger provider
-	* @internal
-	*/
-	_setDelegate(delegate: LoggerProvider): void;
-	/**
-	* @internal
-	*/
-	_getDelegateLogger(name: string, version?: string | undefined, options?: LoggerOptions | undefined): Logger | undefined;
-}
-
 declare class LogsAPI {
 	private static _instance?;
 	private _proxyLoggerProvider;
@@ -189,4 +169,4 @@ declare class LogsAPI {
 
 declare const logs: LogsAPI;
 
-export { AnyValue, AnyValueMap, LogAttributes, LogBody, LogRecord, Logger, LoggerOptions, LoggerProvider, NOOP_LOGGER, NoopLogger, ProxyLoggerProvider, SeverityNumber, logs };
+export { AnyValue, AnyValueMap, LogAttributes, LogBody, LogRecord, Logger, LoggerOptions, LoggerProvider, NOOP_LOGGER, NoopLogger, SeverityNumber, logs };

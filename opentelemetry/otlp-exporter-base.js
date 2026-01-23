@@ -398,7 +398,7 @@ class RetryingTransport {
 			result = await this.retry(data, remainingTimeoutMillis, retryInMillis);
 		}
 		if (result.status === 'success') {
-			diag.verbose(`Export succeded after ${MAX_ATTEMPTS - attempts} retry attempts.`);
+			diag.verbose(`Export succeeded after ${MAX_ATTEMPTS - attempts} retry attempts.`);
 		}
 		else if (result.status === 'retryable') {
 			diag.info(`Export failed after maximum retry attempts (${MAX_ATTEMPTS}).`);

@@ -656,23 +656,37 @@ class BatchSpanProcessor extends BatchSpanProcessorBase {
 	onShutdown() { }
 }
 
-const SPAN_ID_BYTES = 8;
 const TRACE_ID_BYTES = 16;
-class RandomIdGenerator {
-	generateTraceId = getIdGenerator(TRACE_ID_BYTES);
-	generateSpanId = getIdGenerator(SPAN_ID_BYTES);
+const SPAN_ID_BYTES = 8;
+const TRACE_BUFFER = new Uint8Array(TRACE_ID_BYTES);
+const SPAN_BUFFER = new Uint8Array(SPAN_ID_BYTES);
+const HEX = Array.from({ length: 256 }, (_, i) => i.toString(16).padStart(2, '0'));
+function randomFill(buf) {
+	for (let i = 0; i < buf.length; i++) {
+		buf[i] = (Math.random() * 256) >>> 0;
+	}
+	for (let i = 0; i < buf.length; i++) {
+		if (buf[i] > 0)
+			return;
+	}
+	buf[buf.length - 1] = 1;
 }
-const SHARED_CHAR_CODES_ARRAY = Array(32);
-function getIdGenerator(bytes) {
-	return function generateId() {
-		for (let i = 0; i < bytes * 2; i++) {
-			SHARED_CHAR_CODES_ARRAY[i] = Math.floor(Math.random() * 16) + 48;
-			if (SHARED_CHAR_CODES_ARRAY[i] >= 58) {
-				SHARED_CHAR_CODES_ARRAY[i] += 39;
-			}
-		}
-		return String.fromCharCode.apply(null, SHARED_CHAR_CODES_ARRAY.slice(0, bytes * 2));
-	};
+function toHex(buf) {
+	let hex = '';
+	for (let i = 0; i < buf.length; i++) {
+		hex += HEX[buf[i]];
+	}
+	return hex;
+}
+class RandomIdGenerator {
+	generateTraceId() {
+		randomFill(TRACE_BUFFER);
+		return toHex(TRACE_BUFFER);
+	}
+	generateSpanId() {
+		randomFill(SPAN_BUFFER);
+		return toHex(SPAN_BUFFER);
+	}
 }
 
 class Tracer {
