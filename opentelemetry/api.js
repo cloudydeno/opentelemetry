@@ -15,8 +15,6 @@
  */
 /// <reference types="./api.d.ts" />
 
-const _globalThis = typeof globalThis === 'object' ? globalThis : global;
-
 const VERSION = "1.9.0";
 
 const re = /^(\d+)\.(\d+)\.(\d+)(-(.+))?$/;
@@ -86,7 +84,7 @@ const isCompatible = _makeCompatibilityCheck(VERSION);
 
 const major = VERSION.split('.')[0];
 const GLOBAL_OPENTELEMETRY_API_KEY = Symbol.for(`opentelemetry.js.api.${major}`);
-const _global = _globalThis;
+const _global = globalThis;
 function registerGlobal(type, instance, diag, allowOverride = false) {
 	const api = (_global[GLOBAL_OPENTELEMETRY_API_KEY] = _global[GLOBAL_OPENTELEMETRY_API_KEY] ?? {
 		version: VERSION,
@@ -248,7 +246,7 @@ class BaggageImpl {
 		return Object.assign({}, entry);
 	}
 	getAllEntries() {
-		return Array.from(this._entries.entries()).map(([k, v]) => [k, v]);
+		return Array.from(this._entries.entries());
 	}
 	setEntry(key, entry) {
 		const newBaggage = new BaggageImpl(this._entries);
@@ -496,8 +494,8 @@ const INVALID_SPAN_CONTEXT = {
 };
 
 class NonRecordingSpan {
-	constructor(_spanContext = INVALID_SPAN_CONTEXT) {
-		this._spanContext = _spanContext;
+	constructor(spanContext = INVALID_SPAN_CONTEXT) {
+		this._spanContext = spanContext;
 	}
 	spanContext() {
 		return this._spanContext;
@@ -636,8 +634,8 @@ function isSpanContext(spanContext) {
 
 const NOOP_TRACER = new NoopTracer();
 class ProxyTracer {
-	constructor(_provider, name, version, options) {
-		this._provider = _provider;
+	constructor(provider, name, version, options) {
+		this._provider = provider;
 		this.name = name;
 		this.version = version;
 		this.options = options;
@@ -749,20 +747,19 @@ class TraceStateImpl {
 		return this._internalState.get(key);
 	}
 	serialize() {
-		return this._keys()
-			.reduce((agg, key) => {
+		return (Array.from(this._internalState.keys())
+			.reduceRight((agg, key) => {
 			agg.push(key + LIST_MEMBER_KEY_VALUE_SPLITTER + this.get(key));
 			return agg;
 		}, [])
-			.join(LIST_MEMBERS_SEPARATOR);
+			.join(LIST_MEMBERS_SEPARATOR));
 	}
 	_parse(rawTraceState) {
 		if (rawTraceState.length > MAX_TRACE_STATE_LEN)
 			return;
 		this._internalState = rawTraceState
 			.split(LIST_MEMBERS_SEPARATOR)
-			.reverse()
-			.reduce((agg, part) => {
+			.reduceRight((agg, part) => {
 			const listMember = part.trim();
 			const i = listMember.indexOf(LIST_MEMBER_KEY_VALUE_SPLITTER);
 			if (i !== -1) {

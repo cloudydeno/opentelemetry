@@ -16,8 +16,8 @@
 /// <reference types="./sdk-logs.d.ts" />
 
 import * as api from './api.js';
-import { context, diag } from './api.js';
-import { NOOP_LOGGER } from './api-logs.js';
+import { context, trace, isSpanContextValid, TraceFlags, diag } from './api.js';
+import { SeverityNumber, NOOP_LOGGER } from './api-logs.js';
 import { defaultResource } from './resources.js';
 import { timeInputToHrTime, isAttributeValue, getNumberFromEnv, callWithTimeout, merge, BindOnceFuture, hrTimeToMicroseconds, ExportResultCode, internal, globalErrorHandler } from './core.js';
 
@@ -185,12 +185,29 @@ class LogRecordImpl {
 class Logger {
 	instrumentationScope;
 	_sharedState;
-	constructor(instrumentationScope, _sharedState) {
+	_loggerConfig;
+	constructor(instrumentationScope, sharedState) {
 		this.instrumentationScope = instrumentationScope;
-		this._sharedState = _sharedState;
+		this._sharedState = sharedState;
+		this._loggerConfig = this._sharedState.getLoggerConfig(this.instrumentationScope);
 	}
 	emit(logRecord) {
+		const loggerConfig = this._loggerConfig;
 		const currentContext = logRecord.context || context.active();
+		const recordSeverity = logRecord.severityNumber ?? SeverityNumber.UNSPECIFIED;
+		if (recordSeverity !== SeverityNumber.UNSPECIFIED &&
+			recordSeverity < loggerConfig.minimumSeverity) {
+			return;
+		}
+		if (loggerConfig.traceBased) {
+			const spanContext = trace.getSpanContext(currentContext);
+			if (spanContext && isSpanContextValid(spanContext)) {
+				const isSampled = (spanContext.traceFlags & TraceFlags.SAMPLED) === TraceFlags.SAMPLED;
+				if (!isSampled) {
+					return;
+				}
+			}
+		}
 		const logRecordInstance = new LogRecordImpl(this._sharedState, this.instrumentationScope, {
 			context: currentContext,
 			...logRecord,
@@ -253,15 +270,29 @@ class MultiLogRecordProcessor {
 	}
 }
 
+function getInstrumentationScopeKey(scope) {
+	return `${scope.name}@${scope.version || ''}:${scope.schemaUrl || ''}`;
+}
+
+const DEFAULT_LOGGER_CONFIG$1 = {
+	disabled: false,
+	minimumSeverity: SeverityNumber.UNSPECIFIED,
+	traceBased: false,
+};
+const DEFAULT_LOGGER_CONFIGURATOR = () => ({
+	...DEFAULT_LOGGER_CONFIG$1,
+});
 class LoggerProviderSharedState {
+	loggers = new Map();
+	activeProcessor;
+	registeredLogRecordProcessors = [];
 	resource;
 	forceFlushTimeoutMillis;
 	logRecordLimits;
 	processors;
-	loggers = new Map();
-	activeProcessor;
-	registeredLogRecordProcessors = [];
-	constructor(resource, forceFlushTimeoutMillis, logRecordLimits, processors) {
+	_loggerConfigurator;
+	_loggerConfigs = new Map();
+	constructor(resource, forceFlushTimeoutMillis, logRecordLimits, processors, loggerConfigurator) {
 		this.resource = resource;
 		this.forceFlushTimeoutMillis = forceFlushTimeoutMillis;
 		this.logRecordLimits = logRecordLimits;
@@ -273,6 +304,18 @@ class LoggerProviderSharedState {
 		else {
 			this.activeProcessor = new NoopLogRecordProcessor();
 		}
+		this._loggerConfigurator =
+			loggerConfigurator ?? DEFAULT_LOGGER_CONFIGURATOR;
+	}
+	getLoggerConfig(instrumentationScope) {
+		const key = getInstrumentationScopeKey(instrumentationScope);
+		let config = this._loggerConfigs.get(key);
+		if (config) {
+			return config;
+		}
+		config = this._loggerConfigurator(instrumentationScope);
+		this._loggerConfigs.set(key, config);
+		return config;
 	}
 }
 
@@ -283,7 +326,7 @@ class LoggerProvider {
 	constructor(config = {}) {
 		const mergedConfig = merge({}, loadDefaultConfig(), config);
 		const resource = config.resource ?? defaultResource();
-		this._sharedState = new LoggerProviderSharedState(resource, mergedConfig.forceFlushTimeoutMillis, reconfigureLimits(mergedConfig.logRecordLimits), config?.processors ?? []);
+		this._sharedState = new LoggerProviderSharedState(resource, mergedConfig.forceFlushTimeoutMillis, reconfigureLimits(mergedConfig.logRecordLimits), config?.processors ?? [], config?.loggerConfigurator);
 		this._shutdownOnce = new BindOnceFuture(this._shutdown, this);
 	}
 	getLogger(name, version, options) {
@@ -355,8 +398,8 @@ class SimpleLogRecordProcessor {
 	_exporter;
 	_shutdownOnce;
 	_unresolvedExports;
-	constructor(_exporter) {
-		this._exporter = _exporter;
+	constructor(exporter) {
+		this._exporter = exporter;
 		this._shutdownOnce = new BindOnceFuture(this._shutdown, this);
 		this._unresolvedExports = new Set();
 	}
@@ -426,17 +469,17 @@ class InMemoryLogRecordExporter {
 }
 
 class BatchLogRecordProcessorBase {
-	_exporter;
 	_maxExportBatchSize;
 	_maxQueueSize;
 	_scheduledDelayMillis;
 	_exportTimeoutMillis;
+	_exporter;
 	_isExporting = false;
 	_finishedLogRecords = [];
 	_timer;
 	_shutdownOnce;
-	constructor(_exporter, config) {
-		this._exporter = _exporter;
+	constructor(exporter, config) {
+		this._exporter = exporter;
 		this._maxExportBatchSize =
 			config?.maxExportBatchSize ??
 				getNumberFromEnv('OTEL_BLRP_MAX_EXPORT_BATCH_SIZE') ??
@@ -505,11 +548,7 @@ class BatchLogRecordProcessorBase {
 		if (this._finishedLogRecords.length === 0) {
 			return Promise.resolve();
 		}
-		return new Promise((resolve, reject) => {
-			callWithTimeout(this._export(this._finishedLogRecords.splice(0, this._maxExportBatchSize)), this._exportTimeoutMillis)
-				.then(() => resolve())
-				.catch(reject);
-		});
+		return callWithTimeout(this._export(this._finishedLogRecords.splice(0, this._maxExportBatchSize)), this._exportTimeoutMillis);
 	}
 	_maybeStartTimer() {
 		if (this._isExporting)
@@ -569,4 +608,39 @@ class BatchLogRecordProcessor extends BatchLogRecordProcessorBase {
 	onShutdown() { }
 }
 
-export { BatchLogRecordProcessor, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LoggerProvider, SimpleLogRecordProcessor };
+const DEFAULT_LOGGER_CONFIG = {
+	disabled: false,
+	minimumSeverity: SeverityNumber.UNSPECIFIED,
+	traceBased: false,
+};
+function createLoggerConfigurator(patterns) {
+	return (loggerScope) => {
+		const loggerName = loggerScope.name;
+		for (const { pattern, config } of patterns) {
+			if (matchesPattern(loggerName, pattern)) {
+				return {
+					disabled: config.disabled ?? DEFAULT_LOGGER_CONFIG.disabled,
+					minimumSeverity: config.minimumSeverity ?? DEFAULT_LOGGER_CONFIG.minimumSeverity,
+					traceBased: config.traceBased ?? DEFAULT_LOGGER_CONFIG.traceBased,
+				};
+			}
+		}
+		return { ...DEFAULT_LOGGER_CONFIG };
+	};
+}
+function matchesPattern(name, pattern) {
+	if (pattern === name) {
+		return true;
+	}
+	if (pattern.includes('*')) {
+		const regexPattern = pattern
+			.split('*')
+			.map(part => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+			.join('.*');
+		const regex = new RegExp(`^${regexPattern}$`);
+		return regex.test(name);
+	}
+	return false;
+}
+
+export { BatchLogRecordProcessor, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LoggerProvider, SimpleLogRecordProcessor, createLoggerConfigurator };

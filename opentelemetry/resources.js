@@ -24,7 +24,7 @@ import { ATTR_TELEMETRY_SDK_VERSION, ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK
 
 
 function defaultServiceName() {
-	return `unknown_service:deno`;
+	return 'unknown_service:deno';
 }
 
 const isPromiseLike = (val) => {

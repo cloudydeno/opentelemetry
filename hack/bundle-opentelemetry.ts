@@ -137,12 +137,19 @@ await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-core/src/
 await Deno.writeTextFile('hack/opentelemetry-js/packages/sdk-metrics/test/index-webpack.ts', '');
 await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/test/browser/index-webpack.ts', '');
 
-await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/platform/node/utils.ts',
-`export const normalizeArch = (archString: string) => ({
-  'x64_64': 'amd64',
-  'aarch64': 'arm64',
-})[archString] ?? archString;
-export const normalizeType = (os: string) => os;`);
+await Deno.readTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/default-service-name.ts');
+await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/default-service-name.ts',
+`export function defaultServiceName(): string {
+  return 'unknown_service:deno';
+}
+`);
+
+// await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/platform/node/utils.ts',
+// `export const normalizeArch = (archString: string) => ({
+//   'x64_64': 'amd64',
+//   'aarch64': 'arm64',
+// })[archString] ?? archString;
+// export const normalizeType = (os: string) => os;`);
 
 await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/detectors/platform/node/machine-id/getMachineId.ts',
 `import { getMachineId as bsdGetId } from './getMachineId-bsd';
@@ -389,7 +396,7 @@ await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-expor
 import { OtlpHttpConfiguration } from '../configuration/otlp-http-configuration';
 import { ExportResponse } from '../export-response';
 import { IExporterTransport } from '../exporter-transport';
-import { isExportRetryable, parseRetryAfterToMills } from '../is-export-retryable';
+import { isExportHTTPErrorRetryable, parseRetryAfterToMills } from '../is-export-retryable';
 import { OTLPExporterError } from '../types';
 
 class HttpExporterTransport implements IExporterTransport {
@@ -414,7 +421,7 @@ class HttpExporterTransport implements IExporterTransport {
         const data = new Uint8Array(await res.arrayBuffer());
         return { status: 'success', data };
       }
-      if (isExportRetryable(res.status)) {
+      if (isExportHTTPErrorRetryable(res.status)) {
         const retryInMillis = parseRetryAfterToMills(res.headers.get('retry-after'));
         return { status: 'retryable', retryInMillis };
       }

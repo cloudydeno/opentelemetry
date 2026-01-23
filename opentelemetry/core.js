@@ -53,20 +53,33 @@ function getKeyPairs(baggage) {
 	});
 }
 function parsePairKeyValue(entry) {
-	const valueProps = entry.split(BAGGAGE_PROPERTIES_SEPARATOR);
-	if (valueProps.length <= 0)
+	if (!entry)
 		return;
-	const keyPairPart = valueProps.shift();
-	if (!keyPairPart)
-		return;
+	const metadataSeparatorIndex = entry.indexOf(BAGGAGE_PROPERTIES_SEPARATOR);
+	const keyPairPart = metadataSeparatorIndex === -1
+		? entry
+		: entry.substring(0, metadataSeparatorIndex);
 	const separatorIndex = keyPairPart.indexOf(BAGGAGE_KEY_PAIR_SEPARATOR);
 	if (separatorIndex <= 0)
 		return;
-	const key = decodeURIComponent(keyPairPart.substring(0, separatorIndex).trim());
-	const value = decodeURIComponent(keyPairPart.substring(separatorIndex + 1).trim());
+	const rawKey = keyPairPart.substring(0, separatorIndex).trim();
+	const rawValue = keyPairPart.substring(separatorIndex + 1).trim();
+	if (!rawKey || !rawValue)
+		return;
+	let key;
+	let value;
+	try {
+		key = decodeURIComponent(rawKey);
+		value = decodeURIComponent(rawValue);
+	}
+	catch {
+		return;
+	}
 	let metadata;
-	if (valueProps.length > 0) {
-		metadata = baggageEntryMetadataFromString(valueProps.join(BAGGAGE_PROPERTIES_SEPARATOR));
+	if (metadataSeparatorIndex !== -1 &&
+		metadataSeparatorIndex < entry.length - 1) {
+		const metadataString = entry.substring(metadataSeparatorIndex + 1);
+		metadata = baggageEntryMetadataFromString(metadataString);
 	}
 	return { key, value, metadata };
 }
@@ -297,11 +310,9 @@ function getStringListFromEnv(key) {
 		.filter(s => s !== '');
 }
 
-const _globalThis = typeof globalThis === 'object' ? globalThis : global;
+const _globalThis = globalThis;
 
-const otperformance = performance;
-
-const VERSION$1 = "2.2.0";
+const VERSION$1 = "2.3.0";
 
 const ATTR_PROCESS_RUNTIME_NAME = 'process.runtime.name';
 
@@ -311,6 +322,8 @@ const SDK_INFO = {
 	[ATTR_TELEMETRY_SDK_LANGUAGE]: TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS,
 	[ATTR_TELEMETRY_SDK_VERSION]: VERSION$1,
 };
+
+const otperformance = performance;
 
 const NANOSECOND_DIGITS = 9;
 const NANOSECOND_DIGITS_IN_MILLIS = 6;
@@ -323,15 +336,10 @@ function millisToHrTime(epochMillis) {
 	return [seconds, nanos];
 }
 function getTimeOrigin() {
-	let timeOrigin = otperformance.timeOrigin;
-	if (typeof timeOrigin !== 'number') {
-		const perf = otperformance;
-		timeOrigin = perf.timing && perf.timing.fetchStart;
-	}
-	return timeOrigin;
+	return otperformance.timeOrigin;
 }
 function hrTime(performanceNow) {
-	const timeOrigin = millisToHrTime(getTimeOrigin());
+	const timeOrigin = millisToHrTime(otperformance.timeOrigin);
 	const now = millisToHrTime(typeof performanceNow === 'number' ? performanceNow : otperformance.now());
 	return addHrTimes(timeOrigin, now);
 }
@@ -340,7 +348,7 @@ function timeInputToHrTime(time) {
 		return time;
 	}
 	else if (typeof time === 'number') {
-		if (time < getTimeOrigin()) {
+		if (time < otperformance.timeOrigin) {
 			return hrTime(time);
 		}
 		else {
@@ -848,13 +856,13 @@ class Deferred {
 }
 
 class BindOnceFuture {
-	_callback;
-	_that;
 	_isCalled = false;
 	_deferred = new Deferred();
-	constructor(_callback, _that) {
-		this._callback = _callback;
-		this._that = _that;
+	_callback;
+	_that;
+	constructor(callback, that) {
+		this._callback = callback;
+		this._that = that;
 	}
 	get isCalled() {
 		return this._isCalled;

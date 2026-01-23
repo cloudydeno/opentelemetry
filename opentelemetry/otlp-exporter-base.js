@@ -22,8 +22,8 @@ import { diag } from './api.js';
 
 class OTLPExporterBase {
 	_delegate;
-	constructor(_delegate) {
-		this._delegate = _delegate;
+	constructor(delegate) {
+		this._delegate = delegate;
 	}
 	export(items, resultCallback) {
 		this._delegate.export(items, resultCallback);
@@ -132,18 +132,18 @@ function createLoggingPartialSuccessResponseHandler() {
 }
 
 class OTLPExportDelegate {
+	_diagLogger;
 	_transport;
 	_serializer;
 	_responseHandler;
 	_promiseQueue;
 	_timeout;
-	_diagLogger;
-	constructor(_transport, _serializer, _responseHandler, _promiseQueue, _timeout) {
-		this._transport = _transport;
-		this._serializer = _serializer;
-		this._responseHandler = _responseHandler;
-		this._promiseQueue = _promiseQueue;
-		this._timeout = _timeout;
+	constructor(transport, serializer, responseHandler, promiseQueue, timeout) {
+		this._transport = transport;
+		this._serializer = serializer;
+		this._responseHandler = responseHandler;
+		this._promiseQueue = promiseQueue;
+		this._timeout = timeout;
 		this._diagLogger = diag.createComponentLogger({
 			namespace: 'OTLPExportDelegate',
 		});
@@ -190,7 +190,8 @@ class OTLPExportDelegate {
 			else if (response.status === 'retryable') {
 				resultCallback({
 					code: ExportResultCode.FAILED,
-					error: new OTLPExporterError('Export failed with retryable status'),
+					error: response.error ??
+						new OTLPExporterError('Export failed with retryable status'),
 				});
 			}
 			else {
@@ -302,9 +303,11 @@ function getNodeHttpConfigurationDefaults(requiredHeaders, signalResourcePath) {
 	};
 }
 
-function isExportRetryable(statusCode) {
-	const retryCodes = [429, 502, 503, 504];
-	return retryCodes.includes(statusCode);
+function isExportHTTPErrorRetryable(statusCode) {
+	return (statusCode === 429 ||
+		statusCode === 502 ||
+		statusCode === 503 ||
+		statusCode === 504);
 }
 function parseRetryAfterToMills(retryAfter) {
 	if (retryAfter == null) {
@@ -342,7 +345,7 @@ class HttpExporterTransport {
 				const data = new Uint8Array(await res.arrayBuffer());
 				return { status: 'success', data };
 			}
-			if (isExportRetryable(res.status)) {
+			if (isExportHTTPErrorRetryable(res.status)) {
 				const retryInMillis = parseRetryAfterToMills(res.headers.get('retry-after'));
 				return { status: 'retryable', retryInMillis };
 			}
@@ -366,8 +369,8 @@ function getJitter() {
 }
 class RetryingTransport {
 	_transport;
-	constructor(_transport) {
-		this._transport = _transport;
+	constructor(transport) {
+		this._transport = transport;
 	}
 	retry(data, timeoutMillis, inMillis) {
 		return new Promise((resolve, reject) => {
@@ -377,20 +380,31 @@ class RetryingTransport {
 		});
 	}
 	async send(data, timeoutMillis) {
-		const deadline = Date.now() + timeoutMillis;
-		let result = await this._transport.send(data, timeoutMillis);
 		let attempts = MAX_ATTEMPTS;
 		let nextBackoff = INITIAL_BACKOFF;
+		const deadline = Date.now() + timeoutMillis;
+		let result = await this._transport.send(data, timeoutMillis);
 		while (result.status === 'retryable' && attempts > 0) {
 			attempts--;
-			const backoff = Math.max(Math.min(nextBackoff, MAX_BACKOFF) + getJitter(), 0);
+			const backoff = Math.max(Math.min(nextBackoff * (1 + getJitter()), MAX_BACKOFF), 0);
 			nextBackoff = nextBackoff * BACKOFF_MULTIPLIER;
 			const retryInMillis = result.retryInMillis ?? backoff;
 			const remainingTimeoutMillis = deadline - Date.now();
 			if (retryInMillis > remainingTimeoutMillis) {
+				diag.info(`Export retry time ${Math.round(retryInMillis)}ms exceeds remaining timeout ${Math.round(remainingTimeoutMillis)}ms, not retrying further.`);
 				return result;
 			}
+			diag.verbose(`Scheduling export retry in ${Math.round(retryInMillis)}ms`);
 			result = await this.retry(data, remainingTimeoutMillis, retryInMillis);
+		}
+		if (result.status === 'success') {
+			diag.verbose(`Export succeded after ${MAX_ATTEMPTS - attempts} retry attempts.`);
+		}
+		else if (result.status === 'retryable') {
+			diag.info(`Export failed after maximum retry attempts (${MAX_ATTEMPTS}).`);
+		}
+		else {
+			diag.info(`Export failed with non-retryable error: ${result.error}`);
 		}
 		return result;
 	}

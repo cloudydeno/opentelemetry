@@ -28,6 +28,7 @@ interface ExportResponseFailure {
 interface ExportResponseRetryable {
 	status: 'retryable';
 	retryInMillis?: number;
+	error?: Error;
 }
 type ExportResponse = ExportResponseSuccess | ExportResponseFailure | ExportResponseRetryable;
 
@@ -47,7 +48,7 @@ interface IOtlpExportDelegate<Internal> {
 
 declare class OTLPExporterBase<Internal> {
 	private _delegate;
-	constructor(_delegate: IOtlpExportDelegate<Internal>);
+	constructor(delegate: IOtlpExportDelegate<Internal>);
 	/**
 	* Export items.
 	* @param items

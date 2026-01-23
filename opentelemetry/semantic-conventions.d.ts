@@ -468,8 +468,9 @@ declare const ATTR_HTTP_REQUEST_HEADER: (key: string) => string;
  * @example HEAD
  *
  * @note HTTP request method value **SHOULD** be "known" to the instrumentation.
- * By default, this convention defines "known" methods as the ones listed in [RFC9110](https://www.rfc-editor.org/rfc/rfc9110.html#name-methods)
- * and the PATCH method defined in [RFC5789](https://www.rfc-editor.org/rfc/rfc5789.html).
+ * By default, this convention defines "known" methods as the ones listed in [RFC9110](https://www.rfc-editor.org/rfc/rfc9110.html#name-methods),
+ * the PATCH method defined in [RFC5789](https://www.rfc-editor.org/rfc/rfc5789.html)
+ * and the QUERY method defined in [httpbis-safe-method-w-body](https://datatracker.ietf.org/doc/draft-ietf-httpbis-safe-method-w-body/?include_text=1).
  *
  * If the HTTP request method is not known to instrumentation, it **MUST** set the `http.request.method` attribute to `_OTHER`.
  *
@@ -589,13 +590,21 @@ declare const ATTR_HTTP_RESPONSE_HEADER: (key: string) => string;
  */
 declare const ATTR_HTTP_RESPONSE_STATUS_CODE: "http.response.status_code";
 /**
- * The matched route, that is, the path template in the format used by the respective server framework.
+ * The matched route template for the request. This **MUST** be low-cardinality and include all static path segments, with dynamic path segments represented with placeholders.
  *
  * @example /users/:userID?
- * @example {controller}/{action}/{id?}
+ * @example my-controller/my-action/{id?}
  *
  * @note **MUST NOT** be populated when this is not supported by the HTTP server framework as the route attribute should have low-cardinality and the URI path can NOT substitute it.
  * **SHOULD** include the [application root](/docs/http/http-spans.md#http-server-definitions) if there is one.
+ *
+ * A static path segment is a part of the route template with a fixed, low-cardinality value. This includes literal strings like `/users/` and placeholders that
+ * are constrained to a finite, predefined set of values, e.g. `{controller}` or `{action}`.
+ *
+ * A dynamic path segment is a placeholder for a value that can have high cardinality and is not constrained to a predefined list like static path segments.
+ *
+ * Instrumentations **SHOULD** use routing information provided by the corresponding web framework. They **SHOULD** pick the most precise source of routing information and **MAY**
+ * support custom route formatting. Instrumentations **SHOULD** document the format and the API used to obtain the route string.
  */
 declare const ATTR_HTTP_ROUTE: "http.route";
 /**
@@ -1547,6 +1556,33 @@ declare const ATTR_APP_SCREEN_COORDINATE_X: "app.screen.coordinate.x";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_APP_SCREEN_COORDINATE_Y: "app.screen.coordinate.y";
+/**
+ * An identifier that uniquely differentiates this screen from other screens in the same application.
+ *
+ * @example f9bc787d-ff05-48ad-90e1-fca1d46130b3
+ * @example com.example.app.MainActivity
+ * @example com.example.shop.ProductDetailFragment
+ * @example MyApp.ProfileView
+ * @example MyApp.ProfileViewController
+ *
+ * @note A screen represents only the part of the device display drawn by the app. It typically contains multiple widgets or UI components and is larger in scope than individual widgets. Multiple screens can coexist on the same display simultaneously (e.g., split view on tablets).
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_APP_SCREEN_ID: "app.screen.id";
+/**
+ * The name of an application screen.
+ *
+ * @example MainActivity
+ * @example ProductDetailFragment
+ * @example ProfileView
+ * @example ProfileViewController
+ *
+ * @note A screen represents only the part of the device display drawn by the app. It typically contains multiple widgets or UI components and is larger in scope than individual widgets. Multiple screens can coexist on the same display simultaneously (e.g., split view on tablets).
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_APP_SCREEN_NAME: "app.screen.name";
 /**
  * An identifier that uniquely differentiates this widget from other widgets in the same application.
  *
@@ -2892,7 +2928,7 @@ declare const AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG: "Strong";
  *
  * @example ["North Central US", "Australia East", "Australia Southeast"]
  *
- * @note Region name matches the format of `displayName` in [Azure Location API](https://learn.microsoft.com/rest/api/subscription/subscriptions/list-locations?view=rest-subscription-2021-10-01&tabs=HTTP#location)
+ * @note Region name matches the format of `displayName` in [Azure Location API](https://learn.microsoft.com/rest/api/resources/subscriptions/list-locations)
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -4174,7 +4210,7 @@ declare const ATTR_CONTAINER_ID: "container.id";
  *
  * @example sha256:19c92d0a00d1b66d897bceaa7319bee0dd38a10a851c60bcec9474aa3f01e50f
  *
- * @note Docker defines a sha256 of the image id; `container.image.id` corresponds to the `Image` field from the Docker container inspect [API](https://docs.docker.com/engine/api/v1.43/#tag/Container/operation/ContainerInspect) endpoint.
+ * @note Docker defines a sha256 of the image id; `container.image.id` corresponds to the `Image` field from the Docker container inspect [API](https://docs.docker.com/reference/api/engine/version/v1.43/#tag/Container/operation/ContainerInspect) endpoint.
  * K8s defines a link to the container registry repository with digest `"imageID": "registry.azurecr.io /namespace/service/dockerfile@sha256:bdeabd40c3a8a492eaf9e8e44d0ebbb84bac7ee25ac0cf8a7159d25f62555625"`.
  * The ID is assigned by the container runtime and can vary in different environments. Consider using `oci.manifest.digest` if it is important to identify the same image in different environments/runtimes.
  *
@@ -4194,13 +4230,13 @@ declare const ATTR_CONTAINER_IMAGE_NAME: "container.image.name";
  *
  * @example ["example@sha256:afcc7f1ac1b49db317a7196c902e61c6c3c4607d63599ee1a82d702d249a0ccb", "internal.registry.example.com:5000/example@sha256:b69959407d21e8a062e0416bf13405bb2b71ed7a84dde4158ebafacfa06f5578"]
  *
- * @note [Docker](https://docs.docker.com/engine/api/v1.43/#tag/Image/operation/ImageInspect) and [CRI](https://github.com/kubernetes/cri-api/blob/c75ef5b473bbe2d0a4fc92f82235efd665ea8e9f/pkg/apis/runtime/v1/api.proto#L1237-L1238) report those under the `RepoDigests` field.
+ * @note [Docker](https://docs.docker.com/reference/api/engine/version/v1.43/#tag/Image/operation/ImageInspect) and [CRI](https://github.com/kubernetes/cri-api/blob/c75ef5b473bbe2d0a4fc92f82235efd665ea8e9f/pkg/apis/runtime/v1/api.proto#L1237-L1238) report those under the `RepoDigests` field.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_CONTAINER_IMAGE_REPO_DIGESTS: "container.image.repo_digests";
 /**
- * Container image tags. An example can be found in [Docker Image Inspect](https://docs.docker.com/engine/api/v1.43/#tag/Image/operation/ImageInspect). Should be only the `<tag>` section of the full name for example from `registry.example.com/my-org/my-image:<tag>`.
+ * Container image tags. An example can be found in [Docker Image Inspect](https://docs.docker.com/reference/api/engine/version/v1.43/#tag/Image/operation/ImageInspect). Should be only the `<tag>` section of the full name for example from `registry.example.com/my-org/my-image:<tag>`.
  *
  * @example ["v1.27.1", "3.5.7-0"]
  *
@@ -4814,7 +4850,7 @@ declare const ATTR_DB_COSMOSDB_REQUEST_CONTENT_LENGTH: "db.cosmosdb.request_cont
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `db.response.status_code`.
+ * @deprecated Use `db.response.status_code` instead.
  */
 declare const ATTR_DB_COSMOSDB_STATUS_CODE: "db.cosmosdb.status_code";
 /**
@@ -4950,14 +4986,17 @@ declare const ATTR_DB_OPERATION_PARAMETER: (key: string) => string;
  * `db.query.parameter.<key>` **SHOULD** match
  * up with the parameterized placeholders present in `db.query.text`.
  *
+ * It is **RECOMMENDED** to capture the value as provided by the application
+ * without attempting to do any case normalization.
+ *
  * `db.query.parameter.<key>` **SHOULD NOT** be captured on batch operations.
  *
  * Examples:
  *
  *   - For a query `SELECT * FROM users where username =  %s` with the parameter `"jdoe"`,
  *     the attribute `db.query.parameter.0` **SHOULD** be set to `"jdoe"`.
- *   - For a query `"SELECT * FROM users WHERE username = %(username)s;` with parameter
- *     `username = "jdoe"`, the attribute `db.query.parameter.username` **SHOULD** be set to `"jdoe"`.
+ *   - For a query `"SELECT * FROM users WHERE username = %(userName)s;` with parameter
+ *     `userName = "jdoe"`, the attribute `db.query.parameter.userName` **SHOULD** be set to `"jdoe"`.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -4971,7 +5010,7 @@ declare const ATTR_DB_QUERY_PARAMETER: (key: string) => string;
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `db.namespace`.
+ * @deprecated Uncategorized.
  */
 declare const ATTR_DB_REDIS_DATABASE_INDEX: "db.redis.database_index";
 /**
@@ -5937,7 +5976,7 @@ declare const ATTR_DNS_ANSWERS: "dns.answers";
  * @example www.example.com
  * @example opentelemetry.io
  *
- * @note If the name field contains non-printable characters (below 32 or above 126), those characters should be represented as escaped base 10 integers (\\DDD). Back slashes and quotes should be escaped. Tabs, carriage returns, and line feeds should be converted to \\t, \\r, and \\n respectively.
+ * @note The name represents the queried domain name as it appears in the DNS query without any additional normalization.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -5983,7 +6022,7 @@ declare const ATTR_ENDUSER_PSEUDO_ID: "enduser.pseudo.id";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `user.roles`.
+ * @deprecated Use `user.roles` instead.
  */
 declare const ATTR_ENDUSER_ROLE: "enduser.role";
 /**
@@ -6019,7 +6058,7 @@ declare const ATTR_ERROR_MESSAGE: "error.message";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by EventName top-level field on the LogRecord.
+ * @deprecated The value of this attribute **MUST** now be set as the value of the EventName field on the LogRecord to indicate that the LogRecord represents an Event.
  */
 declare const ATTR_EVENT_NAME: "event.name";
 /**
@@ -6281,7 +6320,7 @@ declare const FAAS_TRIGGER_VALUE_TIMER: "timer";
  *   - **Google Cloud Run (Services):** The [revision](https://cloud.google.com/run/docs/managing/revisions)
  *     (i.e., the function name plus the revision suffix).
  *   - **Google Cloud Functions:** The value of the
- *     [`K_REVISION` environment variable](https://cloud.google.com/functions/docs/env-var#runtime_environment_variables_set_automatically).
+ *     [`K_REVISION` environment variable](https://cloud.google.com/run/docs/container-contract#services-env-vars).
  *   - **Azure Functions:** Not applicable. Do not set this attribute.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
@@ -6911,6 +6950,198 @@ declare const GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_TEST: "TEST";
  */
 declare const ATTR_GCP_APPHUB_WORKLOAD_ID: "gcp.apphub.workload.id";
 /**
+ * The container within GCP where the AppHub destination application is defined.
+ *
+ * @example projects/my-container-project
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GCP_APPHUB_DESTINATION_APPLICATION_CONTAINER: "gcp.apphub_destination.application.container";
+/**
+ * The name of the destination application as configured in AppHub.
+ *
+ * @example my-application
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GCP_APPHUB_DESTINATION_APPLICATION_ID: "gcp.apphub_destination.application.id";
+/**
+ * The GCP zone or region where the destination application is defined.
+ *
+ * @example us-central1
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GCP_APPHUB_DESTINATION_APPLICATION_LOCATION: "gcp.apphub_destination.application.location";
+/**
+ * Criticality of a destination workload indicates its importance to the business as specified in [AppHub type enum](https://cloud.google.com/app-hub/docs/reference/rest/v1/Attributes#type)
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE: "gcp.apphub_destination.service.criticality_type";
+/**
+ * Enum value "HIGH" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE}.
+ *
+ * High impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE_VALUE_HIGH: "HIGH";
+/**
+ * Enum value "LOW" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE}.
+ *
+ * Low impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE_VALUE_LOW: "LOW";
+/**
+ * Enum value "MEDIUM" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE}.
+ *
+ * Medium impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE_VALUE_MEDIUM: "MEDIUM";
+/**
+ * Enum value "MISSION_CRITICAL" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE}.
+ *
+ * Mission critical service.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL: "MISSION_CRITICAL";
+/**
+ * Software lifecycle stage of a destination service as defined [AppHub environment type](https://cloud.google.com/app-hub/docs/reference/rest/v1/Attributes#type_1)
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE: "gcp.apphub_destination.service.environment_type";
+/**
+ * Enum value "DEVELOPMENT" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE}.
+ *
+ * Development environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT: "DEVELOPMENT";
+/**
+ * Enum value "PRODUCTION" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE}.
+ *
+ * Production environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE_VALUE_PRODUCTION: "PRODUCTION";
+/**
+ * Enum value "STAGING" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE}.
+ *
+ * Staging environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE_VALUE_STAGING: "STAGING";
+/**
+ * Enum value "TEST" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE}.
+ *
+ * Test environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE_VALUE_TEST: "TEST";
+/**
+ * The name of the destination service as configured in AppHub.
+ *
+ * @example my-service
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GCP_APPHUB_DESTINATION_SERVICE_ID: "gcp.apphub_destination.service.id";
+/**
+ * Criticality of a destination workload indicates its importance to the business as specified in [AppHub type enum](https://cloud.google.com/app-hub/docs/reference/rest/v1/Attributes#type)
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE: "gcp.apphub_destination.workload.criticality_type";
+/**
+ * Enum value "HIGH" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE}.
+ *
+ * High impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE_VALUE_HIGH: "HIGH";
+/**
+ * Enum value "LOW" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE}.
+ *
+ * Low impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE_VALUE_LOW: "LOW";
+/**
+ * Enum value "MEDIUM" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE}.
+ *
+ * Medium impact.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE_VALUE_MEDIUM: "MEDIUM";
+/**
+ * Enum value "MISSION_CRITICAL" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE}.
+ *
+ * Mission critical service.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL: "MISSION_CRITICAL";
+/**
+ * Environment of a destination workload is the stage of a software lifecycle as provided in the [AppHub environment type](https://cloud.google.com/app-hub/docs/reference/rest/v1/Attributes#type_1)
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE: "gcp.apphub_destination.workload.environment_type";
+/**
+ * Enum value "DEVELOPMENT" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE}.
+ *
+ * Development environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT: "DEVELOPMENT";
+/**
+ * Enum value "PRODUCTION" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE}.
+ *
+ * Production environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE_VALUE_PRODUCTION: "PRODUCTION";
+/**
+ * Enum value "STAGING" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE}.
+ *
+ * Staging environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE_VALUE_STAGING: "STAGING";
+/**
+ * Enum value "TEST" for attribute {@link ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE}.
+ *
+ * Test environment.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE_VALUE_TEST: "TEST";
+/**
+ * The name of the destination workload as configured in AppHub.
+ *
+ * @example my-workload
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_ID: "gcp.apphub_destination.workload.id";
+/**
  * Identifies the Google Cloud service for which the official client library is intended.
  *
  * @example appengine
@@ -7014,6 +7245,55 @@ declare const ATTR_GEN_AI_CONVERSATION_ID: "gen_ai.conversation.id";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_GEN_AI_DATA_SOURCE_ID: "gen_ai.data_source.id";
+/**
+ * The number of dimensions the resulting output embeddings should have.
+ *
+ * @example 512
+ * @example 1024
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_EMBEDDINGS_DIMENSION_COUNT: "gen_ai.embeddings.dimension.count";
+/**
+ * A free-form explanation for the assigned score provided by the evaluator.
+ *
+ * @example The response is factually accurate but lacks sufficient detail to fully address the question.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_EVALUATION_EXPLANATION: "gen_ai.evaluation.explanation";
+/**
+ * The name of the evaluation metric used for the GenAI response.
+ *
+ * @example Relevance
+ * @example IntentResolution
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_EVALUATION_NAME: "gen_ai.evaluation.name";
+/**
+ * Human readable label for evaluation.
+ *
+ * @example relevant
+ * @example not_relevant
+ * @example correct
+ * @example incorrect
+ * @example pass
+ * @example fail
+ *
+ * @note This attribute provides a human-readable interpretation of the evaluation score produced by an evaluator. For example, a score value of 1 could mean "relevant" in one evaluation system and "not relevant" in another, depending on the scoring range and evaluator. The label **SHOULD** have low cardinality. Possible values depend on the evaluation metric and evaluator used; implementations **SHOULD** document the possible values.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_EVALUATION_SCORE_LABEL: "gen_ai.evaluation.score.label";
+/**
+ * The evaluation score returned by the evaluator.
+ *
+ * @example 4.0
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_EVALUATION_SCORE_VALUE: "gen_ai.evaluation.score.value";
 /**
  * The chat history provided to the model as an input.
  *
@@ -7603,6 +7883,8 @@ declare const GEN_AI_SYSTEM_VALUE_AWS_BEDROCK: "aws.bedrock";
  * Azure AI Inference
  *
  * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `azure.ai.inference`.
  */
 declare const GEN_AI_SYSTEM_VALUE_AZ_AI_INFERENCE: "az.ai.inference";
 /**
@@ -7611,6 +7893,8 @@ declare const GEN_AI_SYSTEM_VALUE_AZ_AI_INFERENCE: "az.ai.inference";
  * Azure OpenAI
  *
  * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `azure.ai.openai`.
  */
 declare const GEN_AI_SYSTEM_VALUE_AZ_AI_OPENAI: "az.ai.openai";
 /**
@@ -7735,8 +8019,6 @@ declare const GEN_AI_SYSTEM_VALUE_VERTEX_AI: "vertex_ai";
  * xAI
  *
  * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
- *
- * @deprecated Replaced by `x_ai`.
  */
 declare const GEN_AI_SYSTEM_VALUE_XAI: "xai";
 /**
@@ -7820,6 +8102,25 @@ declare const GEN_AI_TOKEN_TYPE_VALUE_COMPLETION: "output";
  */
 declare const GEN_AI_TOKEN_TYPE_VALUE_OUTPUT: "output";
 /**
+ * Parameters passed to the tool call.
+ *
+ * @example {
+ * "location": "San Francisco?",
+ * "date": "2025-10-01"
+ * }
+ *
+ * @note > [!WARNING]
+ *
+ * > This attribute may contain sensitive information.
+ *
+ * It's expected to be an object - in case a serialized string is available
+ * to the instrumentation, the instrumentation **SHOULD** do the best effort to
+ * deserialize it to an object. When recorded on spans, it **MAY** be recorded as a JSON string if structured format is not supported and **SHOULD** be recorded in structured form otherwise.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_TOOL_CALL_ARGUMENTS: "gen_ai.tool.call.arguments";
+/**
  * The tool call identifier.
  *
  * @example call_mszuSIzqtI65i1wAUOE8w5H4
@@ -7827,6 +8128,72 @@ declare const GEN_AI_TOKEN_TYPE_VALUE_OUTPUT: "output";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_GEN_AI_TOOL_CALL_ID: "gen_ai.tool.call.id";
+/**
+ * The result returned by the tool call (if any and if execution was successful).
+ *
+ * @example {
+ * "temperature_range": {
+ * "high": 75,
+ * "low": 60
+ * },
+ * "conditions": "sunny"
+ * }
+ *
+ * @note > [!WARNING]
+ *
+ * > This attribute may contain sensitive information.
+ *
+ * It's expected to be an object - in case a serialized string is available
+ * to the instrumentation, the instrumentation **SHOULD** do the best effort to
+ * deserialize it to an object. When recorded on spans, it **MAY** be recorded as a JSON string if structured format is not supported and **SHOULD** be recorded in structured form otherwise.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_TOOL_CALL_RESULT: "gen_ai.tool.call.result";
+/**
+ * The list of source system tool definitions available to the GenAI agent or model.
+ *
+ * @example [
+ * {
+ * "type": "function",
+ * "name": "get_current_weather",
+ * "description": "Get the current weather in a given location",
+ * "parameters": {
+ * "type": "object",
+ * "properties": {
+ * "location": {
+ * "type": "string",
+ * "description": "The city and state, e.g. San Francisco, CA"
+ * },
+ * "unit": {
+ * "type": "string",
+ * "enum": [
+ * "celsius",
+ * "fahrenheit"
+ * ]
+ * }
+ * },
+ * "required": [
+ * "location",
+ * "unit"
+ * ]
+ * }
+ * }
+ * ]
+ *
+ * @note The value of this attribute matches source system tool definition format.
+ *
+ * It's expected to be an array of objects where each object represents a tool definition. In case a serialized string is available
+ * to the instrumentation, the instrumentation **SHOULD** do the best effort to
+ * deserialize it to an array. When recorded on spans, it **MAY** be recorded as a JSON string if structured format is not supported and **SHOULD** be recorded in structured form otherwise.
+ *
+ * Since this attribute could be large, it's NOT **RECOMMENDED** to populate
+ * it by default. Instrumentations **MAY** provide a way to enable
+ * populating this attribute.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_GEN_AI_TOOL_DEFINITIONS: "gen_ai.tool.definitions";
 /**
  * The tool description.
  *
@@ -8334,11 +8701,11 @@ declare const HTTP_CONNECTION_STATE_VALUE_ACTIVE: "active";
  */
 declare const HTTP_CONNECTION_STATE_VALUE_IDLE: "idle";
 /**
- * Deprecated, use `network.protocol.name` instead.
+ * Deprecated, use `network.protocol.name` and `network.protocol.version` instead.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `network.protocol.name`.
+ * @deprecated Split into `network.protocol.name` and `network.protocol.version`
  */
 declare const ATTR_HTTP_FLAVOR: "http.flavor";
 /**
@@ -8419,6 +8786,14 @@ declare const ATTR_HTTP_METHOD: "http.method";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_HTTP_REQUEST_BODY_SIZE: "http.request.body.size";
+/**
+ * Enum value "QUERY" for attribute {@link ATTR_HTTP_REQUEST_METHOD}.
+ *
+ * QUERY method.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const HTTP_REQUEST_METHOD_VALUE_QUERY: "QUERY";
 /**
  * The total size of the request in bytes. This should be the total number of bytes sent over the wire, including the request line (HTTP/1.1), framing (HTTP/2 and HTTP/3), headers, and request body if any.
  *
@@ -9921,6 +10296,104 @@ declare const ATTR_K8S_POD_LABELS: (key: string) => string;
  */
 declare const ATTR_K8S_POD_NAME: "k8s.pod.name";
 /**
+ * The phase for the pod. Corresponds to the `phase` field of the: [K8s PodStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#podstatus-v1-core)
+ *
+ * @example Pending
+ * @example Running
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_POD_STATUS_PHASE: "k8s.pod.status.phase";
+/**
+ * Enum value "Failed" for attribute {@link ATTR_K8S_POD_STATUS_PHASE}.
+ *
+ * All containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_POD_STATUS_PHASE_VALUE_FAILED: "Failed";
+/**
+ * Enum value "Pending" for attribute {@link ATTR_K8S_POD_STATUS_PHASE}.
+ *
+ * The pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_POD_STATUS_PHASE_VALUE_PENDING: "Pending";
+/**
+ * Enum value "Running" for attribute {@link ATTR_K8S_POD_STATUS_PHASE}.
+ *
+ * The pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_POD_STATUS_PHASE_VALUE_RUNNING: "Running";
+/**
+ * Enum value "Succeeded" for attribute {@link ATTR_K8S_POD_STATUS_PHASE}.
+ *
+ * All containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_POD_STATUS_PHASE_VALUE_SUCCEEDED: "Succeeded";
+/**
+ * Enum value "Unknown" for attribute {@link ATTR_K8S_POD_STATUS_PHASE}.
+ *
+ * For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_POD_STATUS_PHASE_VALUE_UNKNOWN: "Unknown";
+/**
+ * The reason for the pod state. Corresponds to the `reason` field of the: [K8s PodStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.33/#podstatus-v1-core)
+ *
+ * @example Evicted
+ * @example NodeAffinity
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_K8S_POD_STATUS_REASON: "k8s.pod.status.reason";
+/**
+ * Enum value "Evicted" for attribute {@link ATTR_K8S_POD_STATUS_REASON}.
+ *
+ * The pod is evicted.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_POD_STATUS_REASON_VALUE_EVICTED: "Evicted";
+/**
+ * Enum value "NodeAffinity" for attribute {@link ATTR_K8S_POD_STATUS_REASON}.
+ *
+ * The pod is in a status because of its node affinity
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_POD_STATUS_REASON_VALUE_NODE_AFFINITY: "NodeAffinity";
+/**
+ * Enum value "NodeLost" for attribute {@link ATTR_K8S_POD_STATUS_REASON}.
+ *
+ * The reason on a pod when its state cannot be confirmed as kubelet is unresponsive on the node it is (was) running.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_POD_STATUS_REASON_VALUE_NODE_LOST: "NodeLost";
+/**
+ * Enum value "Shutdown" for attribute {@link ATTR_K8S_POD_STATUS_REASON}.
+ *
+ * The node is shutdown
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_POD_STATUS_REASON_VALUE_SHUTDOWN: "Shutdown";
+/**
+ * Enum value "UnexpectedAdmissionError" for attribute {@link ATTR_K8S_POD_STATUS_REASON}.
+ *
+ * The pod was rejected admission to the node because of an error during admission that could not be categorized.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const K8S_POD_STATUS_REASON_VALUE_UNEXPECTED_ADMISSION_ERROR: "UnexpectedAdmissionError";
+/**
  * The UID of the Pod.
  *
  * @example 275ecb36-5aa8-4c2a-9c47-d8bb681b9aff
@@ -10007,7 +10480,7 @@ declare const ATTR_K8S_RESOURCEQUOTA_NAME: "k8s.resourcequota.name";
  *
  * @example count/replicationcontrollers
  *
- * @note The value for this attribute can be either the full `count/<resource>[.<group>]` string (e.g., count/deployments.apps, count/pods), or, for certain core Kubernetes resources, just the resource name (e.g., pods, services, configmaps). Both forms are supported by Kubernetes for object count quotas. See [Kubernetes Resource Quotas documentation](https://kubernetes.io/docs/concepts/policy/resource-quotas/#object-count-quota) for more details.
+ * @note The value for this attribute can be either the full `count/<resource>[.<group>]` string (e.g., count/deployments.apps, count/pods), or, for certain core Kubernetes resources, just the resource name (e.g., pods, services, configmaps). Both forms are supported by Kubernetes for object count quotas. See [Kubernetes Resource Quotas documentation](https://kubernetes.io/docs/concepts/policy/resource-quotas/#quota-on-object-count) for more details.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -10462,7 +10935,7 @@ declare const ATTR_MESSAGING_KAFKA_CONSUMER_GROUP: "messaging.kafka.consumer.gro
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `messaging.destination.partition.id`.
+ * @deprecated Record string representation of the partition id in `messaging.destination.partition.id` attribute.
  */
 declare const ATTR_MESSAGING_KAFKA_DESTINATION_PARTITION: "messaging.kafka.destination.partition";
 /**
@@ -11487,6 +11960,24 @@ declare const NETWORK_IO_DIRECTION_VALUE_RECEIVE: "receive";
  */
 declare const NETWORK_IO_DIRECTION_VALUE_TRANSMIT: "transmit";
 /**
+ * NFSv4+ operation name.
+ *
+ * @example OPEN
+ * @example READ
+ * @example GETATTR
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_NFS_OPERATION_NAME: "nfs.operation.name";
+/**
+ * Linux: one of "hit" (NFSD_STATS_RC_HITS), "miss" (NFSD_STATS_RC_MISSES), or "nocache" (NFSD_STATS_RC_NOCACHE -- uncacheable)
+ *
+ * @example "hit"
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_NFS_SERVER_REPCACHE_STATUS: "nfs.server.repcache.status";
+/**
  * The state of event loop time.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
@@ -11519,6 +12010,37 @@ declare const NODEJS_EVENTLOOP_STATE_VALUE_IDLE: "idle";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_OCI_MANIFEST_DIGEST: "oci.manifest.digest";
+/**
+ * ONC/Sun RPC procedure name.
+ *
+ * @example OPEN
+ * @example READ
+ * @example GETATTR
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ONC_RPC_PROCEDURE_NAME: "onc_rpc.procedure.name";
+/**
+ * ONC/Sun RPC procedure number.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ONC_RPC_PROCEDURE_NUMBER: "onc_rpc.procedure.number";
+/**
+ * ONC/Sun RPC program name.
+ *
+ * @example portmapper
+ * @example nfs
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ONC_RPC_PROGRAM_NAME: "onc_rpc.program.name";
+/**
+ * ONC/Sun RPC program version.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_ONC_RPC_VERSION: "onc_rpc.version";
 /**
  * The service tier requested. May be a specific tier, default, or auto.
  *
@@ -11561,6 +12083,22 @@ declare const ATTR_OPENAI_RESPONSE_SERVICE_TIER: "openai.response.service_tier";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_OPENAI_RESPONSE_SYSTEM_FINGERPRINT: "openai.response.system_fingerprint";
+/**
+ * The name of the cluster quota.
+ *
+ * @example opentelemetry
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_OPENSHIFT_CLUSTERQUOTA_NAME: "openshift.clusterquota.name";
+/**
+ * The UID of the cluster quota.
+ *
+ * @example 275ecb36-5aa8-4c2a-9c47-d8bb681b9aff
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_OPENSHIFT_CLUSTERQUOTA_UID: "openshift.clusterquota.uid";
 /**
  * Parent-child Reference type
  *
@@ -11983,6 +12521,11 @@ declare const OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_ONLY: "RECORD_ONLY";
  *
  * @example "AuthTokenCache"
  *
+ * @note Examples of `peer.service` that users may specify:
+ *
+ *   - A Redis cache of auth tokens as `peer.service="AuthTokenCache"`.
+ *   - A gRPC service `rpc.service="io.opentelemetry.AuthService"` may be hosted in both a gateway, `peer.service="ExternalApiService"` and a backend, `peer.service="AuthService"`.
+ *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_PEER_SERVICE: "peer.service";
@@ -11996,6 +12539,44 @@ declare const ATTR_PEER_SERVICE: "peer.service";
  * @deprecated Replaced by `db.client.connection.pool.name`.
  */
 declare const ATTR_POOL_NAME: "pool.name";
+/**
+ * Provides an indication that multiple symbols map to this location's address, for example due to identical code folding by the linker. In that case the line information represents one of the multiple symbols. This field must be recomputed when the symbolization state of the profile changes.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_PPROF_LOCATION_IS_FOLDED: "pprof.location.is_folded";
+/**
+ * Indicates that there are filenames related to this mapping.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_PPROF_MAPPING_HAS_FILENAMES: "pprof.mapping.has_filenames";
+/**
+ * Indicates that there are functions related to this mapping.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_PPROF_MAPPING_HAS_FUNCTIONS: "pprof.mapping.has_functions";
+/**
+ * Indicates that there are inline frames related to this mapping.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_PPROF_MAPPING_HAS_INLINE_FRAMES: "pprof.mapping.has_inline_frames";
+/**
+ * Indicates that there are line numbers related to this mapping.
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_PPROF_MAPPING_HAS_LINE_NUMBERS: "pprof.mapping.has_line_numbers";
+/**
+ * Free-form text associated with the profile. This field should not be used to store any machine-readable information, it is only for human-friendly content.
+ *
+ * @example ["hello world", "bazinga"]
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_PPROF_PROFILE_COMMENT: "pprof.profile.comment";
 /**
  * Length of the process.command_args array
  *
@@ -12035,7 +12616,7 @@ declare const ATTR_PROCESS_COMMAND_LINE: "process.command_line";
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const ATTR_PROCESS_CONTEXT_SWITCH_TYPE: "process.context_switch_type";
+declare const ATTR_PROCESS_CONTEXT_SWITCH_TYPE: "process.context_switch.type";
 /**
  * Enum value "involuntary" for attribute {@link ATTR_PROCESS_CONTEXT_SWITCH_TYPE}.
  *
@@ -12199,9 +12780,11 @@ declare const ATTR_PROCESS_LINUX_CGROUP: "process.linux.cgroup";
  */
 declare const ATTR_PROCESS_OWNER: "process.owner";
 /**
- * The type of page fault for this data point. Type `major` is for major/hard page faults, and `minor` is for minor/soft page faults.
+ * Deprecated, use `system.paging.fault.type` instead.
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `system.paging.fault.type`.
  */
 declare const ATTR_PROCESS_PAGING_FAULT_TYPE: "process.paging.fault_type";
 /**
@@ -12296,6 +12879,38 @@ declare const ATTR_PROCESS_SAVED_USER_NAME: "process.saved_user.name";
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_PROCESS_SESSION_LEADER_PID: "process.session_leader.pid";
+/**
+ * The process state, e.g., [Linux Process State Codes](https://man7.org/linux/man-pages/man1/ps.1.html#PROCESS_STATE_CODES)
+ *
+ * @example running
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_PROCESS_STATE: "process.state";
+/**
+ * Enum value "defunct" for attribute {@link ATTR_PROCESS_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const PROCESS_STATE_VALUE_DEFUNCT: "defunct";
+/**
+ * Enum value "running" for attribute {@link ATTR_PROCESS_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const PROCESS_STATE_VALUE_RUNNING: "running";
+/**
+ * Enum value "sleeping" for attribute {@link ATTR_PROCESS_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const PROCESS_STATE_VALUE_SLEEPING: "sleeping";
+/**
+ * Enum value "stopped" for attribute {@link ATTR_PROCESS_STATE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const PROCESS_STATE_VALUE_STOPPED: "stopped";
 /**
  * Process title (proctitle)
  *
@@ -12821,11 +13436,9 @@ declare const RPC_MESSAGE_TYPE_VALUE_SENT: "SENT";
  */
 declare const ATTR_RPC_MESSAGE_UNCOMPRESSED_SIZE: "rpc.message.uncompressed_size";
 /**
- * The name of the (logical) method being called, must be equal to the $method part in the span name.
+ * This is the logical name of the method from the RPC interface perspective.
  *
  * @example "exampleMethod"
- *
- * @note This is the logical name of the method from the RPC interface perspective, which can be different from the name of any implementing method/function. The `code.function.name` attribute may be used to store the latter (e.g., method actually executing the call on the server side, RPC client stub method on the client side).
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -12834,8 +13447,6 @@ declare const ATTR_RPC_METHOD: "rpc.method";
  * The full (logical) name of the service being called, including its package name, if applicable.
  *
  * @example "myservice.EchoService"
- *
- * @note This is the logical name of the service from the RPC interface perspective, which can be different from the name of any implementing class. The `code.namespace` attribute may be used to store the latter (despite the attribute name, it may include a class name; e.g., class with method actually executing the call on the server side, RPC client stub class on the client side).
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -12886,6 +13497,22 @@ declare const RPC_SYSTEM_VALUE_GRPC: "grpc";
  * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const RPC_SYSTEM_VALUE_JAVA_RMI: "java_rmi";
+/**
+ * Enum value "jsonrpc" for attribute {@link ATTR_RPC_SYSTEM}.
+ *
+ * JSON-RPC
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const RPC_SYSTEM_VALUE_JSONRPC: "jsonrpc";
+/**
+ * Enum value "onc_rpc" for attribute {@link ATTR_RPC_SYSTEM}.
+ *
+ * [ONC RPC (Sun RPC)](https://datatracker.ietf.org/doc/html/rfc5531)
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const RPC_SYSTEM_VALUE_ONC_RPC: "onc_rpc";
 /**
  * A categorization value keyword used by the entity using the rule for detection of this event
  *
@@ -13063,6 +13690,8 @@ declare const STATE_VALUE_USED: "used";
  * @example 1
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `cpu.logical_number`.
  */
 declare const ATTR_SYSTEM_CPU_LOGICAL_NUMBER: "system.cpu.logical_number";
 /**
@@ -13358,6 +13987,26 @@ declare const SYSTEM_PAGING_DIRECTION_VALUE_IN: "in";
  */
 declare const SYSTEM_PAGING_DIRECTION_VALUE_OUT: "out";
 /**
+ * The paging fault type
+ *
+ * @example minor
+ *
+ * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const ATTR_SYSTEM_PAGING_FAULT_TYPE: "system.paging.fault.type";
+/**
+ * Enum value "major" for attribute {@link ATTR_SYSTEM_PAGING_FAULT_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const SYSTEM_PAGING_FAULT_TYPE_VALUE_MAJOR: "major";
+/**
+ * Enum value "minor" for attribute {@link ATTR_SYSTEM_PAGING_FAULT_TYPE}.
+ *
+ * @experimental This enum value is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const SYSTEM_PAGING_FAULT_TYPE_VALUE_MINOR: "minor";
+/**
  * The memory paging state
  *
  * @example free
@@ -13378,11 +14027,13 @@ declare const SYSTEM_PAGING_STATE_VALUE_FREE: "free";
  */
 declare const SYSTEM_PAGING_STATE_VALUE_USED: "used";
 /**
- * The memory paging type
+ * Deprecated, use `system.paging.fault.type` instead.
  *
  * @example minor
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `system.paging.fault.type`.
  */
 declare const ATTR_SYSTEM_PAGING_TYPE: "system.paging.type";
 /**
@@ -13398,11 +14049,13 @@ declare const SYSTEM_PAGING_TYPE_VALUE_MAJOR: "major";
  */
 declare const SYSTEM_PAGING_TYPE_VALUE_MINOR: "minor";
 /**
- * The process state, e.g., [Linux Process State Codes](https://man7.org/linux/man-pages/man1/ps.1.html#PROCESS_STATE_CODES)
+ * Deprecated, use `process.state` instead.
  *
  * @example running
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `process.state`.
  */
 declare const ATTR_SYSTEM_PROCESS_STATUS: "system.process.status";
 /**
@@ -13430,13 +14083,13 @@ declare const SYSTEM_PROCESS_STATUS_VALUE_SLEEPING: "sleeping";
  */
 declare const SYSTEM_PROCESS_STATUS_VALUE_STOPPED: "stopped";
 /**
- * Deprecated, use `system.process.status` instead.
+ * Deprecated, use `process.state` instead.
  *
  * @example running
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `system.process.status`.
+ * @deprecated Replaced by `process.state`.
  */
 declare const ATTR_SYSTEM_PROCESSES_STATUS: "system.processes.status";
 /**
@@ -13591,6 +14244,18 @@ declare const TEST_SUITE_RUN_STATUS_VALUE_TIMED_OUT: "timed_out";
  *
  * @example 42
  *
+ * @note
+ * Examples of where the value can be extracted from:
+ *
+ * | Language or platform  | Source |
+ * | --- | --- |
+ * | JVM | `Thread.currentThread().threadId()` |
+ * | .NET | `Thread.CurrentThread.ManagedThreadId` |
+ * | Python | `threading.current_thread().ident` |
+ * | Ruby | `Thread.current.object_id` |
+ * | C++ | `std::this_thread::get_id()` |
+ * | Erlang | `erlang:self()` |
+ *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const ATTR_THREAD_ID: "thread.id";
@@ -13598,6 +14263,17 @@ declare const ATTR_THREAD_ID: "thread.id";
  * Current thread name.
  *
  * @example "main"
+ *
+ * @note
+ * Examples of where the value can be extracted from:
+ *
+ * | Language or platform  | Source |
+ * | --- | --- |
+ * | JVM | `Thread.currentThread().getName()` |
+ * | .NET | `Thread.CurrentThread.Name` |
+ * | Python | `threading.current_thread().name` |
+ * | Ruby | `Thread.current.name` |
+ * | Erlang | `erlang:process_info(self(), registered_name)` |
  *
  * @experimental This attribute is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -14532,7 +15208,7 @@ declare const VCS_REPOSITORY_REF_TYPE_VALUE_BRANCH: "branch";
  */
 declare const VCS_REPOSITORY_REF_TYPE_VALUE_TAG: "tag";
 /**
- * The [canonical URL](https://support.google.com/webmasters/answer/10347851?hl=en#:~:text=A%20canonical%20URL%20is%20the,Google%20chooses%20one%20as%20canonical.) of the repository providing the complete HTTP(S) address in order to locate and identify the repository through a browser.
+ * The [canonical URL](https://support.google.com/webmasters/answer/10347851) of the repository providing the complete HTTP(S) address in order to locate and identify the repository through a browser.
  *
  * @example https://github.com/opentelemetry/open-telemetry-collector-contrib
  * @example https://gitlab.com/my-org/my-project/my-projects-project/repo
@@ -14891,6 +15567,34 @@ declare const METRIC_CONTAINER_FILESYSTEM_CAPACITY: "container.filesystem.capaci
  */
 declare const METRIC_CONTAINER_FILESYSTEM_USAGE: "container.filesystem.usage";
 /**
+ * Container memory available.
+ *
+ * @note Available memory for use.  This is defined as the memory limit - workingSetBytes. If memory limit is undefined, the available bytes is omitted.
+ * In general, this metric can be derived from [cadvisor](https://github.com/google/cadvisor/blob/v0.53.0/docs/storage/prometheus.md#prometheus-container-metrics) and by subtracting the `container_memory_working_set_bytes` metric from the `container_spec_memory_limit_bytes` metric.
+ * In K8s, this metric is derived from the [MemoryStats.AvailableBytes](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) field of the [PodStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#PodStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_CONTAINER_MEMORY_AVAILABLE: "container.memory.available";
+/**
+ * Container memory paging faults.
+ *
+ * @note In general, this metric can be derived from [cadvisor](https://github.com/google/cadvisor/blob/v0.53.0/docs/storage/prometheus.md#prometheus-container-metrics) and specifically the `container_memory_failures_total{failure_type=pgfault, scope=container}` and `container_memory_failures_total{failure_type=pgmajfault, scope=container}`metric.
+ * In K8s, this metric is derived from the [MemoryStats.PageFaults](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) and [MemoryStats.MajorPageFaults](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) field of the [PodStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#PodStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_CONTAINER_MEMORY_PAGING_FAULTS: "container.memory.paging.faults";
+/**
+ * Container memory RSS.
+ *
+ * @note In general, this metric can be derived from [cadvisor](https://github.com/google/cadvisor/blob/v0.53.0/docs/storage/prometheus.md#prometheus-container-metrics) and specifically the `container_memory_rss` metric.
+ * In K8s, this metric is derived from the [MemoryStats.RSSBytes](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) field of the [PodStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#PodStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_CONTAINER_MEMORY_RSS: "container.memory.rss";
+/**
  * Memory usage of the container.
  *
  * @note Memory usage of the container.
@@ -14898,6 +15602,15 @@ declare const METRIC_CONTAINER_FILESYSTEM_USAGE: "container.filesystem.usage";
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_CONTAINER_MEMORY_USAGE: "container.memory.usage";
+/**
+ * Container memory working set.
+ *
+ * @note In general, this metric can be derived from [cadvisor](https://github.com/google/cadvisor/blob/v0.53.0/docs/storage/prometheus.md#prometheus-container-metrics) and specifically the `container_memory_working_set_bytes` metric.
+ * In K8s, this metric is derived from the [MemoryStats.WorkingSetBytes](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) field of the [PodStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#PodStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_CONTAINER_MEMORY_WORKING_SET: "container.memory.working_set";
 /**
  * Network bytes for the container.
  *
@@ -15652,6 +16365,14 @@ declare const METRIC_JVM_SYSTEM_CPU_UTILIZATION: "jvm.system.cpu.utilization";
  */
 declare const METRIC_K8S_CONTAINER_CPU_LIMIT: "k8s.container.cpu.limit";
 /**
+ * The ratio of container CPU usage to its CPU limit.
+ *
+ * @note The value range is [0.0,1.0]. A value of 1.0 means the container is using 100% of its CPU limit. If the CPU limit is not set, this metric **SHOULD NOT** be emitted for that container.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_CPU_LIMIT_UTILIZATION: "k8s.container.cpu.limit_utilization";
+/**
  * CPU resource requested for the container.
  *
  * @note See https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#resourcerequirements-v1-core for details.
@@ -15659,6 +16380,12 @@ declare const METRIC_K8S_CONTAINER_CPU_LIMIT: "k8s.container.cpu.limit";
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_CONTAINER_CPU_REQUEST: "k8s.container.cpu.request";
+/**
+ * The ratio of container CPU usage to its CPU request.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_CONTAINER_CPU_REQUEST_UTILIZATION: "k8s.container.cpu.request_utilization";
 /**
  * Maximum ephemeral storage resource limit set for the container.
  *
@@ -15747,6 +16474,17 @@ declare const METRIC_K8S_CONTAINER_STORAGE_LIMIT: "k8s.container.storage.limit";
  */
 declare const METRIC_K8S_CONTAINER_STORAGE_REQUEST: "k8s.container.storage.request";
 /**
+ * Deprecated, use `k8s.cronjob.job.active` instead.
+ *
+ * @note This metric aligns with the `active` field of the
+ * [K8s CronJobStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#cronjobstatus-v1-batch).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.cronjob.job.active`.
+ */
+declare const METRIC_K8S_CRONJOB_ACTIVE_JOBS: "k8s.cronjob.active_jobs";
+/**
  * The number of actively running jobs for a cronjob.
  *
  * @note This metric aligns with the `active` field of the
@@ -15754,7 +16492,40 @@ declare const METRIC_K8S_CONTAINER_STORAGE_REQUEST: "k8s.container.storage.reque
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_CRONJOB_ACTIVE_JOBS: "k8s.cronjob.active_jobs";
+declare const METRIC_K8S_CRONJOB_JOB_ACTIVE: "k8s.cronjob.job.active";
+/**
+ * Deprecated, use `k8s.daemonset.node.current_scheduled` instead.
+ *
+ * @note This metric aligns with the `currentNumberScheduled` field of the
+ * [K8s DaemonSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#daemonsetstatus-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.daemonset.node.current_scheduled`.
+ */
+declare const METRIC_K8S_DAEMONSET_CURRENT_SCHEDULED_NODES: "k8s.daemonset.current_scheduled_nodes";
+/**
+ * Deprecated, use `k8s.daemonset.node.desired_scheduled` instead.
+ *
+ * @note This metric aligns with the `desiredNumberScheduled` field of the
+ * [K8s DaemonSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#daemonsetstatus-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.daemonset.node.desired_scheduled`.
+ */
+declare const METRIC_K8S_DAEMONSET_DESIRED_SCHEDULED_NODES: "k8s.daemonset.desired_scheduled_nodes";
+/**
+ * Deprecated, use `k8s.daemonset.node.misscheduled` instead.
+ *
+ * @note This metric aligns with the `numberMisscheduled` field of the
+ * [K8s DaemonSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#daemonsetstatus-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.daemonset.node.misscheduled`.
+ */
+declare const METRIC_K8S_DAEMONSET_MISSCHEDULED_NODES: "k8s.daemonset.misscheduled_nodes";
 /**
  * Number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod.
  *
@@ -15763,7 +16534,7 @@ declare const METRIC_K8S_CRONJOB_ACTIVE_JOBS: "k8s.cronjob.active_jobs";
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_DAEMONSET_CURRENT_SCHEDULED_NODES: "k8s.daemonset.current_scheduled_nodes";
+declare const METRIC_K8S_DAEMONSET_NODE_CURRENT_SCHEDULED: "k8s.daemonset.node.current_scheduled";
 /**
  * Number of nodes that should be running the daemon pod (including nodes currently running the daemon pod).
  *
@@ -15772,7 +16543,7 @@ declare const METRIC_K8S_DAEMONSET_CURRENT_SCHEDULED_NODES: "k8s.daemonset.curre
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_DAEMONSET_DESIRED_SCHEDULED_NODES: "k8s.daemonset.desired_scheduled_nodes";
+declare const METRIC_K8S_DAEMONSET_NODE_DESIRED_SCHEDULED: "k8s.daemonset.node.desired_scheduled";
 /**
  * Number of nodes that are running the daemon pod, but are not supposed to run the daemon pod.
  *
@@ -15781,7 +16552,7 @@ declare const METRIC_K8S_DAEMONSET_DESIRED_SCHEDULED_NODES: "k8s.daemonset.desir
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_DAEMONSET_MISSCHEDULED_NODES: "k8s.daemonset.misscheduled_nodes";
+declare const METRIC_K8S_DAEMONSET_NODE_MISSCHEDULED: "k8s.daemonset.node.misscheduled";
 /**
  * Number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
  *
@@ -15790,7 +16561,40 @@ declare const METRIC_K8S_DAEMONSET_MISSCHEDULED_NODES: "k8s.daemonset.misschedul
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
+declare const METRIC_K8S_DAEMONSET_NODE_READY: "k8s.daemonset.node.ready";
+/**
+ * Deprecated, use `k8s.daemonset.node.ready` instead.
+ *
+ * @note This metric aligns with the `numberReady` field of the
+ * [K8s DaemonSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#daemonsetstatus-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.daemonset.node.ready`.
+ */
 declare const METRIC_K8S_DAEMONSET_READY_NODES: "k8s.daemonset.ready_nodes";
+/**
+ * Deprecated, use `k8s.deployment.pod.available` instead.
+ *
+ * @note This metric aligns with the `availableReplicas` field of the
+ * [K8s DeploymentStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#deploymentstatus-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.deployment.pod.available`.
+ */
+declare const METRIC_K8S_DEPLOYMENT_AVAILABLE_PODS: "k8s.deployment.available_pods";
+/**
+ * Deprecated, use `k8s.deployment.pod.desired` instead.
+ *
+ * @note This metric aligns with the `replicas` field of the
+ * [K8s DeploymentSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#deploymentspec-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.deployment.pod.desired`.
+ */
+declare const METRIC_K8S_DEPLOYMENT_DESIRED_PODS: "k8s.deployment.desired_pods";
 /**
  * Total number of available replica pods (ready for at least minReadySeconds) targeted by this deployment.
  *
@@ -15799,7 +16603,7 @@ declare const METRIC_K8S_DAEMONSET_READY_NODES: "k8s.daemonset.ready_nodes";
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_DEPLOYMENT_AVAILABLE_PODS: "k8s.deployment.available_pods";
+declare const METRIC_K8S_DEPLOYMENT_POD_AVAILABLE: "k8s.deployment.pod.available";
 /**
  * Number of desired replica pods in this deployment.
  *
@@ -15808,32 +16612,38 @@ declare const METRIC_K8S_DEPLOYMENT_AVAILABLE_PODS: "k8s.deployment.available_po
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_DEPLOYMENT_DESIRED_PODS: "k8s.deployment.desired_pods";
+declare const METRIC_K8S_DEPLOYMENT_POD_DESIRED: "k8s.deployment.pod.desired";
 /**
- * Current number of replica pods managed by this horizontal pod autoscaler, as last seen by the autoscaler.
+ * Deprecated, use `k8s.hpa.pod.current` instead.
  *
  * @note This metric aligns with the `currentReplicas` field of the
  * [K8s HorizontalPodAutoscalerStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#horizontalpodautoscalerstatus-v2-autoscaling)
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.hpa.pod.current`.
  */
 declare const METRIC_K8S_HPA_CURRENT_PODS: "k8s.hpa.current_pods";
 /**
- * Desired number of replica pods managed by this horizontal pod autoscaler, as last calculated by the autoscaler.
+ * Deprecated, use `k8s.hpa.pod.desired` instead.
  *
  * @note This metric aligns with the `desiredReplicas` field of the
  * [K8s HorizontalPodAutoscalerStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#horizontalpodautoscalerstatus-v2-autoscaling)
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.hpa.pod.desired`.
  */
 declare const METRIC_K8S_HPA_DESIRED_PODS: "k8s.hpa.desired_pods";
 /**
- * The upper limit for the number of replica pods to which the autoscaler can scale up.
+ * Deprecated, use `k8s.hpa.pod.max` instead.
  *
  * @note This metric aligns with the `maxReplicas` field of the
  * [K8s HorizontalPodAutoscalerSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#horizontalpodautoscalerspec-v2-autoscaling)
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.hpa.pod.max`.
  */
 declare const METRIC_K8S_HPA_MAX_PODS: "k8s.hpa.max_pods";
 /**
@@ -15870,6 +16680,44 @@ declare const METRIC_K8S_HPA_METRIC_TARGET_CPU_AVERAGE_VALUE: "k8s.hpa.metric.ta
  */
 declare const METRIC_K8S_HPA_METRIC_TARGET_CPU_VALUE: "k8s.hpa.metric.target.cpu.value";
 /**
+ * Deprecated, use `k8s.hpa.pod.min` instead.
+ *
+ * @note This metric aligns with the `minReplicas` field of the
+ * [K8s HorizontalPodAutoscalerSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#horizontalpodautoscalerspec-v2-autoscaling)
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.hpa.pod.min`.
+ */
+declare const METRIC_K8S_HPA_MIN_PODS: "k8s.hpa.min_pods";
+/**
+ * Current number of replica pods managed by this horizontal pod autoscaler, as last seen by the autoscaler.
+ *
+ * @note This metric aligns with the `currentReplicas` field of the
+ * [K8s HorizontalPodAutoscalerStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#horizontalpodautoscalerstatus-v2-autoscaling)
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_HPA_POD_CURRENT: "k8s.hpa.pod.current";
+/**
+ * Desired number of replica pods managed by this horizontal pod autoscaler, as last calculated by the autoscaler.
+ *
+ * @note This metric aligns with the `desiredReplicas` field of the
+ * [K8s HorizontalPodAutoscalerStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#horizontalpodautoscalerstatus-v2-autoscaling)
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_HPA_POD_DESIRED: "k8s.hpa.pod.desired";
+/**
+ * The upper limit for the number of replica pods to which the autoscaler can scale up.
+ *
+ * @note This metric aligns with the `maxReplicas` field of the
+ * [K8s HorizontalPodAutoscalerSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#horizontalpodautoscalerspec-v2-autoscaling)
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_HPA_POD_MAX: "k8s.hpa.pod.max";
+/**
  * The lower limit for the number of replica pods to which the autoscaler can scale down.
  *
  * @note This metric aligns with the `minReplicas` field of the
@@ -15877,7 +16725,51 @@ declare const METRIC_K8S_HPA_METRIC_TARGET_CPU_VALUE: "k8s.hpa.metric.target.cpu
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_HPA_MIN_PODS: "k8s.hpa.min_pods";
+declare const METRIC_K8S_HPA_POD_MIN: "k8s.hpa.pod.min";
+/**
+ * Deprecated, use `k8s.job.pod.active` instead.
+ *
+ * @note This metric aligns with the `active` field of the
+ * [K8s JobStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobstatus-v1-batch).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.job.pod.active`.
+ */
+declare const METRIC_K8S_JOB_ACTIVE_PODS: "k8s.job.active_pods";
+/**
+ * Deprecated, use `k8s.job.pod.desired_successful` instead.
+ *
+ * @note This metric aligns with the `completions` field of the
+ * [K8s JobSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobspec-v1-batch)..
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.job.pod.desired_successful`.
+ */
+declare const METRIC_K8S_JOB_DESIRED_SUCCESSFUL_PODS: "k8s.job.desired_successful_pods";
+/**
+ * Deprecated, use `k8s.job.pod.failed` instead.
+ *
+ * @note This metric aligns with the `failed` field of the
+ * [K8s JobStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobstatus-v1-batch).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.job.pod.failed`.
+ */
+declare const METRIC_K8S_JOB_FAILED_PODS: "k8s.job.failed_pods";
+/**
+ * Deprecated, use `k8s.job.pod.max_parallel` instead.
+ *
+ * @note This metric aligns with the `parallelism` field of the
+ * [K8s JobSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobspec-v1-batch).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.job.pod.max_parallel`.
+ */
+declare const METRIC_K8S_JOB_MAX_PARALLEL_PODS: "k8s.job.max_parallel_pods";
 /**
  * The number of pending and actively running pods for a job.
  *
@@ -15886,7 +16778,7 @@ declare const METRIC_K8S_HPA_MIN_PODS: "k8s.hpa.min_pods";
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_JOB_ACTIVE_PODS: "k8s.job.active_pods";
+declare const METRIC_K8S_JOB_POD_ACTIVE: "k8s.job.pod.active";
 /**
  * The desired number of successfully finished pods the job should be run with.
  *
@@ -15895,7 +16787,7 @@ declare const METRIC_K8S_JOB_ACTIVE_PODS: "k8s.job.active_pods";
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_JOB_DESIRED_SUCCESSFUL_PODS: "k8s.job.desired_successful_pods";
+declare const METRIC_K8S_JOB_POD_DESIRED_SUCCESSFUL: "k8s.job.pod.desired_successful";
 /**
  * The number of pods which reached phase Failed for a job.
  *
@@ -15904,7 +16796,7 @@ declare const METRIC_K8S_JOB_DESIRED_SUCCESSFUL_PODS: "k8s.job.desired_successfu
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_JOB_FAILED_PODS: "k8s.job.failed_pods";
+declare const METRIC_K8S_JOB_POD_FAILED: "k8s.job.pod.failed";
 /**
  * The max desired number of pods the job should run at any given time.
  *
@@ -15913,7 +16805,7 @@ declare const METRIC_K8S_JOB_FAILED_PODS: "k8s.job.failed_pods";
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_JOB_MAX_PARALLEL_PODS: "k8s.job.max_parallel_pods";
+declare const METRIC_K8S_JOB_POD_MAX_PARALLEL: "k8s.job.pod.max_parallel";
 /**
  * The number of pods which reached phase Succeeded for a job.
  *
@@ -15921,6 +16813,17 @@ declare const METRIC_K8S_JOB_MAX_PARALLEL_PODS: "k8s.job.max_parallel_pods";
  * [K8s JobStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobstatus-v1-batch).
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_JOB_POD_SUCCESSFUL: "k8s.job.pod.successful";
+/**
+ * Deprecated, use `k8s.job.pod.successful` instead.
+ *
+ * @note This metric aligns with the `succeeded` field of the
+ * [K8s JobStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#jobstatus-v1-batch).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.job.pod.successful`.
  */
 declare const METRIC_K8S_JOB_SUCCESSFUL_PODS: "k8s.job.successful_pods";
 /**
@@ -15930,27 +16833,35 @@ declare const METRIC_K8S_JOB_SUCCESSFUL_PODS: "k8s.job.successful_pods";
  */
 declare const METRIC_K8S_NAMESPACE_PHASE: "k8s.namespace.phase";
 /**
- * Amount of cpu allocatable on the node.
+ * Deprecated, use `k8s.node.cpu.allocatable` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.node.cpu.allocatable`.
  */
 declare const METRIC_K8S_NODE_ALLOCATABLE_CPU: "k8s.node.allocatable.cpu";
 /**
- * Amount of ephemeral-storage allocatable on the node.
+ * Deprecated, use `k8s.node.ephemeral_storage.allocatable` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.node.ephemeral_storage.allocatable`.
  */
 declare const METRIC_K8S_NODE_ALLOCATABLE_EPHEMERAL_STORAGE: "k8s.node.allocatable.ephemeral_storage";
 /**
- * Amount of memory allocatable on the node.
+ * Deprecated, use `k8s.node.memory.allocatable` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.node.memory.allocatable`.
  */
 declare const METRIC_K8S_NODE_ALLOCATABLE_MEMORY: "k8s.node.allocatable.memory";
 /**
- * Amount of pods allocatable on the node.
+ * Deprecated, use `k8s.node.pod.allocatable` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.node.pod.allocatable`.
  */
 declare const METRIC_K8S_NODE_ALLOCATABLE_PODS: "k8s.node.allocatable.pods";
 /**
@@ -15961,6 +16872,12 @@ declare const METRIC_K8S_NODE_ALLOCATABLE_PODS: "k8s.node.allocatable.pods";
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_NODE_CONDITION_STATUS: "k8s.node.condition.status";
+/**
+ * Amount of cpu allocatable on the node.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_CPU_ALLOCATABLE: "k8s.node.cpu.allocatable";
 /**
  * Total CPU time consumed.
  *
@@ -15977,6 +16894,12 @@ declare const METRIC_K8S_NODE_CPU_TIME: "k8s.node.cpu.time";
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_NODE_CPU_USAGE: "k8s.node.cpu.usage";
+/**
+ * Amount of ephemeral-storage allocatable on the node.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_EPHEMERAL_STORAGE_ALLOCATABLE: "k8s.node.ephemeral_storage.allocatable";
 /**
  * Node filesystem available bytes.
  *
@@ -16013,6 +16936,39 @@ declare const METRIC_K8S_NODE_FILESYSTEM_CAPACITY: "k8s.node.filesystem.capacity
  */
 declare const METRIC_K8S_NODE_FILESYSTEM_USAGE: "k8s.node.filesystem.usage";
 /**
+ * Amount of memory allocatable on the node.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_MEMORY_ALLOCATABLE: "k8s.node.memory.allocatable";
+/**
+ * Node memory available.
+ *
+ * @note Available memory for use.  This is defined as the memory limit - workingSetBytes. If memory limit is undefined, the available bytes is omitted.
+ * This metric is derived from the [MemoryStats.AvailableBytes](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) field of the [NodeStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#NodeStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_MEMORY_AVAILABLE: "k8s.node.memory.available";
+/**
+ * Node memory paging faults.
+ *
+ * @note Cumulative number of major/minor page faults.
+ * This metric is derived from the [MemoryStats.PageFaults](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) and [MemoryStats.MajorPageFaults](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) fields of the [NodeStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#NodeStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_MEMORY_PAGING_FAULTS: "k8s.node.memory.paging.faults";
+/**
+ * Node memory RSS.
+ *
+ * @note The amount of anonymous and swap cache memory (includes transparent hugepages).
+ * This metric is derived from the [MemoryStats.RSSBytes](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) field of the [NodeStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#NodeStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_MEMORY_RSS: "k8s.node.memory.rss";
+/**
  * Memory usage of the Node.
  *
  * @note Total memory usage of the Node
@@ -16020,6 +16976,15 @@ declare const METRIC_K8S_NODE_FILESYSTEM_USAGE: "k8s.node.filesystem.usage";
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_NODE_MEMORY_USAGE: "k8s.node.memory.usage";
+/**
+ * Node memory working set.
+ *
+ * @note The amount of working set memory. This includes recently accessed memory, dirty memory, and kernel memory. WorkingSetBytes is <= UsageBytes.
+ * This metric is derived from the [MemoryStats.WorkingSetBytes](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) field of the [NodeStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#NodeStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_MEMORY_WORKING_SET: "k8s.node.memory.working_set";
 /**
  * Node network errors.
  *
@@ -16032,6 +16997,12 @@ declare const METRIC_K8S_NODE_NETWORK_ERRORS: "k8s.node.network.errors";
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_NODE_NETWORK_IO: "k8s.node.network.io";
+/**
+ * Amount of pods allocatable on the node.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_NODE_POD_ALLOCATABLE: "k8s.node.pod.allocatable";
 /**
  * The time the Node has been running.
  *
@@ -16093,6 +17064,33 @@ declare const METRIC_K8S_POD_FILESYSTEM_CAPACITY: "k8s.pod.filesystem.capacity";
  */
 declare const METRIC_K8S_POD_FILESYSTEM_USAGE: "k8s.pod.filesystem.usage";
 /**
+ * Pod memory available.
+ *
+ * @note Available memory for use.  This is defined as the memory limit - workingSetBytes. If memory limit is undefined, the available bytes is omitted.
+ * This metric is derived from the [MemoryStats.AvailableBytes](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) field of the [PodStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#PodStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_MEMORY_AVAILABLE: "k8s.pod.memory.available";
+/**
+ * Pod memory paging faults.
+ *
+ * @note Cumulative number of major/minor page faults.
+ * This metric is derived from the [MemoryStats.PageFaults](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) and [MemoryStats.MajorPageFaults](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) field of the [PodStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#PodStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_MEMORY_PAGING_FAULTS: "k8s.pod.memory.paging.faults";
+/**
+ * Pod memory RSS.
+ *
+ * @note The amount of anonymous and swap cache memory (includes transparent hugepages).
+ * This metric is derived from the [MemoryStats.RSSBytes](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) field of the [PodStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#PodStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_MEMORY_RSS: "k8s.pod.memory.rss";
+/**
  * Memory usage of the Pod.
  *
  * @note Total memory usage of the Pod
@@ -16100,6 +17098,15 @@ declare const METRIC_K8S_POD_FILESYSTEM_USAGE: "k8s.pod.filesystem.usage";
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_POD_MEMORY_USAGE: "k8s.pod.memory.usage";
+/**
+ * Pod memory working set.
+ *
+ * @note The amount of working set memory. This includes recently accessed memory, dirty memory, and kernel memory. WorkingSetBytes is <= UsageBytes.
+ * This metric is derived from the [MemoryStats.WorkingSetBytes](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#MemoryStats) field of the [PodStats.Memory](https://pkg.go.dev/k8s.io/kubelet@v0.34.0/pkg/apis/stats/v1alpha1#PodStats) of the Kubelet's stats API.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_MEMORY_WORKING_SET: "k8s.pod.memory.working_set";
 /**
  * Pod network errors.
  *
@@ -16112,6 +17119,24 @@ declare const METRIC_K8S_POD_NETWORK_ERRORS: "k8s.pod.network.errors";
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_K8S_POD_NETWORK_IO: "k8s.pod.network.io";
+/**
+ * Describes number of K8s Pods that are currently in a given phase.
+ *
+ * @note All possible pod phases will be reported at each time interval to avoid missing metrics.
+ * Only the value corresponding to the current phase will be non-zero.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_STATUS_PHASE: "k8s.pod.status.phase";
+/**
+ * Describes the number of K8s Pods that are currently in a state for a given reason.
+ *
+ * @note All possible pod status reasons will be reported at each time interval to avoid missing metrics.
+ * Only the value corresponding to the current reason will be non-zero.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_POD_STATUS_REASON: "k8s.pod.status.reason";
 /**
  * The time the Pod has been running.
  *
@@ -16192,6 +17217,28 @@ declare const METRIC_K8S_POD_VOLUME_INODE_USED: "k8s.pod.volume.inode.used";
  */
 declare const METRIC_K8S_POD_VOLUME_USAGE: "k8s.pod.volume.usage";
 /**
+ * Deprecated, use `k8s.replicaset.pod.available` instead.
+ *
+ * @note This metric aligns with the `availableReplicas` field of the
+ * [K8s ReplicaSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#replicasetstatus-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.replicaset.pod.available`.
+ */
+declare const METRIC_K8S_REPLICASET_AVAILABLE_PODS: "k8s.replicaset.available_pods";
+/**
+ * Deprecated, use `k8s.replicaset.pod.desired` instead.
+ *
+ * @note This metric aligns with the `replicas` field of the
+ * [K8s ReplicaSetSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#replicasetspec-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.replicaset.pod.desired`.
+ */
+declare const METRIC_K8S_REPLICASET_DESIRED_PODS: "k8s.replicaset.desired_pods";
+/**
  * Total number of available replica pods (ready for at least minReadySeconds) targeted by this replicaset.
  *
  * @note This metric aligns with the `availableReplicas` field of the
@@ -16199,7 +17246,7 @@ declare const METRIC_K8S_POD_VOLUME_USAGE: "k8s.pod.volume.usage";
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_REPLICASET_AVAILABLE_PODS: "k8s.replicaset.available_pods";
+declare const METRIC_K8S_REPLICASET_POD_AVAILABLE: "k8s.replicaset.pod.available";
 /**
  * Number of desired replica pods in this replicaset.
  *
@@ -16208,23 +17255,39 @@ declare const METRIC_K8S_REPLICASET_AVAILABLE_PODS: "k8s.replicaset.available_po
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_REPLICASET_DESIRED_PODS: "k8s.replicaset.desired_pods";
+declare const METRIC_K8S_REPLICASET_POD_DESIRED: "k8s.replicaset.pod.desired";
 /**
- * Deprecated, use `k8s.replicationcontroller.available_pods` instead.
+ * Deprecated, use `k8s.replicationcontroller.pod.available` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `k8s.replicationcontroller.available_pods`.
+ * @deprecated Replaced by `k8s.replicationcontroller.pod.available`.
  */
 declare const METRIC_K8S_REPLICATION_CONTROLLER_AVAILABLE_PODS: "k8s.replication_controller.available_pods";
 /**
- * Deprecated, use `k8s.replicationcontroller.desired_pods` instead.
+ * Deprecated, use `k8s.replicationcontroller.pod.desired` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  *
- * @deprecated Replaced by `k8s.replicationcontroller.desired_pods`.
+ * @deprecated Replaced by `k8s.replicationcontroller.pod.desired`.
  */
 declare const METRIC_K8S_REPLICATION_CONTROLLER_DESIRED_PODS: "k8s.replication_controller.desired_pods";
+/**
+ * Deprecated, use `k8s.replicationcontroller.pod.available` instead.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.replicationcontroller.pod.available`.
+ */
+declare const METRIC_K8S_REPLICATIONCONTROLLER_AVAILABLE_PODS: "k8s.replicationcontroller.available_pods";
+/**
+ * Deprecated, use `k8s.replicationcontroller.pod.desired` instead.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.replicationcontroller.pod.desired`.
+ */
+declare const METRIC_K8S_REPLICATIONCONTROLLER_DESIRED_PODS: "k8s.replicationcontroller.desired_pods";
 /**
  * Total number of available replica pods (ready for at least minReadySeconds) targeted by this replication controller.
  *
@@ -16233,7 +17296,7 @@ declare const METRIC_K8S_REPLICATION_CONTROLLER_DESIRED_PODS: "k8s.replication_c
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_REPLICATIONCONTROLLER_AVAILABLE_PODS: "k8s.replicationcontroller.available_pods";
+declare const METRIC_K8S_REPLICATIONCONTROLLER_POD_AVAILABLE: "k8s.replicationcontroller.pod.available";
 /**
  * Number of desired replica pods in this replication controller.
  *
@@ -16242,7 +17305,7 @@ declare const METRIC_K8S_REPLICATIONCONTROLLER_AVAILABLE_PODS: "k8s.replicationc
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_REPLICATIONCONTROLLER_DESIRED_PODS: "k8s.replicationcontroller.desired_pods";
+declare const METRIC_K8S_REPLICATIONCONTROLLER_POD_DESIRED: "k8s.replicationcontroller.pod.desired";
 /**
  * The CPU limits in a specific namespace.
  * The value represents the configured quota limit of the resource in the namespace.
@@ -16456,6 +17519,28 @@ declare const METRIC_K8S_RESOURCEQUOTA_STORAGE_REQUEST_HARD: "k8s.resourcequota.
  */
 declare const METRIC_K8S_RESOURCEQUOTA_STORAGE_REQUEST_USED: "k8s.resourcequota.storage.request.used";
 /**
+ * Deprecated, use `k8s.statefulset.pod.current` instead.
+ *
+ * @note This metric aligns with the `currentReplicas` field of the
+ * [K8s StatefulSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#statefulsetstatus-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.statefulset.pod.current`.
+ */
+declare const METRIC_K8S_STATEFULSET_CURRENT_PODS: "k8s.statefulset.current_pods";
+/**
+ * Deprecated, use `k8s.statefulset.pod.desired` instead.
+ *
+ * @note This metric aligns with the `replicas` field of the
+ * [K8s StatefulSetSpec](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#statefulsetspec-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.statefulset.pod.desired`.
+ */
+declare const METRIC_K8S_STATEFULSET_DESIRED_PODS: "k8s.statefulset.desired_pods";
+/**
  * The number of replica pods created by the statefulset controller from the statefulset version indicated by currentRevision.
  *
  * @note This metric aligns with the `currentReplicas` field of the
@@ -16463,7 +17548,7 @@ declare const METRIC_K8S_RESOURCEQUOTA_STORAGE_REQUEST_USED: "k8s.resourcequota.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_STATEFULSET_CURRENT_PODS: "k8s.statefulset.current_pods";
+declare const METRIC_K8S_STATEFULSET_POD_CURRENT: "k8s.statefulset.pod.current";
 /**
  * Number of desired replica pods in this statefulset.
  *
@@ -16472,7 +17557,7 @@ declare const METRIC_K8S_STATEFULSET_CURRENT_PODS: "k8s.statefulset.current_pods
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_STATEFULSET_DESIRED_PODS: "k8s.statefulset.desired_pods";
+declare const METRIC_K8S_STATEFULSET_POD_DESIRED: "k8s.statefulset.pod.desired";
 /**
  * The number of replica pods created for this statefulset with a Ready Condition.
  *
@@ -16481,7 +17566,7 @@ declare const METRIC_K8S_STATEFULSET_DESIRED_PODS: "k8s.statefulset.desired_pods
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
-declare const METRIC_K8S_STATEFULSET_READY_PODS: "k8s.statefulset.ready_pods";
+declare const METRIC_K8S_STATEFULSET_POD_READY: "k8s.statefulset.pod.ready";
 /**
  * Number of replica pods created by the statefulset controller from the statefulset version indicated by updateRevision.
  *
@@ -16489,6 +17574,28 @@ declare const METRIC_K8S_STATEFULSET_READY_PODS: "k8s.statefulset.ready_pods";
  * [K8s StatefulSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#statefulsetstatus-v1-apps).
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_K8S_STATEFULSET_POD_UPDATED: "k8s.statefulset.pod.updated";
+/**
+ * Deprecated, use `k8s.statefulset.pod.ready` instead.
+ *
+ * @note This metric aligns with the `readyReplicas` field of the
+ * [K8s StatefulSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#statefulsetstatus-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.statefulset.pod.ready`.
+ */
+declare const METRIC_K8S_STATEFULSET_READY_PODS: "k8s.statefulset.ready_pods";
+/**
+ * Deprecated, use `k8s.statefulset.pod.updated` instead.
+ *
+ * @note This metric aligns with the `updatedReplicas` field of the
+ * [K8s StatefulSetStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.30/#statefulsetstatus-v1-apps).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `k8s.statefulset.pod.updated`.
  */
 declare const METRIC_K8S_STATEFULSET_UPDATED_PODS: "k8s.statefulset.updated_pods";
 /**
@@ -16573,6 +17680,125 @@ declare const METRIC_MESSAGING_RECEIVE_DURATION: "messaging.receive.duration";
  */
 declare const METRIC_MESSAGING_RECEIVE_MESSAGES: "messaging.receive.messages";
 /**
+ * Reports the count of kernel NFS client TCP segments and UDP datagrams handled.
+ *
+ * @note Linux: this metric is taken from the Linux kernel's svc_stat.netudpcnt and svc_stat.nettcpcnt
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_CLIENT_NET_COUNT: "nfs.client.net.count";
+/**
+ * Reports the count of kernel NFS client TCP connections accepted.
+ *
+ * @note Linux: this metric is taken from the Linux kernel's svc_stat.nettcpconn
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_CLIENT_NET_TCP_CONNECTION_ACCEPTED: "nfs.client.net.tcp.connection.accepted";
+/**
+ * Reports the count of kernel NFSv4+ client operations.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_CLIENT_OPERATION_COUNT: "nfs.client.operation.count";
+/**
+ * Reports the count of kernel NFS client procedures.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_CLIENT_PROCEDURE_COUNT: "nfs.client.procedure.count";
+/**
+ * Reports the count of kernel NFS client RPC authentication refreshes.
+ *
+ * @note Linux: this metric is taken from the Linux kernel's svc_stat.rpcauthrefresh
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_CLIENT_RPC_AUTHREFRESH_COUNT: "nfs.client.rpc.authrefresh.count";
+/**
+ * Reports the count of kernel NFS client RPCs sent, regardless of whether they're accepted/rejected by the server.
+ *
+ * @note Linux: this metric is taken from the Linux kernel's svc_stat.rpccnt
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_CLIENT_RPC_COUNT: "nfs.client.rpc.count";
+/**
+ * Reports the count of kernel NFS client RPC retransmits.
+ *
+ * @note Linux: this metric is taken from the Linux kernel's svc_stat.rpcretrans
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_CLIENT_RPC_RETRANSMIT_COUNT: "nfs.client.rpc.retransmit.count";
+/**
+ * Reports the count of kernel NFS server stale file handles.
+ *
+ * @note Linux: this metric is taken from the Linux kernel NFSD_STATS_FH_STALE counter in the nfsd_net struct
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_SERVER_FH_STALE_COUNT: "nfs.server.fh.stale.count";
+/**
+ * Reports the count of kernel NFS server bytes returned to receive and transmit (read and write) requests.
+ *
+ * @note Linux: this metric is taken from the Linux kernel NFSD_STATS_IO_READ and NFSD_STATS_IO_WRITE counters in the nfsd_net struct
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_SERVER_IO: "nfs.server.io";
+/**
+ * Reports the count of kernel NFS server TCP segments and UDP datagrams handled.
+ *
+ * @note Linux: this metric is taken from the Linux kernel's svc_stat.nettcpcnt and svc_stat.netudpcnt
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_SERVER_NET_COUNT: "nfs.server.net.count";
+/**
+ * Reports the count of kernel NFS server TCP connections accepted.
+ *
+ * @note Linux: this metric is taken from the Linux kernel's svc_stat.nettcpconn
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_SERVER_NET_TCP_CONNECTION_ACCEPTED: "nfs.server.net.tcp.connection.accepted";
+/**
+ * Reports the count of kernel NFSv4+ server operations.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_SERVER_OPERATION_COUNT: "nfs.server.operation.count";
+/**
+ * Reports the count of kernel NFS server procedures.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_SERVER_PROCEDURE_COUNT: "nfs.server.procedure.count";
+/**
+ * Reports the kernel NFS server reply cache request count by cache hit status.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_SERVER_REPCACHE_REQUESTS: "nfs.server.repcache.requests";
+/**
+ * Reports the count of kernel NFS server RPCs handled.
+ *
+ * @note Linux: this metric is taken from the Linux kernel's svc_stat.rpccnt, the count of good RPCs. This metric can have
+ * an error.type of "format", "auth", or "client" for svc_stat.badfmt, svc_stat.badauth, and svc_stat.badclnt.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_SERVER_RPC_COUNT: "nfs.server.rpc.count";
+/**
+ * Reports the count of kernel NFS server available threads.
+ *
+ * @note Linux: this metric is taken from the Linux kernel nfsd_th_cnt variable
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_NFS_SERVER_THREAD_COUNT: "nfs.server.thread.count";
+/**
  * Event loop maximum delay.
  *
  * @note Value can be retrieved from value `histogram.max` of [`perf_hooks.monitorEventLoopDelay([options])`](https://nodejs.org/api/perf_hooks.html#perf_hooksmonitoreventloopdelayoptions)
@@ -16644,6 +17870,238 @@ declare const METRIC_NODEJS_EVENTLOOP_TIME: "nodejs.eventloop.time";
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_NODEJS_EVENTLOOP_UTILIZATION: "nodejs.eventloop.utilization";
+/**
+ * The enforced hard limit of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_CPU_LIMIT_HARD: "openshift.clusterquota.cpu.limit.hard";
+/**
+ * The current observed total usage of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_CPU_LIMIT_USED: "openshift.clusterquota.cpu.limit.used";
+/**
+ * The enforced hard limit of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_CPU_REQUEST_HARD: "openshift.clusterquota.cpu.request.hard";
+/**
+ * The current observed total usage of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_CPU_REQUEST_USED: "openshift.clusterquota.cpu.request.used";
+/**
+ * The enforced hard limit of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_EPHEMERAL_STORAGE_LIMIT_HARD: "openshift.clusterquota.ephemeral_storage.limit.hard";
+/**
+ * The current observed total usage of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_EPHEMERAL_STORAGE_LIMIT_USED: "openshift.clusterquota.ephemeral_storage.limit.used";
+/**
+ * The enforced hard limit of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_EPHEMERAL_STORAGE_REQUEST_HARD: "openshift.clusterquota.ephemeral_storage.request.hard";
+/**
+ * The current observed total usage of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_EPHEMERAL_STORAGE_REQUEST_USED: "openshift.clusterquota.ephemeral_storage.request.used";
+/**
+ * The enforced hard limit of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_HUGEPAGE_COUNT_REQUEST_HARD: "openshift.clusterquota.hugepage_count.request.hard";
+/**
+ * The current observed total usage of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_HUGEPAGE_COUNT_REQUEST_USED: "openshift.clusterquota.hugepage_count.request.used";
+/**
+ * The enforced hard limit of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_MEMORY_LIMIT_HARD: "openshift.clusterquota.memory.limit.hard";
+/**
+ * The current observed total usage of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_MEMORY_LIMIT_USED: "openshift.clusterquota.memory.limit.used";
+/**
+ * The enforced hard limit of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_MEMORY_REQUEST_HARD: "openshift.clusterquota.memory.request.hard";
+/**
+ * The current observed total usage of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_MEMORY_REQUEST_USED: "openshift.clusterquota.memory.request.used";
+/**
+ * The enforced hard limit of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_OBJECT_COUNT_HARD: "openshift.clusterquota.object_count.hard";
+/**
+ * The current observed total usage of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_OBJECT_COUNT_USED: "openshift.clusterquota.object_count.used";
+/**
+ * The enforced hard limit of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * The `k8s.storageclass.name` should be required when a resource quota is defined for a specific
+ * storage class.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_PERSISTENTVOLUMECLAIM_COUNT_HARD: "openshift.clusterquota.persistentvolumeclaim_count.hard";
+/**
+ * The current observed total usage of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * The `k8s.storageclass.name` should be required when a resource quota is defined for a specific
+ * storage class.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_PERSISTENTVOLUMECLAIM_COUNT_USED: "openshift.clusterquota.persistentvolumeclaim_count.used";
+/**
+ * The enforced hard limit of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Hard` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * The `k8s.storageclass.name` should be required when a resource quota is defined for a specific
+ * storage class.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_STORAGE_REQUEST_HARD: "openshift.clusterquota.storage.request.hard";
+/**
+ * The current observed total usage of the resource across all projects.
+ *
+ * @note This metric is retrieved from the `Status.Total.Used` field of the
+ * [K8s ResourceQuotaStatus](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#resourcequotastatus-v1-core)
+ * of the
+ * [ClusterResourceQuota](https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html/schedule_and_quota_apis/clusterresourcequota-quota-openshift-io-v1#status-total).
+ *
+ * The `k8s.storageclass.name` should be required when a resource quota is defined for a specific
+ * storage class.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_OPENSHIFT_CLUSTERQUOTA_STORAGE_REQUEST_USED: "openshift.clusterquota.storage.request.used";
 /**
  * The number of log records for which the export has finished, either successful or failed.
  *
@@ -16932,6 +18390,8 @@ declare const METRIC_RPC_CLIENT_REQUEST_SIZE: "rpc.client.request.size";
  * **Streaming**: This metric is required for server and client streaming RPCs
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Removed, no replacement at this time.
  */
 declare const METRIC_RPC_CLIENT_REQUESTS_PER_RPC: "rpc.client.requests_per_rpc";
 /**
@@ -16950,6 +18410,8 @@ declare const METRIC_RPC_CLIENT_RESPONSE_SIZE: "rpc.client.response.size";
  * **Streaming**: This metric is required for server and client streaming RPCs
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Removed, no replacement at this time.
  */
 declare const METRIC_RPC_CLIENT_RESPONSES_PER_RPC: "rpc.client.responses_per_rpc";
 /**
@@ -16979,6 +18441,8 @@ declare const METRIC_RPC_SERVER_REQUEST_SIZE: "rpc.server.request.size";
  * **Streaming** : This metric is required for server and client streaming RPCs
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Removed, no replacement at this time.
  */
 declare const METRIC_RPC_SERVER_REQUESTS_PER_RPC: "rpc.server.requests_per_rpc";
 /**
@@ -16997,6 +18461,8 @@ declare const METRIC_RPC_SERVER_RESPONSE_SIZE: "rpc.server.response.size";
  * **Streaming**: This metric is required for server and client streaming RPCs
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Removed, no replacement at this time.
  */
 declare const METRIC_RPC_SERVER_RESPONSES_PER_RPC: "rpc.server.responses_per_rpc";
 /**
@@ -17032,7 +18498,7 @@ declare const METRIC_SYSTEM_CPU_TIME: "system.cpu.time";
  */
 declare const METRIC_SYSTEM_CPU_UTILIZATION: "system.cpu.utilization";
 /**
- * TODO.
+ * Disk bytes transferred.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -17057,7 +18523,7 @@ declare const METRIC_SYSTEM_DISK_IO_TIME: "system.disk.io_time";
  */
 declare const METRIC_SYSTEM_DISK_LIMIT: "system.disk.limit";
 /**
- * TODO.
+ * The number of disk reads/writes merged into single physical disk access operations.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -17074,7 +18540,7 @@ declare const METRIC_SYSTEM_DISK_MERGED: "system.disk.merged";
  */
 declare const METRIC_SYSTEM_DISK_OPERATION_TIME: "system.disk.operation_time";
 /**
- * TODO.
+ * Disk operations count.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -17095,7 +18561,7 @@ declare const METRIC_SYSTEM_FILESYSTEM_LIMIT: "system.filesystem.limit";
  */
 declare const METRIC_SYSTEM_FILESYSTEM_USAGE: "system.filesystem.usage";
 /**
- * TODO.
+ * Fraction of filesystem bytes used.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -17144,13 +18610,13 @@ declare const METRIC_SYSTEM_MEMORY_SHARED: "system.memory.shared";
  */
 declare const METRIC_SYSTEM_MEMORY_USAGE: "system.memory.usage";
 /**
- * TODO.
+ * Percentage of memory bytes in use.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_MEMORY_UTILIZATION: "system.memory.utilization";
 /**
- * TODO.
+ * The number of connections.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -17164,6 +18630,20 @@ declare const METRIC_SYSTEM_NETWORK_CONNECTION_COUNT: "system.network.connection
  */
 declare const METRIC_SYSTEM_NETWORK_CONNECTIONS: "system.network.connections";
 /**
+ * Count of packets that are dropped or discarded even though there was no error.
+ *
+ * @note Measured as:
+ *
+ *   - Linux: the `drop` column in `/proc/dev/net` ([source](https://web.archive.org/web/20180321091318/http://www.onlamp.com/pub/a/linux/2000/11/16/LinuxAdmin.html))
+ *   - Windows: [`InDiscards`/`OutDiscards`](https://docs.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_if_row2)
+ *     from [`GetIfEntry2`](https://docs.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getifentry2)
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `system.network.packet.dropped`.
+ */
+declare const METRIC_SYSTEM_NETWORK_DROPPED: "system.network.dropped";
+/**
  * Count of network errors detected.
  *
  * @note Measured as:
@@ -17176,13 +18656,13 @@ declare const METRIC_SYSTEM_NETWORK_CONNECTIONS: "system.network.connections";
  */
 declare const METRIC_SYSTEM_NETWORK_ERRORS: "system.network.errors";
 /**
- * TODO.
+ * The number of bytes transmitted and received.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_NETWORK_IO: "system.network.io";
 /**
- * TODO.
+ * The number of packets transferred.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -17200,13 +18680,21 @@ declare const METRIC_SYSTEM_NETWORK_PACKET_COUNT: "system.network.packet.count";
  */
 declare const METRIC_SYSTEM_NETWORK_PACKET_DROPPED: "system.network.packet.dropped";
 /**
- * TODO.
+ * The number of packets transferred.
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `system.network.packet.count`.
+ */
+declare const METRIC_SYSTEM_NETWORK_PACKETS: "system.network.packets";
+/**
+ * The number of page faults.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_SYSTEM_PAGING_FAULTS: "system.paging.faults";
 /**
- * TODO.
+ * The number of paging operations.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -17218,7 +18706,7 @@ declare const METRIC_SYSTEM_PAGING_OPERATIONS: "system.paging.operations";
  */
 declare const METRIC_SYSTEM_PAGING_USAGE: "system.paging.usage";
 /**
- * TODO.
+ * Swap (unix) or pagefile (windows) utilization.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
@@ -17253,19 +18741,19 @@ declare const METRIC_SYSTEM_UPTIME: "system.uptime";
  */
 declare const METRIC_V8JS_GC_DURATION: "v8js.gc.duration";
 /**
- * Heap space available size.
- *
- * @note Value can be retrieved from value `space_available_size` of [`v8.getHeapSpaceStatistics()`](https://nodejs.org/api/v8.html#v8getheapspacestatistics)
+ * Deprecated, use `v8js.memory.heap.space.available_size` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `v8js.memory.heap.space.available_size`.
  */
 declare const METRIC_V8JS_HEAP_SPACE_AVAILABLE_SIZE: "v8js.heap.space.available_size";
 /**
- * Committed size of a heap space.
- *
- * @note Value can be retrieved from value `physical_space_size` of [`v8.getHeapSpaceStatistics()`](https://nodejs.org/api/v8.html#v8getheapspacestatistics)
+ * Deprecated, use `v8js.memory.heap.space.physical_size` instead.
  *
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ *
+ * @deprecated Replaced by `v8js.memory.heap.space.physical_size`.
  */
 declare const METRIC_V8JS_HEAP_SPACE_PHYSICAL_SIZE: "v8js.heap.space.physical_size";
 /**
@@ -17276,6 +18764,22 @@ declare const METRIC_V8JS_HEAP_SPACE_PHYSICAL_SIZE: "v8js.heap.space.physical_si
  * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
  */
 declare const METRIC_V8JS_MEMORY_HEAP_LIMIT: "v8js.memory.heap.limit";
+/**
+ * Heap space available size.
+ *
+ * @note Value can be retrieved from value `space_available_size` of [`v8.getHeapSpaceStatistics()`](https://nodejs.org/api/v8.html#v8getheapspacestatistics)
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_V8JS_MEMORY_HEAP_SPACE_AVAILABLE_SIZE: "v8js.memory.heap.space.available_size";
+/**
+ * Committed size of a heap space.
+ *
+ * @note Value can be retrieved from value `physical_space_size` of [`v8.getHeapSpaceStatistics()`](https://nodejs.org/api/v8.html#v8getheapspacestatistics)
+ *
+ * @experimental This metric is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const METRIC_V8JS_MEMORY_HEAP_SPACE_PHYSICAL_SIZE: "v8js.memory.heap.space.physical_size";
 /**
  * Heap Memory size allocated.
  *
@@ -17439,6 +18943,12 @@ declare const EVENT_GEN_AI_CHOICE: "gen_ai.choice";
  */
 declare const EVENT_GEN_AI_CLIENT_INFERENCE_OPERATION_DETAILS: "gen_ai.client.inference.operation.details";
 /**
+ * This event captures the result of evaluating GenAI output for quality, accuracy, or other characteristics. This event **SHOULD** be parented to GenAI operation span being evaluated when possible or set `gen_ai.response.id` when span id is not available.
+ *
+ * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
+ */
+declare const EVENT_GEN_AI_EVALUATION_RESULT: "gen_ai.evaluation.result";
+/**
  * This event describes the system instructions passed to the GenAI model.
  *
  * @experimental This event is experimental and is subject to breaking changes in minor releases of `@opentelemetry/semantic-conventions`.
@@ -17488,4 +18998,4 @@ declare const EVENT_SESSION_END: "session.end";
  */
 declare const EVENT_SESSION_START: "session.start";
 
-export { ANDROID_APP_STATE_VALUE_BACKGROUND, ANDROID_APP_STATE_VALUE_CREATED, ANDROID_APP_STATE_VALUE_FOREGROUND, ANDROID_STATE_VALUE_BACKGROUND, ANDROID_STATE_VALUE_CREATED, ANDROID_STATE_VALUE_FOREGROUND, ASPNETCORE_AUTHENTICATION_RESULT_VALUE_FAILURE, ASPNETCORE_AUTHENTICATION_RESULT_VALUE_NONE, ASPNETCORE_AUTHENTICATION_RESULT_VALUE_SUCCESS, ASPNETCORE_AUTHORIZATION_RESULT_VALUE_FAILURE, ASPNETCORE_AUTHORIZATION_RESULT_VALUE_SUCCESS, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_ABORTED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_HANDLED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_SKIPPED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_UNHANDLED, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_FAILURE, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_PASSWORD_MISSING, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_SUCCESS, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_SUCCESS_REHASH_NEEDED, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_USER_MISSING, ASPNETCORE_IDENTITY_RESULT_VALUE_FAILURE, ASPNETCORE_IDENTITY_RESULT_VALUE_SUCCESS, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_FAILURE, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_LOCKED_OUT, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_NOT_ALLOWED, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_REQUIRES_TWO_FACTOR, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_SUCCESS, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_EXTERNAL, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_PASSKEY, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_PASSWORD, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR_AUTHENTICATOR, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR_RECOVERY_CODE, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_CHANGE_EMAIL, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_CHANGE_PHONE_NUMBER, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_EMAIL_CONFIRMATION, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_OTHER, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_RESET_PASSWORD, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_TWO_FACTOR, ASPNETCORE_IDENTITY_TOKEN_VERIFIED_VALUE_FAILURE, ASPNETCORE_IDENTITY_TOKEN_VERIFIED_VALUE_SUCCESS, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ACCESS_FAILED, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_CLAIMS, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_LOGIN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_TO_ROLES, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_EMAIL, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_PHONE_NUMBER, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CONFIRM_EMAIL, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_GENERATE_NEW_TWO_FACTOR_RECOVERY_CODES, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_OTHER, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_PASSWORD_REHASH, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REDEEM_TWO_FACTOR_RECOVERY_CODE, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_AUTHENTICATION_TOKEN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_CLAIMS, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_FROM_ROLES, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_LOGIN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_PASSKEY, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REPLACE_CLAIM, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_ACCESS_FAILED_COUNT, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_AUTHENTICATOR_KEY, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SECURITY_STAMP, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_AUTHENTICATION_TOKEN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_EMAIL, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_LOCKOUT_ENABLED, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_LOCKOUT_END_DATE, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_PASSKEY, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_PHONE_NUMBER, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_TWO_FACTOR_ENABLED, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_UPDATE, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_USER_NAME, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ACQUIRED, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ENDPOINT_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_GLOBAL_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_REQUEST_CANCELED, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_FAILURE, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_SUCCESS, ATTR_ANDROID_APP_STATE, ATTR_ANDROID_OS_API_LEVEL, ATTR_ANDROID_STATE, ATTR_APP_BUILD_ID, ATTR_APP_INSTALLATION_ID, ATTR_APP_JANK_FRAME_COUNT, ATTR_APP_JANK_PERIOD, ATTR_APP_JANK_THRESHOLD, ATTR_APP_SCREEN_COORDINATE_X, ATTR_APP_SCREEN_COORDINATE_Y, ATTR_APP_WIDGET_ID, ATTR_APP_WIDGET_NAME, ATTR_ARTIFACT_ATTESTATION_FILENAME, ATTR_ARTIFACT_ATTESTATION_HASH, ATTR_ARTIFACT_ATTESTATION_ID, ATTR_ARTIFACT_FILENAME, ATTR_ARTIFACT_HASH, ATTR_ARTIFACT_PURL, ATTR_ARTIFACT_VERSION, ATTR_ASPNETCORE_AUTHENTICATION_RESULT, ATTR_ASPNETCORE_AUTHENTICATION_SCHEME, ATTR_ASPNETCORE_AUTHORIZATION_POLICY, ATTR_ASPNETCORE_AUTHORIZATION_RESULT, ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT, ATTR_ASPNETCORE_DIAGNOSTICS_HANDLER_TYPE, ATTR_ASPNETCORE_IDENTITY_ERROR_CODE, ATTR_ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT, ATTR_ASPNETCORE_IDENTITY_RESULT, ATTR_ASPNETCORE_IDENTITY_SIGN_IN_RESULT, ATTR_ASPNETCORE_IDENTITY_SIGN_IN_TYPE, ATTR_ASPNETCORE_IDENTITY_TOKEN_PURPOSE, ATTR_ASPNETCORE_IDENTITY_TOKEN_VERIFIED, ATTR_ASPNETCORE_IDENTITY_USER_TYPE, ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE, ATTR_ASPNETCORE_MEMORY_POOL_OWNER, ATTR_ASPNETCORE_RATE_LIMITING_POLICY, ATTR_ASPNETCORE_RATE_LIMITING_RESULT, ATTR_ASPNETCORE_REQUEST_IS_UNHANDLED, ATTR_ASPNETCORE_ROUTING_IS_FALLBACK, ATTR_ASPNETCORE_ROUTING_MATCH_STATUS, ATTR_ASPNETCORE_SIGN_IN_IS_PERSISTENT, ATTR_ASPNETCORE_USER_IS_AUTHENTICATED, ATTR_AWS_BEDROCK_GUARDRAIL_ID, ATTR_AWS_BEDROCK_KNOWLEDGE_BASE_ID, ATTR_AWS_DYNAMODB_ATTRIBUTES_TO_GET, ATTR_AWS_DYNAMODB_ATTRIBUTE_DEFINITIONS, ATTR_AWS_DYNAMODB_CONSISTENT_READ, ATTR_AWS_DYNAMODB_CONSUMED_CAPACITY, ATTR_AWS_DYNAMODB_COUNT, ATTR_AWS_DYNAMODB_EXCLUSIVE_START_TABLE, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEX_UPDATES, ATTR_AWS_DYNAMODB_INDEX_NAME, ATTR_AWS_DYNAMODB_ITEM_COLLECTION_METRICS, ATTR_AWS_DYNAMODB_LIMIT, ATTR_AWS_DYNAMODB_LOCAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_PROJECTION, ATTR_AWS_DYNAMODB_PROVISIONED_READ_CAPACITY, ATTR_AWS_DYNAMODB_PROVISIONED_WRITE_CAPACITY, ATTR_AWS_DYNAMODB_SCANNED_COUNT, ATTR_AWS_DYNAMODB_SCAN_FORWARD, ATTR_AWS_DYNAMODB_SEGMENT, ATTR_AWS_DYNAMODB_SELECT, ATTR_AWS_DYNAMODB_TABLE_COUNT, ATTR_AWS_DYNAMODB_TABLE_NAMES, ATTR_AWS_DYNAMODB_TOTAL_SEGMENTS, ATTR_AWS_ECS_CLUSTER_ARN, ATTR_AWS_ECS_CONTAINER_ARN, ATTR_AWS_ECS_LAUNCHTYPE, ATTR_AWS_ECS_TASK_ARN, ATTR_AWS_ECS_TASK_FAMILY, ATTR_AWS_ECS_TASK_ID, ATTR_AWS_ECS_TASK_REVISION, ATTR_AWS_EKS_CLUSTER_ARN, ATTR_AWS_EXTENDED_REQUEST_ID, ATTR_AWS_KINESIS_STREAM_NAME, ATTR_AWS_LAMBDA_INVOKED_ARN, ATTR_AWS_LAMBDA_RESOURCE_MAPPING_ID, ATTR_AWS_LOG_GROUP_ARNS, ATTR_AWS_LOG_GROUP_NAMES, ATTR_AWS_LOG_STREAM_ARNS, ATTR_AWS_LOG_STREAM_NAMES, ATTR_AWS_REQUEST_ID, ATTR_AWS_S3_BUCKET, ATTR_AWS_S3_COPY_SOURCE, ATTR_AWS_S3_DELETE, ATTR_AWS_S3_KEY, ATTR_AWS_S3_PART_NUMBER, ATTR_AWS_S3_UPLOAD_ID, ATTR_AWS_SECRETSMANAGER_SECRET_ARN, ATTR_AWS_SNS_TOPIC_ARN, ATTR_AWS_SQS_QUEUE_URL, ATTR_AWS_STEP_FUNCTIONS_ACTIVITY_ARN, ATTR_AWS_STEP_FUNCTIONS_STATE_MACHINE_ARN, ATTR_AZURE_CLIENT_ID, ATTR_AZURE_COSMOSDB_CONNECTION_MODE, ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL, ATTR_AZURE_COSMOSDB_OPERATION_CONTACTED_REGIONS, ATTR_AZURE_COSMOSDB_OPERATION_REQUEST_CHARGE, ATTR_AZURE_COSMOSDB_REQUEST_BODY_SIZE, ATTR_AZURE_COSMOSDB_RESPONSE_SUB_STATUS_CODE, ATTR_AZURE_RESOURCE_PROVIDER_NAMESPACE, ATTR_AZURE_SERVICE_REQUEST_ID, ATTR_AZ_NAMESPACE, ATTR_AZ_SERVICE_REQUEST_ID, ATTR_BROWSER_BRANDS, ATTR_BROWSER_LANGUAGE, ATTR_BROWSER_MOBILE, ATTR_BROWSER_PLATFORM, ATTR_CASSANDRA_CONSISTENCY_LEVEL, ATTR_CASSANDRA_COORDINATOR_DC, ATTR_CASSANDRA_COORDINATOR_ID, ATTR_CASSANDRA_PAGE_SIZE, ATTR_CASSANDRA_QUERY_IDEMPOTENT, ATTR_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_CICD_PIPELINE_ACTION_NAME, ATTR_CICD_PIPELINE_NAME, ATTR_CICD_PIPELINE_RESULT, ATTR_CICD_PIPELINE_RUN_ID, ATTR_CICD_PIPELINE_RUN_STATE, ATTR_CICD_PIPELINE_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_NAME, ATTR_CICD_PIPELINE_TASK_RUN_ID, ATTR_CICD_PIPELINE_TASK_RUN_RESULT, ATTR_CICD_PIPELINE_TASK_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_TYPE, ATTR_CICD_SYSTEM_COMPONENT, ATTR_CICD_WORKER_ID, ATTR_CICD_WORKER_NAME, ATTR_CICD_WORKER_STATE, ATTR_CICD_WORKER_URL_FULL, ATTR_CLIENT_ADDRESS, ATTR_CLIENT_PORT, ATTR_CLOUDEVENTS_EVENT_ID, ATTR_CLOUDEVENTS_EVENT_SOURCE, ATTR_CLOUDEVENTS_EVENT_SPEC_VERSION, ATTR_CLOUDEVENTS_EVENT_SUBJECT, ATTR_CLOUDEVENTS_EVENT_TYPE, ATTR_CLOUDFOUNDRY_APP_ID, ATTR_CLOUDFOUNDRY_APP_INSTANCE_ID, ATTR_CLOUDFOUNDRY_APP_NAME, ATTR_CLOUDFOUNDRY_ORG_ID, ATTR_CLOUDFOUNDRY_ORG_NAME, ATTR_CLOUDFOUNDRY_PROCESS_ID, ATTR_CLOUDFOUNDRY_PROCESS_TYPE, ATTR_CLOUDFOUNDRY_SPACE_ID, ATTR_CLOUDFOUNDRY_SPACE_NAME, ATTR_CLOUDFOUNDRY_SYSTEM_ID, ATTR_CLOUDFOUNDRY_SYSTEM_INSTANCE_ID, ATTR_CLOUD_ACCOUNT_ID, ATTR_CLOUD_AVAILABILITY_ZONE, ATTR_CLOUD_PLATFORM, ATTR_CLOUD_PROVIDER, ATTR_CLOUD_REGION, ATTR_CLOUD_RESOURCE_ID, ATTR_CODE_COLUMN, ATTR_CODE_COLUMN_NUMBER, ATTR_CODE_FILEPATH, ATTR_CODE_FILE_PATH, ATTR_CODE_FUNCTION, ATTR_CODE_FUNCTION_NAME, ATTR_CODE_LINENO, ATTR_CODE_LINE_NUMBER, ATTR_CODE_NAMESPACE, ATTR_CODE_STACKTRACE, ATTR_CONTAINER_COMMAND, ATTR_CONTAINER_COMMAND_ARGS, ATTR_CONTAINER_COMMAND_LINE, ATTR_CONTAINER_CPU_STATE, ATTR_CONTAINER_CSI_PLUGIN_NAME, ATTR_CONTAINER_CSI_VOLUME_ID, ATTR_CONTAINER_ID, ATTR_CONTAINER_IMAGE_ID, ATTR_CONTAINER_IMAGE_NAME, ATTR_CONTAINER_IMAGE_REPO_DIGESTS, ATTR_CONTAINER_IMAGE_TAGS, ATTR_CONTAINER_LABEL, ATTR_CONTAINER_LABELS, ATTR_CONTAINER_NAME, ATTR_CONTAINER_RUNTIME, ATTR_CONTAINER_RUNTIME_DESCRIPTION, ATTR_CONTAINER_RUNTIME_NAME, ATTR_CONTAINER_RUNTIME_VERSION, ATTR_CPU_LOGICAL_NUMBER, ATTR_CPU_MODE, ATTR_CPYTHON_GC_GENERATION, ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL, ATTR_DB_CASSANDRA_COORDINATOR_DC, ATTR_DB_CASSANDRA_COORDINATOR_ID, ATTR_DB_CASSANDRA_IDEMPOTENCE, ATTR_DB_CASSANDRA_PAGE_SIZE, ATTR_DB_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_DB_CASSANDRA_TABLE, ATTR_DB_CLIENT_CONNECTIONS_POOL_NAME, ATTR_DB_CLIENT_CONNECTIONS_STATE, ATTR_DB_CLIENT_CONNECTION_POOL_NAME, ATTR_DB_CLIENT_CONNECTION_STATE, ATTR_DB_COLLECTION_NAME, ATTR_DB_CONNECTION_STRING, ATTR_DB_COSMOSDB_CLIENT_ID, ATTR_DB_COSMOSDB_CONNECTION_MODE, ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL, ATTR_DB_COSMOSDB_CONTAINER, ATTR_DB_COSMOSDB_OPERATION_TYPE, ATTR_DB_COSMOSDB_REGIONS_CONTACTED, ATTR_DB_COSMOSDB_REQUEST_CHARGE, ATTR_DB_COSMOSDB_REQUEST_CONTENT_LENGTH, ATTR_DB_COSMOSDB_STATUS_CODE, ATTR_DB_COSMOSDB_SUB_STATUS_CODE, ATTR_DB_ELASTICSEARCH_CLUSTER_NAME, ATTR_DB_ELASTICSEARCH_NODE_NAME, ATTR_DB_ELASTICSEARCH_PATH_PARTS, ATTR_DB_INSTANCE_ID, ATTR_DB_JDBC_DRIVER_CLASSNAME, ATTR_DB_MONGODB_COLLECTION, ATTR_DB_MSSQL_INSTANCE_NAME, ATTR_DB_NAME, ATTR_DB_NAMESPACE, ATTR_DB_OPERATION, ATTR_DB_OPERATION_BATCH_SIZE, ATTR_DB_OPERATION_NAME, ATTR_DB_OPERATION_PARAMETER, ATTR_DB_QUERY_PARAMETER, ATTR_DB_QUERY_SUMMARY, ATTR_DB_QUERY_TEXT, ATTR_DB_REDIS_DATABASE_INDEX, ATTR_DB_RESPONSE_RETURNED_ROWS, ATTR_DB_RESPONSE_STATUS_CODE, ATTR_DB_SQL_TABLE, ATTR_DB_STATEMENT, ATTR_DB_STORED_PROCEDURE_NAME, ATTR_DB_SYSTEM, ATTR_DB_SYSTEM_NAME, ATTR_DB_USER, ATTR_DEPLOYMENT_ENVIRONMENT, ATTR_DEPLOYMENT_ENVIRONMENT_NAME, ATTR_DEPLOYMENT_ID, ATTR_DEPLOYMENT_NAME, ATTR_DEPLOYMENT_STATUS, ATTR_DESTINATION_ADDRESS, ATTR_DESTINATION_PORT, ATTR_DEVICE_ID, ATTR_DEVICE_MANUFACTURER, ATTR_DEVICE_MODEL_IDENTIFIER, ATTR_DEVICE_MODEL_NAME, ATTR_DISK_IO_DIRECTION, ATTR_DNS_ANSWERS, ATTR_DNS_QUESTION_NAME, ATTR_DOTNET_GC_HEAP_GENERATION, ATTR_ELASTICSEARCH_NODE_NAME, ATTR_ENDUSER_ID, ATTR_ENDUSER_PSEUDO_ID, ATTR_ENDUSER_ROLE, ATTR_ENDUSER_SCOPE, ATTR_ERROR_MESSAGE, ATTR_ERROR_TYPE, ATTR_EVENT_NAME, ATTR_EXCEPTION_ESCAPED, ATTR_EXCEPTION_MESSAGE, ATTR_EXCEPTION_STACKTRACE, ATTR_EXCEPTION_TYPE, ATTR_FAAS_COLDSTART, ATTR_FAAS_CRON, ATTR_FAAS_DOCUMENT_COLLECTION, ATTR_FAAS_DOCUMENT_NAME, ATTR_FAAS_DOCUMENT_OPERATION, ATTR_FAAS_DOCUMENT_TIME, ATTR_FAAS_INSTANCE, ATTR_FAAS_INVOCATION_ID, ATTR_FAAS_INVOKED_NAME, ATTR_FAAS_INVOKED_PROVIDER, ATTR_FAAS_INVOKED_REGION, ATTR_FAAS_MAX_MEMORY, ATTR_FAAS_NAME, ATTR_FAAS_TIME, ATTR_FAAS_TRIGGER, ATTR_FAAS_VERSION, ATTR_FEATURE_FLAG_CONTEXT_ID, ATTR_FEATURE_FLAG_EVALUATION_ERROR_MESSAGE, ATTR_FEATURE_FLAG_EVALUATION_REASON, ATTR_FEATURE_FLAG_KEY, ATTR_FEATURE_FLAG_PROVIDER_NAME, ATTR_FEATURE_FLAG_RESULT_REASON, ATTR_FEATURE_FLAG_RESULT_VALUE, ATTR_FEATURE_FLAG_RESULT_VARIANT, ATTR_FEATURE_FLAG_SET_ID, ATTR_FEATURE_FLAG_VARIANT, ATTR_FEATURE_FLAG_VERSION, ATTR_FILE_ACCESSED, ATTR_FILE_ATTRIBUTES, ATTR_FILE_CHANGED, ATTR_FILE_CREATED, ATTR_FILE_DIRECTORY, ATTR_FILE_EXTENSION, ATTR_FILE_FORK_NAME, ATTR_FILE_GROUP_ID, ATTR_FILE_GROUP_NAME, ATTR_FILE_INODE, ATTR_FILE_MODE, ATTR_FILE_MODIFIED, ATTR_FILE_NAME, ATTR_FILE_OWNER_ID, ATTR_FILE_OWNER_NAME, ATTR_FILE_PATH, ATTR_FILE_SIZE, ATTR_FILE_SYMBOLIC_LINK_TARGET_PATH, ATTR_GCP_APPHUB_APPLICATION_CONTAINER, ATTR_GCP_APPHUB_APPLICATION_ID, ATTR_GCP_APPHUB_APPLICATION_LOCATION, ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE, ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_SERVICE_ID, ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ID, ATTR_GCP_CLIENT_SERVICE, ATTR_GCP_CLOUD_RUN_JOB_EXECUTION, ATTR_GCP_CLOUD_RUN_JOB_TASK_INDEX, ATTR_GCP_GCE_INSTANCE_HOSTNAME, ATTR_GCP_GCE_INSTANCE_NAME, ATTR_GEN_AI_AGENT_DESCRIPTION, ATTR_GEN_AI_AGENT_ID, ATTR_GEN_AI_AGENT_NAME, ATTR_GEN_AI_COMPLETION, ATTR_GEN_AI_CONVERSATION_ID, ATTR_GEN_AI_DATA_SOURCE_ID, ATTR_GEN_AI_INPUT_MESSAGES, ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT, ATTR_GEN_AI_OPENAI_REQUEST_SEED, ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SYSTEM_FINGERPRINT, ATTR_GEN_AI_OPERATION_NAME, ATTR_GEN_AI_OUTPUT_MESSAGES, ATTR_GEN_AI_OUTPUT_TYPE, ATTR_GEN_AI_PROMPT, ATTR_GEN_AI_PROVIDER_NAME, ATTR_GEN_AI_REQUEST_CHOICE_COUNT, ATTR_GEN_AI_REQUEST_ENCODING_FORMATS, ATTR_GEN_AI_REQUEST_FREQUENCY_PENALTY, ATTR_GEN_AI_REQUEST_MAX_TOKENS, ATTR_GEN_AI_REQUEST_MODEL, ATTR_GEN_AI_REQUEST_PRESENCE_PENALTY, ATTR_GEN_AI_REQUEST_SEED, ATTR_GEN_AI_REQUEST_STOP_SEQUENCES, ATTR_GEN_AI_REQUEST_TEMPERATURE, ATTR_GEN_AI_REQUEST_TOP_K, ATTR_GEN_AI_REQUEST_TOP_P, ATTR_GEN_AI_RESPONSE_FINISH_REASONS, ATTR_GEN_AI_RESPONSE_ID, ATTR_GEN_AI_RESPONSE_MODEL, ATTR_GEN_AI_SYSTEM, ATTR_GEN_AI_SYSTEM_INSTRUCTIONS, ATTR_GEN_AI_TOKEN_TYPE, ATTR_GEN_AI_TOOL_CALL_ID, ATTR_GEN_AI_TOOL_DESCRIPTION, ATTR_GEN_AI_TOOL_NAME, ATTR_GEN_AI_TOOL_TYPE, ATTR_GEN_AI_USAGE_COMPLETION_TOKENS, ATTR_GEN_AI_USAGE_INPUT_TOKENS, ATTR_GEN_AI_USAGE_OUTPUT_TOKENS, ATTR_GEN_AI_USAGE_PROMPT_TOKENS, ATTR_GEO_CONTINENT_CODE, ATTR_GEO_COUNTRY_ISO_CODE, ATTR_GEO_LOCALITY_NAME, ATTR_GEO_LOCATION_LAT, ATTR_GEO_LOCATION_LON, ATTR_GEO_POSTAL_CODE, ATTR_GEO_REGION_ISO_CODE, ATTR_GO_MEMORY_TYPE, ATTR_GRAPHQL_DOCUMENT, ATTR_GRAPHQL_OPERATION_NAME, ATTR_GRAPHQL_OPERATION_TYPE, ATTR_HEROKU_APP_ID, ATTR_HEROKU_RELEASE_COMMIT, ATTR_HEROKU_RELEASE_CREATION_TIMESTAMP, ATTR_HOST_ARCH, ATTR_HOST_CPU_CACHE_L2_SIZE, ATTR_HOST_CPU_FAMILY, ATTR_HOST_CPU_MODEL_ID, ATTR_HOST_CPU_MODEL_NAME, ATTR_HOST_CPU_STEPPING, ATTR_HOST_CPU_VENDOR_ID, ATTR_HOST_ID, ATTR_HOST_IMAGE_ID, ATTR_HOST_IMAGE_NAME, ATTR_HOST_IMAGE_VERSION, ATTR_HOST_IP, ATTR_HOST_MAC, ATTR_HOST_NAME, ATTR_HOST_TYPE, ATTR_HTTP_CLIENT_IP, ATTR_HTTP_CONNECTION_STATE, ATTR_HTTP_FLAVOR, ATTR_HTTP_HOST, ATTR_HTTP_METHOD, ATTR_HTTP_REQUEST_BODY_SIZE, ATTR_HTTP_REQUEST_CONTENT_LENGTH, ATTR_HTTP_REQUEST_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_REQUEST_HEADER, ATTR_HTTP_REQUEST_METHOD, ATTR_HTTP_REQUEST_METHOD_ORIGINAL, ATTR_HTTP_REQUEST_RESEND_COUNT, ATTR_HTTP_REQUEST_SIZE, ATTR_HTTP_RESPONSE_BODY_SIZE, ATTR_HTTP_RESPONSE_CONTENT_LENGTH, ATTR_HTTP_RESPONSE_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_RESPONSE_HEADER, ATTR_HTTP_RESPONSE_SIZE, ATTR_HTTP_RESPONSE_STATUS_CODE, ATTR_HTTP_ROUTE, ATTR_HTTP_SCHEME, ATTR_HTTP_SERVER_NAME, ATTR_HTTP_STATUS_CODE, ATTR_HTTP_TARGET, ATTR_HTTP_URL, ATTR_HTTP_USER_AGENT, ATTR_HW_BATTERY_CAPACITY, ATTR_HW_BATTERY_CHEMISTRY, ATTR_HW_BATTERY_STATE, ATTR_HW_BIOS_VERSION, ATTR_HW_DRIVER_VERSION, ATTR_HW_ENCLOSURE_TYPE, ATTR_HW_FIRMWARE_VERSION, ATTR_HW_GPU_TASK, ATTR_HW_ID, ATTR_HW_LIMIT_TYPE, ATTR_HW_LOGICAL_DISK_RAID_LEVEL, ATTR_HW_LOGICAL_DISK_STATE, ATTR_HW_MEMORY_TYPE, ATTR_HW_MODEL, ATTR_HW_NAME, ATTR_HW_NETWORK_LOGICAL_ADDRESSES, ATTR_HW_NETWORK_PHYSICAL_ADDRESS, ATTR_HW_PARENT, ATTR_HW_PHYSICAL_DISK_SMART_ATTRIBUTE, ATTR_HW_PHYSICAL_DISK_STATE, ATTR_HW_PHYSICAL_DISK_TYPE, ATTR_HW_SENSOR_LOCATION, ATTR_HW_SERIAL_NUMBER, ATTR_HW_STATE, ATTR_HW_TAPE_DRIVE_OPERATION_TYPE, ATTR_HW_TYPE, ATTR_HW_VENDOR, ATTR_IOS_APP_STATE, ATTR_IOS_STATE, ATTR_JVM_BUFFER_POOL_NAME, ATTR_JVM_GC_ACTION, ATTR_JVM_GC_CAUSE, ATTR_JVM_GC_NAME, ATTR_JVM_MEMORY_POOL_NAME, ATTR_JVM_MEMORY_TYPE, ATTR_JVM_THREAD_DAEMON, ATTR_JVM_THREAD_STATE, ATTR_K8S_CLUSTER_NAME, ATTR_K8S_CLUSTER_UID, ATTR_K8S_CONTAINER_NAME, ATTR_K8S_CONTAINER_RESTART_COUNT, ATTR_K8S_CONTAINER_STATUS_LAST_TERMINATED_REASON, ATTR_K8S_CONTAINER_STATUS_REASON, ATTR_K8S_CONTAINER_STATUS_STATE, ATTR_K8S_CRONJOB_ANNOTATION, ATTR_K8S_CRONJOB_LABEL, ATTR_K8S_CRONJOB_NAME, ATTR_K8S_CRONJOB_UID, ATTR_K8S_DAEMONSET_ANNOTATION, ATTR_K8S_DAEMONSET_LABEL, ATTR_K8S_DAEMONSET_NAME, ATTR_K8S_DAEMONSET_UID, ATTR_K8S_DEPLOYMENT_ANNOTATION, ATTR_K8S_DEPLOYMENT_LABEL, ATTR_K8S_DEPLOYMENT_NAME, ATTR_K8S_DEPLOYMENT_UID, ATTR_K8S_HPA_METRIC_TYPE, ATTR_K8S_HPA_NAME, ATTR_K8S_HPA_SCALETARGETREF_API_VERSION, ATTR_K8S_HPA_SCALETARGETREF_KIND, ATTR_K8S_HPA_SCALETARGETREF_NAME, ATTR_K8S_HPA_UID, ATTR_K8S_HUGEPAGE_SIZE, ATTR_K8S_JOB_ANNOTATION, ATTR_K8S_JOB_LABEL, ATTR_K8S_JOB_NAME, ATTR_K8S_JOB_UID, ATTR_K8S_NAMESPACE_ANNOTATION, ATTR_K8S_NAMESPACE_LABEL, ATTR_K8S_NAMESPACE_NAME, ATTR_K8S_NAMESPACE_PHASE, ATTR_K8S_NODE_ANNOTATION, ATTR_K8S_NODE_CONDITION_STATUS, ATTR_K8S_NODE_CONDITION_TYPE, ATTR_K8S_NODE_LABEL, ATTR_K8S_NODE_NAME, ATTR_K8S_NODE_UID, ATTR_K8S_POD_ANNOTATION, ATTR_K8S_POD_LABEL, ATTR_K8S_POD_LABELS, ATTR_K8S_POD_NAME, ATTR_K8S_POD_UID, ATTR_K8S_REPLICASET_ANNOTATION, ATTR_K8S_REPLICASET_LABEL, ATTR_K8S_REPLICASET_NAME, ATTR_K8S_REPLICASET_UID, ATTR_K8S_REPLICATIONCONTROLLER_NAME, ATTR_K8S_REPLICATIONCONTROLLER_UID, ATTR_K8S_RESOURCEQUOTA_NAME, ATTR_K8S_RESOURCEQUOTA_RESOURCE_NAME, ATTR_K8S_RESOURCEQUOTA_UID, ATTR_K8S_STATEFULSET_ANNOTATION, ATTR_K8S_STATEFULSET_LABEL, ATTR_K8S_STATEFULSET_NAME, ATTR_K8S_STATEFULSET_UID, ATTR_K8S_STORAGECLASS_NAME, ATTR_K8S_VOLUME_NAME, ATTR_K8S_VOLUME_TYPE, ATTR_LINUX_MEMORY_SLAB_STATE, ATTR_LOG_FILE_NAME, ATTR_LOG_FILE_NAME_RESOLVED, ATTR_LOG_FILE_PATH, ATTR_LOG_FILE_PATH_RESOLVED, ATTR_LOG_IOSTREAM, ATTR_LOG_RECORD_ORIGINAL, ATTR_LOG_RECORD_UID, ATTR_MAINFRAME_LPAR_NAME, ATTR_MESSAGE_COMPRESSED_SIZE, ATTR_MESSAGE_ID, ATTR_MESSAGE_TYPE, ATTR_MESSAGE_UNCOMPRESSED_SIZE, ATTR_MESSAGING_BATCH_MESSAGE_COUNT, ATTR_MESSAGING_CLIENT_ID, ATTR_MESSAGING_CONSUMER_GROUP_NAME, ATTR_MESSAGING_DESTINATION_ANONYMOUS, ATTR_MESSAGING_DESTINATION_NAME, ATTR_MESSAGING_DESTINATION_PARTITION_ID, ATTR_MESSAGING_DESTINATION_PUBLISH_ANONYMOUS, ATTR_MESSAGING_DESTINATION_PUBLISH_NAME, ATTR_MESSAGING_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_DESTINATION_TEMPLATE, ATTR_MESSAGING_DESTINATION_TEMPORARY, ATTR_MESSAGING_EVENTHUBS_CONSUMER_GROUP, ATTR_MESSAGING_EVENTHUBS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_DEADLINE, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_ID, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_DELIVERY_ATTEMPT, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ORDERING_KEY, ATTR_MESSAGING_KAFKA_CONSUMER_GROUP, ATTR_MESSAGING_KAFKA_DESTINATION_PARTITION, ATTR_MESSAGING_KAFKA_MESSAGE_KEY, ATTR_MESSAGING_KAFKA_MESSAGE_OFFSET, ATTR_MESSAGING_KAFKA_MESSAGE_TOMBSTONE, ATTR_MESSAGING_KAFKA_OFFSET, ATTR_MESSAGING_MESSAGE_BODY_SIZE, ATTR_MESSAGING_MESSAGE_CONVERSATION_ID, ATTR_MESSAGING_MESSAGE_ENVELOPE_SIZE, ATTR_MESSAGING_MESSAGE_ID, ATTR_MESSAGING_OPERATION, ATTR_MESSAGING_OPERATION_NAME, ATTR_MESSAGING_OPERATION_TYPE, ATTR_MESSAGING_RABBITMQ_DESTINATION_ROUTING_KEY, ATTR_MESSAGING_RABBITMQ_MESSAGE_DELIVERY_TAG, ATTR_MESSAGING_ROCKETMQ_CLIENT_GROUP, ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELAY_TIME_LEVEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELIVERY_TIMESTAMP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_GROUP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_KEYS, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TAG, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE, ATTR_MESSAGING_ROCKETMQ_NAMESPACE, ATTR_MESSAGING_SERVICEBUS_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS, ATTR_MESSAGING_SERVICEBUS_MESSAGE_DELIVERY_COUNT, ATTR_MESSAGING_SERVICEBUS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_SYSTEM, ATTR_NETWORK_CARRIER_ICC, ATTR_NETWORK_CARRIER_MCC, ATTR_NETWORK_CARRIER_MNC, ATTR_NETWORK_CARRIER_NAME, ATTR_NETWORK_CONNECTION_STATE, ATTR_NETWORK_CONNECTION_SUBTYPE, ATTR_NETWORK_CONNECTION_TYPE, ATTR_NETWORK_INTERFACE_NAME, ATTR_NETWORK_IO_DIRECTION, ATTR_NETWORK_LOCAL_ADDRESS, ATTR_NETWORK_LOCAL_PORT, ATTR_NETWORK_PEER_ADDRESS, ATTR_NETWORK_PEER_PORT, ATTR_NETWORK_PROTOCOL_NAME, ATTR_NETWORK_PROTOCOL_VERSION, ATTR_NETWORK_TRANSPORT, ATTR_NETWORK_TYPE, ATTR_NET_HOST_IP, ATTR_NET_HOST_NAME, ATTR_NET_HOST_PORT, ATTR_NET_PEER_IP, ATTR_NET_PEER_NAME, ATTR_NET_PEER_PORT, ATTR_NET_PROTOCOL_NAME, ATTR_NET_PROTOCOL_VERSION, ATTR_NET_SOCK_FAMILY, ATTR_NET_SOCK_HOST_ADDR, ATTR_NET_SOCK_HOST_PORT, ATTR_NET_SOCK_PEER_ADDR, ATTR_NET_SOCK_PEER_NAME, ATTR_NET_SOCK_PEER_PORT, ATTR_NET_TRANSPORT, ATTR_NODEJS_EVENTLOOP_STATE, ATTR_OCI_MANIFEST_DIGEST, ATTR_OPENAI_REQUEST_SERVICE_TIER, ATTR_OPENAI_RESPONSE_SERVICE_TIER, ATTR_OPENAI_RESPONSE_SYSTEM_FINGERPRINT, ATTR_OPENTRACING_REF_TYPE, ATTR_OS_BUILD_ID, ATTR_OS_DESCRIPTION, ATTR_OS_NAME, ATTR_OS_TYPE, ATTR_OS_VERSION, ATTR_OTEL_COMPONENT_NAME, ATTR_OTEL_COMPONENT_TYPE, ATTR_OTEL_LIBRARY_NAME, ATTR_OTEL_LIBRARY_VERSION, ATTR_OTEL_SCOPE_NAME, ATTR_OTEL_SCOPE_SCHEMA_URL, ATTR_OTEL_SCOPE_VERSION, ATTR_OTEL_SPAN_PARENT_ORIGIN, ATTR_OTEL_SPAN_SAMPLING_RESULT, ATTR_OTEL_STATUS_CODE, ATTR_OTEL_STATUS_DESCRIPTION, ATTR_PEER_SERVICE, ATTR_POOL_NAME, ATTR_PROCESS_ARGS_COUNT, ATTR_PROCESS_COMMAND, ATTR_PROCESS_COMMAND_ARGS, ATTR_PROCESS_COMMAND_LINE, ATTR_PROCESS_CONTEXT_SWITCH_TYPE, ATTR_PROCESS_CPU_STATE, ATTR_PROCESS_CREATION_TIME, ATTR_PROCESS_ENVIRONMENT_VARIABLE, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GNU, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GO, ATTR_PROCESS_EXECUTABLE_BUILD_ID_HTLHASH, ATTR_PROCESS_EXECUTABLE_BUILD_ID_PROFILING, ATTR_PROCESS_EXECUTABLE_NAME, ATTR_PROCESS_EXECUTABLE_PATH, ATTR_PROCESS_EXIT_CODE, ATTR_PROCESS_EXIT_TIME, ATTR_PROCESS_GROUP_LEADER_PID, ATTR_PROCESS_INTERACTIVE, ATTR_PROCESS_LINUX_CGROUP, ATTR_PROCESS_OWNER, ATTR_PROCESS_PAGING_FAULT_TYPE, ATTR_PROCESS_PARENT_PID, ATTR_PROCESS_PID, ATTR_PROCESS_REAL_USER_ID, ATTR_PROCESS_REAL_USER_NAME, ATTR_PROCESS_RUNTIME_DESCRIPTION, ATTR_PROCESS_RUNTIME_NAME, ATTR_PROCESS_RUNTIME_VERSION, ATTR_PROCESS_SAVED_USER_ID, ATTR_PROCESS_SAVED_USER_NAME, ATTR_PROCESS_SESSION_LEADER_PID, ATTR_PROCESS_TITLE, ATTR_PROCESS_USER_ID, ATTR_PROCESS_USER_NAME, ATTR_PROCESS_VPID, ATTR_PROCESS_WORKING_DIRECTORY, ATTR_PROFILE_FRAME_TYPE, ATTR_RPC_CONNECT_RPC_ERROR_CODE, ATTR_RPC_CONNECT_RPC_REQUEST_METADATA, ATTR_RPC_CONNECT_RPC_RESPONSE_METADATA, ATTR_RPC_GRPC_REQUEST_METADATA, ATTR_RPC_GRPC_RESPONSE_METADATA, ATTR_RPC_GRPC_STATUS_CODE, ATTR_RPC_JSONRPC_ERROR_CODE, ATTR_RPC_JSONRPC_ERROR_MESSAGE, ATTR_RPC_JSONRPC_REQUEST_ID, ATTR_RPC_JSONRPC_VERSION, ATTR_RPC_MESSAGE_COMPRESSED_SIZE, ATTR_RPC_MESSAGE_ID, ATTR_RPC_MESSAGE_TYPE, ATTR_RPC_MESSAGE_UNCOMPRESSED_SIZE, ATTR_RPC_METHOD, ATTR_RPC_SERVICE, ATTR_RPC_SYSTEM, ATTR_SECURITY_RULE_CATEGORY, ATTR_SECURITY_RULE_DESCRIPTION, ATTR_SECURITY_RULE_LICENSE, ATTR_SECURITY_RULE_NAME, ATTR_SECURITY_RULE_REFERENCE, ATTR_SECURITY_RULE_RULESET_NAME, ATTR_SECURITY_RULE_UUID, ATTR_SECURITY_RULE_VERSION, ATTR_SERVER_ADDRESS, ATTR_SERVER_PORT, ATTR_SERVICE_INSTANCE_ID, ATTR_SERVICE_NAME, ATTR_SERVICE_NAMESPACE, ATTR_SERVICE_VERSION, ATTR_SESSION_ID, ATTR_SESSION_PREVIOUS_ID, ATTR_SIGNALR_CONNECTION_STATUS, ATTR_SIGNALR_TRANSPORT, ATTR_SOURCE_ADDRESS, ATTR_SOURCE_PORT, ATTR_STATE, ATTR_SYSTEM_CPU_LOGICAL_NUMBER, ATTR_SYSTEM_CPU_STATE, ATTR_SYSTEM_DEVICE, ATTR_SYSTEM_FILESYSTEM_MODE, ATTR_SYSTEM_FILESYSTEM_MOUNTPOINT, ATTR_SYSTEM_FILESYSTEM_STATE, ATTR_SYSTEM_FILESYSTEM_TYPE, ATTR_SYSTEM_MEMORY_STATE, ATTR_SYSTEM_NETWORK_STATE, ATTR_SYSTEM_PAGING_DIRECTION, ATTR_SYSTEM_PAGING_STATE, ATTR_SYSTEM_PAGING_TYPE, ATTR_SYSTEM_PROCESSES_STATUS, ATTR_SYSTEM_PROCESS_STATUS, ATTR_TELEMETRY_DISTRO_NAME, ATTR_TELEMETRY_DISTRO_VERSION, ATTR_TELEMETRY_SDK_LANGUAGE, ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_VERSION, ATTR_TEST_CASE_NAME, ATTR_TEST_CASE_RESULT_STATUS, ATTR_TEST_SUITE_NAME, ATTR_TEST_SUITE_RUN_STATUS, ATTR_THREAD_ID, ATTR_THREAD_NAME, ATTR_TLS_CIPHER, ATTR_TLS_CLIENT_CERTIFICATE, ATTR_TLS_CLIENT_CERTIFICATE_CHAIN, ATTR_TLS_CLIENT_HASH_MD5, ATTR_TLS_CLIENT_HASH_SHA1, ATTR_TLS_CLIENT_HASH_SHA256, ATTR_TLS_CLIENT_ISSUER, ATTR_TLS_CLIENT_JA3, ATTR_TLS_CLIENT_NOT_AFTER, ATTR_TLS_CLIENT_NOT_BEFORE, ATTR_TLS_CLIENT_SERVER_NAME, ATTR_TLS_CLIENT_SUBJECT, ATTR_TLS_CLIENT_SUPPORTED_CIPHERS, ATTR_TLS_CURVE, ATTR_TLS_ESTABLISHED, ATTR_TLS_NEXT_PROTOCOL, ATTR_TLS_PROTOCOL_NAME, ATTR_TLS_PROTOCOL_VERSION, ATTR_TLS_RESUMED, ATTR_TLS_SERVER_CERTIFICATE, ATTR_TLS_SERVER_CERTIFICATE_CHAIN, ATTR_TLS_SERVER_HASH_MD5, ATTR_TLS_SERVER_HASH_SHA1, ATTR_TLS_SERVER_HASH_SHA256, ATTR_TLS_SERVER_ISSUER, ATTR_TLS_SERVER_JA3S, ATTR_TLS_SERVER_NOT_AFTER, ATTR_TLS_SERVER_NOT_BEFORE, ATTR_TLS_SERVER_SUBJECT, ATTR_URL_DOMAIN, ATTR_URL_EXTENSION, ATTR_URL_FRAGMENT, ATTR_URL_FULL, ATTR_URL_ORIGINAL, ATTR_URL_PATH, ATTR_URL_PORT, ATTR_URL_QUERY, ATTR_URL_REGISTERED_DOMAIN, ATTR_URL_SCHEME, ATTR_URL_SUBDOMAIN, ATTR_URL_TEMPLATE, ATTR_URL_TOP_LEVEL_DOMAIN, ATTR_USER_AGENT_NAME, ATTR_USER_AGENT_ORIGINAL, ATTR_USER_AGENT_OS_NAME, ATTR_USER_AGENT_OS_VERSION, ATTR_USER_AGENT_SYNTHETIC_TYPE, ATTR_USER_AGENT_VERSION, ATTR_USER_EMAIL, ATTR_USER_FULL_NAME, ATTR_USER_HASH, ATTR_USER_ID, ATTR_USER_NAME, ATTR_USER_ROLES, ATTR_V8JS_GC_TYPE, ATTR_V8JS_HEAP_SPACE_NAME, ATTR_VCS_CHANGE_ID, ATTR_VCS_CHANGE_STATE, ATTR_VCS_CHANGE_TITLE, ATTR_VCS_LINE_CHANGE_TYPE, ATTR_VCS_OWNER_NAME, ATTR_VCS_PROVIDER_NAME, ATTR_VCS_REF_BASE_NAME, ATTR_VCS_REF_BASE_REVISION, ATTR_VCS_REF_BASE_TYPE, ATTR_VCS_REF_HEAD_NAME, ATTR_VCS_REF_HEAD_REVISION, ATTR_VCS_REF_HEAD_TYPE, ATTR_VCS_REF_TYPE, ATTR_VCS_REPOSITORY_CHANGE_ID, ATTR_VCS_REPOSITORY_CHANGE_TITLE, ATTR_VCS_REPOSITORY_NAME, ATTR_VCS_REPOSITORY_REF_NAME, ATTR_VCS_REPOSITORY_REF_REVISION, ATTR_VCS_REPOSITORY_REF_TYPE, ATTR_VCS_REPOSITORY_URL_FULL, ATTR_VCS_REVISION_DELTA_DIRECTION, ATTR_WEBENGINE_DESCRIPTION, ATTR_WEBENGINE_NAME, ATTR_WEBENGINE_VERSION, ATTR_ZOS_SMF_ID, ATTR_ZOS_SYSPLEX_NAME, AWS_ECS_LAUNCHTYPE_VALUE_EC2, AWS_ECS_LAUNCHTYPE_VALUE_FARGATE, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, CICD_PIPELINE_ACTION_NAME_VALUE_BUILD, CICD_PIPELINE_ACTION_NAME_VALUE_RUN, CICD_PIPELINE_ACTION_NAME_VALUE_SYNC, CICD_PIPELINE_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_RESULT_VALUE_ERROR, CICD_PIPELINE_RESULT_VALUE_FAILURE, CICD_PIPELINE_RESULT_VALUE_SKIP, CICD_PIPELINE_RESULT_VALUE_SUCCESS, CICD_PIPELINE_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_RUN_STATE_VALUE_EXECUTING, CICD_PIPELINE_RUN_STATE_VALUE_FINALIZING, CICD_PIPELINE_RUN_STATE_VALUE_PENDING, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_ERROR, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_FAILURE, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SKIP, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SUCCESS, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_TASK_TYPE_VALUE_BUILD, CICD_PIPELINE_TASK_TYPE_VALUE_DEPLOY, CICD_PIPELINE_TASK_TYPE_VALUE_TEST, CICD_WORKER_STATE_VALUE_AVAILABLE, CICD_WORKER_STATE_VALUE_BUSY, CICD_WORKER_STATE_VALUE_OFFLINE, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_ECS, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_FC, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_AWS_APP_RUNNER, CLOUD_PLATFORM_VALUE_AWS_EC2, CLOUD_PLATFORM_VALUE_AWS_ECS, CLOUD_PLATFORM_VALUE_AWS_EKS, CLOUD_PLATFORM_VALUE_AWS_ELASTIC_BEANSTALK, CLOUD_PLATFORM_VALUE_AWS_LAMBDA, CLOUD_PLATFORM_VALUE_AWS_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_AKS, CLOUD_PLATFORM_VALUE_AZURE_APP_SERVICE, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_APPS, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_INSTANCES, CLOUD_PLATFORM_VALUE_AZURE_FUNCTIONS, CLOUD_PLATFORM_VALUE_AZURE_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_VM, CLOUD_PLATFORM_VALUE_GCP_APP_ENGINE, CLOUD_PLATFORM_VALUE_GCP_BARE_METAL_SOLUTION, CLOUD_PLATFORM_VALUE_GCP_CLOUD_FUNCTIONS, CLOUD_PLATFORM_VALUE_GCP_CLOUD_RUN, CLOUD_PLATFORM_VALUE_GCP_COMPUTE_ENGINE, CLOUD_PLATFORM_VALUE_GCP_KUBERNETES_ENGINE, CLOUD_PLATFORM_VALUE_GCP_OPENSHIFT, CLOUD_PLATFORM_VALUE_IBM_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_COMPUTE, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_OKE, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_CVM, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_EKS, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_SCF, CLOUD_PROVIDER_VALUE_ALIBABA_CLOUD, CLOUD_PROVIDER_VALUE_AWS, CLOUD_PROVIDER_VALUE_AZURE, CLOUD_PROVIDER_VALUE_GCP, CLOUD_PROVIDER_VALUE_HEROKU, CLOUD_PROVIDER_VALUE_IBM_CLOUD, CLOUD_PROVIDER_VALUE_ORACLE_CLOUD, CLOUD_PROVIDER_VALUE_TENCENT_CLOUD, CONTAINER_CPU_STATE_VALUE_KERNEL, CONTAINER_CPU_STATE_VALUE_SYSTEM, CONTAINER_CPU_STATE_VALUE_USER, CPU_MODE_VALUE_IDLE, CPU_MODE_VALUE_INTERRUPT, CPU_MODE_VALUE_IOWAIT, CPU_MODE_VALUE_KERNEL, CPU_MODE_VALUE_NICE, CPU_MODE_VALUE_STEAL, CPU_MODE_VALUE_SYSTEM, CPU_MODE_VALUE_USER, CPYTHON_GC_GENERATION_VALUE_GENERATION_0, CPYTHON_GC_GENERATION_VALUE_GENERATION_1, CPYTHON_GC_GENERATION_VALUE_GENERATION_2, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, DB_CLIENT_CONNECTIONS_STATE_VALUE_IDLE, DB_CLIENT_CONNECTIONS_STATE_VALUE_USED, DB_CLIENT_CONNECTION_STATE_VALUE_IDLE, DB_CLIENT_CONNECTION_STATE_VALUE_USED, DB_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, DB_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, DB_COSMOSDB_OPERATION_TYPE_VALUE_BATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_CREATE, DB_COSMOSDB_OPERATION_TYPE_VALUE_DELETE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE_JAVASCRIPT, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_INVALID, DB_COSMOSDB_OPERATION_TYPE_VALUE_PATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY_PLAN, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_REPLACE, DB_COSMOSDB_OPERATION_TYPE_VALUE_UPSERT, DB_SYSTEM_NAME_VALUE_ACTIAN_INGRES, DB_SYSTEM_NAME_VALUE_AWS_DYNAMODB, DB_SYSTEM_NAME_VALUE_AWS_REDSHIFT, DB_SYSTEM_NAME_VALUE_AZURE_COSMOSDB, DB_SYSTEM_NAME_VALUE_CASSANDRA, DB_SYSTEM_NAME_VALUE_CLICKHOUSE, DB_SYSTEM_NAME_VALUE_COCKROACHDB, DB_SYSTEM_NAME_VALUE_COUCHBASE, DB_SYSTEM_NAME_VALUE_COUCHDB, DB_SYSTEM_NAME_VALUE_DERBY, DB_SYSTEM_NAME_VALUE_ELASTICSEARCH, DB_SYSTEM_NAME_VALUE_FIREBIRDSQL, DB_SYSTEM_NAME_VALUE_GCP_SPANNER, DB_SYSTEM_NAME_VALUE_GEODE, DB_SYSTEM_NAME_VALUE_H2DATABASE, DB_SYSTEM_NAME_VALUE_HBASE, DB_SYSTEM_NAME_VALUE_HIVE, DB_SYSTEM_NAME_VALUE_HSQLDB, DB_SYSTEM_NAME_VALUE_IBM_DB2, DB_SYSTEM_NAME_VALUE_IBM_INFORMIX, DB_SYSTEM_NAME_VALUE_IBM_NETEZZA, DB_SYSTEM_NAME_VALUE_INFLUXDB, DB_SYSTEM_NAME_VALUE_INSTANTDB, DB_SYSTEM_NAME_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_NAME_VALUE_MARIADB, DB_SYSTEM_NAME_VALUE_MEMCACHED, DB_SYSTEM_NAME_VALUE_MICROSOFT_SQL_SERVER, DB_SYSTEM_NAME_VALUE_MONGODB, DB_SYSTEM_NAME_VALUE_MYSQL, DB_SYSTEM_NAME_VALUE_NEO4J, DB_SYSTEM_NAME_VALUE_OPENSEARCH, DB_SYSTEM_NAME_VALUE_ORACLE_DB, DB_SYSTEM_NAME_VALUE_OTHER_SQL, DB_SYSTEM_NAME_VALUE_POSTGRESQL, DB_SYSTEM_NAME_VALUE_REDIS, DB_SYSTEM_NAME_VALUE_SAP_HANA, DB_SYSTEM_NAME_VALUE_SAP_MAXDB, DB_SYSTEM_NAME_VALUE_SOFTWAREAG_ADABAS, DB_SYSTEM_NAME_VALUE_SQLITE, DB_SYSTEM_NAME_VALUE_TERADATA, DB_SYSTEM_NAME_VALUE_TRINO, DB_SYSTEM_VALUE_ADABAS, DB_SYSTEM_VALUE_CACHE, DB_SYSTEM_VALUE_CASSANDRA, DB_SYSTEM_VALUE_CLICKHOUSE, DB_SYSTEM_VALUE_CLOUDSCAPE, DB_SYSTEM_VALUE_COCKROACHDB, DB_SYSTEM_VALUE_COLDFUSION, DB_SYSTEM_VALUE_COSMOSDB, DB_SYSTEM_VALUE_COUCHBASE, DB_SYSTEM_VALUE_COUCHDB, DB_SYSTEM_VALUE_DB2, DB_SYSTEM_VALUE_DERBY, DB_SYSTEM_VALUE_DYNAMODB, DB_SYSTEM_VALUE_EDB, DB_SYSTEM_VALUE_ELASTICSEARCH, DB_SYSTEM_VALUE_FILEMAKER, DB_SYSTEM_VALUE_FIREBIRD, DB_SYSTEM_VALUE_FIRSTSQL, DB_SYSTEM_VALUE_GEODE, DB_SYSTEM_VALUE_H2, DB_SYSTEM_VALUE_HANADB, DB_SYSTEM_VALUE_HBASE, DB_SYSTEM_VALUE_HIVE, DB_SYSTEM_VALUE_HSQLDB, DB_SYSTEM_VALUE_INFLUXDB, DB_SYSTEM_VALUE_INFORMIX, DB_SYSTEM_VALUE_INGRES, DB_SYSTEM_VALUE_INSTANTDB, DB_SYSTEM_VALUE_INTERBASE, DB_SYSTEM_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_VALUE_MARIADB, DB_SYSTEM_VALUE_MAXDB, DB_SYSTEM_VALUE_MEMCACHED, DB_SYSTEM_VALUE_MONGODB, DB_SYSTEM_VALUE_MSSQL, DB_SYSTEM_VALUE_MSSQLCOMPACT, DB_SYSTEM_VALUE_MYSQL, DB_SYSTEM_VALUE_NEO4J, DB_SYSTEM_VALUE_NETEZZA, DB_SYSTEM_VALUE_OPENSEARCH, DB_SYSTEM_VALUE_ORACLE, DB_SYSTEM_VALUE_OTHER_SQL, DB_SYSTEM_VALUE_PERVASIVE, DB_SYSTEM_VALUE_POINTBASE, DB_SYSTEM_VALUE_POSTGRESQL, DB_SYSTEM_VALUE_PROGRESS, DB_SYSTEM_VALUE_REDIS, DB_SYSTEM_VALUE_REDSHIFT, DB_SYSTEM_VALUE_SPANNER, DB_SYSTEM_VALUE_SQLITE, DB_SYSTEM_VALUE_SYBASE, DB_SYSTEM_VALUE_TERADATA, DB_SYSTEM_VALUE_TRINO, DB_SYSTEM_VALUE_VERTICA, DEPLOYMENT_STATUS_VALUE_FAILED, DEPLOYMENT_STATUS_VALUE_SUCCEEDED, DISK_IO_DIRECTION_VALUE_READ, DISK_IO_DIRECTION_VALUE_WRITE, DOTNET_GC_HEAP_GENERATION_VALUE_GEN0, DOTNET_GC_HEAP_GENERATION_VALUE_GEN1, DOTNET_GC_HEAP_GENERATION_VALUE_GEN2, DOTNET_GC_HEAP_GENERATION_VALUE_LOH, DOTNET_GC_HEAP_GENERATION_VALUE_POH, ERROR_TYPE_VALUE_OTHER, EVENT_APP_JANK, EVENT_APP_SCREEN_CLICK, EVENT_APP_WIDGET_CLICK, EVENT_AZURE_RESOURCE_LOG, EVENT_AZ_RESOURCE_LOG, EVENT_BROWSER_WEB_VITAL, EVENT_DEVICE_APP_LIFECYCLE, EVENT_EXCEPTION, EVENT_FEATURE_FLAG_EVALUATION, EVENT_GEN_AI_ASSISTANT_MESSAGE, EVENT_GEN_AI_CHOICE, EVENT_GEN_AI_CLIENT_INFERENCE_OPERATION_DETAILS, EVENT_GEN_AI_SYSTEM_MESSAGE, EVENT_GEN_AI_TOOL_MESSAGE, EVENT_GEN_AI_USER_MESSAGE, EVENT_RPC_MESSAGE, EVENT_SESSION_END, EVENT_SESSION_START, FAAS_DOCUMENT_OPERATION_VALUE_DELETE, FAAS_DOCUMENT_OPERATION_VALUE_EDIT, FAAS_DOCUMENT_OPERATION_VALUE_INSERT, FAAS_INVOKED_PROVIDER_VALUE_ALIBABA_CLOUD, FAAS_INVOKED_PROVIDER_VALUE_AWS, FAAS_INVOKED_PROVIDER_VALUE_AZURE, FAAS_INVOKED_PROVIDER_VALUE_GCP, FAAS_INVOKED_PROVIDER_VALUE_TENCENT_CLOUD, FAAS_TRIGGER_VALUE_DATASOURCE, FAAS_TRIGGER_VALUE_HTTP, FAAS_TRIGGER_VALUE_OTHER, FAAS_TRIGGER_VALUE_PUBSUB, FAAS_TRIGGER_VALUE_TIMER, FEATURE_FLAG_EVALUATION_REASON_VALUE_CACHED, FEATURE_FLAG_EVALUATION_REASON_VALUE_DEFAULT, FEATURE_FLAG_EVALUATION_REASON_VALUE_DISABLED, FEATURE_FLAG_EVALUATION_REASON_VALUE_ERROR, FEATURE_FLAG_EVALUATION_REASON_VALUE_SPLIT, FEATURE_FLAG_EVALUATION_REASON_VALUE_STALE, FEATURE_FLAG_EVALUATION_REASON_VALUE_STATIC, FEATURE_FLAG_EVALUATION_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_EVALUATION_REASON_VALUE_UNKNOWN, FEATURE_FLAG_RESULT_REASON_VALUE_CACHED, FEATURE_FLAG_RESULT_REASON_VALUE_DEFAULT, FEATURE_FLAG_RESULT_REASON_VALUE_DISABLED, FEATURE_FLAG_RESULT_REASON_VALUE_ERROR, FEATURE_FLAG_RESULT_REASON_VALUE_SPLIT, FEATURE_FLAG_RESULT_REASON_VALUE_STALE, FEATURE_FLAG_RESULT_REASON_VALUE_STATIC, FEATURE_FLAG_RESULT_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_RESULT_REASON_VALUE_UNKNOWN, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_TEST, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_TEST, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_OBJECT, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_SCHEMA, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_TEXT, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT, GEN_AI_OPERATION_NAME_VALUE_CHAT, GEN_AI_OPERATION_NAME_VALUE_CREATE_AGENT, GEN_AI_OPERATION_NAME_VALUE_EMBEDDINGS, GEN_AI_OPERATION_NAME_VALUE_EXECUTE_TOOL, GEN_AI_OPERATION_NAME_VALUE_GENERATE_CONTENT, GEN_AI_OPERATION_NAME_VALUE_INVOKE_AGENT, GEN_AI_OPERATION_NAME_VALUE_TEXT_COMPLETION, GEN_AI_OUTPUT_TYPE_VALUE_IMAGE, GEN_AI_OUTPUT_TYPE_VALUE_JSON, GEN_AI_OUTPUT_TYPE_VALUE_SPEECH, GEN_AI_OUTPUT_TYPE_VALUE_TEXT, GEN_AI_PROVIDER_NAME_VALUE_ANTHROPIC, GEN_AI_PROVIDER_NAME_VALUE_AWS_BEDROCK, GEN_AI_PROVIDER_NAME_VALUE_AZURE_AI_INFERENCE, GEN_AI_PROVIDER_NAME_VALUE_AZURE_AI_OPENAI, GEN_AI_PROVIDER_NAME_VALUE_COHERE, GEN_AI_PROVIDER_NAME_VALUE_DEEPSEEK, GEN_AI_PROVIDER_NAME_VALUE_GCP_GEMINI, GEN_AI_PROVIDER_NAME_VALUE_GCP_GEN_AI, GEN_AI_PROVIDER_NAME_VALUE_GCP_VERTEX_AI, GEN_AI_PROVIDER_NAME_VALUE_GROQ, GEN_AI_PROVIDER_NAME_VALUE_IBM_WATSONX_AI, GEN_AI_PROVIDER_NAME_VALUE_MISTRAL_AI, GEN_AI_PROVIDER_NAME_VALUE_OPENAI, GEN_AI_PROVIDER_NAME_VALUE_PERPLEXITY, GEN_AI_PROVIDER_NAME_VALUE_X_AI, GEN_AI_SYSTEM_VALUE_ANTHROPIC, GEN_AI_SYSTEM_VALUE_AWS_BEDROCK, GEN_AI_SYSTEM_VALUE_AZURE_AI_INFERENCE, GEN_AI_SYSTEM_VALUE_AZURE_AI_OPENAI, GEN_AI_SYSTEM_VALUE_AZ_AI_INFERENCE, GEN_AI_SYSTEM_VALUE_AZ_AI_OPENAI, GEN_AI_SYSTEM_VALUE_COHERE, GEN_AI_SYSTEM_VALUE_DEEPSEEK, GEN_AI_SYSTEM_VALUE_GCP_GEMINI, GEN_AI_SYSTEM_VALUE_GCP_GEN_AI, GEN_AI_SYSTEM_VALUE_GCP_VERTEX_AI, GEN_AI_SYSTEM_VALUE_GEMINI, GEN_AI_SYSTEM_VALUE_GROQ, GEN_AI_SYSTEM_VALUE_IBM_WATSONX_AI, GEN_AI_SYSTEM_VALUE_MISTRAL_AI, GEN_AI_SYSTEM_VALUE_OPENAI, GEN_AI_SYSTEM_VALUE_PERPLEXITY, GEN_AI_SYSTEM_VALUE_VERTEX_AI, GEN_AI_SYSTEM_VALUE_XAI, GEN_AI_TOKEN_TYPE_VALUE_COMPLETION, GEN_AI_TOKEN_TYPE_VALUE_INPUT, GEN_AI_TOKEN_TYPE_VALUE_OUTPUT, GEO_CONTINENT_CODE_VALUE_AF, GEO_CONTINENT_CODE_VALUE_AN, GEO_CONTINENT_CODE_VALUE_AS, GEO_CONTINENT_CODE_VALUE_EU, GEO_CONTINENT_CODE_VALUE_NA, GEO_CONTINENT_CODE_VALUE_OC, GEO_CONTINENT_CODE_VALUE_SA, GO_MEMORY_TYPE_VALUE_OTHER, GO_MEMORY_TYPE_VALUE_STACK, GRAPHQL_OPERATION_TYPE_VALUE_MUTATION, GRAPHQL_OPERATION_TYPE_VALUE_QUERY, GRAPHQL_OPERATION_TYPE_VALUE_SUBSCRIPTION, HOST_ARCH_VALUE_AMD64, HOST_ARCH_VALUE_ARM32, HOST_ARCH_VALUE_ARM64, HOST_ARCH_VALUE_IA64, HOST_ARCH_VALUE_PPC32, HOST_ARCH_VALUE_PPC64, HOST_ARCH_VALUE_S390X, HOST_ARCH_VALUE_X86, HTTP_CONNECTION_STATE_VALUE_ACTIVE, HTTP_CONNECTION_STATE_VALUE_IDLE, HTTP_FLAVOR_VALUE_HTTP_1_0, HTTP_FLAVOR_VALUE_HTTP_1_1, HTTP_FLAVOR_VALUE_HTTP_2_0, HTTP_FLAVOR_VALUE_HTTP_3_0, HTTP_FLAVOR_VALUE_QUIC, HTTP_FLAVOR_VALUE_SPDY, HTTP_REQUEST_METHOD_VALUE_CONNECT, HTTP_REQUEST_METHOD_VALUE_DELETE, HTTP_REQUEST_METHOD_VALUE_GET, HTTP_REQUEST_METHOD_VALUE_HEAD, HTTP_REQUEST_METHOD_VALUE_OPTIONS, HTTP_REQUEST_METHOD_VALUE_OTHER, HTTP_REQUEST_METHOD_VALUE_PATCH, HTTP_REQUEST_METHOD_VALUE_POST, HTTP_REQUEST_METHOD_VALUE_PUT, HTTP_REQUEST_METHOD_VALUE_TRACE, HW_BATTERY_STATE_VALUE_CHARGING, HW_BATTERY_STATE_VALUE_DISCHARGING, HW_GPU_TASK_VALUE_DECODER, HW_GPU_TASK_VALUE_ENCODER, HW_GPU_TASK_VALUE_GENERAL, HW_LIMIT_TYPE_VALUE_CRITICAL, HW_LIMIT_TYPE_VALUE_DEGRADED, HW_LIMIT_TYPE_VALUE_HIGH_CRITICAL, HW_LIMIT_TYPE_VALUE_HIGH_DEGRADED, HW_LIMIT_TYPE_VALUE_LOW_CRITICAL, HW_LIMIT_TYPE_VALUE_LOW_DEGRADED, HW_LIMIT_TYPE_VALUE_MAX, HW_LIMIT_TYPE_VALUE_THROTTLED, HW_LIMIT_TYPE_VALUE_TURBO, HW_LOGICAL_DISK_STATE_VALUE_FREE, HW_LOGICAL_DISK_STATE_VALUE_USED, HW_PHYSICAL_DISK_STATE_VALUE_REMAINING, HW_STATE_VALUE_DEGRADED, HW_STATE_VALUE_FAILED, HW_STATE_VALUE_NEEDS_CLEANING, HW_STATE_VALUE_OK, HW_STATE_VALUE_PREDICTED_FAILURE, HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_CLEAN, HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_MOUNT, HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_UNMOUNT, HW_TYPE_VALUE_BATTERY, HW_TYPE_VALUE_CPU, HW_TYPE_VALUE_DISK_CONTROLLER, HW_TYPE_VALUE_ENCLOSURE, HW_TYPE_VALUE_FAN, HW_TYPE_VALUE_GPU, HW_TYPE_VALUE_LOGICAL_DISK, HW_TYPE_VALUE_MEMORY, HW_TYPE_VALUE_NETWORK, HW_TYPE_VALUE_PHYSICAL_DISK, HW_TYPE_VALUE_POWER_SUPPLY, HW_TYPE_VALUE_TAPE_DRIVE, HW_TYPE_VALUE_TEMPERATURE, HW_TYPE_VALUE_VOLTAGE, IOS_APP_STATE_VALUE_ACTIVE, IOS_APP_STATE_VALUE_BACKGROUND, IOS_APP_STATE_VALUE_FOREGROUND, IOS_APP_STATE_VALUE_INACTIVE, IOS_APP_STATE_VALUE_TERMINATE, IOS_STATE_VALUE_ACTIVE, IOS_STATE_VALUE_BACKGROUND, IOS_STATE_VALUE_FOREGROUND, IOS_STATE_VALUE_INACTIVE, IOS_STATE_VALUE_TERMINATE, JVM_MEMORY_TYPE_VALUE_HEAP, JVM_MEMORY_TYPE_VALUE_NON_HEAP, JVM_THREAD_STATE_VALUE_BLOCKED, JVM_THREAD_STATE_VALUE_NEW, JVM_THREAD_STATE_VALUE_RUNNABLE, JVM_THREAD_STATE_VALUE_TERMINATED, JVM_THREAD_STATE_VALUE_TIMED_WAITING, JVM_THREAD_STATE_VALUE_WAITING, K8S_CONTAINER_STATUS_REASON_VALUE_COMPLETED, K8S_CONTAINER_STATUS_REASON_VALUE_CONTAINER_CANNOT_RUN, K8S_CONTAINER_STATUS_REASON_VALUE_CONTAINER_CREATING, K8S_CONTAINER_STATUS_REASON_VALUE_CRASH_LOOP_BACK_OFF, K8S_CONTAINER_STATUS_REASON_VALUE_CREATE_CONTAINER_CONFIG_ERROR, K8S_CONTAINER_STATUS_REASON_VALUE_ERROR, K8S_CONTAINER_STATUS_REASON_VALUE_ERR_IMAGE_PULL, K8S_CONTAINER_STATUS_REASON_VALUE_IMAGE_PULL_BACK_OFF, K8S_CONTAINER_STATUS_REASON_VALUE_OOM_KILLED, K8S_CONTAINER_STATUS_STATE_VALUE_RUNNING, K8S_CONTAINER_STATUS_STATE_VALUE_TERMINATED, K8S_CONTAINER_STATUS_STATE_VALUE_WAITING, K8S_NAMESPACE_PHASE_VALUE_ACTIVE, K8S_NAMESPACE_PHASE_VALUE_TERMINATING, K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_FALSE, K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_TRUE, K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_UNKNOWN, K8S_NODE_CONDITION_TYPE_VALUE_DISK_PRESSURE, K8S_NODE_CONDITION_TYPE_VALUE_MEMORY_PRESSURE, K8S_NODE_CONDITION_TYPE_VALUE_NETWORK_UNAVAILABLE, K8S_NODE_CONDITION_TYPE_VALUE_PID_PRESSURE, K8S_NODE_CONDITION_TYPE_VALUE_READY, K8S_VOLUME_TYPE_VALUE_CONFIG_MAP, K8S_VOLUME_TYPE_VALUE_DOWNWARD_API, K8S_VOLUME_TYPE_VALUE_EMPTY_DIR, K8S_VOLUME_TYPE_VALUE_LOCAL, K8S_VOLUME_TYPE_VALUE_PERSISTENT_VOLUME_CLAIM, K8S_VOLUME_TYPE_VALUE_SECRET, LINUX_MEMORY_SLAB_STATE_VALUE_RECLAIMABLE, LINUX_MEMORY_SLAB_STATE_VALUE_UNRECLAIMABLE, LOG_IOSTREAM_VALUE_STDERR, LOG_IOSTREAM_VALUE_STDOUT, MESSAGE_TYPE_VALUE_RECEIVED, MESSAGE_TYPE_VALUE_SENT, MESSAGING_OPERATION_TYPE_VALUE_CREATE, MESSAGING_OPERATION_TYPE_VALUE_DELIVER, MESSAGING_OPERATION_TYPE_VALUE_PROCESS, MESSAGING_OPERATION_TYPE_VALUE_PUBLISH, MESSAGING_OPERATION_TYPE_VALUE_RECEIVE, MESSAGING_OPERATION_TYPE_VALUE_SEND, MESSAGING_OPERATION_TYPE_VALUE_SETTLE, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_BROADCASTING, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_CLUSTERING, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_DELAY, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_FIFO, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_NORMAL, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_TRANSACTION, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_ABANDON, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_COMPLETE, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEAD_LETTER, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEFER, MESSAGING_SYSTEM_VALUE_ACTIVEMQ, MESSAGING_SYSTEM_VALUE_AWS_SNS, MESSAGING_SYSTEM_VALUE_AWS_SQS, MESSAGING_SYSTEM_VALUE_EVENTGRID, MESSAGING_SYSTEM_VALUE_EVENTHUBS, MESSAGING_SYSTEM_VALUE_GCP_PUBSUB, MESSAGING_SYSTEM_VALUE_JMS, MESSAGING_SYSTEM_VALUE_KAFKA, MESSAGING_SYSTEM_VALUE_PULSAR, MESSAGING_SYSTEM_VALUE_RABBITMQ, MESSAGING_SYSTEM_VALUE_ROCKETMQ, MESSAGING_SYSTEM_VALUE_SERVICEBUS, METRIC_ASPNETCORE_AUTHENTICATION_AUTHENTICATE_DURATION, METRIC_ASPNETCORE_AUTHENTICATION_CHALLENGES, METRIC_ASPNETCORE_AUTHENTICATION_FORBIDS, METRIC_ASPNETCORE_AUTHENTICATION_SIGN_INS, METRIC_ASPNETCORE_AUTHENTICATION_SIGN_OUTS, METRIC_ASPNETCORE_AUTHORIZATION_ATTEMPTS, METRIC_ASPNETCORE_DIAGNOSTICS_EXCEPTIONS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_AUTHENTICATE_DURATION, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_CHECK_PASSWORD_ATTEMPTS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_SIGN_INS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_SIGN_OUTS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_TWO_FACTOR_CLIENTS_FORGOTTEN, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_TWO_FACTOR_CLIENTS_REMEMBERED, METRIC_ASPNETCORE_IDENTITY_USER_CHECK_PASSWORD_ATTEMPTS, METRIC_ASPNETCORE_IDENTITY_USER_CREATE_DURATION, METRIC_ASPNETCORE_IDENTITY_USER_DELETE_DURATION, METRIC_ASPNETCORE_IDENTITY_USER_GENERATED_TOKENS, METRIC_ASPNETCORE_IDENTITY_USER_UPDATE_DURATION, METRIC_ASPNETCORE_IDENTITY_USER_VERIFY_TOKEN_ATTEMPTS, METRIC_ASPNETCORE_MEMORY_POOL_ALLOCATED, METRIC_ASPNETCORE_MEMORY_POOL_EVICTED, METRIC_ASPNETCORE_MEMORY_POOL_POOLED, METRIC_ASPNETCORE_MEMORY_POOL_RENTED, METRIC_ASPNETCORE_RATE_LIMITING_ACTIVE_REQUEST_LEASES, METRIC_ASPNETCORE_RATE_LIMITING_QUEUED_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_LEASE_DURATION, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_TIME_IN_QUEUE, METRIC_ASPNETCORE_ROUTING_MATCH_ATTEMPTS, METRIC_AZURE_COSMOSDB_CLIENT_ACTIVE_INSTANCE_COUNT, METRIC_AZURE_COSMOSDB_CLIENT_OPERATION_REQUEST_CHARGE, METRIC_CICD_PIPELINE_RUN_ACTIVE, METRIC_CICD_PIPELINE_RUN_DURATION, METRIC_CICD_PIPELINE_RUN_ERRORS, METRIC_CICD_SYSTEM_ERRORS, METRIC_CICD_WORKER_COUNT, METRIC_CONTAINER_CPU_TIME, METRIC_CONTAINER_CPU_USAGE, METRIC_CONTAINER_DISK_IO, METRIC_CONTAINER_FILESYSTEM_AVAILABLE, METRIC_CONTAINER_FILESYSTEM_CAPACITY, METRIC_CONTAINER_FILESYSTEM_USAGE, METRIC_CONTAINER_MEMORY_USAGE, METRIC_CONTAINER_NETWORK_IO, METRIC_CONTAINER_UPTIME, METRIC_CPU_FREQUENCY, METRIC_CPU_TIME, METRIC_CPU_UTILIZATION, METRIC_CPYTHON_GC_COLLECTED_OBJECTS, METRIC_CPYTHON_GC_COLLECTIONS, METRIC_CPYTHON_GC_UNCOLLECTABLE_OBJECTS, METRIC_DB_CLIENT_CONNECTIONS_CREATE_TIME, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MAX, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MIN, METRIC_DB_CLIENT_CONNECTIONS_MAX, METRIC_DB_CLIENT_CONNECTIONS_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTIONS_TIMEOUTS, METRIC_DB_CLIENT_CONNECTIONS_USAGE, METRIC_DB_CLIENT_CONNECTIONS_USE_TIME, METRIC_DB_CLIENT_CONNECTIONS_WAIT_TIME, METRIC_DB_CLIENT_CONNECTION_COUNT, METRIC_DB_CLIENT_CONNECTION_CREATE_TIME, METRIC_DB_CLIENT_CONNECTION_IDLE_MAX, METRIC_DB_CLIENT_CONNECTION_IDLE_MIN, METRIC_DB_CLIENT_CONNECTION_MAX, METRIC_DB_CLIENT_CONNECTION_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTION_TIMEOUTS, METRIC_DB_CLIENT_CONNECTION_USE_TIME, METRIC_DB_CLIENT_CONNECTION_WAIT_TIME, METRIC_DB_CLIENT_COSMOSDB_ACTIVE_INSTANCE_COUNT, METRIC_DB_CLIENT_COSMOSDB_OPERATION_REQUEST_CHARGE, METRIC_DB_CLIENT_OPERATION_DURATION, METRIC_DB_CLIENT_RESPONSE_RETURNED_ROWS, METRIC_DNS_LOOKUP_DURATION, METRIC_DOTNET_ASSEMBLY_COUNT, METRIC_DOTNET_EXCEPTIONS, METRIC_DOTNET_GC_COLLECTIONS, METRIC_DOTNET_GC_HEAP_TOTAL_ALLOCATED, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_FRAGMENTATION_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_MEMORY_COMMITTED_SIZE, METRIC_DOTNET_GC_PAUSE_TIME, METRIC_DOTNET_JIT_COMPILATION_TIME, METRIC_DOTNET_JIT_COMPILED_IL_SIZE, METRIC_DOTNET_JIT_COMPILED_METHODS, METRIC_DOTNET_MONITOR_LOCK_CONTENTIONS, METRIC_DOTNET_PROCESS_CPU_COUNT, METRIC_DOTNET_PROCESS_CPU_TIME, METRIC_DOTNET_PROCESS_MEMORY_WORKING_SET, METRIC_DOTNET_THREAD_POOL_QUEUE_LENGTH, METRIC_DOTNET_THREAD_POOL_THREAD_COUNT, METRIC_DOTNET_THREAD_POOL_WORK_ITEM_COUNT, METRIC_DOTNET_TIMER_COUNT, METRIC_FAAS_COLDSTARTS, METRIC_FAAS_CPU_USAGE, METRIC_FAAS_ERRORS, METRIC_FAAS_INIT_DURATION, METRIC_FAAS_INVOCATIONS, METRIC_FAAS_INVOKE_DURATION, METRIC_FAAS_MEM_USAGE, METRIC_FAAS_NET_IO, METRIC_FAAS_TIMEOUTS, METRIC_GEN_AI_CLIENT_OPERATION_DURATION, METRIC_GEN_AI_CLIENT_TOKEN_USAGE, METRIC_GEN_AI_SERVER_REQUEST_DURATION, METRIC_GEN_AI_SERVER_TIME_PER_OUTPUT_TOKEN, METRIC_GEN_AI_SERVER_TIME_TO_FIRST_TOKEN, METRIC_GO_CONFIG_GOGC, METRIC_GO_GOROUTINE_COUNT, METRIC_GO_MEMORY_ALLOCATED, METRIC_GO_MEMORY_ALLOCATIONS, METRIC_GO_MEMORY_GC_GOAL, METRIC_GO_MEMORY_LIMIT, METRIC_GO_MEMORY_USED, METRIC_GO_PROCESSOR_LIMIT, METRIC_GO_SCHEDULE_DURATION, METRIC_HTTP_CLIENT_ACTIVE_REQUESTS, METRIC_HTTP_CLIENT_CONNECTION_DURATION, METRIC_HTTP_CLIENT_OPEN_CONNECTIONS, METRIC_HTTP_CLIENT_REQUEST_BODY_SIZE, METRIC_HTTP_CLIENT_REQUEST_DURATION, METRIC_HTTP_CLIENT_RESPONSE_BODY_SIZE, METRIC_HTTP_SERVER_ACTIVE_REQUESTS, METRIC_HTTP_SERVER_REQUEST_BODY_SIZE, METRIC_HTTP_SERVER_REQUEST_DURATION, METRIC_HTTP_SERVER_RESPONSE_BODY_SIZE, METRIC_HW_BATTERY_CHARGE, METRIC_HW_BATTERY_CHARGE_LIMIT, METRIC_HW_BATTERY_TIME_LEFT, METRIC_HW_CPU_SPEED, METRIC_HW_CPU_SPEED_LIMIT, METRIC_HW_ENERGY, METRIC_HW_ERRORS, METRIC_HW_FAN_SPEED, METRIC_HW_FAN_SPEED_LIMIT, METRIC_HW_FAN_SPEED_RATIO, METRIC_HW_GPU_IO, METRIC_HW_GPU_MEMORY_LIMIT, METRIC_HW_GPU_MEMORY_USAGE, METRIC_HW_GPU_MEMORY_UTILIZATION, METRIC_HW_GPU_UTILIZATION, METRIC_HW_HOST_AMBIENT_TEMPERATURE, METRIC_HW_HOST_ENERGY, METRIC_HW_HOST_HEATING_MARGIN, METRIC_HW_HOST_POWER, METRIC_HW_LOGICAL_DISK_LIMIT, METRIC_HW_LOGICAL_DISK_USAGE, METRIC_HW_LOGICAL_DISK_UTILIZATION, METRIC_HW_MEMORY_SIZE, METRIC_HW_NETWORK_BANDWIDTH_LIMIT, METRIC_HW_NETWORK_BANDWIDTH_UTILIZATION, METRIC_HW_NETWORK_IO, METRIC_HW_NETWORK_PACKETS, METRIC_HW_NETWORK_UP, METRIC_HW_PHYSICAL_DISK_ENDURANCE_UTILIZATION, METRIC_HW_PHYSICAL_DISK_SIZE, METRIC_HW_PHYSICAL_DISK_SMART, METRIC_HW_POWER, METRIC_HW_POWER_SUPPLY_LIMIT, METRIC_HW_POWER_SUPPLY_USAGE, METRIC_HW_POWER_SUPPLY_UTILIZATION, METRIC_HW_STATUS, METRIC_HW_TAPE_DRIVE_OPERATIONS, METRIC_HW_TEMPERATURE, METRIC_HW_TEMPERATURE_LIMIT, METRIC_HW_VOLTAGE, METRIC_HW_VOLTAGE_LIMIT, METRIC_HW_VOLTAGE_NOMINAL, METRIC_JVM_BUFFER_COUNT, METRIC_JVM_BUFFER_MEMORY_LIMIT, METRIC_JVM_BUFFER_MEMORY_USAGE, METRIC_JVM_BUFFER_MEMORY_USED, METRIC_JVM_CLASS_COUNT, METRIC_JVM_CLASS_LOADED, METRIC_JVM_CLASS_UNLOADED, METRIC_JVM_CPU_COUNT, METRIC_JVM_CPU_RECENT_UTILIZATION, METRIC_JVM_CPU_TIME, METRIC_JVM_FILE_DESCRIPTOR_COUNT, METRIC_JVM_GC_DURATION, METRIC_JVM_MEMORY_COMMITTED, METRIC_JVM_MEMORY_INIT, METRIC_JVM_MEMORY_LIMIT, METRIC_JVM_MEMORY_USED, METRIC_JVM_MEMORY_USED_AFTER_LAST_GC, METRIC_JVM_SYSTEM_CPU_LOAD_1M, METRIC_JVM_SYSTEM_CPU_UTILIZATION, METRIC_JVM_THREAD_COUNT, METRIC_K8S_CONTAINER_CPU_LIMIT, METRIC_K8S_CONTAINER_CPU_REQUEST, METRIC_K8S_CONTAINER_EPHEMERAL_STORAGE_LIMIT, METRIC_K8S_CONTAINER_EPHEMERAL_STORAGE_REQUEST, METRIC_K8S_CONTAINER_MEMORY_LIMIT, METRIC_K8S_CONTAINER_MEMORY_REQUEST, METRIC_K8S_CONTAINER_READY, METRIC_K8S_CONTAINER_RESTART_COUNT, METRIC_K8S_CONTAINER_STATUS_REASON, METRIC_K8S_CONTAINER_STATUS_STATE, METRIC_K8S_CONTAINER_STORAGE_LIMIT, METRIC_K8S_CONTAINER_STORAGE_REQUEST, METRIC_K8S_CRONJOB_ACTIVE_JOBS, METRIC_K8S_DAEMONSET_CURRENT_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_DESIRED_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_MISSCHEDULED_NODES, METRIC_K8S_DAEMONSET_READY_NODES, METRIC_K8S_DEPLOYMENT_AVAILABLE_PODS, METRIC_K8S_DEPLOYMENT_DESIRED_PODS, METRIC_K8S_HPA_CURRENT_PODS, METRIC_K8S_HPA_DESIRED_PODS, METRIC_K8S_HPA_MAX_PODS, METRIC_K8S_HPA_METRIC_TARGET_CPU_AVERAGE_UTILIZATION, METRIC_K8S_HPA_METRIC_TARGET_CPU_AVERAGE_VALUE, METRIC_K8S_HPA_METRIC_TARGET_CPU_VALUE, METRIC_K8S_HPA_MIN_PODS, METRIC_K8S_JOB_ACTIVE_PODS, METRIC_K8S_JOB_DESIRED_SUCCESSFUL_PODS, METRIC_K8S_JOB_FAILED_PODS, METRIC_K8S_JOB_MAX_PARALLEL_PODS, METRIC_K8S_JOB_SUCCESSFUL_PODS, METRIC_K8S_NAMESPACE_PHASE, METRIC_K8S_NODE_ALLOCATABLE_CPU, METRIC_K8S_NODE_ALLOCATABLE_EPHEMERAL_STORAGE, METRIC_K8S_NODE_ALLOCATABLE_MEMORY, METRIC_K8S_NODE_ALLOCATABLE_PODS, METRIC_K8S_NODE_CONDITION_STATUS, METRIC_K8S_NODE_CPU_TIME, METRIC_K8S_NODE_CPU_USAGE, METRIC_K8S_NODE_FILESYSTEM_AVAILABLE, METRIC_K8S_NODE_FILESYSTEM_CAPACITY, METRIC_K8S_NODE_FILESYSTEM_USAGE, METRIC_K8S_NODE_MEMORY_USAGE, METRIC_K8S_NODE_NETWORK_ERRORS, METRIC_K8S_NODE_NETWORK_IO, METRIC_K8S_NODE_UPTIME, METRIC_K8S_POD_CPU_TIME, METRIC_K8S_POD_CPU_USAGE, METRIC_K8S_POD_FILESYSTEM_AVAILABLE, METRIC_K8S_POD_FILESYSTEM_CAPACITY, METRIC_K8S_POD_FILESYSTEM_USAGE, METRIC_K8S_POD_MEMORY_USAGE, METRIC_K8S_POD_NETWORK_ERRORS, METRIC_K8S_POD_NETWORK_IO, METRIC_K8S_POD_UPTIME, METRIC_K8S_POD_VOLUME_AVAILABLE, METRIC_K8S_POD_VOLUME_CAPACITY, METRIC_K8S_POD_VOLUME_INODE_COUNT, METRIC_K8S_POD_VOLUME_INODE_FREE, METRIC_K8S_POD_VOLUME_INODE_USED, METRIC_K8S_POD_VOLUME_USAGE, METRIC_K8S_REPLICASET_AVAILABLE_PODS, METRIC_K8S_REPLICASET_DESIRED_PODS, METRIC_K8S_REPLICATIONCONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATIONCONTROLLER_DESIRED_PODS, METRIC_K8S_REPLICATION_CONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATION_CONTROLLER_DESIRED_PODS, METRIC_K8S_RESOURCEQUOTA_CPU_LIMIT_HARD, METRIC_K8S_RESOURCEQUOTA_CPU_LIMIT_USED, METRIC_K8S_RESOURCEQUOTA_CPU_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_CPU_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_LIMIT_HARD, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_LIMIT_USED, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_HUGEPAGE_COUNT_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_HUGEPAGE_COUNT_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_MEMORY_LIMIT_HARD, METRIC_K8S_RESOURCEQUOTA_MEMORY_LIMIT_USED, METRIC_K8S_RESOURCEQUOTA_MEMORY_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_MEMORY_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_OBJECT_COUNT_HARD, METRIC_K8S_RESOURCEQUOTA_OBJECT_COUNT_USED, METRIC_K8S_RESOURCEQUOTA_PERSISTENTVOLUMECLAIM_COUNT_HARD, METRIC_K8S_RESOURCEQUOTA_PERSISTENTVOLUMECLAIM_COUNT_USED, METRIC_K8S_RESOURCEQUOTA_STORAGE_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_STORAGE_REQUEST_USED, METRIC_K8S_STATEFULSET_CURRENT_PODS, METRIC_K8S_STATEFULSET_DESIRED_PODS, METRIC_K8S_STATEFULSET_READY_PODS, METRIC_K8S_STATEFULSET_UPDATED_PODS, METRIC_KESTREL_ACTIVE_CONNECTIONS, METRIC_KESTREL_ACTIVE_TLS_HANDSHAKES, METRIC_KESTREL_CONNECTION_DURATION, METRIC_KESTREL_QUEUED_CONNECTIONS, METRIC_KESTREL_QUEUED_REQUESTS, METRIC_KESTREL_REJECTED_CONNECTIONS, METRIC_KESTREL_TLS_HANDSHAKE_DURATION, METRIC_KESTREL_UPGRADED_CONNECTIONS, METRIC_MESSAGING_CLIENT_CONSUMED_MESSAGES, METRIC_MESSAGING_CLIENT_OPERATION_DURATION, METRIC_MESSAGING_CLIENT_PUBLISHED_MESSAGES, METRIC_MESSAGING_CLIENT_SENT_MESSAGES, METRIC_MESSAGING_PROCESS_DURATION, METRIC_MESSAGING_PROCESS_MESSAGES, METRIC_MESSAGING_PUBLISH_DURATION, METRIC_MESSAGING_PUBLISH_MESSAGES, METRIC_MESSAGING_RECEIVE_DURATION, METRIC_MESSAGING_RECEIVE_MESSAGES, METRIC_NODEJS_EVENTLOOP_DELAY_MAX, METRIC_NODEJS_EVENTLOOP_DELAY_MEAN, METRIC_NODEJS_EVENTLOOP_DELAY_MIN, METRIC_NODEJS_EVENTLOOP_DELAY_P50, METRIC_NODEJS_EVENTLOOP_DELAY_P90, METRIC_NODEJS_EVENTLOOP_DELAY_P99, METRIC_NODEJS_EVENTLOOP_DELAY_STDDEV, METRIC_NODEJS_EVENTLOOP_TIME, METRIC_NODEJS_EVENTLOOP_UTILIZATION, METRIC_OTEL_SDK_EXPORTER_LOG_EXPORTED, METRIC_OTEL_SDK_EXPORTER_LOG_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_EXPORTED, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_OPERATION_DURATION, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED_COUNT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT_COUNT, METRIC_OTEL_SDK_LOG_CREATED, METRIC_OTEL_SDK_METRIC_READER_COLLECTION_DURATION, METRIC_OTEL_SDK_PROCESSOR_LOG_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_SIZE, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED_COUNT, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_SIZE, METRIC_OTEL_SDK_SPAN_ENDED, METRIC_OTEL_SDK_SPAN_ENDED_COUNT, METRIC_OTEL_SDK_SPAN_LIVE, METRIC_OTEL_SDK_SPAN_LIVE_COUNT, METRIC_OTEL_SDK_SPAN_STARTED, METRIC_PROCESS_CONTEXT_SWITCHES, METRIC_PROCESS_CPU_TIME, METRIC_PROCESS_CPU_UTILIZATION, METRIC_PROCESS_DISK_IO, METRIC_PROCESS_MEMORY_USAGE, METRIC_PROCESS_MEMORY_VIRTUAL, METRIC_PROCESS_NETWORK_IO, METRIC_PROCESS_OPEN_FILE_DESCRIPTOR_COUNT, METRIC_PROCESS_PAGING_FAULTS, METRIC_PROCESS_THREAD_COUNT, METRIC_PROCESS_UPTIME, METRIC_RPC_CLIENT_DURATION, METRIC_RPC_CLIENT_REQUESTS_PER_RPC, METRIC_RPC_CLIENT_REQUEST_SIZE, METRIC_RPC_CLIENT_RESPONSES_PER_RPC, METRIC_RPC_CLIENT_RESPONSE_SIZE, METRIC_RPC_SERVER_DURATION, METRIC_RPC_SERVER_REQUESTS_PER_RPC, METRIC_RPC_SERVER_REQUEST_SIZE, METRIC_RPC_SERVER_RESPONSES_PER_RPC, METRIC_RPC_SERVER_RESPONSE_SIZE, METRIC_SIGNALR_SERVER_ACTIVE_CONNECTIONS, METRIC_SIGNALR_SERVER_CONNECTION_DURATION, METRIC_SYSTEM_CPU_FREQUENCY, METRIC_SYSTEM_CPU_LOGICAL_COUNT, METRIC_SYSTEM_CPU_PHYSICAL_COUNT, METRIC_SYSTEM_CPU_TIME, METRIC_SYSTEM_CPU_UTILIZATION, METRIC_SYSTEM_DISK_IO, METRIC_SYSTEM_DISK_IO_TIME, METRIC_SYSTEM_DISK_LIMIT, METRIC_SYSTEM_DISK_MERGED, METRIC_SYSTEM_DISK_OPERATIONS, METRIC_SYSTEM_DISK_OPERATION_TIME, METRIC_SYSTEM_FILESYSTEM_LIMIT, METRIC_SYSTEM_FILESYSTEM_USAGE, METRIC_SYSTEM_FILESYSTEM_UTILIZATION, METRIC_SYSTEM_LINUX_MEMORY_AVAILABLE, METRIC_SYSTEM_LINUX_MEMORY_SLAB_USAGE, METRIC_SYSTEM_MEMORY_LIMIT, METRIC_SYSTEM_MEMORY_SHARED, METRIC_SYSTEM_MEMORY_USAGE, METRIC_SYSTEM_MEMORY_UTILIZATION, METRIC_SYSTEM_NETWORK_CONNECTIONS, METRIC_SYSTEM_NETWORK_CONNECTION_COUNT, METRIC_SYSTEM_NETWORK_ERRORS, METRIC_SYSTEM_NETWORK_IO, METRIC_SYSTEM_NETWORK_PACKET_COUNT, METRIC_SYSTEM_NETWORK_PACKET_DROPPED, METRIC_SYSTEM_PAGING_FAULTS, METRIC_SYSTEM_PAGING_OPERATIONS, METRIC_SYSTEM_PAGING_USAGE, METRIC_SYSTEM_PAGING_UTILIZATION, METRIC_SYSTEM_PROCESS_COUNT, METRIC_SYSTEM_PROCESS_CREATED, METRIC_SYSTEM_UPTIME, METRIC_V8JS_GC_DURATION, METRIC_V8JS_HEAP_SPACE_AVAILABLE_SIZE, METRIC_V8JS_HEAP_SPACE_PHYSICAL_SIZE, METRIC_V8JS_MEMORY_HEAP_LIMIT, METRIC_V8JS_MEMORY_HEAP_USED, METRIC_VCS_CHANGE_COUNT, METRIC_VCS_CHANGE_DURATION, METRIC_VCS_CHANGE_TIME_TO_APPROVAL, METRIC_VCS_CHANGE_TIME_TO_MERGE, METRIC_VCS_CONTRIBUTOR_COUNT, METRIC_VCS_REF_COUNT, METRIC_VCS_REF_LINES_DELTA, METRIC_VCS_REF_REVISIONS_DELTA, METRIC_VCS_REF_TIME, METRIC_VCS_REPOSITORY_COUNT, NETWORK_CONNECTION_STATE_VALUE_CLOSED, NETWORK_CONNECTION_STATE_VALUE_CLOSE_WAIT, NETWORK_CONNECTION_STATE_VALUE_CLOSING, NETWORK_CONNECTION_STATE_VALUE_ESTABLISHED, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_1, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_2, NETWORK_CONNECTION_STATE_VALUE_LAST_ACK, NETWORK_CONNECTION_STATE_VALUE_LISTEN, NETWORK_CONNECTION_STATE_VALUE_SYN_RECEIVED, NETWORK_CONNECTION_STATE_VALUE_SYN_SENT, NETWORK_CONNECTION_STATE_VALUE_TIME_WAIT, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA2000_1XRTT, NETWORK_CONNECTION_SUBTYPE_VALUE_EDGE, NETWORK_CONNECTION_SUBTYPE_VALUE_EHRPD, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_0, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_A, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_B, NETWORK_CONNECTION_SUBTYPE_VALUE_GPRS, NETWORK_CONNECTION_SUBTYPE_VALUE_GSM, NETWORK_CONNECTION_SUBTYPE_VALUE_HSDPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPAP, NETWORK_CONNECTION_SUBTYPE_VALUE_HSUPA, NETWORK_CONNECTION_SUBTYPE_VALUE_IDEN, NETWORK_CONNECTION_SUBTYPE_VALUE_IWLAN, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE_CA, NETWORK_CONNECTION_SUBTYPE_VALUE_NR, NETWORK_CONNECTION_SUBTYPE_VALUE_NRNSA, NETWORK_CONNECTION_SUBTYPE_VALUE_TD_SCDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_UMTS, NETWORK_CONNECTION_TYPE_VALUE_CELL, NETWORK_CONNECTION_TYPE_VALUE_UNAVAILABLE, NETWORK_CONNECTION_TYPE_VALUE_UNKNOWN, NETWORK_CONNECTION_TYPE_VALUE_WIFI, NETWORK_CONNECTION_TYPE_VALUE_WIRED, NETWORK_IO_DIRECTION_VALUE_RECEIVE, NETWORK_IO_DIRECTION_VALUE_TRANSMIT, NETWORK_TRANSPORT_VALUE_PIPE, NETWORK_TRANSPORT_VALUE_QUIC, NETWORK_TRANSPORT_VALUE_TCP, NETWORK_TRANSPORT_VALUE_UDP, NETWORK_TRANSPORT_VALUE_UNIX, NETWORK_TYPE_VALUE_IPV4, NETWORK_TYPE_VALUE_IPV6, NET_SOCK_FAMILY_VALUE_INET, NET_SOCK_FAMILY_VALUE_INET6, NET_SOCK_FAMILY_VALUE_UNIX, NET_TRANSPORT_VALUE_INPROC, NET_TRANSPORT_VALUE_IP_TCP, NET_TRANSPORT_VALUE_IP_UDP, NET_TRANSPORT_VALUE_OTHER, NET_TRANSPORT_VALUE_PIPE, NODEJS_EVENTLOOP_STATE_VALUE_ACTIVE, NODEJS_EVENTLOOP_STATE_VALUE_IDLE, OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO, OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT, OPENTRACING_REF_TYPE_VALUE_CHILD_OF, OPENTRACING_REF_TYPE_VALUE_FOLLOWS_FROM, OS_TYPE_VALUE_AIX, OS_TYPE_VALUE_DARWIN, OS_TYPE_VALUE_DRAGONFLYBSD, OS_TYPE_VALUE_FREEBSD, OS_TYPE_VALUE_HPUX, OS_TYPE_VALUE_LINUX, OS_TYPE_VALUE_NETBSD, OS_TYPE_VALUE_OPENBSD, OS_TYPE_VALUE_SOLARIS, OS_TYPE_VALUE_WINDOWS, OS_TYPE_VALUE_ZOS, OS_TYPE_VALUE_Z_OS, OTEL_COMPONENT_TYPE_VALUE_BATCHING_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_BATCHING_SPAN_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_PERIODIC_METRIC_READER, OTEL_COMPONENT_TYPE_VALUE_PROMETHEUS_HTTP_TEXT_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_SPAN_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_ZIPKIN_HTTP_SPAN_EXPORTER, OTEL_SPAN_PARENT_ORIGIN_VALUE_LOCAL, OTEL_SPAN_PARENT_ORIGIN_VALUE_NONE, OTEL_SPAN_PARENT_ORIGIN_VALUE_REMOTE, OTEL_SPAN_SAMPLING_RESULT_VALUE_DROP, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_AND_SAMPLE, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_ONLY, OTEL_STATUS_CODE_VALUE_ERROR, OTEL_STATUS_CODE_VALUE_OK, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_INVOLUNTARY, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_VOLUNTARY, PROCESS_CPU_STATE_VALUE_SYSTEM, PROCESS_CPU_STATE_VALUE_USER, PROCESS_CPU_STATE_VALUE_WAIT, PROCESS_PAGING_FAULT_TYPE_VALUE_MAJOR, PROCESS_PAGING_FAULT_TYPE_VALUE_MINOR, PROFILE_FRAME_TYPE_VALUE_BEAM, PROFILE_FRAME_TYPE_VALUE_CPYTHON, PROFILE_FRAME_TYPE_VALUE_DOTNET, PROFILE_FRAME_TYPE_VALUE_GO, PROFILE_FRAME_TYPE_VALUE_JVM, PROFILE_FRAME_TYPE_VALUE_KERNEL, PROFILE_FRAME_TYPE_VALUE_NATIVE, PROFILE_FRAME_TYPE_VALUE_PERL, PROFILE_FRAME_TYPE_VALUE_PHP, PROFILE_FRAME_TYPE_VALUE_RUBY, PROFILE_FRAME_TYPE_VALUE_RUST, PROFILE_FRAME_TYPE_VALUE_V8JS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ABORTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ALREADY_EXISTS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_CANCELLED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DATA_LOSS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DEADLINE_EXCEEDED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_FAILED_PRECONDITION, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INTERNAL, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INVALID_ARGUMENT, RPC_CONNECT_RPC_ERROR_CODE_VALUE_NOT_FOUND, RPC_CONNECT_RPC_ERROR_CODE_VALUE_OUT_OF_RANGE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_PERMISSION_DENIED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAUTHENTICATED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAVAILABLE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNIMPLEMENTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNKNOWN, RPC_GRPC_STATUS_CODE_VALUE_ABORTED, RPC_GRPC_STATUS_CODE_VALUE_ALREADY_EXISTS, RPC_GRPC_STATUS_CODE_VALUE_CANCELLED, RPC_GRPC_STATUS_CODE_VALUE_DATA_LOSS, RPC_GRPC_STATUS_CODE_VALUE_DEADLINE_EXCEEDED, RPC_GRPC_STATUS_CODE_VALUE_FAILED_PRECONDITION, RPC_GRPC_STATUS_CODE_VALUE_INTERNAL, RPC_GRPC_STATUS_CODE_VALUE_INVALID_ARGUMENT, RPC_GRPC_STATUS_CODE_VALUE_NOT_FOUND, RPC_GRPC_STATUS_CODE_VALUE_OK, RPC_GRPC_STATUS_CODE_VALUE_OUT_OF_RANGE, RPC_GRPC_STATUS_CODE_VALUE_PERMISSION_DENIED, RPC_GRPC_STATUS_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_GRPC_STATUS_CODE_VALUE_UNAUTHENTICATED, RPC_GRPC_STATUS_CODE_VALUE_UNAVAILABLE, RPC_GRPC_STATUS_CODE_VALUE_UNIMPLEMENTED, RPC_GRPC_STATUS_CODE_VALUE_UNKNOWN, RPC_MESSAGE_TYPE_VALUE_RECEIVED, RPC_MESSAGE_TYPE_VALUE_SENT, RPC_SYSTEM_VALUE_APACHE_DUBBO, RPC_SYSTEM_VALUE_CONNECT_RPC, RPC_SYSTEM_VALUE_DOTNET_WCF, RPC_SYSTEM_VALUE_GRPC, RPC_SYSTEM_VALUE_JAVA_RMI, SIGNALR_CONNECTION_STATUS_VALUE_APP_SHUTDOWN, SIGNALR_CONNECTION_STATUS_VALUE_NORMAL_CLOSURE, SIGNALR_CONNECTION_STATUS_VALUE_TIMEOUT, SIGNALR_TRANSPORT_VALUE_LONG_POLLING, SIGNALR_TRANSPORT_VALUE_SERVER_SENT_EVENTS, SIGNALR_TRANSPORT_VALUE_WEB_SOCKETS, STATE_VALUE_IDLE, STATE_VALUE_USED, SYSTEM_CPU_STATE_VALUE_IDLE, SYSTEM_CPU_STATE_VALUE_INTERRUPT, SYSTEM_CPU_STATE_VALUE_IOWAIT, SYSTEM_CPU_STATE_VALUE_NICE, SYSTEM_CPU_STATE_VALUE_STEAL, SYSTEM_CPU_STATE_VALUE_SYSTEM, SYSTEM_CPU_STATE_VALUE_USER, SYSTEM_FILESYSTEM_STATE_VALUE_FREE, SYSTEM_FILESYSTEM_STATE_VALUE_RESERVED, SYSTEM_FILESYSTEM_STATE_VALUE_USED, SYSTEM_FILESYSTEM_TYPE_VALUE_EXFAT, SYSTEM_FILESYSTEM_TYPE_VALUE_EXT4, SYSTEM_FILESYSTEM_TYPE_VALUE_FAT32, SYSTEM_FILESYSTEM_TYPE_VALUE_HFSPLUS, SYSTEM_FILESYSTEM_TYPE_VALUE_NTFS, SYSTEM_FILESYSTEM_TYPE_VALUE_REFS, SYSTEM_MEMORY_STATE_VALUE_BUFFERS, SYSTEM_MEMORY_STATE_VALUE_CACHED, SYSTEM_MEMORY_STATE_VALUE_FREE, SYSTEM_MEMORY_STATE_VALUE_SHARED, SYSTEM_MEMORY_STATE_VALUE_USED, SYSTEM_NETWORK_STATE_VALUE_CLOSE, SYSTEM_NETWORK_STATE_VALUE_CLOSE_WAIT, SYSTEM_NETWORK_STATE_VALUE_CLOSING, SYSTEM_NETWORK_STATE_VALUE_DELETE, SYSTEM_NETWORK_STATE_VALUE_ESTABLISHED, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_1, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_2, SYSTEM_NETWORK_STATE_VALUE_LAST_ACK, SYSTEM_NETWORK_STATE_VALUE_LISTEN, SYSTEM_NETWORK_STATE_VALUE_SYN_RECV, SYSTEM_NETWORK_STATE_VALUE_SYN_SENT, SYSTEM_NETWORK_STATE_VALUE_TIME_WAIT, SYSTEM_PAGING_DIRECTION_VALUE_IN, SYSTEM_PAGING_DIRECTION_VALUE_OUT, SYSTEM_PAGING_STATE_VALUE_FREE, SYSTEM_PAGING_STATE_VALUE_USED, SYSTEM_PAGING_TYPE_VALUE_MAJOR, SYSTEM_PAGING_TYPE_VALUE_MINOR, SYSTEM_PROCESSES_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESSES_STATUS_VALUE_RUNNING, SYSTEM_PROCESSES_STATUS_VALUE_SLEEPING, SYSTEM_PROCESSES_STATUS_VALUE_STOPPED, SYSTEM_PROCESS_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESS_STATUS_VALUE_RUNNING, SYSTEM_PROCESS_STATUS_VALUE_SLEEPING, SYSTEM_PROCESS_STATUS_VALUE_STOPPED, TELEMETRY_SDK_LANGUAGE_VALUE_CPP, TELEMETRY_SDK_LANGUAGE_VALUE_DOTNET, TELEMETRY_SDK_LANGUAGE_VALUE_ERLANG, TELEMETRY_SDK_LANGUAGE_VALUE_GO, TELEMETRY_SDK_LANGUAGE_VALUE_JAVA, TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS, TELEMETRY_SDK_LANGUAGE_VALUE_PHP, TELEMETRY_SDK_LANGUAGE_VALUE_PYTHON, TELEMETRY_SDK_LANGUAGE_VALUE_RUBY, TELEMETRY_SDK_LANGUAGE_VALUE_RUST, TELEMETRY_SDK_LANGUAGE_VALUE_SWIFT, TELEMETRY_SDK_LANGUAGE_VALUE_WEBJS, TEST_CASE_RESULT_STATUS_VALUE_FAIL, TEST_CASE_RESULT_STATUS_VALUE_PASS, TEST_SUITE_RUN_STATUS_VALUE_ABORTED, TEST_SUITE_RUN_STATUS_VALUE_FAILURE, TEST_SUITE_RUN_STATUS_VALUE_IN_PROGRESS, TEST_SUITE_RUN_STATUS_VALUE_SKIPPED, TEST_SUITE_RUN_STATUS_VALUE_SUCCESS, TEST_SUITE_RUN_STATUS_VALUE_TIMED_OUT, TLS_PROTOCOL_NAME_VALUE_SSL, TLS_PROTOCOL_NAME_VALUE_TLS, USER_AGENT_SYNTHETIC_TYPE_VALUE_BOT, USER_AGENT_SYNTHETIC_TYPE_VALUE_TEST, V8JS_GC_TYPE_VALUE_INCREMENTAL, V8JS_GC_TYPE_VALUE_MAJOR, V8JS_GC_TYPE_VALUE_MINOR, V8JS_GC_TYPE_VALUE_WEAKCB, V8JS_HEAP_SPACE_NAME_VALUE_CODE_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_LARGE_OBJECT_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_MAP_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_NEW_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_OLD_SPACE, VCS_CHANGE_STATE_VALUE_CLOSED, VCS_CHANGE_STATE_VALUE_MERGED, VCS_CHANGE_STATE_VALUE_OPEN, VCS_CHANGE_STATE_VALUE_WIP, VCS_LINE_CHANGE_TYPE_VALUE_ADDED, VCS_LINE_CHANGE_TYPE_VALUE_REMOVED, VCS_PROVIDER_NAME_VALUE_BITBUCKET, VCS_PROVIDER_NAME_VALUE_GITEA, VCS_PROVIDER_NAME_VALUE_GITHUB, VCS_PROVIDER_NAME_VALUE_GITLAB, VCS_PROVIDER_NAME_VALUE_GITTEA, VCS_REF_BASE_TYPE_VALUE_BRANCH, VCS_REF_BASE_TYPE_VALUE_TAG, VCS_REF_HEAD_TYPE_VALUE_BRANCH, VCS_REF_HEAD_TYPE_VALUE_TAG, VCS_REF_TYPE_VALUE_BRANCH, VCS_REF_TYPE_VALUE_TAG, VCS_REPOSITORY_REF_TYPE_VALUE_BRANCH, VCS_REPOSITORY_REF_TYPE_VALUE_TAG, VCS_REVISION_DELTA_DIRECTION_VALUE_AHEAD, VCS_REVISION_DELTA_DIRECTION_VALUE_BEHIND };
+export { ANDROID_APP_STATE_VALUE_BACKGROUND, ANDROID_APP_STATE_VALUE_CREATED, ANDROID_APP_STATE_VALUE_FOREGROUND, ANDROID_STATE_VALUE_BACKGROUND, ANDROID_STATE_VALUE_CREATED, ANDROID_STATE_VALUE_FOREGROUND, ASPNETCORE_AUTHENTICATION_RESULT_VALUE_FAILURE, ASPNETCORE_AUTHENTICATION_RESULT_VALUE_NONE, ASPNETCORE_AUTHENTICATION_RESULT_VALUE_SUCCESS, ASPNETCORE_AUTHORIZATION_RESULT_VALUE_FAILURE, ASPNETCORE_AUTHORIZATION_RESULT_VALUE_SUCCESS, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_ABORTED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_HANDLED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_SKIPPED, ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT_VALUE_UNHANDLED, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_FAILURE, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_PASSWORD_MISSING, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_SUCCESS, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_SUCCESS_REHASH_NEEDED, ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT_VALUE_USER_MISSING, ASPNETCORE_IDENTITY_RESULT_VALUE_FAILURE, ASPNETCORE_IDENTITY_RESULT_VALUE_SUCCESS, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_FAILURE, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_LOCKED_OUT, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_NOT_ALLOWED, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_REQUIRES_TWO_FACTOR, ASPNETCORE_IDENTITY_SIGN_IN_RESULT_VALUE_SUCCESS, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_EXTERNAL, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_PASSKEY, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_PASSWORD, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR_AUTHENTICATOR, ASPNETCORE_IDENTITY_SIGN_IN_TYPE_VALUE_TWO_FACTOR_RECOVERY_CODE, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_CHANGE_EMAIL, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_CHANGE_PHONE_NUMBER, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_EMAIL_CONFIRMATION, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_OTHER, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_RESET_PASSWORD, ASPNETCORE_IDENTITY_TOKEN_PURPOSE_VALUE_TWO_FACTOR, ASPNETCORE_IDENTITY_TOKEN_VERIFIED_VALUE_FAILURE, ASPNETCORE_IDENTITY_TOKEN_VERIFIED_VALUE_SUCCESS, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ACCESS_FAILED, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_CLAIMS, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_LOGIN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_ADD_TO_ROLES, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_EMAIL, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CHANGE_PHONE_NUMBER, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_CONFIRM_EMAIL, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_GENERATE_NEW_TWO_FACTOR_RECOVERY_CODES, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_OTHER, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_PASSWORD_REHASH, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REDEEM_TWO_FACTOR_RECOVERY_CODE, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_AUTHENTICATION_TOKEN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_CLAIMS, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_FROM_ROLES, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_LOGIN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_PASSKEY, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REMOVE_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_REPLACE_CLAIM, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_ACCESS_FAILED_COUNT, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_AUTHENTICATOR_KEY, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_RESET_PASSWORD, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SECURITY_STAMP, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_AUTHENTICATION_TOKEN, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_EMAIL, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_LOCKOUT_ENABLED, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_LOCKOUT_END_DATE, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_PASSKEY, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_PHONE_NUMBER, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_SET_TWO_FACTOR_ENABLED, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_UPDATE, ASPNETCORE_IDENTITY_USER_UPDATE_TYPE_VALUE_USER_NAME, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ACQUIRED, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_ENDPOINT_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_GLOBAL_LIMITER, ASPNETCORE_RATE_LIMITING_RESULT_VALUE_REQUEST_CANCELED, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_FAILURE, ASPNETCORE_ROUTING_MATCH_STATUS_VALUE_SUCCESS, ATTR_ANDROID_APP_STATE, ATTR_ANDROID_OS_API_LEVEL, ATTR_ANDROID_STATE, ATTR_APP_BUILD_ID, ATTR_APP_INSTALLATION_ID, ATTR_APP_JANK_FRAME_COUNT, ATTR_APP_JANK_PERIOD, ATTR_APP_JANK_THRESHOLD, ATTR_APP_SCREEN_COORDINATE_X, ATTR_APP_SCREEN_COORDINATE_Y, ATTR_APP_SCREEN_ID, ATTR_APP_SCREEN_NAME, ATTR_APP_WIDGET_ID, ATTR_APP_WIDGET_NAME, ATTR_ARTIFACT_ATTESTATION_FILENAME, ATTR_ARTIFACT_ATTESTATION_HASH, ATTR_ARTIFACT_ATTESTATION_ID, ATTR_ARTIFACT_FILENAME, ATTR_ARTIFACT_HASH, ATTR_ARTIFACT_PURL, ATTR_ARTIFACT_VERSION, ATTR_ASPNETCORE_AUTHENTICATION_RESULT, ATTR_ASPNETCORE_AUTHENTICATION_SCHEME, ATTR_ASPNETCORE_AUTHORIZATION_POLICY, ATTR_ASPNETCORE_AUTHORIZATION_RESULT, ATTR_ASPNETCORE_DIAGNOSTICS_EXCEPTION_RESULT, ATTR_ASPNETCORE_DIAGNOSTICS_HANDLER_TYPE, ATTR_ASPNETCORE_IDENTITY_ERROR_CODE, ATTR_ASPNETCORE_IDENTITY_PASSWORD_CHECK_RESULT, ATTR_ASPNETCORE_IDENTITY_RESULT, ATTR_ASPNETCORE_IDENTITY_SIGN_IN_RESULT, ATTR_ASPNETCORE_IDENTITY_SIGN_IN_TYPE, ATTR_ASPNETCORE_IDENTITY_TOKEN_PURPOSE, ATTR_ASPNETCORE_IDENTITY_TOKEN_VERIFIED, ATTR_ASPNETCORE_IDENTITY_USER_TYPE, ATTR_ASPNETCORE_IDENTITY_USER_UPDATE_TYPE, ATTR_ASPNETCORE_MEMORY_POOL_OWNER, ATTR_ASPNETCORE_RATE_LIMITING_POLICY, ATTR_ASPNETCORE_RATE_LIMITING_RESULT, ATTR_ASPNETCORE_REQUEST_IS_UNHANDLED, ATTR_ASPNETCORE_ROUTING_IS_FALLBACK, ATTR_ASPNETCORE_ROUTING_MATCH_STATUS, ATTR_ASPNETCORE_SIGN_IN_IS_PERSISTENT, ATTR_ASPNETCORE_USER_IS_AUTHENTICATED, ATTR_AWS_BEDROCK_GUARDRAIL_ID, ATTR_AWS_BEDROCK_KNOWLEDGE_BASE_ID, ATTR_AWS_DYNAMODB_ATTRIBUTES_TO_GET, ATTR_AWS_DYNAMODB_ATTRIBUTE_DEFINITIONS, ATTR_AWS_DYNAMODB_CONSISTENT_READ, ATTR_AWS_DYNAMODB_CONSUMED_CAPACITY, ATTR_AWS_DYNAMODB_COUNT, ATTR_AWS_DYNAMODB_EXCLUSIVE_START_TABLE, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_GLOBAL_SECONDARY_INDEX_UPDATES, ATTR_AWS_DYNAMODB_INDEX_NAME, ATTR_AWS_DYNAMODB_ITEM_COLLECTION_METRICS, ATTR_AWS_DYNAMODB_LIMIT, ATTR_AWS_DYNAMODB_LOCAL_SECONDARY_INDEXES, ATTR_AWS_DYNAMODB_PROJECTION, ATTR_AWS_DYNAMODB_PROVISIONED_READ_CAPACITY, ATTR_AWS_DYNAMODB_PROVISIONED_WRITE_CAPACITY, ATTR_AWS_DYNAMODB_SCANNED_COUNT, ATTR_AWS_DYNAMODB_SCAN_FORWARD, ATTR_AWS_DYNAMODB_SEGMENT, ATTR_AWS_DYNAMODB_SELECT, ATTR_AWS_DYNAMODB_TABLE_COUNT, ATTR_AWS_DYNAMODB_TABLE_NAMES, ATTR_AWS_DYNAMODB_TOTAL_SEGMENTS, ATTR_AWS_ECS_CLUSTER_ARN, ATTR_AWS_ECS_CONTAINER_ARN, ATTR_AWS_ECS_LAUNCHTYPE, ATTR_AWS_ECS_TASK_ARN, ATTR_AWS_ECS_TASK_FAMILY, ATTR_AWS_ECS_TASK_ID, ATTR_AWS_ECS_TASK_REVISION, ATTR_AWS_EKS_CLUSTER_ARN, ATTR_AWS_EXTENDED_REQUEST_ID, ATTR_AWS_KINESIS_STREAM_NAME, ATTR_AWS_LAMBDA_INVOKED_ARN, ATTR_AWS_LAMBDA_RESOURCE_MAPPING_ID, ATTR_AWS_LOG_GROUP_ARNS, ATTR_AWS_LOG_GROUP_NAMES, ATTR_AWS_LOG_STREAM_ARNS, ATTR_AWS_LOG_STREAM_NAMES, ATTR_AWS_REQUEST_ID, ATTR_AWS_S3_BUCKET, ATTR_AWS_S3_COPY_SOURCE, ATTR_AWS_S3_DELETE, ATTR_AWS_S3_KEY, ATTR_AWS_S3_PART_NUMBER, ATTR_AWS_S3_UPLOAD_ID, ATTR_AWS_SECRETSMANAGER_SECRET_ARN, ATTR_AWS_SNS_TOPIC_ARN, ATTR_AWS_SQS_QUEUE_URL, ATTR_AWS_STEP_FUNCTIONS_ACTIVITY_ARN, ATTR_AWS_STEP_FUNCTIONS_STATE_MACHINE_ARN, ATTR_AZURE_CLIENT_ID, ATTR_AZURE_COSMOSDB_CONNECTION_MODE, ATTR_AZURE_COSMOSDB_CONSISTENCY_LEVEL, ATTR_AZURE_COSMOSDB_OPERATION_CONTACTED_REGIONS, ATTR_AZURE_COSMOSDB_OPERATION_REQUEST_CHARGE, ATTR_AZURE_COSMOSDB_REQUEST_BODY_SIZE, ATTR_AZURE_COSMOSDB_RESPONSE_SUB_STATUS_CODE, ATTR_AZURE_RESOURCE_PROVIDER_NAMESPACE, ATTR_AZURE_SERVICE_REQUEST_ID, ATTR_AZ_NAMESPACE, ATTR_AZ_SERVICE_REQUEST_ID, ATTR_BROWSER_BRANDS, ATTR_BROWSER_LANGUAGE, ATTR_BROWSER_MOBILE, ATTR_BROWSER_PLATFORM, ATTR_CASSANDRA_CONSISTENCY_LEVEL, ATTR_CASSANDRA_COORDINATOR_DC, ATTR_CASSANDRA_COORDINATOR_ID, ATTR_CASSANDRA_PAGE_SIZE, ATTR_CASSANDRA_QUERY_IDEMPOTENT, ATTR_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_CICD_PIPELINE_ACTION_NAME, ATTR_CICD_PIPELINE_NAME, ATTR_CICD_PIPELINE_RESULT, ATTR_CICD_PIPELINE_RUN_ID, ATTR_CICD_PIPELINE_RUN_STATE, ATTR_CICD_PIPELINE_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_NAME, ATTR_CICD_PIPELINE_TASK_RUN_ID, ATTR_CICD_PIPELINE_TASK_RUN_RESULT, ATTR_CICD_PIPELINE_TASK_RUN_URL_FULL, ATTR_CICD_PIPELINE_TASK_TYPE, ATTR_CICD_SYSTEM_COMPONENT, ATTR_CICD_WORKER_ID, ATTR_CICD_WORKER_NAME, ATTR_CICD_WORKER_STATE, ATTR_CICD_WORKER_URL_FULL, ATTR_CLIENT_ADDRESS, ATTR_CLIENT_PORT, ATTR_CLOUDEVENTS_EVENT_ID, ATTR_CLOUDEVENTS_EVENT_SOURCE, ATTR_CLOUDEVENTS_EVENT_SPEC_VERSION, ATTR_CLOUDEVENTS_EVENT_SUBJECT, ATTR_CLOUDEVENTS_EVENT_TYPE, ATTR_CLOUDFOUNDRY_APP_ID, ATTR_CLOUDFOUNDRY_APP_INSTANCE_ID, ATTR_CLOUDFOUNDRY_APP_NAME, ATTR_CLOUDFOUNDRY_ORG_ID, ATTR_CLOUDFOUNDRY_ORG_NAME, ATTR_CLOUDFOUNDRY_PROCESS_ID, ATTR_CLOUDFOUNDRY_PROCESS_TYPE, ATTR_CLOUDFOUNDRY_SPACE_ID, ATTR_CLOUDFOUNDRY_SPACE_NAME, ATTR_CLOUDFOUNDRY_SYSTEM_ID, ATTR_CLOUDFOUNDRY_SYSTEM_INSTANCE_ID, ATTR_CLOUD_ACCOUNT_ID, ATTR_CLOUD_AVAILABILITY_ZONE, ATTR_CLOUD_PLATFORM, ATTR_CLOUD_PROVIDER, ATTR_CLOUD_REGION, ATTR_CLOUD_RESOURCE_ID, ATTR_CODE_COLUMN, ATTR_CODE_COLUMN_NUMBER, ATTR_CODE_FILEPATH, ATTR_CODE_FILE_PATH, ATTR_CODE_FUNCTION, ATTR_CODE_FUNCTION_NAME, ATTR_CODE_LINENO, ATTR_CODE_LINE_NUMBER, ATTR_CODE_NAMESPACE, ATTR_CODE_STACKTRACE, ATTR_CONTAINER_COMMAND, ATTR_CONTAINER_COMMAND_ARGS, ATTR_CONTAINER_COMMAND_LINE, ATTR_CONTAINER_CPU_STATE, ATTR_CONTAINER_CSI_PLUGIN_NAME, ATTR_CONTAINER_CSI_VOLUME_ID, ATTR_CONTAINER_ID, ATTR_CONTAINER_IMAGE_ID, ATTR_CONTAINER_IMAGE_NAME, ATTR_CONTAINER_IMAGE_REPO_DIGESTS, ATTR_CONTAINER_IMAGE_TAGS, ATTR_CONTAINER_LABEL, ATTR_CONTAINER_LABELS, ATTR_CONTAINER_NAME, ATTR_CONTAINER_RUNTIME, ATTR_CONTAINER_RUNTIME_DESCRIPTION, ATTR_CONTAINER_RUNTIME_NAME, ATTR_CONTAINER_RUNTIME_VERSION, ATTR_CPU_LOGICAL_NUMBER, ATTR_CPU_MODE, ATTR_CPYTHON_GC_GENERATION, ATTR_DB_CASSANDRA_CONSISTENCY_LEVEL, ATTR_DB_CASSANDRA_COORDINATOR_DC, ATTR_DB_CASSANDRA_COORDINATOR_ID, ATTR_DB_CASSANDRA_IDEMPOTENCE, ATTR_DB_CASSANDRA_PAGE_SIZE, ATTR_DB_CASSANDRA_SPECULATIVE_EXECUTION_COUNT, ATTR_DB_CASSANDRA_TABLE, ATTR_DB_CLIENT_CONNECTIONS_POOL_NAME, ATTR_DB_CLIENT_CONNECTIONS_STATE, ATTR_DB_CLIENT_CONNECTION_POOL_NAME, ATTR_DB_CLIENT_CONNECTION_STATE, ATTR_DB_COLLECTION_NAME, ATTR_DB_CONNECTION_STRING, ATTR_DB_COSMOSDB_CLIENT_ID, ATTR_DB_COSMOSDB_CONNECTION_MODE, ATTR_DB_COSMOSDB_CONSISTENCY_LEVEL, ATTR_DB_COSMOSDB_CONTAINER, ATTR_DB_COSMOSDB_OPERATION_TYPE, ATTR_DB_COSMOSDB_REGIONS_CONTACTED, ATTR_DB_COSMOSDB_REQUEST_CHARGE, ATTR_DB_COSMOSDB_REQUEST_CONTENT_LENGTH, ATTR_DB_COSMOSDB_STATUS_CODE, ATTR_DB_COSMOSDB_SUB_STATUS_CODE, ATTR_DB_ELASTICSEARCH_CLUSTER_NAME, ATTR_DB_ELASTICSEARCH_NODE_NAME, ATTR_DB_ELASTICSEARCH_PATH_PARTS, ATTR_DB_INSTANCE_ID, ATTR_DB_JDBC_DRIVER_CLASSNAME, ATTR_DB_MONGODB_COLLECTION, ATTR_DB_MSSQL_INSTANCE_NAME, ATTR_DB_NAME, ATTR_DB_NAMESPACE, ATTR_DB_OPERATION, ATTR_DB_OPERATION_BATCH_SIZE, ATTR_DB_OPERATION_NAME, ATTR_DB_OPERATION_PARAMETER, ATTR_DB_QUERY_PARAMETER, ATTR_DB_QUERY_SUMMARY, ATTR_DB_QUERY_TEXT, ATTR_DB_REDIS_DATABASE_INDEX, ATTR_DB_RESPONSE_RETURNED_ROWS, ATTR_DB_RESPONSE_STATUS_CODE, ATTR_DB_SQL_TABLE, ATTR_DB_STATEMENT, ATTR_DB_STORED_PROCEDURE_NAME, ATTR_DB_SYSTEM, ATTR_DB_SYSTEM_NAME, ATTR_DB_USER, ATTR_DEPLOYMENT_ENVIRONMENT, ATTR_DEPLOYMENT_ENVIRONMENT_NAME, ATTR_DEPLOYMENT_ID, ATTR_DEPLOYMENT_NAME, ATTR_DEPLOYMENT_STATUS, ATTR_DESTINATION_ADDRESS, ATTR_DESTINATION_PORT, ATTR_DEVICE_ID, ATTR_DEVICE_MANUFACTURER, ATTR_DEVICE_MODEL_IDENTIFIER, ATTR_DEVICE_MODEL_NAME, ATTR_DISK_IO_DIRECTION, ATTR_DNS_ANSWERS, ATTR_DNS_QUESTION_NAME, ATTR_DOTNET_GC_HEAP_GENERATION, ATTR_ELASTICSEARCH_NODE_NAME, ATTR_ENDUSER_ID, ATTR_ENDUSER_PSEUDO_ID, ATTR_ENDUSER_ROLE, ATTR_ENDUSER_SCOPE, ATTR_ERROR_MESSAGE, ATTR_ERROR_TYPE, ATTR_EVENT_NAME, ATTR_EXCEPTION_ESCAPED, ATTR_EXCEPTION_MESSAGE, ATTR_EXCEPTION_STACKTRACE, ATTR_EXCEPTION_TYPE, ATTR_FAAS_COLDSTART, ATTR_FAAS_CRON, ATTR_FAAS_DOCUMENT_COLLECTION, ATTR_FAAS_DOCUMENT_NAME, ATTR_FAAS_DOCUMENT_OPERATION, ATTR_FAAS_DOCUMENT_TIME, ATTR_FAAS_INSTANCE, ATTR_FAAS_INVOCATION_ID, ATTR_FAAS_INVOKED_NAME, ATTR_FAAS_INVOKED_PROVIDER, ATTR_FAAS_INVOKED_REGION, ATTR_FAAS_MAX_MEMORY, ATTR_FAAS_NAME, ATTR_FAAS_TIME, ATTR_FAAS_TRIGGER, ATTR_FAAS_VERSION, ATTR_FEATURE_FLAG_CONTEXT_ID, ATTR_FEATURE_FLAG_EVALUATION_ERROR_MESSAGE, ATTR_FEATURE_FLAG_EVALUATION_REASON, ATTR_FEATURE_FLAG_KEY, ATTR_FEATURE_FLAG_PROVIDER_NAME, ATTR_FEATURE_FLAG_RESULT_REASON, ATTR_FEATURE_FLAG_RESULT_VALUE, ATTR_FEATURE_FLAG_RESULT_VARIANT, ATTR_FEATURE_FLAG_SET_ID, ATTR_FEATURE_FLAG_VARIANT, ATTR_FEATURE_FLAG_VERSION, ATTR_FILE_ACCESSED, ATTR_FILE_ATTRIBUTES, ATTR_FILE_CHANGED, ATTR_FILE_CREATED, ATTR_FILE_DIRECTORY, ATTR_FILE_EXTENSION, ATTR_FILE_FORK_NAME, ATTR_FILE_GROUP_ID, ATTR_FILE_GROUP_NAME, ATTR_FILE_INODE, ATTR_FILE_MODE, ATTR_FILE_MODIFIED, ATTR_FILE_NAME, ATTR_FILE_OWNER_ID, ATTR_FILE_OWNER_NAME, ATTR_FILE_PATH, ATTR_FILE_SIZE, ATTR_FILE_SYMBOLIC_LINK_TARGET_PATH, ATTR_GCP_APPHUB_APPLICATION_CONTAINER, ATTR_GCP_APPHUB_APPLICATION_ID, ATTR_GCP_APPHUB_APPLICATION_LOCATION, ATTR_GCP_APPHUB_DESTINATION_APPLICATION_CONTAINER, ATTR_GCP_APPHUB_DESTINATION_APPLICATION_ID, ATTR_GCP_APPHUB_DESTINATION_APPLICATION_LOCATION, ATTR_GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE, ATTR_GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_DESTINATION_SERVICE_ID, ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE, ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_DESTINATION_WORKLOAD_ID, ATTR_GCP_APPHUB_SERVICE_CRITICALITY_TYPE, ATTR_GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_SERVICE_ID, ATTR_GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE, ATTR_GCP_APPHUB_WORKLOAD_ID, ATTR_GCP_CLIENT_SERVICE, ATTR_GCP_CLOUD_RUN_JOB_EXECUTION, ATTR_GCP_CLOUD_RUN_JOB_TASK_INDEX, ATTR_GCP_GCE_INSTANCE_HOSTNAME, ATTR_GCP_GCE_INSTANCE_NAME, ATTR_GEN_AI_AGENT_DESCRIPTION, ATTR_GEN_AI_AGENT_ID, ATTR_GEN_AI_AGENT_NAME, ATTR_GEN_AI_COMPLETION, ATTR_GEN_AI_CONVERSATION_ID, ATTR_GEN_AI_DATA_SOURCE_ID, ATTR_GEN_AI_EMBEDDINGS_DIMENSION_COUNT, ATTR_GEN_AI_EVALUATION_EXPLANATION, ATTR_GEN_AI_EVALUATION_NAME, ATTR_GEN_AI_EVALUATION_SCORE_LABEL, ATTR_GEN_AI_EVALUATION_SCORE_VALUE, ATTR_GEN_AI_INPUT_MESSAGES, ATTR_GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT, ATTR_GEN_AI_OPENAI_REQUEST_SEED, ATTR_GEN_AI_OPENAI_REQUEST_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SERVICE_TIER, ATTR_GEN_AI_OPENAI_RESPONSE_SYSTEM_FINGERPRINT, ATTR_GEN_AI_OPERATION_NAME, ATTR_GEN_AI_OUTPUT_MESSAGES, ATTR_GEN_AI_OUTPUT_TYPE, ATTR_GEN_AI_PROMPT, ATTR_GEN_AI_PROVIDER_NAME, ATTR_GEN_AI_REQUEST_CHOICE_COUNT, ATTR_GEN_AI_REQUEST_ENCODING_FORMATS, ATTR_GEN_AI_REQUEST_FREQUENCY_PENALTY, ATTR_GEN_AI_REQUEST_MAX_TOKENS, ATTR_GEN_AI_REQUEST_MODEL, ATTR_GEN_AI_REQUEST_PRESENCE_PENALTY, ATTR_GEN_AI_REQUEST_SEED, ATTR_GEN_AI_REQUEST_STOP_SEQUENCES, ATTR_GEN_AI_REQUEST_TEMPERATURE, ATTR_GEN_AI_REQUEST_TOP_K, ATTR_GEN_AI_REQUEST_TOP_P, ATTR_GEN_AI_RESPONSE_FINISH_REASONS, ATTR_GEN_AI_RESPONSE_ID, ATTR_GEN_AI_RESPONSE_MODEL, ATTR_GEN_AI_SYSTEM, ATTR_GEN_AI_SYSTEM_INSTRUCTIONS, ATTR_GEN_AI_TOKEN_TYPE, ATTR_GEN_AI_TOOL_CALL_ARGUMENTS, ATTR_GEN_AI_TOOL_CALL_ID, ATTR_GEN_AI_TOOL_CALL_RESULT, ATTR_GEN_AI_TOOL_DEFINITIONS, ATTR_GEN_AI_TOOL_DESCRIPTION, ATTR_GEN_AI_TOOL_NAME, ATTR_GEN_AI_TOOL_TYPE, ATTR_GEN_AI_USAGE_COMPLETION_TOKENS, ATTR_GEN_AI_USAGE_INPUT_TOKENS, ATTR_GEN_AI_USAGE_OUTPUT_TOKENS, ATTR_GEN_AI_USAGE_PROMPT_TOKENS, ATTR_GEO_CONTINENT_CODE, ATTR_GEO_COUNTRY_ISO_CODE, ATTR_GEO_LOCALITY_NAME, ATTR_GEO_LOCATION_LAT, ATTR_GEO_LOCATION_LON, ATTR_GEO_POSTAL_CODE, ATTR_GEO_REGION_ISO_CODE, ATTR_GO_MEMORY_TYPE, ATTR_GRAPHQL_DOCUMENT, ATTR_GRAPHQL_OPERATION_NAME, ATTR_GRAPHQL_OPERATION_TYPE, ATTR_HEROKU_APP_ID, ATTR_HEROKU_RELEASE_COMMIT, ATTR_HEROKU_RELEASE_CREATION_TIMESTAMP, ATTR_HOST_ARCH, ATTR_HOST_CPU_CACHE_L2_SIZE, ATTR_HOST_CPU_FAMILY, ATTR_HOST_CPU_MODEL_ID, ATTR_HOST_CPU_MODEL_NAME, ATTR_HOST_CPU_STEPPING, ATTR_HOST_CPU_VENDOR_ID, ATTR_HOST_ID, ATTR_HOST_IMAGE_ID, ATTR_HOST_IMAGE_NAME, ATTR_HOST_IMAGE_VERSION, ATTR_HOST_IP, ATTR_HOST_MAC, ATTR_HOST_NAME, ATTR_HOST_TYPE, ATTR_HTTP_CLIENT_IP, ATTR_HTTP_CONNECTION_STATE, ATTR_HTTP_FLAVOR, ATTR_HTTP_HOST, ATTR_HTTP_METHOD, ATTR_HTTP_REQUEST_BODY_SIZE, ATTR_HTTP_REQUEST_CONTENT_LENGTH, ATTR_HTTP_REQUEST_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_REQUEST_HEADER, ATTR_HTTP_REQUEST_METHOD, ATTR_HTTP_REQUEST_METHOD_ORIGINAL, ATTR_HTTP_REQUEST_RESEND_COUNT, ATTR_HTTP_REQUEST_SIZE, ATTR_HTTP_RESPONSE_BODY_SIZE, ATTR_HTTP_RESPONSE_CONTENT_LENGTH, ATTR_HTTP_RESPONSE_CONTENT_LENGTH_UNCOMPRESSED, ATTR_HTTP_RESPONSE_HEADER, ATTR_HTTP_RESPONSE_SIZE, ATTR_HTTP_RESPONSE_STATUS_CODE, ATTR_HTTP_ROUTE, ATTR_HTTP_SCHEME, ATTR_HTTP_SERVER_NAME, ATTR_HTTP_STATUS_CODE, ATTR_HTTP_TARGET, ATTR_HTTP_URL, ATTR_HTTP_USER_AGENT, ATTR_HW_BATTERY_CAPACITY, ATTR_HW_BATTERY_CHEMISTRY, ATTR_HW_BATTERY_STATE, ATTR_HW_BIOS_VERSION, ATTR_HW_DRIVER_VERSION, ATTR_HW_ENCLOSURE_TYPE, ATTR_HW_FIRMWARE_VERSION, ATTR_HW_GPU_TASK, ATTR_HW_ID, ATTR_HW_LIMIT_TYPE, ATTR_HW_LOGICAL_DISK_RAID_LEVEL, ATTR_HW_LOGICAL_DISK_STATE, ATTR_HW_MEMORY_TYPE, ATTR_HW_MODEL, ATTR_HW_NAME, ATTR_HW_NETWORK_LOGICAL_ADDRESSES, ATTR_HW_NETWORK_PHYSICAL_ADDRESS, ATTR_HW_PARENT, ATTR_HW_PHYSICAL_DISK_SMART_ATTRIBUTE, ATTR_HW_PHYSICAL_DISK_STATE, ATTR_HW_PHYSICAL_DISK_TYPE, ATTR_HW_SENSOR_LOCATION, ATTR_HW_SERIAL_NUMBER, ATTR_HW_STATE, ATTR_HW_TAPE_DRIVE_OPERATION_TYPE, ATTR_HW_TYPE, ATTR_HW_VENDOR, ATTR_IOS_APP_STATE, ATTR_IOS_STATE, ATTR_JVM_BUFFER_POOL_NAME, ATTR_JVM_GC_ACTION, ATTR_JVM_GC_CAUSE, ATTR_JVM_GC_NAME, ATTR_JVM_MEMORY_POOL_NAME, ATTR_JVM_MEMORY_TYPE, ATTR_JVM_THREAD_DAEMON, ATTR_JVM_THREAD_STATE, ATTR_K8S_CLUSTER_NAME, ATTR_K8S_CLUSTER_UID, ATTR_K8S_CONTAINER_NAME, ATTR_K8S_CONTAINER_RESTART_COUNT, ATTR_K8S_CONTAINER_STATUS_LAST_TERMINATED_REASON, ATTR_K8S_CONTAINER_STATUS_REASON, ATTR_K8S_CONTAINER_STATUS_STATE, ATTR_K8S_CRONJOB_ANNOTATION, ATTR_K8S_CRONJOB_LABEL, ATTR_K8S_CRONJOB_NAME, ATTR_K8S_CRONJOB_UID, ATTR_K8S_DAEMONSET_ANNOTATION, ATTR_K8S_DAEMONSET_LABEL, ATTR_K8S_DAEMONSET_NAME, ATTR_K8S_DAEMONSET_UID, ATTR_K8S_DEPLOYMENT_ANNOTATION, ATTR_K8S_DEPLOYMENT_LABEL, ATTR_K8S_DEPLOYMENT_NAME, ATTR_K8S_DEPLOYMENT_UID, ATTR_K8S_HPA_METRIC_TYPE, ATTR_K8S_HPA_NAME, ATTR_K8S_HPA_SCALETARGETREF_API_VERSION, ATTR_K8S_HPA_SCALETARGETREF_KIND, ATTR_K8S_HPA_SCALETARGETREF_NAME, ATTR_K8S_HPA_UID, ATTR_K8S_HUGEPAGE_SIZE, ATTR_K8S_JOB_ANNOTATION, ATTR_K8S_JOB_LABEL, ATTR_K8S_JOB_NAME, ATTR_K8S_JOB_UID, ATTR_K8S_NAMESPACE_ANNOTATION, ATTR_K8S_NAMESPACE_LABEL, ATTR_K8S_NAMESPACE_NAME, ATTR_K8S_NAMESPACE_PHASE, ATTR_K8S_NODE_ANNOTATION, ATTR_K8S_NODE_CONDITION_STATUS, ATTR_K8S_NODE_CONDITION_TYPE, ATTR_K8S_NODE_LABEL, ATTR_K8S_NODE_NAME, ATTR_K8S_NODE_UID, ATTR_K8S_POD_ANNOTATION, ATTR_K8S_POD_LABEL, ATTR_K8S_POD_LABELS, ATTR_K8S_POD_NAME, ATTR_K8S_POD_STATUS_PHASE, ATTR_K8S_POD_STATUS_REASON, ATTR_K8S_POD_UID, ATTR_K8S_REPLICASET_ANNOTATION, ATTR_K8S_REPLICASET_LABEL, ATTR_K8S_REPLICASET_NAME, ATTR_K8S_REPLICASET_UID, ATTR_K8S_REPLICATIONCONTROLLER_NAME, ATTR_K8S_REPLICATIONCONTROLLER_UID, ATTR_K8S_RESOURCEQUOTA_NAME, ATTR_K8S_RESOURCEQUOTA_RESOURCE_NAME, ATTR_K8S_RESOURCEQUOTA_UID, ATTR_K8S_STATEFULSET_ANNOTATION, ATTR_K8S_STATEFULSET_LABEL, ATTR_K8S_STATEFULSET_NAME, ATTR_K8S_STATEFULSET_UID, ATTR_K8S_STORAGECLASS_NAME, ATTR_K8S_VOLUME_NAME, ATTR_K8S_VOLUME_TYPE, ATTR_LINUX_MEMORY_SLAB_STATE, ATTR_LOG_FILE_NAME, ATTR_LOG_FILE_NAME_RESOLVED, ATTR_LOG_FILE_PATH, ATTR_LOG_FILE_PATH_RESOLVED, ATTR_LOG_IOSTREAM, ATTR_LOG_RECORD_ORIGINAL, ATTR_LOG_RECORD_UID, ATTR_MAINFRAME_LPAR_NAME, ATTR_MESSAGE_COMPRESSED_SIZE, ATTR_MESSAGE_ID, ATTR_MESSAGE_TYPE, ATTR_MESSAGE_UNCOMPRESSED_SIZE, ATTR_MESSAGING_BATCH_MESSAGE_COUNT, ATTR_MESSAGING_CLIENT_ID, ATTR_MESSAGING_CONSUMER_GROUP_NAME, ATTR_MESSAGING_DESTINATION_ANONYMOUS, ATTR_MESSAGING_DESTINATION_NAME, ATTR_MESSAGING_DESTINATION_PARTITION_ID, ATTR_MESSAGING_DESTINATION_PUBLISH_ANONYMOUS, ATTR_MESSAGING_DESTINATION_PUBLISH_NAME, ATTR_MESSAGING_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_DESTINATION_TEMPLATE, ATTR_MESSAGING_DESTINATION_TEMPORARY, ATTR_MESSAGING_EVENTHUBS_CONSUMER_GROUP, ATTR_MESSAGING_EVENTHUBS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_DEADLINE, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ACK_ID, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_DELIVERY_ATTEMPT, ATTR_MESSAGING_GCP_PUBSUB_MESSAGE_ORDERING_KEY, ATTR_MESSAGING_KAFKA_CONSUMER_GROUP, ATTR_MESSAGING_KAFKA_DESTINATION_PARTITION, ATTR_MESSAGING_KAFKA_MESSAGE_KEY, ATTR_MESSAGING_KAFKA_MESSAGE_OFFSET, ATTR_MESSAGING_KAFKA_MESSAGE_TOMBSTONE, ATTR_MESSAGING_KAFKA_OFFSET, ATTR_MESSAGING_MESSAGE_BODY_SIZE, ATTR_MESSAGING_MESSAGE_CONVERSATION_ID, ATTR_MESSAGING_MESSAGE_ENVELOPE_SIZE, ATTR_MESSAGING_MESSAGE_ID, ATTR_MESSAGING_OPERATION, ATTR_MESSAGING_OPERATION_NAME, ATTR_MESSAGING_OPERATION_TYPE, ATTR_MESSAGING_RABBITMQ_DESTINATION_ROUTING_KEY, ATTR_MESSAGING_RABBITMQ_MESSAGE_DELIVERY_TAG, ATTR_MESSAGING_ROCKETMQ_CLIENT_GROUP, ATTR_MESSAGING_ROCKETMQ_CONSUMPTION_MODEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELAY_TIME_LEVEL, ATTR_MESSAGING_ROCKETMQ_MESSAGE_DELIVERY_TIMESTAMP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_GROUP, ATTR_MESSAGING_ROCKETMQ_MESSAGE_KEYS, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TAG, ATTR_MESSAGING_ROCKETMQ_MESSAGE_TYPE, ATTR_MESSAGING_ROCKETMQ_NAMESPACE, ATTR_MESSAGING_SERVICEBUS_DESTINATION_SUBSCRIPTION_NAME, ATTR_MESSAGING_SERVICEBUS_DISPOSITION_STATUS, ATTR_MESSAGING_SERVICEBUS_MESSAGE_DELIVERY_COUNT, ATTR_MESSAGING_SERVICEBUS_MESSAGE_ENQUEUED_TIME, ATTR_MESSAGING_SYSTEM, ATTR_NETWORK_CARRIER_ICC, ATTR_NETWORK_CARRIER_MCC, ATTR_NETWORK_CARRIER_MNC, ATTR_NETWORK_CARRIER_NAME, ATTR_NETWORK_CONNECTION_STATE, ATTR_NETWORK_CONNECTION_SUBTYPE, ATTR_NETWORK_CONNECTION_TYPE, ATTR_NETWORK_INTERFACE_NAME, ATTR_NETWORK_IO_DIRECTION, ATTR_NETWORK_LOCAL_ADDRESS, ATTR_NETWORK_LOCAL_PORT, ATTR_NETWORK_PEER_ADDRESS, ATTR_NETWORK_PEER_PORT, ATTR_NETWORK_PROTOCOL_NAME, ATTR_NETWORK_PROTOCOL_VERSION, ATTR_NETWORK_TRANSPORT, ATTR_NETWORK_TYPE, ATTR_NET_HOST_IP, ATTR_NET_HOST_NAME, ATTR_NET_HOST_PORT, ATTR_NET_PEER_IP, ATTR_NET_PEER_NAME, ATTR_NET_PEER_PORT, ATTR_NET_PROTOCOL_NAME, ATTR_NET_PROTOCOL_VERSION, ATTR_NET_SOCK_FAMILY, ATTR_NET_SOCK_HOST_ADDR, ATTR_NET_SOCK_HOST_PORT, ATTR_NET_SOCK_PEER_ADDR, ATTR_NET_SOCK_PEER_NAME, ATTR_NET_SOCK_PEER_PORT, ATTR_NET_TRANSPORT, ATTR_NFS_OPERATION_NAME, ATTR_NFS_SERVER_REPCACHE_STATUS, ATTR_NODEJS_EVENTLOOP_STATE, ATTR_OCI_MANIFEST_DIGEST, ATTR_ONC_RPC_PROCEDURE_NAME, ATTR_ONC_RPC_PROCEDURE_NUMBER, ATTR_ONC_RPC_PROGRAM_NAME, ATTR_ONC_RPC_VERSION, ATTR_OPENAI_REQUEST_SERVICE_TIER, ATTR_OPENAI_RESPONSE_SERVICE_TIER, ATTR_OPENAI_RESPONSE_SYSTEM_FINGERPRINT, ATTR_OPENSHIFT_CLUSTERQUOTA_NAME, ATTR_OPENSHIFT_CLUSTERQUOTA_UID, ATTR_OPENTRACING_REF_TYPE, ATTR_OS_BUILD_ID, ATTR_OS_DESCRIPTION, ATTR_OS_NAME, ATTR_OS_TYPE, ATTR_OS_VERSION, ATTR_OTEL_COMPONENT_NAME, ATTR_OTEL_COMPONENT_TYPE, ATTR_OTEL_LIBRARY_NAME, ATTR_OTEL_LIBRARY_VERSION, ATTR_OTEL_SCOPE_NAME, ATTR_OTEL_SCOPE_SCHEMA_URL, ATTR_OTEL_SCOPE_VERSION, ATTR_OTEL_SPAN_PARENT_ORIGIN, ATTR_OTEL_SPAN_SAMPLING_RESULT, ATTR_OTEL_STATUS_CODE, ATTR_OTEL_STATUS_DESCRIPTION, ATTR_PEER_SERVICE, ATTR_POOL_NAME, ATTR_PPROF_LOCATION_IS_FOLDED, ATTR_PPROF_MAPPING_HAS_FILENAMES, ATTR_PPROF_MAPPING_HAS_FUNCTIONS, ATTR_PPROF_MAPPING_HAS_INLINE_FRAMES, ATTR_PPROF_MAPPING_HAS_LINE_NUMBERS, ATTR_PPROF_PROFILE_COMMENT, ATTR_PROCESS_ARGS_COUNT, ATTR_PROCESS_COMMAND, ATTR_PROCESS_COMMAND_ARGS, ATTR_PROCESS_COMMAND_LINE, ATTR_PROCESS_CONTEXT_SWITCH_TYPE, ATTR_PROCESS_CPU_STATE, ATTR_PROCESS_CREATION_TIME, ATTR_PROCESS_ENVIRONMENT_VARIABLE, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GNU, ATTR_PROCESS_EXECUTABLE_BUILD_ID_GO, ATTR_PROCESS_EXECUTABLE_BUILD_ID_HTLHASH, ATTR_PROCESS_EXECUTABLE_BUILD_ID_PROFILING, ATTR_PROCESS_EXECUTABLE_NAME, ATTR_PROCESS_EXECUTABLE_PATH, ATTR_PROCESS_EXIT_CODE, ATTR_PROCESS_EXIT_TIME, ATTR_PROCESS_GROUP_LEADER_PID, ATTR_PROCESS_INTERACTIVE, ATTR_PROCESS_LINUX_CGROUP, ATTR_PROCESS_OWNER, ATTR_PROCESS_PAGING_FAULT_TYPE, ATTR_PROCESS_PARENT_PID, ATTR_PROCESS_PID, ATTR_PROCESS_REAL_USER_ID, ATTR_PROCESS_REAL_USER_NAME, ATTR_PROCESS_RUNTIME_DESCRIPTION, ATTR_PROCESS_RUNTIME_NAME, ATTR_PROCESS_RUNTIME_VERSION, ATTR_PROCESS_SAVED_USER_ID, ATTR_PROCESS_SAVED_USER_NAME, ATTR_PROCESS_SESSION_LEADER_PID, ATTR_PROCESS_STATE, ATTR_PROCESS_TITLE, ATTR_PROCESS_USER_ID, ATTR_PROCESS_USER_NAME, ATTR_PROCESS_VPID, ATTR_PROCESS_WORKING_DIRECTORY, ATTR_PROFILE_FRAME_TYPE, ATTR_RPC_CONNECT_RPC_ERROR_CODE, ATTR_RPC_CONNECT_RPC_REQUEST_METADATA, ATTR_RPC_CONNECT_RPC_RESPONSE_METADATA, ATTR_RPC_GRPC_REQUEST_METADATA, ATTR_RPC_GRPC_RESPONSE_METADATA, ATTR_RPC_GRPC_STATUS_CODE, ATTR_RPC_JSONRPC_ERROR_CODE, ATTR_RPC_JSONRPC_ERROR_MESSAGE, ATTR_RPC_JSONRPC_REQUEST_ID, ATTR_RPC_JSONRPC_VERSION, ATTR_RPC_MESSAGE_COMPRESSED_SIZE, ATTR_RPC_MESSAGE_ID, ATTR_RPC_MESSAGE_TYPE, ATTR_RPC_MESSAGE_UNCOMPRESSED_SIZE, ATTR_RPC_METHOD, ATTR_RPC_SERVICE, ATTR_RPC_SYSTEM, ATTR_SECURITY_RULE_CATEGORY, ATTR_SECURITY_RULE_DESCRIPTION, ATTR_SECURITY_RULE_LICENSE, ATTR_SECURITY_RULE_NAME, ATTR_SECURITY_RULE_REFERENCE, ATTR_SECURITY_RULE_RULESET_NAME, ATTR_SECURITY_RULE_UUID, ATTR_SECURITY_RULE_VERSION, ATTR_SERVER_ADDRESS, ATTR_SERVER_PORT, ATTR_SERVICE_INSTANCE_ID, ATTR_SERVICE_NAME, ATTR_SERVICE_NAMESPACE, ATTR_SERVICE_VERSION, ATTR_SESSION_ID, ATTR_SESSION_PREVIOUS_ID, ATTR_SIGNALR_CONNECTION_STATUS, ATTR_SIGNALR_TRANSPORT, ATTR_SOURCE_ADDRESS, ATTR_SOURCE_PORT, ATTR_STATE, ATTR_SYSTEM_CPU_LOGICAL_NUMBER, ATTR_SYSTEM_CPU_STATE, ATTR_SYSTEM_DEVICE, ATTR_SYSTEM_FILESYSTEM_MODE, ATTR_SYSTEM_FILESYSTEM_MOUNTPOINT, ATTR_SYSTEM_FILESYSTEM_STATE, ATTR_SYSTEM_FILESYSTEM_TYPE, ATTR_SYSTEM_MEMORY_STATE, ATTR_SYSTEM_NETWORK_STATE, ATTR_SYSTEM_PAGING_DIRECTION, ATTR_SYSTEM_PAGING_FAULT_TYPE, ATTR_SYSTEM_PAGING_STATE, ATTR_SYSTEM_PAGING_TYPE, ATTR_SYSTEM_PROCESSES_STATUS, ATTR_SYSTEM_PROCESS_STATUS, ATTR_TELEMETRY_DISTRO_NAME, ATTR_TELEMETRY_DISTRO_VERSION, ATTR_TELEMETRY_SDK_LANGUAGE, ATTR_TELEMETRY_SDK_NAME, ATTR_TELEMETRY_SDK_VERSION, ATTR_TEST_CASE_NAME, ATTR_TEST_CASE_RESULT_STATUS, ATTR_TEST_SUITE_NAME, ATTR_TEST_SUITE_RUN_STATUS, ATTR_THREAD_ID, ATTR_THREAD_NAME, ATTR_TLS_CIPHER, ATTR_TLS_CLIENT_CERTIFICATE, ATTR_TLS_CLIENT_CERTIFICATE_CHAIN, ATTR_TLS_CLIENT_HASH_MD5, ATTR_TLS_CLIENT_HASH_SHA1, ATTR_TLS_CLIENT_HASH_SHA256, ATTR_TLS_CLIENT_ISSUER, ATTR_TLS_CLIENT_JA3, ATTR_TLS_CLIENT_NOT_AFTER, ATTR_TLS_CLIENT_NOT_BEFORE, ATTR_TLS_CLIENT_SERVER_NAME, ATTR_TLS_CLIENT_SUBJECT, ATTR_TLS_CLIENT_SUPPORTED_CIPHERS, ATTR_TLS_CURVE, ATTR_TLS_ESTABLISHED, ATTR_TLS_NEXT_PROTOCOL, ATTR_TLS_PROTOCOL_NAME, ATTR_TLS_PROTOCOL_VERSION, ATTR_TLS_RESUMED, ATTR_TLS_SERVER_CERTIFICATE, ATTR_TLS_SERVER_CERTIFICATE_CHAIN, ATTR_TLS_SERVER_HASH_MD5, ATTR_TLS_SERVER_HASH_SHA1, ATTR_TLS_SERVER_HASH_SHA256, ATTR_TLS_SERVER_ISSUER, ATTR_TLS_SERVER_JA3S, ATTR_TLS_SERVER_NOT_AFTER, ATTR_TLS_SERVER_NOT_BEFORE, ATTR_TLS_SERVER_SUBJECT, ATTR_URL_DOMAIN, ATTR_URL_EXTENSION, ATTR_URL_FRAGMENT, ATTR_URL_FULL, ATTR_URL_ORIGINAL, ATTR_URL_PATH, ATTR_URL_PORT, ATTR_URL_QUERY, ATTR_URL_REGISTERED_DOMAIN, ATTR_URL_SCHEME, ATTR_URL_SUBDOMAIN, ATTR_URL_TEMPLATE, ATTR_URL_TOP_LEVEL_DOMAIN, ATTR_USER_AGENT_NAME, ATTR_USER_AGENT_ORIGINAL, ATTR_USER_AGENT_OS_NAME, ATTR_USER_AGENT_OS_VERSION, ATTR_USER_AGENT_SYNTHETIC_TYPE, ATTR_USER_AGENT_VERSION, ATTR_USER_EMAIL, ATTR_USER_FULL_NAME, ATTR_USER_HASH, ATTR_USER_ID, ATTR_USER_NAME, ATTR_USER_ROLES, ATTR_V8JS_GC_TYPE, ATTR_V8JS_HEAP_SPACE_NAME, ATTR_VCS_CHANGE_ID, ATTR_VCS_CHANGE_STATE, ATTR_VCS_CHANGE_TITLE, ATTR_VCS_LINE_CHANGE_TYPE, ATTR_VCS_OWNER_NAME, ATTR_VCS_PROVIDER_NAME, ATTR_VCS_REF_BASE_NAME, ATTR_VCS_REF_BASE_REVISION, ATTR_VCS_REF_BASE_TYPE, ATTR_VCS_REF_HEAD_NAME, ATTR_VCS_REF_HEAD_REVISION, ATTR_VCS_REF_HEAD_TYPE, ATTR_VCS_REF_TYPE, ATTR_VCS_REPOSITORY_CHANGE_ID, ATTR_VCS_REPOSITORY_CHANGE_TITLE, ATTR_VCS_REPOSITORY_NAME, ATTR_VCS_REPOSITORY_REF_NAME, ATTR_VCS_REPOSITORY_REF_REVISION, ATTR_VCS_REPOSITORY_REF_TYPE, ATTR_VCS_REPOSITORY_URL_FULL, ATTR_VCS_REVISION_DELTA_DIRECTION, ATTR_WEBENGINE_DESCRIPTION, ATTR_WEBENGINE_NAME, ATTR_WEBENGINE_VERSION, ATTR_ZOS_SMF_ID, ATTR_ZOS_SYSPLEX_NAME, AWS_ECS_LAUNCHTYPE_VALUE_EC2, AWS_ECS_LAUNCHTYPE_VALUE_FARGATE, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, AZURE_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, AZURE_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, CICD_PIPELINE_ACTION_NAME_VALUE_BUILD, CICD_PIPELINE_ACTION_NAME_VALUE_RUN, CICD_PIPELINE_ACTION_NAME_VALUE_SYNC, CICD_PIPELINE_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_RESULT_VALUE_ERROR, CICD_PIPELINE_RESULT_VALUE_FAILURE, CICD_PIPELINE_RESULT_VALUE_SKIP, CICD_PIPELINE_RESULT_VALUE_SUCCESS, CICD_PIPELINE_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_RUN_STATE_VALUE_EXECUTING, CICD_PIPELINE_RUN_STATE_VALUE_FINALIZING, CICD_PIPELINE_RUN_STATE_VALUE_PENDING, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_CANCELLATION, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_ERROR, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_FAILURE, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SKIP, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_SUCCESS, CICD_PIPELINE_TASK_RUN_RESULT_VALUE_TIMEOUT, CICD_PIPELINE_TASK_TYPE_VALUE_BUILD, CICD_PIPELINE_TASK_TYPE_VALUE_DEPLOY, CICD_PIPELINE_TASK_TYPE_VALUE_TEST, CICD_WORKER_STATE_VALUE_AVAILABLE, CICD_WORKER_STATE_VALUE_BUSY, CICD_WORKER_STATE_VALUE_OFFLINE, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_ECS, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_FC, CLOUD_PLATFORM_VALUE_ALIBABA_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_AWS_APP_RUNNER, CLOUD_PLATFORM_VALUE_AWS_EC2, CLOUD_PLATFORM_VALUE_AWS_ECS, CLOUD_PLATFORM_VALUE_AWS_EKS, CLOUD_PLATFORM_VALUE_AWS_ELASTIC_BEANSTALK, CLOUD_PLATFORM_VALUE_AWS_LAMBDA, CLOUD_PLATFORM_VALUE_AWS_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_AKS, CLOUD_PLATFORM_VALUE_AZURE_APP_SERVICE, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_APPS, CLOUD_PLATFORM_VALUE_AZURE_CONTAINER_INSTANCES, CLOUD_PLATFORM_VALUE_AZURE_FUNCTIONS, CLOUD_PLATFORM_VALUE_AZURE_OPENSHIFT, CLOUD_PLATFORM_VALUE_AZURE_VM, CLOUD_PLATFORM_VALUE_GCP_APP_ENGINE, CLOUD_PLATFORM_VALUE_GCP_BARE_METAL_SOLUTION, CLOUD_PLATFORM_VALUE_GCP_CLOUD_FUNCTIONS, CLOUD_PLATFORM_VALUE_GCP_CLOUD_RUN, CLOUD_PLATFORM_VALUE_GCP_COMPUTE_ENGINE, CLOUD_PLATFORM_VALUE_GCP_KUBERNETES_ENGINE, CLOUD_PLATFORM_VALUE_GCP_OPENSHIFT, CLOUD_PLATFORM_VALUE_IBM_CLOUD_OPENSHIFT, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_COMPUTE, CLOUD_PLATFORM_VALUE_ORACLE_CLOUD_OKE, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_CVM, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_EKS, CLOUD_PLATFORM_VALUE_TENCENT_CLOUD_SCF, CLOUD_PROVIDER_VALUE_ALIBABA_CLOUD, CLOUD_PROVIDER_VALUE_AWS, CLOUD_PROVIDER_VALUE_AZURE, CLOUD_PROVIDER_VALUE_GCP, CLOUD_PROVIDER_VALUE_HEROKU, CLOUD_PROVIDER_VALUE_IBM_CLOUD, CLOUD_PROVIDER_VALUE_ORACLE_CLOUD, CLOUD_PROVIDER_VALUE_TENCENT_CLOUD, CONTAINER_CPU_STATE_VALUE_KERNEL, CONTAINER_CPU_STATE_VALUE_SYSTEM, CONTAINER_CPU_STATE_VALUE_USER, CPU_MODE_VALUE_IDLE, CPU_MODE_VALUE_INTERRUPT, CPU_MODE_VALUE_IOWAIT, CPU_MODE_VALUE_KERNEL, CPU_MODE_VALUE_NICE, CPU_MODE_VALUE_STEAL, CPU_MODE_VALUE_SYSTEM, CPU_MODE_VALUE_USER, CPYTHON_GC_GENERATION_VALUE_GENERATION_0, CPYTHON_GC_GENERATION_VALUE_GENERATION_1, CPYTHON_GC_GENERATION_VALUE_GENERATION_2, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ALL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ANY, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_EACH_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_LOCAL_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_ONE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_QUORUM, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_SERIAL, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_THREE, DB_CASSANDRA_CONSISTENCY_LEVEL_VALUE_TWO, DB_CLIENT_CONNECTIONS_STATE_VALUE_IDLE, DB_CLIENT_CONNECTIONS_STATE_VALUE_USED, DB_CLIENT_CONNECTION_STATE_VALUE_IDLE, DB_CLIENT_CONNECTION_STATE_VALUE_USED, DB_COSMOSDB_CONNECTION_MODE_VALUE_DIRECT, DB_COSMOSDB_CONNECTION_MODE_VALUE_GATEWAY, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_BOUNDED_STALENESS, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_CONSISTENT_PREFIX, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_EVENTUAL, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_SESSION, DB_COSMOSDB_CONSISTENCY_LEVEL_VALUE_STRONG, DB_COSMOSDB_OPERATION_TYPE_VALUE_BATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_CREATE, DB_COSMOSDB_OPERATION_TYPE_VALUE_DELETE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE, DB_COSMOSDB_OPERATION_TYPE_VALUE_EXECUTE_JAVASCRIPT, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD, DB_COSMOSDB_OPERATION_TYPE_VALUE_HEAD_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_INVALID, DB_COSMOSDB_OPERATION_TYPE_VALUE_PATCH, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY, DB_COSMOSDB_OPERATION_TYPE_VALUE_QUERY_PLAN, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ, DB_COSMOSDB_OPERATION_TYPE_VALUE_READ_FEED, DB_COSMOSDB_OPERATION_TYPE_VALUE_REPLACE, DB_COSMOSDB_OPERATION_TYPE_VALUE_UPSERT, DB_SYSTEM_NAME_VALUE_ACTIAN_INGRES, DB_SYSTEM_NAME_VALUE_AWS_DYNAMODB, DB_SYSTEM_NAME_VALUE_AWS_REDSHIFT, DB_SYSTEM_NAME_VALUE_AZURE_COSMOSDB, DB_SYSTEM_NAME_VALUE_CASSANDRA, DB_SYSTEM_NAME_VALUE_CLICKHOUSE, DB_SYSTEM_NAME_VALUE_COCKROACHDB, DB_SYSTEM_NAME_VALUE_COUCHBASE, DB_SYSTEM_NAME_VALUE_COUCHDB, DB_SYSTEM_NAME_VALUE_DERBY, DB_SYSTEM_NAME_VALUE_ELASTICSEARCH, DB_SYSTEM_NAME_VALUE_FIREBIRDSQL, DB_SYSTEM_NAME_VALUE_GCP_SPANNER, DB_SYSTEM_NAME_VALUE_GEODE, DB_SYSTEM_NAME_VALUE_H2DATABASE, DB_SYSTEM_NAME_VALUE_HBASE, DB_SYSTEM_NAME_VALUE_HIVE, DB_SYSTEM_NAME_VALUE_HSQLDB, DB_SYSTEM_NAME_VALUE_IBM_DB2, DB_SYSTEM_NAME_VALUE_IBM_INFORMIX, DB_SYSTEM_NAME_VALUE_IBM_NETEZZA, DB_SYSTEM_NAME_VALUE_INFLUXDB, DB_SYSTEM_NAME_VALUE_INSTANTDB, DB_SYSTEM_NAME_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_NAME_VALUE_MARIADB, DB_SYSTEM_NAME_VALUE_MEMCACHED, DB_SYSTEM_NAME_VALUE_MICROSOFT_SQL_SERVER, DB_SYSTEM_NAME_VALUE_MONGODB, DB_SYSTEM_NAME_VALUE_MYSQL, DB_SYSTEM_NAME_VALUE_NEO4J, DB_SYSTEM_NAME_VALUE_OPENSEARCH, DB_SYSTEM_NAME_VALUE_ORACLE_DB, DB_SYSTEM_NAME_VALUE_OTHER_SQL, DB_SYSTEM_NAME_VALUE_POSTGRESQL, DB_SYSTEM_NAME_VALUE_REDIS, DB_SYSTEM_NAME_VALUE_SAP_HANA, DB_SYSTEM_NAME_VALUE_SAP_MAXDB, DB_SYSTEM_NAME_VALUE_SOFTWAREAG_ADABAS, DB_SYSTEM_NAME_VALUE_SQLITE, DB_SYSTEM_NAME_VALUE_TERADATA, DB_SYSTEM_NAME_VALUE_TRINO, DB_SYSTEM_VALUE_ADABAS, DB_SYSTEM_VALUE_CACHE, DB_SYSTEM_VALUE_CASSANDRA, DB_SYSTEM_VALUE_CLICKHOUSE, DB_SYSTEM_VALUE_CLOUDSCAPE, DB_SYSTEM_VALUE_COCKROACHDB, DB_SYSTEM_VALUE_COLDFUSION, DB_SYSTEM_VALUE_COSMOSDB, DB_SYSTEM_VALUE_COUCHBASE, DB_SYSTEM_VALUE_COUCHDB, DB_SYSTEM_VALUE_DB2, DB_SYSTEM_VALUE_DERBY, DB_SYSTEM_VALUE_DYNAMODB, DB_SYSTEM_VALUE_EDB, DB_SYSTEM_VALUE_ELASTICSEARCH, DB_SYSTEM_VALUE_FILEMAKER, DB_SYSTEM_VALUE_FIREBIRD, DB_SYSTEM_VALUE_FIRSTSQL, DB_SYSTEM_VALUE_GEODE, DB_SYSTEM_VALUE_H2, DB_SYSTEM_VALUE_HANADB, DB_SYSTEM_VALUE_HBASE, DB_SYSTEM_VALUE_HIVE, DB_SYSTEM_VALUE_HSQLDB, DB_SYSTEM_VALUE_INFLUXDB, DB_SYSTEM_VALUE_INFORMIX, DB_SYSTEM_VALUE_INGRES, DB_SYSTEM_VALUE_INSTANTDB, DB_SYSTEM_VALUE_INTERBASE, DB_SYSTEM_VALUE_INTERSYSTEMS_CACHE, DB_SYSTEM_VALUE_MARIADB, DB_SYSTEM_VALUE_MAXDB, DB_SYSTEM_VALUE_MEMCACHED, DB_SYSTEM_VALUE_MONGODB, DB_SYSTEM_VALUE_MSSQL, DB_SYSTEM_VALUE_MSSQLCOMPACT, DB_SYSTEM_VALUE_MYSQL, DB_SYSTEM_VALUE_NEO4J, DB_SYSTEM_VALUE_NETEZZA, DB_SYSTEM_VALUE_OPENSEARCH, DB_SYSTEM_VALUE_ORACLE, DB_SYSTEM_VALUE_OTHER_SQL, DB_SYSTEM_VALUE_PERVASIVE, DB_SYSTEM_VALUE_POINTBASE, DB_SYSTEM_VALUE_POSTGRESQL, DB_SYSTEM_VALUE_PROGRESS, DB_SYSTEM_VALUE_REDIS, DB_SYSTEM_VALUE_REDSHIFT, DB_SYSTEM_VALUE_SPANNER, DB_SYSTEM_VALUE_SQLITE, DB_SYSTEM_VALUE_SYBASE, DB_SYSTEM_VALUE_TERADATA, DB_SYSTEM_VALUE_TRINO, DB_SYSTEM_VALUE_VERTICA, DEPLOYMENT_STATUS_VALUE_FAILED, DEPLOYMENT_STATUS_VALUE_SUCCEEDED, DISK_IO_DIRECTION_VALUE_READ, DISK_IO_DIRECTION_VALUE_WRITE, DOTNET_GC_HEAP_GENERATION_VALUE_GEN0, DOTNET_GC_HEAP_GENERATION_VALUE_GEN1, DOTNET_GC_HEAP_GENERATION_VALUE_GEN2, DOTNET_GC_HEAP_GENERATION_VALUE_LOH, DOTNET_GC_HEAP_GENERATION_VALUE_POH, ERROR_TYPE_VALUE_OTHER, EVENT_APP_JANK, EVENT_APP_SCREEN_CLICK, EVENT_APP_WIDGET_CLICK, EVENT_AZURE_RESOURCE_LOG, EVENT_AZ_RESOURCE_LOG, EVENT_BROWSER_WEB_VITAL, EVENT_DEVICE_APP_LIFECYCLE, EVENT_EXCEPTION, EVENT_FEATURE_FLAG_EVALUATION, EVENT_GEN_AI_ASSISTANT_MESSAGE, EVENT_GEN_AI_CHOICE, EVENT_GEN_AI_CLIENT_INFERENCE_OPERATION_DETAILS, EVENT_GEN_AI_EVALUATION_RESULT, EVENT_GEN_AI_SYSTEM_MESSAGE, EVENT_GEN_AI_TOOL_MESSAGE, EVENT_GEN_AI_USER_MESSAGE, EVENT_RPC_MESSAGE, EVENT_SESSION_END, EVENT_SESSION_START, FAAS_DOCUMENT_OPERATION_VALUE_DELETE, FAAS_DOCUMENT_OPERATION_VALUE_EDIT, FAAS_DOCUMENT_OPERATION_VALUE_INSERT, FAAS_INVOKED_PROVIDER_VALUE_ALIBABA_CLOUD, FAAS_INVOKED_PROVIDER_VALUE_AWS, FAAS_INVOKED_PROVIDER_VALUE_AZURE, FAAS_INVOKED_PROVIDER_VALUE_GCP, FAAS_INVOKED_PROVIDER_VALUE_TENCENT_CLOUD, FAAS_TRIGGER_VALUE_DATASOURCE, FAAS_TRIGGER_VALUE_HTTP, FAAS_TRIGGER_VALUE_OTHER, FAAS_TRIGGER_VALUE_PUBSUB, FAAS_TRIGGER_VALUE_TIMER, FEATURE_FLAG_EVALUATION_REASON_VALUE_CACHED, FEATURE_FLAG_EVALUATION_REASON_VALUE_DEFAULT, FEATURE_FLAG_EVALUATION_REASON_VALUE_DISABLED, FEATURE_FLAG_EVALUATION_REASON_VALUE_ERROR, FEATURE_FLAG_EVALUATION_REASON_VALUE_SPLIT, FEATURE_FLAG_EVALUATION_REASON_VALUE_STALE, FEATURE_FLAG_EVALUATION_REASON_VALUE_STATIC, FEATURE_FLAG_EVALUATION_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_EVALUATION_REASON_VALUE_UNKNOWN, FEATURE_FLAG_RESULT_REASON_VALUE_CACHED, FEATURE_FLAG_RESULT_REASON_VALUE_DEFAULT, FEATURE_FLAG_RESULT_REASON_VALUE_DISABLED, FEATURE_FLAG_RESULT_REASON_VALUE_ERROR, FEATURE_FLAG_RESULT_REASON_VALUE_SPLIT, FEATURE_FLAG_RESULT_REASON_VALUE_STALE, FEATURE_FLAG_RESULT_REASON_VALUE_STATIC, FEATURE_FLAG_RESULT_REASON_VALUE_TARGETING_MATCH, FEATURE_FLAG_RESULT_REASON_VALUE_UNKNOWN, GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_DESTINATION_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_DESTINATION_SERVICE_ENVIRONMENT_TYPE_VALUE_TEST, GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_DESTINATION_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_DESTINATION_WORKLOAD_ENVIRONMENT_TYPE_VALUE_TEST, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_SERVICE_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_SERVICE_ENVIRONMENT_TYPE_VALUE_TEST, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_HIGH, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_LOW, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MEDIUM, GCP_APPHUB_WORKLOAD_CRITICALITY_TYPE_VALUE_MISSION_CRITICAL, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_DEVELOPMENT, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_PRODUCTION, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_STAGING, GCP_APPHUB_WORKLOAD_ENVIRONMENT_TYPE_VALUE_TEST, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_OBJECT, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_JSON_SCHEMA, GEN_AI_OPENAI_REQUEST_RESPONSE_FORMAT_VALUE_TEXT, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO, GEN_AI_OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT, GEN_AI_OPERATION_NAME_VALUE_CHAT, GEN_AI_OPERATION_NAME_VALUE_CREATE_AGENT, GEN_AI_OPERATION_NAME_VALUE_EMBEDDINGS, GEN_AI_OPERATION_NAME_VALUE_EXECUTE_TOOL, GEN_AI_OPERATION_NAME_VALUE_GENERATE_CONTENT, GEN_AI_OPERATION_NAME_VALUE_INVOKE_AGENT, GEN_AI_OPERATION_NAME_VALUE_TEXT_COMPLETION, GEN_AI_OUTPUT_TYPE_VALUE_IMAGE, GEN_AI_OUTPUT_TYPE_VALUE_JSON, GEN_AI_OUTPUT_TYPE_VALUE_SPEECH, GEN_AI_OUTPUT_TYPE_VALUE_TEXT, GEN_AI_PROVIDER_NAME_VALUE_ANTHROPIC, GEN_AI_PROVIDER_NAME_VALUE_AWS_BEDROCK, GEN_AI_PROVIDER_NAME_VALUE_AZURE_AI_INFERENCE, GEN_AI_PROVIDER_NAME_VALUE_AZURE_AI_OPENAI, GEN_AI_PROVIDER_NAME_VALUE_COHERE, GEN_AI_PROVIDER_NAME_VALUE_DEEPSEEK, GEN_AI_PROVIDER_NAME_VALUE_GCP_GEMINI, GEN_AI_PROVIDER_NAME_VALUE_GCP_GEN_AI, GEN_AI_PROVIDER_NAME_VALUE_GCP_VERTEX_AI, GEN_AI_PROVIDER_NAME_VALUE_GROQ, GEN_AI_PROVIDER_NAME_VALUE_IBM_WATSONX_AI, GEN_AI_PROVIDER_NAME_VALUE_MISTRAL_AI, GEN_AI_PROVIDER_NAME_VALUE_OPENAI, GEN_AI_PROVIDER_NAME_VALUE_PERPLEXITY, GEN_AI_PROVIDER_NAME_VALUE_X_AI, GEN_AI_SYSTEM_VALUE_ANTHROPIC, GEN_AI_SYSTEM_VALUE_AWS_BEDROCK, GEN_AI_SYSTEM_VALUE_AZURE_AI_INFERENCE, GEN_AI_SYSTEM_VALUE_AZURE_AI_OPENAI, GEN_AI_SYSTEM_VALUE_AZ_AI_INFERENCE, GEN_AI_SYSTEM_VALUE_AZ_AI_OPENAI, GEN_AI_SYSTEM_VALUE_COHERE, GEN_AI_SYSTEM_VALUE_DEEPSEEK, GEN_AI_SYSTEM_VALUE_GCP_GEMINI, GEN_AI_SYSTEM_VALUE_GCP_GEN_AI, GEN_AI_SYSTEM_VALUE_GCP_VERTEX_AI, GEN_AI_SYSTEM_VALUE_GEMINI, GEN_AI_SYSTEM_VALUE_GROQ, GEN_AI_SYSTEM_VALUE_IBM_WATSONX_AI, GEN_AI_SYSTEM_VALUE_MISTRAL_AI, GEN_AI_SYSTEM_VALUE_OPENAI, GEN_AI_SYSTEM_VALUE_PERPLEXITY, GEN_AI_SYSTEM_VALUE_VERTEX_AI, GEN_AI_SYSTEM_VALUE_XAI, GEN_AI_TOKEN_TYPE_VALUE_COMPLETION, GEN_AI_TOKEN_TYPE_VALUE_INPUT, GEN_AI_TOKEN_TYPE_VALUE_OUTPUT, GEO_CONTINENT_CODE_VALUE_AF, GEO_CONTINENT_CODE_VALUE_AN, GEO_CONTINENT_CODE_VALUE_AS, GEO_CONTINENT_CODE_VALUE_EU, GEO_CONTINENT_CODE_VALUE_NA, GEO_CONTINENT_CODE_VALUE_OC, GEO_CONTINENT_CODE_VALUE_SA, GO_MEMORY_TYPE_VALUE_OTHER, GO_MEMORY_TYPE_VALUE_STACK, GRAPHQL_OPERATION_TYPE_VALUE_MUTATION, GRAPHQL_OPERATION_TYPE_VALUE_QUERY, GRAPHQL_OPERATION_TYPE_VALUE_SUBSCRIPTION, HOST_ARCH_VALUE_AMD64, HOST_ARCH_VALUE_ARM32, HOST_ARCH_VALUE_ARM64, HOST_ARCH_VALUE_IA64, HOST_ARCH_VALUE_PPC32, HOST_ARCH_VALUE_PPC64, HOST_ARCH_VALUE_S390X, HOST_ARCH_VALUE_X86, HTTP_CONNECTION_STATE_VALUE_ACTIVE, HTTP_CONNECTION_STATE_VALUE_IDLE, HTTP_FLAVOR_VALUE_HTTP_1_0, HTTP_FLAVOR_VALUE_HTTP_1_1, HTTP_FLAVOR_VALUE_HTTP_2_0, HTTP_FLAVOR_VALUE_HTTP_3_0, HTTP_FLAVOR_VALUE_QUIC, HTTP_FLAVOR_VALUE_SPDY, HTTP_REQUEST_METHOD_VALUE_CONNECT, HTTP_REQUEST_METHOD_VALUE_DELETE, HTTP_REQUEST_METHOD_VALUE_GET, HTTP_REQUEST_METHOD_VALUE_HEAD, HTTP_REQUEST_METHOD_VALUE_OPTIONS, HTTP_REQUEST_METHOD_VALUE_OTHER, HTTP_REQUEST_METHOD_VALUE_PATCH, HTTP_REQUEST_METHOD_VALUE_POST, HTTP_REQUEST_METHOD_VALUE_PUT, HTTP_REQUEST_METHOD_VALUE_QUERY, HTTP_REQUEST_METHOD_VALUE_TRACE, HW_BATTERY_STATE_VALUE_CHARGING, HW_BATTERY_STATE_VALUE_DISCHARGING, HW_GPU_TASK_VALUE_DECODER, HW_GPU_TASK_VALUE_ENCODER, HW_GPU_TASK_VALUE_GENERAL, HW_LIMIT_TYPE_VALUE_CRITICAL, HW_LIMIT_TYPE_VALUE_DEGRADED, HW_LIMIT_TYPE_VALUE_HIGH_CRITICAL, HW_LIMIT_TYPE_VALUE_HIGH_DEGRADED, HW_LIMIT_TYPE_VALUE_LOW_CRITICAL, HW_LIMIT_TYPE_VALUE_LOW_DEGRADED, HW_LIMIT_TYPE_VALUE_MAX, HW_LIMIT_TYPE_VALUE_THROTTLED, HW_LIMIT_TYPE_VALUE_TURBO, HW_LOGICAL_DISK_STATE_VALUE_FREE, HW_LOGICAL_DISK_STATE_VALUE_USED, HW_PHYSICAL_DISK_STATE_VALUE_REMAINING, HW_STATE_VALUE_DEGRADED, HW_STATE_VALUE_FAILED, HW_STATE_VALUE_NEEDS_CLEANING, HW_STATE_VALUE_OK, HW_STATE_VALUE_PREDICTED_FAILURE, HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_CLEAN, HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_MOUNT, HW_TAPE_DRIVE_OPERATION_TYPE_VALUE_UNMOUNT, HW_TYPE_VALUE_BATTERY, HW_TYPE_VALUE_CPU, HW_TYPE_VALUE_DISK_CONTROLLER, HW_TYPE_VALUE_ENCLOSURE, HW_TYPE_VALUE_FAN, HW_TYPE_VALUE_GPU, HW_TYPE_VALUE_LOGICAL_DISK, HW_TYPE_VALUE_MEMORY, HW_TYPE_VALUE_NETWORK, HW_TYPE_VALUE_PHYSICAL_DISK, HW_TYPE_VALUE_POWER_SUPPLY, HW_TYPE_VALUE_TAPE_DRIVE, HW_TYPE_VALUE_TEMPERATURE, HW_TYPE_VALUE_VOLTAGE, IOS_APP_STATE_VALUE_ACTIVE, IOS_APP_STATE_VALUE_BACKGROUND, IOS_APP_STATE_VALUE_FOREGROUND, IOS_APP_STATE_VALUE_INACTIVE, IOS_APP_STATE_VALUE_TERMINATE, IOS_STATE_VALUE_ACTIVE, IOS_STATE_VALUE_BACKGROUND, IOS_STATE_VALUE_FOREGROUND, IOS_STATE_VALUE_INACTIVE, IOS_STATE_VALUE_TERMINATE, JVM_MEMORY_TYPE_VALUE_HEAP, JVM_MEMORY_TYPE_VALUE_NON_HEAP, JVM_THREAD_STATE_VALUE_BLOCKED, JVM_THREAD_STATE_VALUE_NEW, JVM_THREAD_STATE_VALUE_RUNNABLE, JVM_THREAD_STATE_VALUE_TERMINATED, JVM_THREAD_STATE_VALUE_TIMED_WAITING, JVM_THREAD_STATE_VALUE_WAITING, K8S_CONTAINER_STATUS_REASON_VALUE_COMPLETED, K8S_CONTAINER_STATUS_REASON_VALUE_CONTAINER_CANNOT_RUN, K8S_CONTAINER_STATUS_REASON_VALUE_CONTAINER_CREATING, K8S_CONTAINER_STATUS_REASON_VALUE_CRASH_LOOP_BACK_OFF, K8S_CONTAINER_STATUS_REASON_VALUE_CREATE_CONTAINER_CONFIG_ERROR, K8S_CONTAINER_STATUS_REASON_VALUE_ERROR, K8S_CONTAINER_STATUS_REASON_VALUE_ERR_IMAGE_PULL, K8S_CONTAINER_STATUS_REASON_VALUE_IMAGE_PULL_BACK_OFF, K8S_CONTAINER_STATUS_REASON_VALUE_OOM_KILLED, K8S_CONTAINER_STATUS_STATE_VALUE_RUNNING, K8S_CONTAINER_STATUS_STATE_VALUE_TERMINATED, K8S_CONTAINER_STATUS_STATE_VALUE_WAITING, K8S_NAMESPACE_PHASE_VALUE_ACTIVE, K8S_NAMESPACE_PHASE_VALUE_TERMINATING, K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_FALSE, K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_TRUE, K8S_NODE_CONDITION_STATUS_VALUE_CONDITION_UNKNOWN, K8S_NODE_CONDITION_TYPE_VALUE_DISK_PRESSURE, K8S_NODE_CONDITION_TYPE_VALUE_MEMORY_PRESSURE, K8S_NODE_CONDITION_TYPE_VALUE_NETWORK_UNAVAILABLE, K8S_NODE_CONDITION_TYPE_VALUE_PID_PRESSURE, K8S_NODE_CONDITION_TYPE_VALUE_READY, K8S_POD_STATUS_PHASE_VALUE_FAILED, K8S_POD_STATUS_PHASE_VALUE_PENDING, K8S_POD_STATUS_PHASE_VALUE_RUNNING, K8S_POD_STATUS_PHASE_VALUE_SUCCEEDED, K8S_POD_STATUS_PHASE_VALUE_UNKNOWN, K8S_POD_STATUS_REASON_VALUE_EVICTED, K8S_POD_STATUS_REASON_VALUE_NODE_AFFINITY, K8S_POD_STATUS_REASON_VALUE_NODE_LOST, K8S_POD_STATUS_REASON_VALUE_SHUTDOWN, K8S_POD_STATUS_REASON_VALUE_UNEXPECTED_ADMISSION_ERROR, K8S_VOLUME_TYPE_VALUE_CONFIG_MAP, K8S_VOLUME_TYPE_VALUE_DOWNWARD_API, K8S_VOLUME_TYPE_VALUE_EMPTY_DIR, K8S_VOLUME_TYPE_VALUE_LOCAL, K8S_VOLUME_TYPE_VALUE_PERSISTENT_VOLUME_CLAIM, K8S_VOLUME_TYPE_VALUE_SECRET, LINUX_MEMORY_SLAB_STATE_VALUE_RECLAIMABLE, LINUX_MEMORY_SLAB_STATE_VALUE_UNRECLAIMABLE, LOG_IOSTREAM_VALUE_STDERR, LOG_IOSTREAM_VALUE_STDOUT, MESSAGE_TYPE_VALUE_RECEIVED, MESSAGE_TYPE_VALUE_SENT, MESSAGING_OPERATION_TYPE_VALUE_CREATE, MESSAGING_OPERATION_TYPE_VALUE_DELIVER, MESSAGING_OPERATION_TYPE_VALUE_PROCESS, MESSAGING_OPERATION_TYPE_VALUE_PUBLISH, MESSAGING_OPERATION_TYPE_VALUE_RECEIVE, MESSAGING_OPERATION_TYPE_VALUE_SEND, MESSAGING_OPERATION_TYPE_VALUE_SETTLE, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_BROADCASTING, MESSAGING_ROCKETMQ_CONSUMPTION_MODEL_VALUE_CLUSTERING, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_DELAY, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_FIFO, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_NORMAL, MESSAGING_ROCKETMQ_MESSAGE_TYPE_VALUE_TRANSACTION, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_ABANDON, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_COMPLETE, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEAD_LETTER, MESSAGING_SERVICEBUS_DISPOSITION_STATUS_VALUE_DEFER, MESSAGING_SYSTEM_VALUE_ACTIVEMQ, MESSAGING_SYSTEM_VALUE_AWS_SNS, MESSAGING_SYSTEM_VALUE_AWS_SQS, MESSAGING_SYSTEM_VALUE_EVENTGRID, MESSAGING_SYSTEM_VALUE_EVENTHUBS, MESSAGING_SYSTEM_VALUE_GCP_PUBSUB, MESSAGING_SYSTEM_VALUE_JMS, MESSAGING_SYSTEM_VALUE_KAFKA, MESSAGING_SYSTEM_VALUE_PULSAR, MESSAGING_SYSTEM_VALUE_RABBITMQ, MESSAGING_SYSTEM_VALUE_ROCKETMQ, MESSAGING_SYSTEM_VALUE_SERVICEBUS, METRIC_ASPNETCORE_AUTHENTICATION_AUTHENTICATE_DURATION, METRIC_ASPNETCORE_AUTHENTICATION_CHALLENGES, METRIC_ASPNETCORE_AUTHENTICATION_FORBIDS, METRIC_ASPNETCORE_AUTHENTICATION_SIGN_INS, METRIC_ASPNETCORE_AUTHENTICATION_SIGN_OUTS, METRIC_ASPNETCORE_AUTHORIZATION_ATTEMPTS, METRIC_ASPNETCORE_DIAGNOSTICS_EXCEPTIONS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_AUTHENTICATE_DURATION, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_CHECK_PASSWORD_ATTEMPTS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_SIGN_INS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_SIGN_OUTS, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_TWO_FACTOR_CLIENTS_FORGOTTEN, METRIC_ASPNETCORE_IDENTITY_SIGN_IN_TWO_FACTOR_CLIENTS_REMEMBERED, METRIC_ASPNETCORE_IDENTITY_USER_CHECK_PASSWORD_ATTEMPTS, METRIC_ASPNETCORE_IDENTITY_USER_CREATE_DURATION, METRIC_ASPNETCORE_IDENTITY_USER_DELETE_DURATION, METRIC_ASPNETCORE_IDENTITY_USER_GENERATED_TOKENS, METRIC_ASPNETCORE_IDENTITY_USER_UPDATE_DURATION, METRIC_ASPNETCORE_IDENTITY_USER_VERIFY_TOKEN_ATTEMPTS, METRIC_ASPNETCORE_MEMORY_POOL_ALLOCATED, METRIC_ASPNETCORE_MEMORY_POOL_EVICTED, METRIC_ASPNETCORE_MEMORY_POOL_POOLED, METRIC_ASPNETCORE_MEMORY_POOL_RENTED, METRIC_ASPNETCORE_RATE_LIMITING_ACTIVE_REQUEST_LEASES, METRIC_ASPNETCORE_RATE_LIMITING_QUEUED_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUESTS, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_LEASE_DURATION, METRIC_ASPNETCORE_RATE_LIMITING_REQUEST_TIME_IN_QUEUE, METRIC_ASPNETCORE_ROUTING_MATCH_ATTEMPTS, METRIC_AZURE_COSMOSDB_CLIENT_ACTIVE_INSTANCE_COUNT, METRIC_AZURE_COSMOSDB_CLIENT_OPERATION_REQUEST_CHARGE, METRIC_CICD_PIPELINE_RUN_ACTIVE, METRIC_CICD_PIPELINE_RUN_DURATION, METRIC_CICD_PIPELINE_RUN_ERRORS, METRIC_CICD_SYSTEM_ERRORS, METRIC_CICD_WORKER_COUNT, METRIC_CONTAINER_CPU_TIME, METRIC_CONTAINER_CPU_USAGE, METRIC_CONTAINER_DISK_IO, METRIC_CONTAINER_FILESYSTEM_AVAILABLE, METRIC_CONTAINER_FILESYSTEM_CAPACITY, METRIC_CONTAINER_FILESYSTEM_USAGE, METRIC_CONTAINER_MEMORY_AVAILABLE, METRIC_CONTAINER_MEMORY_PAGING_FAULTS, METRIC_CONTAINER_MEMORY_RSS, METRIC_CONTAINER_MEMORY_USAGE, METRIC_CONTAINER_MEMORY_WORKING_SET, METRIC_CONTAINER_NETWORK_IO, METRIC_CONTAINER_UPTIME, METRIC_CPU_FREQUENCY, METRIC_CPU_TIME, METRIC_CPU_UTILIZATION, METRIC_CPYTHON_GC_COLLECTED_OBJECTS, METRIC_CPYTHON_GC_COLLECTIONS, METRIC_CPYTHON_GC_UNCOLLECTABLE_OBJECTS, METRIC_DB_CLIENT_CONNECTIONS_CREATE_TIME, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MAX, METRIC_DB_CLIENT_CONNECTIONS_IDLE_MIN, METRIC_DB_CLIENT_CONNECTIONS_MAX, METRIC_DB_CLIENT_CONNECTIONS_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTIONS_TIMEOUTS, METRIC_DB_CLIENT_CONNECTIONS_USAGE, METRIC_DB_CLIENT_CONNECTIONS_USE_TIME, METRIC_DB_CLIENT_CONNECTIONS_WAIT_TIME, METRIC_DB_CLIENT_CONNECTION_COUNT, METRIC_DB_CLIENT_CONNECTION_CREATE_TIME, METRIC_DB_CLIENT_CONNECTION_IDLE_MAX, METRIC_DB_CLIENT_CONNECTION_IDLE_MIN, METRIC_DB_CLIENT_CONNECTION_MAX, METRIC_DB_CLIENT_CONNECTION_PENDING_REQUESTS, METRIC_DB_CLIENT_CONNECTION_TIMEOUTS, METRIC_DB_CLIENT_CONNECTION_USE_TIME, METRIC_DB_CLIENT_CONNECTION_WAIT_TIME, METRIC_DB_CLIENT_COSMOSDB_ACTIVE_INSTANCE_COUNT, METRIC_DB_CLIENT_COSMOSDB_OPERATION_REQUEST_CHARGE, METRIC_DB_CLIENT_OPERATION_DURATION, METRIC_DB_CLIENT_RESPONSE_RETURNED_ROWS, METRIC_DNS_LOOKUP_DURATION, METRIC_DOTNET_ASSEMBLY_COUNT, METRIC_DOTNET_EXCEPTIONS, METRIC_DOTNET_GC_COLLECTIONS, METRIC_DOTNET_GC_HEAP_TOTAL_ALLOCATED, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_FRAGMENTATION_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_HEAP_SIZE, METRIC_DOTNET_GC_LAST_COLLECTION_MEMORY_COMMITTED_SIZE, METRIC_DOTNET_GC_PAUSE_TIME, METRIC_DOTNET_JIT_COMPILATION_TIME, METRIC_DOTNET_JIT_COMPILED_IL_SIZE, METRIC_DOTNET_JIT_COMPILED_METHODS, METRIC_DOTNET_MONITOR_LOCK_CONTENTIONS, METRIC_DOTNET_PROCESS_CPU_COUNT, METRIC_DOTNET_PROCESS_CPU_TIME, METRIC_DOTNET_PROCESS_MEMORY_WORKING_SET, METRIC_DOTNET_THREAD_POOL_QUEUE_LENGTH, METRIC_DOTNET_THREAD_POOL_THREAD_COUNT, METRIC_DOTNET_THREAD_POOL_WORK_ITEM_COUNT, METRIC_DOTNET_TIMER_COUNT, METRIC_FAAS_COLDSTARTS, METRIC_FAAS_CPU_USAGE, METRIC_FAAS_ERRORS, METRIC_FAAS_INIT_DURATION, METRIC_FAAS_INVOCATIONS, METRIC_FAAS_INVOKE_DURATION, METRIC_FAAS_MEM_USAGE, METRIC_FAAS_NET_IO, METRIC_FAAS_TIMEOUTS, METRIC_GEN_AI_CLIENT_OPERATION_DURATION, METRIC_GEN_AI_CLIENT_TOKEN_USAGE, METRIC_GEN_AI_SERVER_REQUEST_DURATION, METRIC_GEN_AI_SERVER_TIME_PER_OUTPUT_TOKEN, METRIC_GEN_AI_SERVER_TIME_TO_FIRST_TOKEN, METRIC_GO_CONFIG_GOGC, METRIC_GO_GOROUTINE_COUNT, METRIC_GO_MEMORY_ALLOCATED, METRIC_GO_MEMORY_ALLOCATIONS, METRIC_GO_MEMORY_GC_GOAL, METRIC_GO_MEMORY_LIMIT, METRIC_GO_MEMORY_USED, METRIC_GO_PROCESSOR_LIMIT, METRIC_GO_SCHEDULE_DURATION, METRIC_HTTP_CLIENT_ACTIVE_REQUESTS, METRIC_HTTP_CLIENT_CONNECTION_DURATION, METRIC_HTTP_CLIENT_OPEN_CONNECTIONS, METRIC_HTTP_CLIENT_REQUEST_BODY_SIZE, METRIC_HTTP_CLIENT_REQUEST_DURATION, METRIC_HTTP_CLIENT_RESPONSE_BODY_SIZE, METRIC_HTTP_SERVER_ACTIVE_REQUESTS, METRIC_HTTP_SERVER_REQUEST_BODY_SIZE, METRIC_HTTP_SERVER_REQUEST_DURATION, METRIC_HTTP_SERVER_RESPONSE_BODY_SIZE, METRIC_HW_BATTERY_CHARGE, METRIC_HW_BATTERY_CHARGE_LIMIT, METRIC_HW_BATTERY_TIME_LEFT, METRIC_HW_CPU_SPEED, METRIC_HW_CPU_SPEED_LIMIT, METRIC_HW_ENERGY, METRIC_HW_ERRORS, METRIC_HW_FAN_SPEED, METRIC_HW_FAN_SPEED_LIMIT, METRIC_HW_FAN_SPEED_RATIO, METRIC_HW_GPU_IO, METRIC_HW_GPU_MEMORY_LIMIT, METRIC_HW_GPU_MEMORY_USAGE, METRIC_HW_GPU_MEMORY_UTILIZATION, METRIC_HW_GPU_UTILIZATION, METRIC_HW_HOST_AMBIENT_TEMPERATURE, METRIC_HW_HOST_ENERGY, METRIC_HW_HOST_HEATING_MARGIN, METRIC_HW_HOST_POWER, METRIC_HW_LOGICAL_DISK_LIMIT, METRIC_HW_LOGICAL_DISK_USAGE, METRIC_HW_LOGICAL_DISK_UTILIZATION, METRIC_HW_MEMORY_SIZE, METRIC_HW_NETWORK_BANDWIDTH_LIMIT, METRIC_HW_NETWORK_BANDWIDTH_UTILIZATION, METRIC_HW_NETWORK_IO, METRIC_HW_NETWORK_PACKETS, METRIC_HW_NETWORK_UP, METRIC_HW_PHYSICAL_DISK_ENDURANCE_UTILIZATION, METRIC_HW_PHYSICAL_DISK_SIZE, METRIC_HW_PHYSICAL_DISK_SMART, METRIC_HW_POWER, METRIC_HW_POWER_SUPPLY_LIMIT, METRIC_HW_POWER_SUPPLY_USAGE, METRIC_HW_POWER_SUPPLY_UTILIZATION, METRIC_HW_STATUS, METRIC_HW_TAPE_DRIVE_OPERATIONS, METRIC_HW_TEMPERATURE, METRIC_HW_TEMPERATURE_LIMIT, METRIC_HW_VOLTAGE, METRIC_HW_VOLTAGE_LIMIT, METRIC_HW_VOLTAGE_NOMINAL, METRIC_JVM_BUFFER_COUNT, METRIC_JVM_BUFFER_MEMORY_LIMIT, METRIC_JVM_BUFFER_MEMORY_USAGE, METRIC_JVM_BUFFER_MEMORY_USED, METRIC_JVM_CLASS_COUNT, METRIC_JVM_CLASS_LOADED, METRIC_JVM_CLASS_UNLOADED, METRIC_JVM_CPU_COUNT, METRIC_JVM_CPU_RECENT_UTILIZATION, METRIC_JVM_CPU_TIME, METRIC_JVM_FILE_DESCRIPTOR_COUNT, METRIC_JVM_GC_DURATION, METRIC_JVM_MEMORY_COMMITTED, METRIC_JVM_MEMORY_INIT, METRIC_JVM_MEMORY_LIMIT, METRIC_JVM_MEMORY_USED, METRIC_JVM_MEMORY_USED_AFTER_LAST_GC, METRIC_JVM_SYSTEM_CPU_LOAD_1M, METRIC_JVM_SYSTEM_CPU_UTILIZATION, METRIC_JVM_THREAD_COUNT, METRIC_K8S_CONTAINER_CPU_LIMIT, METRIC_K8S_CONTAINER_CPU_LIMIT_UTILIZATION, METRIC_K8S_CONTAINER_CPU_REQUEST, METRIC_K8S_CONTAINER_CPU_REQUEST_UTILIZATION, METRIC_K8S_CONTAINER_EPHEMERAL_STORAGE_LIMIT, METRIC_K8S_CONTAINER_EPHEMERAL_STORAGE_REQUEST, METRIC_K8S_CONTAINER_MEMORY_LIMIT, METRIC_K8S_CONTAINER_MEMORY_REQUEST, METRIC_K8S_CONTAINER_READY, METRIC_K8S_CONTAINER_RESTART_COUNT, METRIC_K8S_CONTAINER_STATUS_REASON, METRIC_K8S_CONTAINER_STATUS_STATE, METRIC_K8S_CONTAINER_STORAGE_LIMIT, METRIC_K8S_CONTAINER_STORAGE_REQUEST, METRIC_K8S_CRONJOB_ACTIVE_JOBS, METRIC_K8S_CRONJOB_JOB_ACTIVE, METRIC_K8S_DAEMONSET_CURRENT_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_DESIRED_SCHEDULED_NODES, METRIC_K8S_DAEMONSET_MISSCHEDULED_NODES, METRIC_K8S_DAEMONSET_NODE_CURRENT_SCHEDULED, METRIC_K8S_DAEMONSET_NODE_DESIRED_SCHEDULED, METRIC_K8S_DAEMONSET_NODE_MISSCHEDULED, METRIC_K8S_DAEMONSET_NODE_READY, METRIC_K8S_DAEMONSET_READY_NODES, METRIC_K8S_DEPLOYMENT_AVAILABLE_PODS, METRIC_K8S_DEPLOYMENT_DESIRED_PODS, METRIC_K8S_DEPLOYMENT_POD_AVAILABLE, METRIC_K8S_DEPLOYMENT_POD_DESIRED, METRIC_K8S_HPA_CURRENT_PODS, METRIC_K8S_HPA_DESIRED_PODS, METRIC_K8S_HPA_MAX_PODS, METRIC_K8S_HPA_METRIC_TARGET_CPU_AVERAGE_UTILIZATION, METRIC_K8S_HPA_METRIC_TARGET_CPU_AVERAGE_VALUE, METRIC_K8S_HPA_METRIC_TARGET_CPU_VALUE, METRIC_K8S_HPA_MIN_PODS, METRIC_K8S_HPA_POD_CURRENT, METRIC_K8S_HPA_POD_DESIRED, METRIC_K8S_HPA_POD_MAX, METRIC_K8S_HPA_POD_MIN, METRIC_K8S_JOB_ACTIVE_PODS, METRIC_K8S_JOB_DESIRED_SUCCESSFUL_PODS, METRIC_K8S_JOB_FAILED_PODS, METRIC_K8S_JOB_MAX_PARALLEL_PODS, METRIC_K8S_JOB_POD_ACTIVE, METRIC_K8S_JOB_POD_DESIRED_SUCCESSFUL, METRIC_K8S_JOB_POD_FAILED, METRIC_K8S_JOB_POD_MAX_PARALLEL, METRIC_K8S_JOB_POD_SUCCESSFUL, METRIC_K8S_JOB_SUCCESSFUL_PODS, METRIC_K8S_NAMESPACE_PHASE, METRIC_K8S_NODE_ALLOCATABLE_CPU, METRIC_K8S_NODE_ALLOCATABLE_EPHEMERAL_STORAGE, METRIC_K8S_NODE_ALLOCATABLE_MEMORY, METRIC_K8S_NODE_ALLOCATABLE_PODS, METRIC_K8S_NODE_CONDITION_STATUS, METRIC_K8S_NODE_CPU_ALLOCATABLE, METRIC_K8S_NODE_CPU_TIME, METRIC_K8S_NODE_CPU_USAGE, METRIC_K8S_NODE_EPHEMERAL_STORAGE_ALLOCATABLE, METRIC_K8S_NODE_FILESYSTEM_AVAILABLE, METRIC_K8S_NODE_FILESYSTEM_CAPACITY, METRIC_K8S_NODE_FILESYSTEM_USAGE, METRIC_K8S_NODE_MEMORY_ALLOCATABLE, METRIC_K8S_NODE_MEMORY_AVAILABLE, METRIC_K8S_NODE_MEMORY_PAGING_FAULTS, METRIC_K8S_NODE_MEMORY_RSS, METRIC_K8S_NODE_MEMORY_USAGE, METRIC_K8S_NODE_MEMORY_WORKING_SET, METRIC_K8S_NODE_NETWORK_ERRORS, METRIC_K8S_NODE_NETWORK_IO, METRIC_K8S_NODE_POD_ALLOCATABLE, METRIC_K8S_NODE_UPTIME, METRIC_K8S_POD_CPU_TIME, METRIC_K8S_POD_CPU_USAGE, METRIC_K8S_POD_FILESYSTEM_AVAILABLE, METRIC_K8S_POD_FILESYSTEM_CAPACITY, METRIC_K8S_POD_FILESYSTEM_USAGE, METRIC_K8S_POD_MEMORY_AVAILABLE, METRIC_K8S_POD_MEMORY_PAGING_FAULTS, METRIC_K8S_POD_MEMORY_RSS, METRIC_K8S_POD_MEMORY_USAGE, METRIC_K8S_POD_MEMORY_WORKING_SET, METRIC_K8S_POD_NETWORK_ERRORS, METRIC_K8S_POD_NETWORK_IO, METRIC_K8S_POD_STATUS_PHASE, METRIC_K8S_POD_STATUS_REASON, METRIC_K8S_POD_UPTIME, METRIC_K8S_POD_VOLUME_AVAILABLE, METRIC_K8S_POD_VOLUME_CAPACITY, METRIC_K8S_POD_VOLUME_INODE_COUNT, METRIC_K8S_POD_VOLUME_INODE_FREE, METRIC_K8S_POD_VOLUME_INODE_USED, METRIC_K8S_POD_VOLUME_USAGE, METRIC_K8S_REPLICASET_AVAILABLE_PODS, METRIC_K8S_REPLICASET_DESIRED_PODS, METRIC_K8S_REPLICASET_POD_AVAILABLE, METRIC_K8S_REPLICASET_POD_DESIRED, METRIC_K8S_REPLICATIONCONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATIONCONTROLLER_DESIRED_PODS, METRIC_K8S_REPLICATIONCONTROLLER_POD_AVAILABLE, METRIC_K8S_REPLICATIONCONTROLLER_POD_DESIRED, METRIC_K8S_REPLICATION_CONTROLLER_AVAILABLE_PODS, METRIC_K8S_REPLICATION_CONTROLLER_DESIRED_PODS, METRIC_K8S_RESOURCEQUOTA_CPU_LIMIT_HARD, METRIC_K8S_RESOURCEQUOTA_CPU_LIMIT_USED, METRIC_K8S_RESOURCEQUOTA_CPU_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_CPU_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_LIMIT_HARD, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_LIMIT_USED, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_EPHEMERAL_STORAGE_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_HUGEPAGE_COUNT_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_HUGEPAGE_COUNT_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_MEMORY_LIMIT_HARD, METRIC_K8S_RESOURCEQUOTA_MEMORY_LIMIT_USED, METRIC_K8S_RESOURCEQUOTA_MEMORY_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_MEMORY_REQUEST_USED, METRIC_K8S_RESOURCEQUOTA_OBJECT_COUNT_HARD, METRIC_K8S_RESOURCEQUOTA_OBJECT_COUNT_USED, METRIC_K8S_RESOURCEQUOTA_PERSISTENTVOLUMECLAIM_COUNT_HARD, METRIC_K8S_RESOURCEQUOTA_PERSISTENTVOLUMECLAIM_COUNT_USED, METRIC_K8S_RESOURCEQUOTA_STORAGE_REQUEST_HARD, METRIC_K8S_RESOURCEQUOTA_STORAGE_REQUEST_USED, METRIC_K8S_STATEFULSET_CURRENT_PODS, METRIC_K8S_STATEFULSET_DESIRED_PODS, METRIC_K8S_STATEFULSET_POD_CURRENT, METRIC_K8S_STATEFULSET_POD_DESIRED, METRIC_K8S_STATEFULSET_POD_READY, METRIC_K8S_STATEFULSET_POD_UPDATED, METRIC_K8S_STATEFULSET_READY_PODS, METRIC_K8S_STATEFULSET_UPDATED_PODS, METRIC_KESTREL_ACTIVE_CONNECTIONS, METRIC_KESTREL_ACTIVE_TLS_HANDSHAKES, METRIC_KESTREL_CONNECTION_DURATION, METRIC_KESTREL_QUEUED_CONNECTIONS, METRIC_KESTREL_QUEUED_REQUESTS, METRIC_KESTREL_REJECTED_CONNECTIONS, METRIC_KESTREL_TLS_HANDSHAKE_DURATION, METRIC_KESTREL_UPGRADED_CONNECTIONS, METRIC_MESSAGING_CLIENT_CONSUMED_MESSAGES, METRIC_MESSAGING_CLIENT_OPERATION_DURATION, METRIC_MESSAGING_CLIENT_PUBLISHED_MESSAGES, METRIC_MESSAGING_CLIENT_SENT_MESSAGES, METRIC_MESSAGING_PROCESS_DURATION, METRIC_MESSAGING_PROCESS_MESSAGES, METRIC_MESSAGING_PUBLISH_DURATION, METRIC_MESSAGING_PUBLISH_MESSAGES, METRIC_MESSAGING_RECEIVE_DURATION, METRIC_MESSAGING_RECEIVE_MESSAGES, METRIC_NFS_CLIENT_NET_COUNT, METRIC_NFS_CLIENT_NET_TCP_CONNECTION_ACCEPTED, METRIC_NFS_CLIENT_OPERATION_COUNT, METRIC_NFS_CLIENT_PROCEDURE_COUNT, METRIC_NFS_CLIENT_RPC_AUTHREFRESH_COUNT, METRIC_NFS_CLIENT_RPC_COUNT, METRIC_NFS_CLIENT_RPC_RETRANSMIT_COUNT, METRIC_NFS_SERVER_FH_STALE_COUNT, METRIC_NFS_SERVER_IO, METRIC_NFS_SERVER_NET_COUNT, METRIC_NFS_SERVER_NET_TCP_CONNECTION_ACCEPTED, METRIC_NFS_SERVER_OPERATION_COUNT, METRIC_NFS_SERVER_PROCEDURE_COUNT, METRIC_NFS_SERVER_REPCACHE_REQUESTS, METRIC_NFS_SERVER_RPC_COUNT, METRIC_NFS_SERVER_THREAD_COUNT, METRIC_NODEJS_EVENTLOOP_DELAY_MAX, METRIC_NODEJS_EVENTLOOP_DELAY_MEAN, METRIC_NODEJS_EVENTLOOP_DELAY_MIN, METRIC_NODEJS_EVENTLOOP_DELAY_P50, METRIC_NODEJS_EVENTLOOP_DELAY_P90, METRIC_NODEJS_EVENTLOOP_DELAY_P99, METRIC_NODEJS_EVENTLOOP_DELAY_STDDEV, METRIC_NODEJS_EVENTLOOP_TIME, METRIC_NODEJS_EVENTLOOP_UTILIZATION, METRIC_OPENSHIFT_CLUSTERQUOTA_CPU_LIMIT_HARD, METRIC_OPENSHIFT_CLUSTERQUOTA_CPU_LIMIT_USED, METRIC_OPENSHIFT_CLUSTERQUOTA_CPU_REQUEST_HARD, METRIC_OPENSHIFT_CLUSTERQUOTA_CPU_REQUEST_USED, METRIC_OPENSHIFT_CLUSTERQUOTA_EPHEMERAL_STORAGE_LIMIT_HARD, METRIC_OPENSHIFT_CLUSTERQUOTA_EPHEMERAL_STORAGE_LIMIT_USED, METRIC_OPENSHIFT_CLUSTERQUOTA_EPHEMERAL_STORAGE_REQUEST_HARD, METRIC_OPENSHIFT_CLUSTERQUOTA_EPHEMERAL_STORAGE_REQUEST_USED, METRIC_OPENSHIFT_CLUSTERQUOTA_HUGEPAGE_COUNT_REQUEST_HARD, METRIC_OPENSHIFT_CLUSTERQUOTA_HUGEPAGE_COUNT_REQUEST_USED, METRIC_OPENSHIFT_CLUSTERQUOTA_MEMORY_LIMIT_HARD, METRIC_OPENSHIFT_CLUSTERQUOTA_MEMORY_LIMIT_USED, METRIC_OPENSHIFT_CLUSTERQUOTA_MEMORY_REQUEST_HARD, METRIC_OPENSHIFT_CLUSTERQUOTA_MEMORY_REQUEST_USED, METRIC_OPENSHIFT_CLUSTERQUOTA_OBJECT_COUNT_HARD, METRIC_OPENSHIFT_CLUSTERQUOTA_OBJECT_COUNT_USED, METRIC_OPENSHIFT_CLUSTERQUOTA_PERSISTENTVOLUMECLAIM_COUNT_HARD, METRIC_OPENSHIFT_CLUSTERQUOTA_PERSISTENTVOLUMECLAIM_COUNT_USED, METRIC_OPENSHIFT_CLUSTERQUOTA_STORAGE_REQUEST_HARD, METRIC_OPENSHIFT_CLUSTERQUOTA_STORAGE_REQUEST_USED, METRIC_OTEL_SDK_EXPORTER_LOG_EXPORTED, METRIC_OTEL_SDK_EXPORTER_LOG_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_EXPORTED, METRIC_OTEL_SDK_EXPORTER_METRIC_DATA_POINT_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_OPERATION_DURATION, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED, METRIC_OTEL_SDK_EXPORTER_SPAN_EXPORTED_COUNT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT, METRIC_OTEL_SDK_EXPORTER_SPAN_INFLIGHT_COUNT, METRIC_OTEL_SDK_LOG_CREATED, METRIC_OTEL_SDK_METRIC_READER_COLLECTION_DURATION, METRIC_OTEL_SDK_PROCESSOR_LOG_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_LOG_QUEUE_SIZE, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED, METRIC_OTEL_SDK_PROCESSOR_SPAN_PROCESSED_COUNT, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_CAPACITY, METRIC_OTEL_SDK_PROCESSOR_SPAN_QUEUE_SIZE, METRIC_OTEL_SDK_SPAN_ENDED, METRIC_OTEL_SDK_SPAN_ENDED_COUNT, METRIC_OTEL_SDK_SPAN_LIVE, METRIC_OTEL_SDK_SPAN_LIVE_COUNT, METRIC_OTEL_SDK_SPAN_STARTED, METRIC_PROCESS_CONTEXT_SWITCHES, METRIC_PROCESS_CPU_TIME, METRIC_PROCESS_CPU_UTILIZATION, METRIC_PROCESS_DISK_IO, METRIC_PROCESS_MEMORY_USAGE, METRIC_PROCESS_MEMORY_VIRTUAL, METRIC_PROCESS_NETWORK_IO, METRIC_PROCESS_OPEN_FILE_DESCRIPTOR_COUNT, METRIC_PROCESS_PAGING_FAULTS, METRIC_PROCESS_THREAD_COUNT, METRIC_PROCESS_UPTIME, METRIC_RPC_CLIENT_DURATION, METRIC_RPC_CLIENT_REQUESTS_PER_RPC, METRIC_RPC_CLIENT_REQUEST_SIZE, METRIC_RPC_CLIENT_RESPONSES_PER_RPC, METRIC_RPC_CLIENT_RESPONSE_SIZE, METRIC_RPC_SERVER_DURATION, METRIC_RPC_SERVER_REQUESTS_PER_RPC, METRIC_RPC_SERVER_REQUEST_SIZE, METRIC_RPC_SERVER_RESPONSES_PER_RPC, METRIC_RPC_SERVER_RESPONSE_SIZE, METRIC_SIGNALR_SERVER_ACTIVE_CONNECTIONS, METRIC_SIGNALR_SERVER_CONNECTION_DURATION, METRIC_SYSTEM_CPU_FREQUENCY, METRIC_SYSTEM_CPU_LOGICAL_COUNT, METRIC_SYSTEM_CPU_PHYSICAL_COUNT, METRIC_SYSTEM_CPU_TIME, METRIC_SYSTEM_CPU_UTILIZATION, METRIC_SYSTEM_DISK_IO, METRIC_SYSTEM_DISK_IO_TIME, METRIC_SYSTEM_DISK_LIMIT, METRIC_SYSTEM_DISK_MERGED, METRIC_SYSTEM_DISK_OPERATIONS, METRIC_SYSTEM_DISK_OPERATION_TIME, METRIC_SYSTEM_FILESYSTEM_LIMIT, METRIC_SYSTEM_FILESYSTEM_USAGE, METRIC_SYSTEM_FILESYSTEM_UTILIZATION, METRIC_SYSTEM_LINUX_MEMORY_AVAILABLE, METRIC_SYSTEM_LINUX_MEMORY_SLAB_USAGE, METRIC_SYSTEM_MEMORY_LIMIT, METRIC_SYSTEM_MEMORY_SHARED, METRIC_SYSTEM_MEMORY_USAGE, METRIC_SYSTEM_MEMORY_UTILIZATION, METRIC_SYSTEM_NETWORK_CONNECTIONS, METRIC_SYSTEM_NETWORK_CONNECTION_COUNT, METRIC_SYSTEM_NETWORK_DROPPED, METRIC_SYSTEM_NETWORK_ERRORS, METRIC_SYSTEM_NETWORK_IO, METRIC_SYSTEM_NETWORK_PACKETS, METRIC_SYSTEM_NETWORK_PACKET_COUNT, METRIC_SYSTEM_NETWORK_PACKET_DROPPED, METRIC_SYSTEM_PAGING_FAULTS, METRIC_SYSTEM_PAGING_OPERATIONS, METRIC_SYSTEM_PAGING_USAGE, METRIC_SYSTEM_PAGING_UTILIZATION, METRIC_SYSTEM_PROCESS_COUNT, METRIC_SYSTEM_PROCESS_CREATED, METRIC_SYSTEM_UPTIME, METRIC_V8JS_GC_DURATION, METRIC_V8JS_HEAP_SPACE_AVAILABLE_SIZE, METRIC_V8JS_HEAP_SPACE_PHYSICAL_SIZE, METRIC_V8JS_MEMORY_HEAP_LIMIT, METRIC_V8JS_MEMORY_HEAP_SPACE_AVAILABLE_SIZE, METRIC_V8JS_MEMORY_HEAP_SPACE_PHYSICAL_SIZE, METRIC_V8JS_MEMORY_HEAP_USED, METRIC_VCS_CHANGE_COUNT, METRIC_VCS_CHANGE_DURATION, METRIC_VCS_CHANGE_TIME_TO_APPROVAL, METRIC_VCS_CHANGE_TIME_TO_MERGE, METRIC_VCS_CONTRIBUTOR_COUNT, METRIC_VCS_REF_COUNT, METRIC_VCS_REF_LINES_DELTA, METRIC_VCS_REF_REVISIONS_DELTA, METRIC_VCS_REF_TIME, METRIC_VCS_REPOSITORY_COUNT, NETWORK_CONNECTION_STATE_VALUE_CLOSED, NETWORK_CONNECTION_STATE_VALUE_CLOSE_WAIT, NETWORK_CONNECTION_STATE_VALUE_CLOSING, NETWORK_CONNECTION_STATE_VALUE_ESTABLISHED, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_1, NETWORK_CONNECTION_STATE_VALUE_FIN_WAIT_2, NETWORK_CONNECTION_STATE_VALUE_LAST_ACK, NETWORK_CONNECTION_STATE_VALUE_LISTEN, NETWORK_CONNECTION_STATE_VALUE_SYN_RECEIVED, NETWORK_CONNECTION_STATE_VALUE_SYN_SENT, NETWORK_CONNECTION_STATE_VALUE_TIME_WAIT, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_CDMA2000_1XRTT, NETWORK_CONNECTION_SUBTYPE_VALUE_EDGE, NETWORK_CONNECTION_SUBTYPE_VALUE_EHRPD, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_0, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_A, NETWORK_CONNECTION_SUBTYPE_VALUE_EVDO_B, NETWORK_CONNECTION_SUBTYPE_VALUE_GPRS, NETWORK_CONNECTION_SUBTYPE_VALUE_GSM, NETWORK_CONNECTION_SUBTYPE_VALUE_HSDPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPA, NETWORK_CONNECTION_SUBTYPE_VALUE_HSPAP, NETWORK_CONNECTION_SUBTYPE_VALUE_HSUPA, NETWORK_CONNECTION_SUBTYPE_VALUE_IDEN, NETWORK_CONNECTION_SUBTYPE_VALUE_IWLAN, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE, NETWORK_CONNECTION_SUBTYPE_VALUE_LTE_CA, NETWORK_CONNECTION_SUBTYPE_VALUE_NR, NETWORK_CONNECTION_SUBTYPE_VALUE_NRNSA, NETWORK_CONNECTION_SUBTYPE_VALUE_TD_SCDMA, NETWORK_CONNECTION_SUBTYPE_VALUE_UMTS, NETWORK_CONNECTION_TYPE_VALUE_CELL, NETWORK_CONNECTION_TYPE_VALUE_UNAVAILABLE, NETWORK_CONNECTION_TYPE_VALUE_UNKNOWN, NETWORK_CONNECTION_TYPE_VALUE_WIFI, NETWORK_CONNECTION_TYPE_VALUE_WIRED, NETWORK_IO_DIRECTION_VALUE_RECEIVE, NETWORK_IO_DIRECTION_VALUE_TRANSMIT, NETWORK_TRANSPORT_VALUE_PIPE, NETWORK_TRANSPORT_VALUE_QUIC, NETWORK_TRANSPORT_VALUE_TCP, NETWORK_TRANSPORT_VALUE_UDP, NETWORK_TRANSPORT_VALUE_UNIX, NETWORK_TYPE_VALUE_IPV4, NETWORK_TYPE_VALUE_IPV6, NET_SOCK_FAMILY_VALUE_INET, NET_SOCK_FAMILY_VALUE_INET6, NET_SOCK_FAMILY_VALUE_UNIX, NET_TRANSPORT_VALUE_INPROC, NET_TRANSPORT_VALUE_IP_TCP, NET_TRANSPORT_VALUE_IP_UDP, NET_TRANSPORT_VALUE_OTHER, NET_TRANSPORT_VALUE_PIPE, NODEJS_EVENTLOOP_STATE_VALUE_ACTIVE, NODEJS_EVENTLOOP_STATE_VALUE_IDLE, OPENAI_REQUEST_SERVICE_TIER_VALUE_AUTO, OPENAI_REQUEST_SERVICE_TIER_VALUE_DEFAULT, OPENTRACING_REF_TYPE_VALUE_CHILD_OF, OPENTRACING_REF_TYPE_VALUE_FOLLOWS_FROM, OS_TYPE_VALUE_AIX, OS_TYPE_VALUE_DARWIN, OS_TYPE_VALUE_DRAGONFLYBSD, OS_TYPE_VALUE_FREEBSD, OS_TYPE_VALUE_HPUX, OS_TYPE_VALUE_LINUX, OS_TYPE_VALUE_NETBSD, OS_TYPE_VALUE_OPENBSD, OS_TYPE_VALUE_SOLARIS, OS_TYPE_VALUE_WINDOWS, OS_TYPE_VALUE_ZOS, OS_TYPE_VALUE_Z_OS, OTEL_COMPONENT_TYPE_VALUE_BATCHING_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_BATCHING_SPAN_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_GRPC_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_JSON_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_LOG_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_OTLP_HTTP_SPAN_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_PERIODIC_METRIC_READER, OTEL_COMPONENT_TYPE_VALUE_PROMETHEUS_HTTP_TEXT_METRIC_EXPORTER, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_LOG_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_SIMPLE_SPAN_PROCESSOR, OTEL_COMPONENT_TYPE_VALUE_ZIPKIN_HTTP_SPAN_EXPORTER, OTEL_SPAN_PARENT_ORIGIN_VALUE_LOCAL, OTEL_SPAN_PARENT_ORIGIN_VALUE_NONE, OTEL_SPAN_PARENT_ORIGIN_VALUE_REMOTE, OTEL_SPAN_SAMPLING_RESULT_VALUE_DROP, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_AND_SAMPLE, OTEL_SPAN_SAMPLING_RESULT_VALUE_RECORD_ONLY, OTEL_STATUS_CODE_VALUE_ERROR, OTEL_STATUS_CODE_VALUE_OK, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_INVOLUNTARY, PROCESS_CONTEXT_SWITCH_TYPE_VALUE_VOLUNTARY, PROCESS_CPU_STATE_VALUE_SYSTEM, PROCESS_CPU_STATE_VALUE_USER, PROCESS_CPU_STATE_VALUE_WAIT, PROCESS_PAGING_FAULT_TYPE_VALUE_MAJOR, PROCESS_PAGING_FAULT_TYPE_VALUE_MINOR, PROCESS_STATE_VALUE_DEFUNCT, PROCESS_STATE_VALUE_RUNNING, PROCESS_STATE_VALUE_SLEEPING, PROCESS_STATE_VALUE_STOPPED, PROFILE_FRAME_TYPE_VALUE_BEAM, PROFILE_FRAME_TYPE_VALUE_CPYTHON, PROFILE_FRAME_TYPE_VALUE_DOTNET, PROFILE_FRAME_TYPE_VALUE_GO, PROFILE_FRAME_TYPE_VALUE_JVM, PROFILE_FRAME_TYPE_VALUE_KERNEL, PROFILE_FRAME_TYPE_VALUE_NATIVE, PROFILE_FRAME_TYPE_VALUE_PERL, PROFILE_FRAME_TYPE_VALUE_PHP, PROFILE_FRAME_TYPE_VALUE_RUBY, PROFILE_FRAME_TYPE_VALUE_RUST, PROFILE_FRAME_TYPE_VALUE_V8JS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ABORTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_ALREADY_EXISTS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_CANCELLED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DATA_LOSS, RPC_CONNECT_RPC_ERROR_CODE_VALUE_DEADLINE_EXCEEDED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_FAILED_PRECONDITION, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INTERNAL, RPC_CONNECT_RPC_ERROR_CODE_VALUE_INVALID_ARGUMENT, RPC_CONNECT_RPC_ERROR_CODE_VALUE_NOT_FOUND, RPC_CONNECT_RPC_ERROR_CODE_VALUE_OUT_OF_RANGE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_PERMISSION_DENIED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAUTHENTICATED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNAVAILABLE, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNIMPLEMENTED, RPC_CONNECT_RPC_ERROR_CODE_VALUE_UNKNOWN, RPC_GRPC_STATUS_CODE_VALUE_ABORTED, RPC_GRPC_STATUS_CODE_VALUE_ALREADY_EXISTS, RPC_GRPC_STATUS_CODE_VALUE_CANCELLED, RPC_GRPC_STATUS_CODE_VALUE_DATA_LOSS, RPC_GRPC_STATUS_CODE_VALUE_DEADLINE_EXCEEDED, RPC_GRPC_STATUS_CODE_VALUE_FAILED_PRECONDITION, RPC_GRPC_STATUS_CODE_VALUE_INTERNAL, RPC_GRPC_STATUS_CODE_VALUE_INVALID_ARGUMENT, RPC_GRPC_STATUS_CODE_VALUE_NOT_FOUND, RPC_GRPC_STATUS_CODE_VALUE_OK, RPC_GRPC_STATUS_CODE_VALUE_OUT_OF_RANGE, RPC_GRPC_STATUS_CODE_VALUE_PERMISSION_DENIED, RPC_GRPC_STATUS_CODE_VALUE_RESOURCE_EXHAUSTED, RPC_GRPC_STATUS_CODE_VALUE_UNAUTHENTICATED, RPC_GRPC_STATUS_CODE_VALUE_UNAVAILABLE, RPC_GRPC_STATUS_CODE_VALUE_UNIMPLEMENTED, RPC_GRPC_STATUS_CODE_VALUE_UNKNOWN, RPC_MESSAGE_TYPE_VALUE_RECEIVED, RPC_MESSAGE_TYPE_VALUE_SENT, RPC_SYSTEM_VALUE_APACHE_DUBBO, RPC_SYSTEM_VALUE_CONNECT_RPC, RPC_SYSTEM_VALUE_DOTNET_WCF, RPC_SYSTEM_VALUE_GRPC, RPC_SYSTEM_VALUE_JAVA_RMI, RPC_SYSTEM_VALUE_JSONRPC, RPC_SYSTEM_VALUE_ONC_RPC, SIGNALR_CONNECTION_STATUS_VALUE_APP_SHUTDOWN, SIGNALR_CONNECTION_STATUS_VALUE_NORMAL_CLOSURE, SIGNALR_CONNECTION_STATUS_VALUE_TIMEOUT, SIGNALR_TRANSPORT_VALUE_LONG_POLLING, SIGNALR_TRANSPORT_VALUE_SERVER_SENT_EVENTS, SIGNALR_TRANSPORT_VALUE_WEB_SOCKETS, STATE_VALUE_IDLE, STATE_VALUE_USED, SYSTEM_CPU_STATE_VALUE_IDLE, SYSTEM_CPU_STATE_VALUE_INTERRUPT, SYSTEM_CPU_STATE_VALUE_IOWAIT, SYSTEM_CPU_STATE_VALUE_NICE, SYSTEM_CPU_STATE_VALUE_STEAL, SYSTEM_CPU_STATE_VALUE_SYSTEM, SYSTEM_CPU_STATE_VALUE_USER, SYSTEM_FILESYSTEM_STATE_VALUE_FREE, SYSTEM_FILESYSTEM_STATE_VALUE_RESERVED, SYSTEM_FILESYSTEM_STATE_VALUE_USED, SYSTEM_FILESYSTEM_TYPE_VALUE_EXFAT, SYSTEM_FILESYSTEM_TYPE_VALUE_EXT4, SYSTEM_FILESYSTEM_TYPE_VALUE_FAT32, SYSTEM_FILESYSTEM_TYPE_VALUE_HFSPLUS, SYSTEM_FILESYSTEM_TYPE_VALUE_NTFS, SYSTEM_FILESYSTEM_TYPE_VALUE_REFS, SYSTEM_MEMORY_STATE_VALUE_BUFFERS, SYSTEM_MEMORY_STATE_VALUE_CACHED, SYSTEM_MEMORY_STATE_VALUE_FREE, SYSTEM_MEMORY_STATE_VALUE_SHARED, SYSTEM_MEMORY_STATE_VALUE_USED, SYSTEM_NETWORK_STATE_VALUE_CLOSE, SYSTEM_NETWORK_STATE_VALUE_CLOSE_WAIT, SYSTEM_NETWORK_STATE_VALUE_CLOSING, SYSTEM_NETWORK_STATE_VALUE_DELETE, SYSTEM_NETWORK_STATE_VALUE_ESTABLISHED, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_1, SYSTEM_NETWORK_STATE_VALUE_FIN_WAIT_2, SYSTEM_NETWORK_STATE_VALUE_LAST_ACK, SYSTEM_NETWORK_STATE_VALUE_LISTEN, SYSTEM_NETWORK_STATE_VALUE_SYN_RECV, SYSTEM_NETWORK_STATE_VALUE_SYN_SENT, SYSTEM_NETWORK_STATE_VALUE_TIME_WAIT, SYSTEM_PAGING_DIRECTION_VALUE_IN, SYSTEM_PAGING_DIRECTION_VALUE_OUT, SYSTEM_PAGING_FAULT_TYPE_VALUE_MAJOR, SYSTEM_PAGING_FAULT_TYPE_VALUE_MINOR, SYSTEM_PAGING_STATE_VALUE_FREE, SYSTEM_PAGING_STATE_VALUE_USED, SYSTEM_PAGING_TYPE_VALUE_MAJOR, SYSTEM_PAGING_TYPE_VALUE_MINOR, SYSTEM_PROCESSES_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESSES_STATUS_VALUE_RUNNING, SYSTEM_PROCESSES_STATUS_VALUE_SLEEPING, SYSTEM_PROCESSES_STATUS_VALUE_STOPPED, SYSTEM_PROCESS_STATUS_VALUE_DEFUNCT, SYSTEM_PROCESS_STATUS_VALUE_RUNNING, SYSTEM_PROCESS_STATUS_VALUE_SLEEPING, SYSTEM_PROCESS_STATUS_VALUE_STOPPED, TELEMETRY_SDK_LANGUAGE_VALUE_CPP, TELEMETRY_SDK_LANGUAGE_VALUE_DOTNET, TELEMETRY_SDK_LANGUAGE_VALUE_ERLANG, TELEMETRY_SDK_LANGUAGE_VALUE_GO, TELEMETRY_SDK_LANGUAGE_VALUE_JAVA, TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS, TELEMETRY_SDK_LANGUAGE_VALUE_PHP, TELEMETRY_SDK_LANGUAGE_VALUE_PYTHON, TELEMETRY_SDK_LANGUAGE_VALUE_RUBY, TELEMETRY_SDK_LANGUAGE_VALUE_RUST, TELEMETRY_SDK_LANGUAGE_VALUE_SWIFT, TELEMETRY_SDK_LANGUAGE_VALUE_WEBJS, TEST_CASE_RESULT_STATUS_VALUE_FAIL, TEST_CASE_RESULT_STATUS_VALUE_PASS, TEST_SUITE_RUN_STATUS_VALUE_ABORTED, TEST_SUITE_RUN_STATUS_VALUE_FAILURE, TEST_SUITE_RUN_STATUS_VALUE_IN_PROGRESS, TEST_SUITE_RUN_STATUS_VALUE_SKIPPED, TEST_SUITE_RUN_STATUS_VALUE_SUCCESS, TEST_SUITE_RUN_STATUS_VALUE_TIMED_OUT, TLS_PROTOCOL_NAME_VALUE_SSL, TLS_PROTOCOL_NAME_VALUE_TLS, USER_AGENT_SYNTHETIC_TYPE_VALUE_BOT, USER_AGENT_SYNTHETIC_TYPE_VALUE_TEST, V8JS_GC_TYPE_VALUE_INCREMENTAL, V8JS_GC_TYPE_VALUE_MAJOR, V8JS_GC_TYPE_VALUE_MINOR, V8JS_GC_TYPE_VALUE_WEAKCB, V8JS_HEAP_SPACE_NAME_VALUE_CODE_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_LARGE_OBJECT_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_MAP_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_NEW_SPACE, V8JS_HEAP_SPACE_NAME_VALUE_OLD_SPACE, VCS_CHANGE_STATE_VALUE_CLOSED, VCS_CHANGE_STATE_VALUE_MERGED, VCS_CHANGE_STATE_VALUE_OPEN, VCS_CHANGE_STATE_VALUE_WIP, VCS_LINE_CHANGE_TYPE_VALUE_ADDED, VCS_LINE_CHANGE_TYPE_VALUE_REMOVED, VCS_PROVIDER_NAME_VALUE_BITBUCKET, VCS_PROVIDER_NAME_VALUE_GITEA, VCS_PROVIDER_NAME_VALUE_GITHUB, VCS_PROVIDER_NAME_VALUE_GITLAB, VCS_PROVIDER_NAME_VALUE_GITTEA, VCS_REF_BASE_TYPE_VALUE_BRANCH, VCS_REF_BASE_TYPE_VALUE_TAG, VCS_REF_HEAD_TYPE_VALUE_BRANCH, VCS_REF_HEAD_TYPE_VALUE_TAG, VCS_REF_TYPE_VALUE_BRANCH, VCS_REF_TYPE_VALUE_TAG, VCS_REPOSITORY_REF_TYPE_VALUE_BRANCH, VCS_REPOSITORY_REF_TYPE_VALUE_TAG, VCS_REVISION_DELTA_DIRECTION_VALUE_AHEAD, VCS_REVISION_DELTA_DIRECTION_VALUE_BEHIND };

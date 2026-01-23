@@ -151,6 +151,14 @@ interface SpanProcessor {
 	*/
 	onStart(span: Span, parentContext: Context): void;
 	/**
+	* Called when a {@link Span} is ending, if the `span.isRecording()`
+	* returns true.
+	* @param span the Span that is ending.
+	*
+	* @experimental This method is experimental and may break in minor versions of this package
+	*/
+	onEnding?(span: Span): void;
+	/**
 	* Called when a {@link ReadableSpan} is ended, if the `span.isRecording()`
 	* returns true.
 	* @param span the Span that just ended.
@@ -287,17 +295,17 @@ interface SpanExporter {
  * the SDK then pushes them to the exporter pipeline.
  */
 declare abstract class BatchSpanProcessorBase<T extends BufferConfig> implements SpanProcessor {
-	private readonly _exporter;
 	private readonly _maxExportBatchSize;
 	private readonly _maxQueueSize;
 	private readonly _scheduledDelayMillis;
 	private readonly _exportTimeoutMillis;
+	private readonly _exporter;
 	private _isExporting;
 	private _finishedSpans;
 	private _timer;
 	private _shutdownOnce;
 	private _droppedSpansCount;
-	constructor(_exporter: SpanExporter, config?: T);
+	constructor(exporter: SpanExporter, config?: T);
 	forceFlush(): Promise<void>;
 	onStart(_span: Span, _parentContext: Context): void;
 	onEnd(span: ReadableSpan): void;
@@ -402,7 +410,7 @@ declare class SimpleSpanProcessor implements SpanProcessor {
 	private readonly _exporter;
 	private _shutdownOnce;
 	private _pendingExports;
-	constructor(_exporter: SpanExporter);
+	constructor(exporter: SpanExporter);
 	forceFlush(): Promise<void>;
 	onStart(_span: Span, _parentContext: Context): void;
 	onEnd(span: ReadableSpan): void;
@@ -462,7 +470,7 @@ interface ParentBasedSamplerConfig {
 declare class TraceIdRatioBasedSampler implements Sampler {
 	private readonly _ratio;
 	private _upperBound;
-	constructor(_ratio?: number);
+	constructor(ratio?: number);
 	shouldSample(context: unknown, traceId: string): SamplingResult;
 	toString(): string;
 	private _normalize;

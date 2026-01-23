@@ -44,9 +44,6 @@ var DataPointType;
 	DataPointType[DataPointType["SUM"] = 3] = "SUM";
 })(DataPointType || (DataPointType = {}));
 
-function isNotNullish(item) {
-	return item !== undefined && item !== null;
-}
 function hashAttributes(attributes) {
 	let keys = Object.keys(attributes);
 	if (keys.length === 0)
@@ -97,13 +94,6 @@ async function PromiseAllSettled(promises) {
 }
 function isPromiseAllSettledRejectionResult(it) {
 	return it.status === 'rejected';
-}
-function FlatMap(arr, fn) {
-	const result = [];
-	arr.forEach(it => {
-		result.push(...fn(it));
-	});
-	return result;
 }
 function setEquals(lhs, rhs) {
 	if (lhs.size !== rhs.size) {
@@ -181,11 +171,11 @@ class HistogramAccumulation {
 	_boundaries;
 	_recordMinMax;
 	_current;
-	constructor(startTime, _boundaries, _recordMinMax = true, _current = createNewEmptyCheckpoint(_boundaries)) {
+	constructor(startTime, boundaries, recordMinMax = true, current = createNewEmptyCheckpoint(boundaries)) {
 		this.startTime = startTime;
-		this._boundaries = _boundaries;
-		this._recordMinMax = _recordMinMax;
-		this._current = _current;
+		this._boundaries = boundaries;
+		this._recordMinMax = recordMinMax;
+		this._current = current;
 	}
 	record(value) {
 		if (Number.isNaN(value)) {
@@ -209,12 +199,12 @@ class HistogramAccumulation {
 	}
 }
 class HistogramAggregator {
+	kind = AggregatorKind.HISTOGRAM;
 	_boundaries;
 	_recordMinMax;
-	kind = AggregatorKind.HISTOGRAM;
-	constructor(_boundaries, _recordMinMax) {
-		this._boundaries = _boundaries;
-		this._recordMinMax = _recordMinMax;
+	constructor(boundaries, recordMinMax) {
+		this._boundaries = boundaries;
+		this._recordMinMax = recordMinMax;
 	}
 	createAccumulation(startTime) {
 		return new HistogramAccumulation(startTime, this._boundaries, this._recordMinMax);
@@ -415,8 +405,8 @@ class Buckets {
 }
 class BucketsBacking {
 	_counts;
-	constructor(_counts = [0]) {
-		this._counts = _counts;
+	constructor(counts = [0]) {
+		this._counts = counts;
 	}
 	get length() {
 		return this._counts.length;
@@ -621,11 +611,11 @@ function getMapping(scale) {
 }
 
 class HighLow {
-	low;
-	high;
 	static combine(h1, h2) {
 		return new HighLow(Math.min(h1.low, h2.low), Math.max(h1.high, h2.high));
 	}
+	low;
+	high;
 	constructor(low, high) {
 		this.low = low;
 		this.high = high;
@@ -646,18 +636,18 @@ class ExponentialHistogramAccumulation {
 	_positive;
 	_negative;
 	_mapping;
-	constructor(startTime, _maxSize = DEFAULT_MAX_SIZE, _recordMinMax = true, _sum = 0, _count = 0, _zeroCount = 0, _min = Number.POSITIVE_INFINITY, _max = Number.NEGATIVE_INFINITY, _positive = new Buckets(), _negative = new Buckets(), _mapping = getMapping(MAX_SCALE)) {
+	constructor(startTime, maxSize = DEFAULT_MAX_SIZE, recordMinMax = true, sum = 0, count = 0, zeroCount = 0, min = Number.POSITIVE_INFINITY, max = Number.NEGATIVE_INFINITY, positive = new Buckets(), negative = new Buckets(), mapping = getMapping(MAX_SCALE)) {
 		this.startTime = startTime;
-		this._maxSize = _maxSize;
-		this._recordMinMax = _recordMinMax;
-		this._sum = _sum;
-		this._count = _count;
-		this._zeroCount = _zeroCount;
-		this._min = _min;
-		this._max = _max;
-		this._positive = _positive;
-		this._negative = _negative;
-		this._mapping = _mapping;
+		this._maxSize = maxSize;
+		this._recordMinMax = recordMinMax;
+		this._sum = sum;
+		this._count = count;
+		this._zeroCount = zeroCount;
+		this._min = min;
+		this._max = max;
+		this._positive = positive;
+		this._negative = negative;
+		this._mapping = mapping;
 		if (this._maxSize < MIN_MAX_SIZE) {
 			diag.warn(`Exponential Histogram Max Size set to ${this._maxSize}, \
 				changing to the minimum size of: ${MIN_MAX_SIZE}`);
@@ -898,12 +888,12 @@ class ExponentialHistogramAccumulation {
 	}
 }
 class ExponentialHistogramAggregator {
+	kind = AggregatorKind.EXPONENTIAL_HISTOGRAM;
 	_maxSize;
 	_recordMinMax;
-	kind = AggregatorKind.EXPONENTIAL_HISTOGRAM;
-	constructor(_maxSize, _recordMinMax) {
-		this._maxSize = _maxSize;
-		this._recordMinMax = _recordMinMax;
+	constructor(maxSize, recordMinMax) {
+		this._maxSize = maxSize;
+		this._recordMinMax = recordMinMax;
 	}
 	createAccumulation(startTime) {
 		return new ExponentialHistogramAccumulation(startTime, this._maxSize, this._recordMinMax);
@@ -959,9 +949,9 @@ class LastValueAccumulation {
 	startTime;
 	_current;
 	sampleTime;
-	constructor(startTime, _current = 0, sampleTime = [0, 0]) {
+	constructor(startTime, current = 0, sampleTime = [0, 0]) {
 		this.startTime = startTime;
-		this._current = _current;
+		this._current = current;
 		this.sampleTime = sampleTime;
 	}
 	record(value) {
@@ -1016,10 +1006,10 @@ class SumAccumulation {
 	monotonic;
 	_current;
 	reset;
-	constructor(startTime, monotonic, _current = 0, reset = false) {
+	constructor(startTime, monotonic, current = 0, reset = false) {
 		this.startTime = startTime;
 		this.monotonic = monotonic;
-		this._current = _current;
+		this._current = current;
 		this.reset = reset;
 	}
 	record(value) {
@@ -1036,8 +1026,8 @@ class SumAccumulation {
 	}
 }
 class SumAggregator {
-	monotonic;
 	kind = AggregatorKind.SUM;
+	monotonic;
 	constructor(monotonic) {
 		this.monotonic = monotonic;
 	}
@@ -1113,10 +1103,9 @@ class HistogramAggregation {
 	}
 }
 class ExplicitBucketHistogramAggregation {
-	_recordMinMax;
 	_boundaries;
-	constructor(boundaries, _recordMinMax = true) {
-		this._recordMinMax = _recordMinMax;
+	_recordMinMax;
+	constructor(boundaries, recordMinMax = true) {
 		if (boundaries == null) {
 			throw new Error('ExplicitBucketHistogramAggregation should be created with explicit boundaries, if a single bucket histogram is required, please pass an empty array');
 		}
@@ -1128,6 +1117,7 @@ class ExplicitBucketHistogramAggregation {
 			infinityIndex = undefined;
 		}
 		this._boundaries = boundaries.slice(minusInfinityIndex + 1, infinityIndex);
+		this._recordMinMax = recordMinMax;
 	}
 	createAggregator(_instrument) {
 		return new HistogramAggregator(this._boundaries, this._recordMinMax);
@@ -1136,9 +1126,9 @@ class ExplicitBucketHistogramAggregation {
 class ExponentialHistogramAggregation {
 	_maxSize;
 	_recordMinMax;
-	constructor(_maxSize = 160, _recordMinMax = true) {
-		this._maxSize = _maxSize;
-		this._recordMinMax = _recordMinMax;
+	constructor(maxSize = 160, recordMinMax = true) {
+		this._maxSize = maxSize;
+		this._recordMinMax = recordMinMax;
 	}
 	createAggregator(_instrument) {
 		return new ExponentialHistogramAggregator(this._maxSize, this._recordMinMax);
@@ -1272,9 +1262,9 @@ class MetricReader {
 				timeoutMillis: options?.timeoutMillis,
 			})),
 		]);
-		const errors = sdkCollectionResults.errors.concat(FlatMap(additionalCollectionResults, result => result.errors));
+		const errors = sdkCollectionResults.errors.concat(additionalCollectionResults.flatMap(result => result.errors));
 		const resource = sdkCollectionResults.resourceMetrics.resource;
-		const scopeMetrics = sdkCollectionResults.resourceMetrics.scopeMetrics.concat(FlatMap(additionalCollectionResults, result => result.resourceMetrics.scopeMetrics));
+		const scopeMetrics = sdkCollectionResults.resourceMetrics.scopeMetrics.concat(additionalCollectionResults.flatMap(result => result.resourceMetrics.scopeMetrics));
 		return {
 			resourceMetrics: {
 				resource,
@@ -1434,7 +1424,7 @@ class ConsoleMetricExporter {
 	}
 	export(metrics, resultCallback) {
 		if (this._shutdown) {
-			setImmediate(resultCallback, { code: ExportResultCode.FAILED });
+			resultCallback({ code: ExportResultCode.FAILED });
 			return;
 		}
 		return ConsoleMetricExporter._sendMetrics(metrics, resultCallback);
@@ -1521,15 +1511,15 @@ function isDescriptorCompatibleWith(descriptor, otherDescriptor) {
 }
 const NAME_REGEXP = /^[a-z][a-z0-9_.\-/]{0,254}$/i;
 function isValidName(name) {
-	return name.match(NAME_REGEXP) != null;
+	return NAME_REGEXP.test(name);
 }
 
 class SyncInstrument {
 	_writableMetricStorage;
 	_descriptor;
-	constructor(_writableMetricStorage, _descriptor) {
-		this._writableMetricStorage = _writableMetricStorage;
-		this._descriptor = _descriptor;
+	constructor(writableMetricStorage, descriptor) {
+		this._writableMetricStorage = writableMetricStorage;
+		this._descriptor = descriptor;
 	}
 	_record(value, attributes = {}, context$1 = context.active()) {
 		if (typeof value !== 'number') {
@@ -1576,13 +1566,13 @@ class HistogramInstrument extends SyncInstrument {
 	}
 }
 class ObservableInstrument {
-	_observableRegistry;
 	_metricStorages;
 	_descriptor;
-	constructor(descriptor, metricStorages, _observableRegistry) {
-		this._observableRegistry = _observableRegistry;
+	_observableRegistry;
+	constructor(descriptor, metricStorages, observableRegistry) {
 		this._descriptor = descriptor;
 		this._metricStorages = metricStorages;
+		this._observableRegistry = observableRegistry;
 	}
 	addCallback(callback) {
 		this._observableRegistry.addCallback(callback, this);
@@ -1603,8 +1593,8 @@ function isObservableInstrument(it) {
 
 class Meter {
 	_meterSharedState;
-	constructor(_meterSharedState) {
-		this._meterSharedState = _meterSharedState;
+	constructor(meterSharedState) {
+		this._meterSharedState = meterSharedState;
 	}
 	createGauge(name, options) {
 		const descriptor = createInstrumentDescriptor(name, InstrumentType.GAUGE, options);
@@ -1651,8 +1641,8 @@ class Meter {
 
 class MetricStorage {
 	_instrumentDescriptor;
-	constructor(_instrumentDescriptor) {
-		this._instrumentDescriptor = _instrumentDescriptor;
+	constructor(instrumentDescriptor) {
+		this._instrumentDescriptor = instrumentDescriptor;
 	}
 	getInstrumentDescriptor() {
 		return this._instrumentDescriptor;
@@ -1668,11 +1658,11 @@ class MetricStorage {
 }
 
 class HashMap {
-	_hash;
 	_valueMap = new Map();
 	_keyMap = new Map();
-	constructor(_hash) {
-		this._hash = _hash;
+	_hash;
+	constructor(hash) {
+		this._hash = hash;
 	}
 	get(key, hashCode) {
 		hashCode ??= this._hash(key);
@@ -1728,14 +1718,14 @@ class AttributeHashMap extends HashMap {
 }
 
 class DeltaMetricProcessor {
-	_aggregator;
 	_activeCollectionStorage = new AttributeHashMap();
 	_cumulativeMemoStorage = new AttributeHashMap();
 	_cardinalityLimit;
 	_overflowAttributes = { 'otel.metric.overflow': true };
 	_overflowHashCode;
-	constructor(_aggregator, aggregationCardinalityLimit) {
-		this._aggregator = _aggregator;
+	_aggregator;
+	constructor(aggregator, aggregationCardinalityLimit) {
+		this._aggregator = aggregator;
 		this._cardinalityLimit = (aggregationCardinalityLimit ?? 2000) - 1;
 		this._overflowHashCode = hashAttributes(this._overflowAttributes);
 	}
@@ -1790,8 +1780,8 @@ class TemporalMetricProcessor {
 	_aggregator;
 	_unreportedAccumulations = new Map();
 	_reportHistory = new Map();
-	constructor(_aggregator, collectorHandles) {
-		this._aggregator = _aggregator;
+	constructor(aggregator, collectorHandles) {
+		this._aggregator = aggregator;
 		collectorHandles.forEach(handle => {
 			this._unreportedAccumulations.set(handle, []);
 		});
@@ -1881,16 +1871,16 @@ function AttributesMapToAccumulationRecords(map) {
 }
 
 class AsyncMetricStorage extends MetricStorage {
-	_attributesProcessor;
 	_aggregationCardinalityLimit;
 	_deltaMetricStorage;
 	_temporalMetricStorage;
-	constructor(_instrumentDescriptor, aggregator, _attributesProcessor, collectorHandles, _aggregationCardinalityLimit) {
+	_attributesProcessor;
+	constructor(_instrumentDescriptor, aggregator, attributesProcessor, collectorHandles, aggregationCardinalityLimit) {
 		super(_instrumentDescriptor);
-		this._attributesProcessor = _attributesProcessor;
-		this._aggregationCardinalityLimit = _aggregationCardinalityLimit;
+		this._aggregationCardinalityLimit = aggregationCardinalityLimit;
 		this._deltaMetricStorage = new DeltaMetricProcessor(aggregator, this._aggregationCardinalityLimit);
 		this._temporalMetricStorage = new TemporalMetricProcessor(aggregator, collectorHandles);
+		this._attributesProcessor = attributesProcessor;
 	}
 	record(measurements, observationTime) {
 		const processed = new AttributeHashMap();
@@ -2044,8 +2034,8 @@ class MetricStorageRegistry {
 
 class MultiMetricStorage {
 	_backingStorages;
-	constructor(_backingStorages) {
-		this._backingStorages = _backingStorages;
+	constructor(backingStorages) {
+		this._backingStorages = backingStorages;
 	}
 	record(value, attributes, context, recordTime) {
 		this._backingStorages.forEach(it => {
@@ -2055,12 +2045,12 @@ class MultiMetricStorage {
 }
 
 class ObservableResultImpl {
+	_buffer = new AttributeHashMap();
 	_instrumentName;
 	_valueType;
-	_buffer = new AttributeHashMap();
-	constructor(_instrumentName, _valueType) {
-		this._instrumentName = _instrumentName;
-		this._valueType = _valueType;
+	constructor(instrumentName, valueType) {
+		this._instrumentName = instrumentName;
+		this._valueType = valueType;
 	}
 	observe(value, attributes = {}) {
 		if (typeof value !== 'number') {
@@ -2199,16 +2189,16 @@ class ObservableRegistry {
 }
 
 class SyncMetricStorage extends MetricStorage {
-	_attributesProcessor;
 	_aggregationCardinalityLimit;
 	_deltaMetricStorage;
 	_temporalMetricStorage;
-	constructor(instrumentDescriptor, aggregator, _attributesProcessor, collectorHandles, _aggregationCardinalityLimit) {
+	_attributesProcessor;
+	constructor(instrumentDescriptor, aggregator, attributesProcessor, collectorHandles, aggregationCardinalityLimit) {
 		super(instrumentDescriptor);
-		this._attributesProcessor = _attributesProcessor;
-		this._aggregationCardinalityLimit = _aggregationCardinalityLimit;
+		this._aggregationCardinalityLimit = aggregationCardinalityLimit;
 		this._deltaMetricStorage = new DeltaMetricProcessor(aggregator, this._aggregationCardinalityLimit);
 		this._temporalMetricStorage = new TemporalMetricProcessor(aggregator, collectorHandles);
+		this._attributesProcessor = attributesProcessor;
 	}
 	record(value, attributes, context, recordTime) {
 		attributes = this._attributesProcessor.process(attributes, context);
@@ -2227,8 +2217,8 @@ class NoopAttributesProcessor {
 }
 class MultiAttributesProcessor {
 	_processors;
-	constructor(_processors) {
-		this._processors = _processors;
+	constructor(processors) {
+		this._processors = processors;
 	}
 	process(incoming, context) {
 		let filteredAttributes = incoming;
@@ -2240,27 +2230,31 @@ class MultiAttributesProcessor {
 }
 class AllowListProcessor {
 	_allowedAttributeNames;
-	constructor(_allowedAttributeNames) {
-		this._allowedAttributeNames = _allowedAttributeNames;
+	constructor(allowedAttributeNames) {
+		this._allowedAttributeNames = allowedAttributeNames;
 	}
 	process(incoming, _context) {
 		const filteredAttributes = {};
-		Object.keys(incoming)
-			.filter(attributeName => this._allowedAttributeNames.includes(attributeName))
-			.forEach(attributeName => (filteredAttributes[attributeName] = incoming[attributeName]));
+		Object.keys(incoming).forEach(attributeName => {
+			if (this._allowedAttributeNames.includes(attributeName)) {
+				filteredAttributes[attributeName] = incoming[attributeName];
+			}
+		});
 		return filteredAttributes;
 	}
 }
 class DenyListProcessor {
 	_deniedAttributeNames;
-	constructor(_deniedAttributeNames) {
-		this._deniedAttributeNames = _deniedAttributeNames;
+	constructor(deniedAttributeNames) {
+		this._deniedAttributeNames = deniedAttributeNames;
 	}
 	process(incoming, _context) {
 		const filteredAttributes = {};
-		Object.keys(incoming)
-			.filter(attributeName => !this._deniedAttributeNames.includes(attributeName))
-			.forEach(attributeName => (filteredAttributes[attributeName] = incoming[attributeName]));
+		Object.keys(incoming).forEach(attributeName => {
+			if (!this._deniedAttributeNames.includes(attributeName)) {
+				filteredAttributes[attributeName] = incoming[attributeName];
+			}
+		});
 		return filteredAttributes;
 	}
 }
@@ -2279,15 +2273,15 @@ function createDenyListAttributesProcessor(attributeDenyList) {
 const NOOP = new NoopAttributesProcessor();
 
 class MeterSharedState {
-	_meterProviderSharedState;
-	_instrumentationScope;
 	metricStorageRegistry = new MetricStorageRegistry();
 	observableRegistry = new ObservableRegistry();
 	meter;
-	constructor(_meterProviderSharedState, _instrumentationScope) {
-		this._meterProviderSharedState = _meterProviderSharedState;
-		this._instrumentationScope = _instrumentationScope;
+	_meterProviderSharedState;
+	_instrumentationScope;
+	constructor(meterProviderSharedState, instrumentationScope) {
 		this.meter = new Meter(this);
+		this._meterProviderSharedState = meterProviderSharedState;
+		this._instrumentationScope = instrumentationScope;
 	}
 	registerMetricStorage(descriptor) {
 		const storages = this._registerMetricStorage(descriptor, SyncMetricStorage);
@@ -2306,11 +2300,13 @@ class MeterSharedState {
 		if (storages.length === 0) {
 			return null;
 		}
-		const metricDataList = storages
-			.map(metricStorage => {
-			return metricStorage.collect(collector, collectionTime);
-		})
-			.filter(isNotNullish);
+		const metricDataList = [];
+		storages.forEach(metricStorage => {
+			const metricData = metricStorage.collect(collector, collectionTime);
+			if (metricData != null) {
+				metricDataList.push(metricData);
+			}
+		});
 		if (metricDataList.length === 0) {
 			return { errors };
 		}
@@ -2355,10 +2351,10 @@ class MeterSharedState {
 }
 
 class MeterProviderSharedState {
-	resource;
 	viewRegistry = new ViewRegistry();
 	metricCollectors = [];
 	meterSharedStates = new Map();
+	resource;
 	constructor(resource) {
 		this.resource = resource;
 	}
@@ -2386,9 +2382,9 @@ class MeterProviderSharedState {
 class MetricCollector {
 	_sharedState;
 	_metricReader;
-	constructor(_sharedState, _metricReader) {
-		this._sharedState = _sharedState;
-		this._metricReader = _metricReader;
+	constructor(sharedState, metricReader) {
+		this._sharedState = sharedState;
+		this._metricReader = metricReader;
 	}
 	async collect(options) {
 		const collectionTime = millisToHrTime(Date.now());

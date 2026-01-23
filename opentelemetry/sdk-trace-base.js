@@ -15,7 +15,7 @@
  */
 /// <reference types="./sdk-trace-base.d.ts" />
 
-import { otperformance, getTimeOrigin, isAttributeValue, isTimeInput, sanitizeAttributes, hrTimeDuration, hrTime, millisToHrTime, isTimeInputHrTime, addHrTimes, globalErrorHandler, getNumberFromEnv, getStringFromEnv, BindOnceFuture, suppressTracing, ExportResultCode, isTracingSuppressed, merge, hrTimeToMicroseconds, internal } from './core.js';
+import { otperformance, isAttributeValue, isTimeInput, sanitizeAttributes, hrTimeDuration, hrTime, millisToHrTime, isTimeInputHrTime, addHrTimes, globalErrorHandler, getNumberFromEnv, getStringFromEnv, BindOnceFuture, suppressTracing, ExportResultCode, isTracingSuppressed, merge, hrTimeToMicroseconds, internal } from './core.js';
 import { defaultResource } from './resources.js';
 import * as api from './api.js';
 import { SpanStatusCode, diag, trace, isSpanContextValid, TraceFlags, isValidTraceId, context } from './api.js';
@@ -54,7 +54,7 @@ class SpanImpl {
 		this._spanContext = opts.spanContext;
 		this._performanceStartTime = otperformance.now();
 		this._performanceOffset =
-			now - (this._performanceStartTime + getTimeOrigin());
+			now - (this._performanceStartTime + otperformance.timeOrigin);
 		this._startTimeProvided = opts.startTime != null;
 		this._spanLimits = opts.spanLimits;
 		this._attributeValueLengthLimit =
@@ -163,7 +163,6 @@ class SpanImpl {
 			diag.error(`${this.name} ${this._spanContext.traceId}-${this._spanContext.spanId} - You can only call end() on a span once.`);
 			return;
 		}
-		this._ended = true;
 		this.endTime = this._getTime(endTime);
 		this._duration = hrTimeDuration(this.startTime, this.endTime);
 		if (this._duration[0] < 0) {
@@ -174,6 +173,10 @@ class SpanImpl {
 		if (this._droppedEventsCount > 0) {
 			diag.warn(`Dropped ${this._droppedEventsCount} events because eventCountLimit reached`);
 		}
+		if (this._spanProcessor.onEnding) {
+			this._spanProcessor.onEnding(this);
+		}
+		this._ended = true;
 		this._spanProcessor.onEnd(this);
 	}
 	_getTime(inp) {
@@ -342,9 +345,8 @@ class ParentBasedSampler {
 class TraceIdRatioBasedSampler {
 	_ratio;
 	_upperBound;
-	constructor(_ratio = 0) {
-		this._ratio = _ratio;
-		this._ratio = this._normalize(_ratio);
+	constructor(ratio = 0) {
+		this._ratio = this._normalize(ratio);
 		this._upperBound = Math.floor(this._ratio * 0xffffffff);
 	}
 	shouldSample(context, traceId) {
@@ -473,18 +475,18 @@ function reconfigureLimits(userConfig) {
 }
 
 class BatchSpanProcessorBase {
-	_exporter;
 	_maxExportBatchSize;
 	_maxQueueSize;
 	_scheduledDelayMillis;
 	_exportTimeoutMillis;
+	_exporter;
 	_isExporting = false;
 	_finishedSpans = [];
 	_timer;
 	_shutdownOnce;
 	_droppedSpansCount = 0;
-	constructor(_exporter, config) {
-		this._exporter = _exporter;
+	constructor(exporter, config) {
+		this._exporter = exporter;
 		this._maxExportBatchSize =
 			typeof config?.maxExportBatchSize === 'number'
 				? config.maxExportBatchSize
@@ -785,8 +787,8 @@ class Tracer {
 
 class MultiSpanProcessor {
 	_spanProcessors;
-	constructor(_spanProcessors) {
-		this._spanProcessors = _spanProcessors;
+	constructor(spanProcessors) {
+		this._spanProcessors = spanProcessors;
 	}
 	forceFlush() {
 		const promises = [];
@@ -807,6 +809,13 @@ class MultiSpanProcessor {
 	onStart(span, context) {
 		for (const spanProcessor of this._spanProcessors) {
 			spanProcessor.onStart(span, context);
+		}
+	}
+	onEnding(span) {
+		for (const spanProcessor of this._spanProcessors) {
+			if (spanProcessor.onEnding) {
+				spanProcessor.onEnding(span);
+			}
 		}
 	}
 	onEnd(span) {
@@ -975,8 +984,8 @@ class SimpleSpanProcessor {
 	_exporter;
 	_shutdownOnce;
 	_pendingExports;
-	constructor(_exporter) {
-		this._exporter = _exporter;
+	constructor(exporter) {
+		this._exporter = exporter;
 		this._shutdownOnce = new BindOnceFuture(this._shutdown, this);
 		this._pendingExports = new Set();
 	}
