@@ -18,8 +18,6 @@
 import { ExportResultCode, getStringFromEnv, getNumberFromEnv, parseKeyPairsIntoRecord } from './core.js';
 import { diag } from './api.js';
 
-
-
 class OTLPExporterBase {
 	_delegate;
 	constructor(delegate) {
@@ -283,9 +281,10 @@ function getHttpConfigurationDefaults(requiredHeaders, signalResourcePath) {
 	};
 }
 
-function httpAgentFactoryFromOptions(options ) {
+function httpAgentFactoryFromOptions(options) {
 	return (_protocol) => {
-		return globalThis.Deno.createHttpClient(options);
+		if (!options.caCerts && !options.key)
+			return globalThis.Deno.createHttpClient(options);
 	};
 }
 function mergeOtlpNodeHttpConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration) {
@@ -328,7 +327,9 @@ class HttpExporterTransport {
 	_parameters;
 	constructor(_parameters) {
 		this._parameters = _parameters;
+		this.httpClient = _parameters.agentFactory?.() ?? undefined;
 	}
+	httpClient;
 	async send(data, timeoutMillis) {
 		const headers = new Headers(await this._parameters.headers());
 		let body = ReadableStream.from([data]);
@@ -339,6 +340,7 @@ class HttpExporterTransport {
 		return await fetch(this._parameters.url, {
 			method: 'POST',
 			body, headers,
+			agent: await this.httpClient,
 			signal: AbortSignal.timeout(timeoutMillis),
 		}).then(async (res) => {
 			if (res.ok) {
@@ -353,7 +355,11 @@ class HttpExporterTransport {
 			return { status: 'failure', error };
 		}).catch(error => ({ status: 'failure', error }));
 	}
-	shutdown() { }
+	shutdown() {
+		if (this.httpClient) {
+			Promise.resolve(this.httpClient).then(x => x.close());
+		}
+	}
 }
 function createHttpExporterTransport(parameters) {
 	return new HttpExporterTransport(parameters);
@@ -530,7 +536,7 @@ function readFileFromEnv(signalSpecificEnvVar, nonSignalSpecificEnvVar, warningM
 	const filePath = signalSpecificPath ?? nonSignalSpecificPath;
 	if (filePath != null) {
 		try {
-			return fs.readFileSync(path.resolve(process.cwd(), filePath));
+			return Deno.readTextFileSync(filePath);
 		}
 		catch {
 			diag.warn(warningMessage);
@@ -557,8 +563,7 @@ function getNodeHttpConfigurationFromEnvironment(signalIdentifier, signalResourc
 			getNonSpecificUrlFromEnv(signalResourcePath),
 		headers: wrapStaticHeadersInFunction(getStaticHeadersFromEnv(signalIdentifier)),
 		agentFactory: httpAgentFactoryFromOptions({
-			keepAlive: true,
-			ca: getRootCertificateFromEnv(signalIdentifier),
+			caCerts: [getRootCertificateFromEnv(signalIdentifier)].flatMap(x => x ? [x] : []),
 			cert: getClientCertificateFromEnv(signalIdentifier),
 			key: getClientKeyFromEnv(signalIdentifier),
 		}),

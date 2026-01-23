@@ -170,12 +170,12 @@ declare enum CompressionAlgorithm {
 
 declare function createOtlpNetworkExportDelegate<Internal, Response>(options: OtlpSharedConfiguration, serializer: ISerializer<Internal, Response>, transport: IExporterTransport): IOtlpExportDelegate<Internal>;
 
-type HttpAgentFactory = (_protocol?: string) => any;
+type HttpAgentFactory = (_protocol?: string) => Deno.HttpClient | Promise<Deno.HttpClient>;
 interface OtlpNodeHttpConfiguration extends OtlpHttpConfiguration {
 	agentFactory: HttpAgentFactory;
 	userAgent?: string;
 }
-declare function httpAgentFactoryFromOptions(options: any): HttpAgentFactory;
+declare function httpAgentFactoryFromOptions(options: Deno.CreateHttpClientOptions): HttpAgentFactory;
 
 declare function createOtlpHttpExportDelegate<Internal, Response>(options: OtlpNodeHttpConfiguration, serializer: ISerializer<Internal, Response>): IOtlpExportDelegate<Internal>;
 
