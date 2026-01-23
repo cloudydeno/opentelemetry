@@ -75,26 +75,6 @@ function callWithTimeout(promise, timeout) {
 		throw reason;
 	});
 }
-async function PromiseAllSettled(promises) {
-	return Promise.all(promises.map(async (p) => {
-		try {
-			const ret = await p;
-			return {
-				status: 'fulfilled',
-				value: ret,
-			};
-		}
-		catch (e) {
-			return {
-				status: 'rejected',
-				reason: e,
-			};
-		}
-	}));
-}
-function isPromiseAllSettledRejectionResult(it) {
-	return it.status === 'rejected';
-}
 function setEquals(lhs, rhs) {
 	if (lhs.size !== rhs.size) {
 		return false;
@@ -1305,27 +1285,32 @@ class PeriodicExportingMetricReader extends MetricReader {
 	_exportInterval;
 	_exportTimeout;
 	constructor(options) {
+		const { exporter, exportIntervalMillis = 60000, metricProducers } = options;
+		let { exportTimeoutMillis = 30000 } = options;
 		super({
-			aggregationSelector: options.exporter.selectAggregation?.bind(options.exporter),
-			aggregationTemporalitySelector: options.exporter.selectAggregationTemporality?.bind(options.exporter),
-			metricProducers: options.metricProducers,
+			aggregationSelector: exporter.selectAggregation?.bind(exporter),
+			aggregationTemporalitySelector: exporter.selectAggregationTemporality?.bind(exporter),
+			metricProducers,
 		});
-		if (options.exportIntervalMillis !== undefined &&
-			options.exportIntervalMillis <= 0) {
+		if (exportIntervalMillis <= 0) {
 			throw Error('exportIntervalMillis must be greater than 0');
 		}
-		if (options.exportTimeoutMillis !== undefined &&
-			options.exportTimeoutMillis <= 0) {
+		if (exportTimeoutMillis <= 0) {
 			throw Error('exportTimeoutMillis must be greater than 0');
 		}
-		if (options.exportTimeoutMillis !== undefined &&
-			options.exportIntervalMillis !== undefined &&
-			options.exportIntervalMillis < options.exportTimeoutMillis) {
-			throw Error('exportIntervalMillis must be greater than or equal to exportTimeoutMillis');
+		if (exportIntervalMillis < exportTimeoutMillis) {
+			if ('exportIntervalMillis' in options &&
+				'exportTimeoutMillis' in options) {
+				throw Error('exportIntervalMillis must be greater than or equal to exportTimeoutMillis');
+			}
+			else {
+				api.diag.info(`Timeout of ${exportTimeoutMillis} exceeds the interval of ${exportIntervalMillis}. Clamping timeout to interval duration.`);
+				exportTimeoutMillis = exportIntervalMillis;
+			}
 		}
-		this._exportInterval = options.exportIntervalMillis ?? 60000;
-		this._exportTimeout = options.exportTimeoutMillis ?? 30000;
-		this._exporter = options.exporter;
+		this._exportInterval = exportIntervalMillis;
+		this._exportTimeout = exportTimeoutMillis;
+		this._exporter = exporter;
 	}
 	async _runOnce() {
 		try {
@@ -2134,13 +2119,13 @@ class ObservableRegistry {
 	async observe(collectionTime, timeoutMillis) {
 		const callbackFutures = this._observeCallbacks(collectionTime, timeoutMillis);
 		const batchCallbackFutures = this._observeBatchCallbacks(collectionTime, timeoutMillis);
-		const results = await PromiseAllSettled([
+		const results = await Promise.allSettled([
 			...callbackFutures,
 			...batchCallbackFutures,
 		]);
 		const rejections = results
-			.filter(isPromiseAllSettledRejectionResult)
-			.map(it => it.reason);
+			.filter(result => result.status === 'rejected')
+			.map(result => result.reason);
 		return rejections;
 	}
 	_observeCallbacks(observationTime, timeoutMillis) {

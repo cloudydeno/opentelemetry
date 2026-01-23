@@ -243,7 +243,10 @@ declare const SDK_INFO: {
 /**
  * @deprecated Use performance directly.
  */
-declare const otperformance: Performance;
+declare const otperformance: {
+	now(): number;
+	readonly timeOrigin: number;
+};
 
 /** Configuration object for composite propagator */
 interface CompositePropagatorConfig {
