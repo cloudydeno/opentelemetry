@@ -137,4 +137,4 @@ class LogsAPI {
 
 const logs = LogsAPI.getInstance();
 
-export { NOOP_LOGGER, NOOP_LOGGER_PROVIDER, NoopLogger, NoopLoggerProvider, ProxyLogger, ProxyLoggerProvider, SeverityNumber, logs };
+export { NOOP_LOGGER, NoopLogger, ProxyLoggerProvider, SeverityNumber, logs };

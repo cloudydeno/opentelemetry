@@ -291,7 +291,7 @@ async function safeExecuteInTheMiddleAsync(execute, onFinish, preventThrowingErr
 		error = e;
 	}
 	finally {
-		onFinish(error, result);
+		await onFinish(error, result);
 		if (error && !preventThrowingError) {
 			throw error;
 		}

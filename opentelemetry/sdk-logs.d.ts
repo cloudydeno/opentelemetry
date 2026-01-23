@@ -176,12 +176,6 @@ interface ReadableLogRecord {
 	readonly droppedAttributesCount: number;
 }
 
-declare class NoopLogRecordProcessor implements LogRecordProcessor {
-	forceFlush(): Promise<void>;
-	onEmit(_logRecord: ReadableLogRecord, _context: Context): void;
-	shutdown(): Promise<void>;
-}
-
 interface LogRecordExporter {
 	/**
 	* Called to export {@link ReadableLogRecord}s.
@@ -222,6 +216,15 @@ declare class ConsoleLogRecordExporter implements LogRecordExporter {
 	private _sendLogRecords;
 }
 
+/**
+ * An implementation of the {@link LogRecordProcessor} interface that exports
+ * each {@link LogRecord} as it is emitted.
+ *
+ * NOTE: This {@link LogRecordProcessor} exports every {@link LogRecord}
+ * individually instead of batching them together, which can cause significant
+ * performance overhead with most exporters. For production use, please consider
+ * using the {@link BatchLogRecordProcessor} instead.
+ */
 declare class SimpleLogRecordProcessor implements LogRecordProcessor {
 	private readonly _exporter;
 	private _shutdownOnce;
@@ -285,4 +288,4 @@ declare class BatchLogRecordProcessor extends BatchLogRecordProcessorBase<Buffer
 	protected onShutdown(): void;
 }
 
-export { BatchLogRecordProcessor, BatchLogRecordProcessorBrowserConfig, BufferConfig, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LogRecordExporter, LogRecordLimits, LogRecordProcessor, LoggerProvider, LoggerProviderConfig, NoopLogRecordProcessor, ReadableLogRecord, SdkLogRecord, SimpleLogRecordProcessor };
+export { BatchLogRecordProcessor, BatchLogRecordProcessorBrowserConfig, BufferConfig, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LogRecordExporter, LogRecordLimits, LogRecordProcessor, LoggerProvider, LoggerProviderConfig, ReadableLogRecord, SdkLogRecord, SimpleLogRecordProcessor };

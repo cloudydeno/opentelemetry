@@ -57,7 +57,7 @@ function wrapStaticHeadersInFunction(headers) {
 	if (headers == null) {
 		return undefined;
 	}
-	return () => headers;
+	return async () => headers;
 }
 function mergeOtlpSharedConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration) {
 	return {
@@ -226,31 +226,29 @@ function createOtlpNetworkExportDelegate(options, serializer, transport) {
 }
 
 function validateAndNormalizeHeaders(partialHeaders) {
-	return () => {
-		const headers = {};
-		Object.entries(partialHeaders?.() ?? {}).forEach(([key, value]) => {
-			if (typeof value !== 'undefined') {
-				headers[key] = String(value);
-			}
-			else {
-				diag.warn(`Header "${key}" has invalid value (${value}) and will be ignored`);
-			}
-		});
-		return headers;
-	};
+	const headers = {};
+	Object.entries(partialHeaders ?? {}).forEach(([key, value]) => {
+		if (typeof value !== 'undefined') {
+			headers[key] = String(value);
+		}
+		else {
+			diag.warn(`Header "${key}" has invalid value (${value}) and will be ignored`);
+		}
+	});
+	return headers;
 }
 
 function mergeHeaders(userProvidedHeaders, fallbackHeaders, defaultHeaders) {
-	const requiredHeaders = {
-		...defaultHeaders(),
-	};
-	const headers = {};
-	return () => {
+	return async () => {
+		const requiredHeaders = {
+			...(await defaultHeaders()),
+		};
+		const headers = {};
 		if (fallbackHeaders != null) {
-			Object.assign(headers, fallbackHeaders());
+			Object.assign(headers, await fallbackHeaders());
 		}
 		if (userProvidedHeaders != null) {
-			Object.assign(headers, userProvidedHeaders());
+			Object.assign(headers, validateAndNormalizeHeaders(await userProvidedHeaders()));
 		}
 		return Object.assign(headers, requiredHeaders);
 	};
@@ -270,7 +268,7 @@ function validateUserProvidedUrl(url) {
 function mergeOtlpHttpConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration) {
 	return {
 		...mergeOtlpSharedConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration),
-		headers: mergeHeaders(validateAndNormalizeHeaders(userProvidedConfiguration.headers), fallbackConfiguration.headers, defaultConfiguration.headers),
+		headers: mergeHeaders(userProvidedConfiguration.headers, fallbackConfiguration.headers, defaultConfiguration.headers),
 		url: validateUserProvidedUrl(userProvidedConfiguration.url) ??
 			fallbackConfiguration.url ??
 			defaultConfiguration.url,
@@ -279,7 +277,7 @@ function mergeOtlpHttpConfigurationWithDefaults(userProvidedConfiguration, fallb
 function getHttpConfigurationDefaults(requiredHeaders, signalResourcePath) {
 	return {
 		...getSharedConfigurationDefaults(),
-		headers: () => requiredHeaders,
+		headers: async () => requiredHeaders,
 		url: 'http://localhost:4318/' + signalResourcePath,
 	};
 }
@@ -329,7 +327,7 @@ class HttpExporterTransport {
 		this._parameters = _parameters;
 	}
 	async send(data, timeoutMillis) {
-		const headers = new Headers(this._parameters.headers());
+		const headers = new Headers(await this._parameters.headers());
 		let body = ReadableStream.from([data]);
 		if (this._parameters.compression == 'gzip') {
 			headers.set('content-encoding', 'gzip');
@@ -449,6 +447,13 @@ function getSharedConfigurationFromEnvironment(signalIdentifier) {
 	};
 }
 
+function convertLegacyHeaders(config) {
+	if (typeof config.headers === 'function') {
+		return config.headers;
+	}
+	return wrapStaticHeadersInFunction(config.headers);
+}
+
 function getStaticHeadersFromEnv(signalIdentifier) {
 	const signalSpecificRawHeaders = getStringFromEnv(`OTEL_EXPORTER_OTLP_${signalIdentifier}_HEADERS`);
 	const nonSignalSpecificRawHeaders = getStringFromEnv('OTEL_EXPORTER_OTLP_HEADERS');
@@ -552,7 +557,7 @@ function convertLegacyHttpOptions(config, signalIdentifier, signalResourcePath, 
 	}
 	return mergeOtlpNodeHttpConfigurationWithDefaults({
 		url: config.url,
-		headers: wrapStaticHeadersInFunction(config.headers),
+		headers: convertLegacyHeaders(config),
 		concurrencyLimit: config.concurrencyLimit,
 		timeoutMillis: config.timeoutMillis,
 		compression: config.compression,

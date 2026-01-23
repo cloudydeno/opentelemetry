@@ -569,4 +569,4 @@ class BatchLogRecordProcessor extends BatchLogRecordProcessorBase {
 	onShutdown() { }
 }
 
-export { BatchLogRecordProcessor, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LoggerProvider, NoopLogRecordProcessor, SimpleLogRecordProcessor };
+export { BatchLogRecordProcessor, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LoggerProvider, SimpleLogRecordProcessor };

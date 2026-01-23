@@ -219,7 +219,7 @@ await Deno.readTextFile('hack/opentelemetry-js/experimental/packages/otlp-export
 await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/configuration/convert-legacy-node-http-options.ts', `
 import { OTLPExporterNodeConfigBase } from './legacy-node-configuration';
 import { diag } from '@opentelemetry/api';
-import { wrapStaticHeadersInFunction } from './shared-configuration';
+import { convertLegacyHeaders } from './convert-legacy-http-options';
 import {
   getNodeHttpConfigurationDefaults,
   mergeOtlpNodeHttpConfigurationWithDefaults,
@@ -248,7 +248,7 @@ export function convertLegacyHttpOptions(
   return mergeOtlpNodeHttpConfigurationWithDefaults(
     {
       url: config.url,
-      headers: wrapStaticHeadersInFunction(config.headers),
+      headers: convertLegacyHeaders(config),
       concurrencyLimit: config.concurrencyLimit,
       timeoutMillis: config.timeoutMillis,
       compression: config.compression,
@@ -396,7 +396,7 @@ class HttpExporterTransport implements IExporterTransport {
   constructor(private _parameters: OtlpHttpConfiguration) {}
 
   async send(data: Uint8Array, timeoutMillis: number): Promise<ExportResponse> {
-    const headers = new Headers(this._parameters.headers());
+    const headers = new Headers(await this._parameters.headers());
     //@ts-ignore TODO: Remove after experimental/v0.58.0 upgrades typescript to >=4.9.5
     let body = ReadableStream.from([data]);
     if (this._parameters.compression == 'gzip') {
