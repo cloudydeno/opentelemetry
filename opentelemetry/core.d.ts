@@ -161,6 +161,14 @@ declare function isTimeInput(value: unknown): value is api.HrTime | number | Dat
  */
 declare function addHrTimes(time1: api.HrTime, time2: api.HrTime): api.HrTime;
 
+/**
+ * @deprecated please copy this code to your implementation instead, this function will be removed in the next major version of this package.
+ * @param timer
+ */
+declare function unrefTimer(timer: {
+	unref(): unknown;
+} | number): void;
+
 interface ExportResult {
 	code: ExportResultCode;
 	error?: Error;
@@ -228,8 +236,6 @@ declare const SDK_INFO: {
 	"telemetry.sdk.language": "nodejs";
 	"telemetry.sdk.version": string;
 };
-
-declare function unrefTimer(timer: any): void;
 
 /** Configuration object for composite propagator */
 interface CompositePropagatorConfig {

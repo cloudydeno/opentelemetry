@@ -150,11 +150,15 @@ function sanitizeAttributes(attributes) {
 	if (typeof attributes !== 'object' || attributes == null) {
 		return out;
 	}
-	for (const [key, val] of Object.entries(attributes)) {
+	for (const key in attributes) {
+		if (!Object.prototype.hasOwnProperty.call(attributes, key)) {
+			continue;
+		}
 		if (!isAttributeKey(key)) {
 			diag.warn(`Invalid attribute key: ${key}`);
 			continue;
 		}
+		const val = attributes[key];
 		if (!isAttributeValue(val)) {
 			diag.warn(`Invalid attribute value set for key: ${key}`);
 			continue;
@@ -169,7 +173,7 @@ function sanitizeAttributes(attributes) {
 	return out;
 }
 function isAttributeKey(key) {
-	return typeof key === 'string' && key.length > 0;
+	return typeof key === 'string' && key !== '';
 }
 function isAttributeValue(val) {
 	if (val == null) {
@@ -178,29 +182,30 @@ function isAttributeValue(val) {
 	if (Array.isArray(val)) {
 		return isHomogeneousAttributeValueArray(val);
 	}
-	return isValidPrimitiveAttributeValue(val);
+	return isValidPrimitiveAttributeValueType(typeof val);
 }
 function isHomogeneousAttributeValueArray(arr) {
 	let type;
 	for (const element of arr) {
 		if (element == null)
 			continue;
+		const elementType = typeof element;
+		if (elementType === type) {
+			continue;
+		}
 		if (!type) {
-			if (isValidPrimitiveAttributeValue(element)) {
-				type = typeof element;
+			if (isValidPrimitiveAttributeValueType(elementType)) {
+				type = elementType;
 				continue;
 			}
 			return false;
-		}
-		if (typeof element === type) {
-			continue;
 		}
 		return false;
 	}
 	return true;
 }
-function isValidPrimitiveAttributeValue(val) {
-	switch (typeof val) {
+function isValidPrimitiveAttributeValueType(valType) {
+	switch (valType) {
 		case 'number':
 		case 'boolean':
 		case 'string':
@@ -296,7 +301,7 @@ const _globalThis = typeof globalThis === 'object' ? globalThis : global;
 
 const otperformance = performance;
 
-const VERSION$1 = "2.1.0";
+const VERSION$1 = "2.2.0";
 
 const ATTR_PROCESS_RUNTIME_NAME = 'process.runtime.name';
 
@@ -306,10 +311,6 @@ const SDK_INFO = {
 	[ATTR_TELEMETRY_SDK_LANGUAGE]: TELEMETRY_SDK_LANGUAGE_VALUE_NODEJS,
 	[ATTR_TELEMETRY_SDK_VERSION]: VERSION$1,
 };
-
-function unrefTimer(timer) {
-	Deno.unrefTimer?.(timer);
-}
 
 const NANOSECOND_DIGITS = 9;
 const NANOSECOND_DIGITS_IN_MILLIS = 6;
@@ -396,6 +397,12 @@ function addHrTimes(time1, time2) {
 		out[0] += 1;
 	}
 	return out;
+}
+
+function unrefTimer(timer) {
+	if (typeof timer !== 'number') {
+		timer.unref();
+	}
 }
 
 var ExportResultCode;

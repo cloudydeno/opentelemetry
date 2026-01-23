@@ -19,12 +19,9 @@ import { OTLPExporterBase } from './otlp-exporter-base.js';
 import { JsonTraceSerializer } from './otlp-transformer.js';
 import { createOtlpHttpExportDelegate, convertLegacyHttpOptions } from './otlp-exporter-base.js';
 
-const VERSION = "0.205.0";
-
 class OTLPTraceExporter extends OTLPExporterBase {
 	constructor(config = {}) {
 		super(createOtlpHttpExportDelegate(convertLegacyHttpOptions(config, 'TRACES', 'v1/traces', {
-			'User-Agent': `Deno/${Deno.version.deno} OTel-OTLP-Exporter-JavaScript/${VERSION}`,
 			'Content-Type': 'application/json',
 		}), JsonTraceSerializer));
 	}

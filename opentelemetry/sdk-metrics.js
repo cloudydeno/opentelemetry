@@ -17,7 +17,7 @@
 
 import * as api from './api.js';
 import { diag, ValueType, context, createNoopMeter } from './api.js';
-import { hrTimeToMicroseconds, millisToHrTime, globalErrorHandler, internal, ExportResultCode, unrefTimer } from './core.js';
+import { hrTimeToMicroseconds, millisToHrTime, globalErrorHandler, internal, ExportResultCode } from './core.js';
 import { defaultResource } from './resources.js';
 
 var AggregationTemporality;
@@ -1377,7 +1377,9 @@ class PeriodicExportingMetricReader extends MetricReader {
 		this._interval = setInterval(() => {
 			void this._runOnce();
 		}, this._exportInterval);
-		unrefTimer(this._interval);
+		if (typeof this._interval !== 'number') {
+			this._interval.unref();
+		}
 	}
 	async onForceFlush() {
 		await this._runOnce();

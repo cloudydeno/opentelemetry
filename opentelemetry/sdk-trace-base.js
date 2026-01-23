@@ -15,7 +15,7 @@
  */
 /// <reference types="./sdk-trace-base.d.ts" />
 
-import { otperformance, getTimeOrigin, isAttributeValue, isTimeInput, sanitizeAttributes, hrTimeDuration, hrTime, millisToHrTime, isTimeInputHrTime, addHrTimes, globalErrorHandler, getNumberFromEnv, getStringFromEnv, BindOnceFuture, suppressTracing, unrefTimer, ExportResultCode, isTracingSuppressed, merge, hrTimeToMicroseconds, internal } from './core.js';
+import { otperformance, getTimeOrigin, isAttributeValue, isTimeInput, sanitizeAttributes, hrTimeDuration, hrTime, millisToHrTime, isTimeInputHrTime, addHrTimes, globalErrorHandler, getNumberFromEnv, getStringFromEnv, BindOnceFuture, suppressTracing, ExportResultCode, isTracingSuppressed, merge, hrTimeToMicroseconds, internal } from './core.js';
 import { defaultResource } from './resources.js';
 import * as api from './api.js';
 import { SpanStatusCode, diag, trace, isSpanContextValid, TraceFlags, isValidTraceId, context } from './api.js';
@@ -640,7 +640,9 @@ class BatchSpanProcessorBase {
 		if (this._timer !== undefined)
 			return;
 		this._timer = setTimeout(() => flush(), this._scheduledDelayMillis);
-		unrefTimer(this._timer);
+		if (typeof this._timer !== 'number') {
+			this._timer.unref();
+		}
 	}
 	_clearTimer() {
 		if (this._timer !== undefined) {

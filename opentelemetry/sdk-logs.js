@@ -19,7 +19,7 @@ import * as api from './api.js';
 import { context, diag } from './api.js';
 import { NOOP_LOGGER } from './api-logs.js';
 import { defaultResource } from './resources.js';
-import { timeInputToHrTime, isAttributeValue, getNumberFromEnv, callWithTimeout, merge, BindOnceFuture, hrTimeToMicroseconds, ExportResultCode, internal, globalErrorHandler, unrefTimer } from './core.js';
+import { timeInputToHrTime, isAttributeValue, getNumberFromEnv, callWithTimeout, merge, BindOnceFuture, hrTimeToMicroseconds, ExportResultCode, internal, globalErrorHandler } from './core.js';
 
 class LogRecordImpl {
 	hrTime;
@@ -431,6 +431,7 @@ class BatchLogRecordProcessorBase {
 	_maxQueueSize;
 	_scheduledDelayMillis;
 	_exportTimeoutMillis;
+	_isExporting = false;
 	_finishedLogRecords = [];
 	_timer;
 	_shutdownOnce;
@@ -511,22 +512,32 @@ class BatchLogRecordProcessorBase {
 		});
 	}
 	_maybeStartTimer() {
-		if (this._timer !== undefined) {
+		if (this._isExporting)
 			return;
-		}
-		this._timer = setTimeout(() => {
+		const flush = () => {
+			this._isExporting = true;
 			this._flushOneBatch()
 				.then(() => {
+				this._isExporting = false;
 				if (this._finishedLogRecords.length > 0) {
 					this._clearTimer();
 					this._maybeStartTimer();
 				}
 			})
 				.catch(e => {
+				this._isExporting = false;
 				globalErrorHandler(e);
 			});
-		}, this._scheduledDelayMillis);
-		unrefTimer(this._timer);
+		};
+		if (this._finishedLogRecords.length >= this._maxExportBatchSize) {
+			return flush();
+		}
+		if (this._timer !== undefined)
+			return;
+		this._timer = setTimeout(() => flush(), this._scheduledDelayMillis);
+		if (typeof this._timer !== 'number') {
+			this._timer.unref();
+		}
 	}
 	_clearTimer() {
 		if (this._timer !== undefined) {

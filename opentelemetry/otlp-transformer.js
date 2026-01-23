@@ -59,7 +59,7 @@ function hexToBinary(hexStr) {
 
 function hrTimeToNanos(hrTime) {
 	const NANOSECONDS = BigInt(1000000000);
-	return BigInt(hrTime[0]) * NANOSECONDS + BigInt(hrTime[1]);
+	return (BigInt(Math.trunc(hrTime[0])) * NANOSECONDS + BigInt(Math.trunc(hrTime[1])));
 }
 function toLongBits(value) {
 	const low = Number(BigInt.asUintN(32, value));
@@ -382,6 +382,15 @@ const JsonMetricsSerializer = {
 	},
 };
 
+const SPAN_FLAGS_CONTEXT_HAS_IS_REMOTE_MASK = 0x100;
+const SPAN_FLAGS_CONTEXT_IS_REMOTE_MASK = 0x200;
+function buildSpanFlagsFrom(traceFlags, isRemote) {
+	let flags = (traceFlags & 0xff) | SPAN_FLAGS_CONTEXT_HAS_IS_REMOTE_MASK;
+	if (isRemote) {
+		flags |= SPAN_FLAGS_CONTEXT_IS_REMOTE_MASK;
+	}
+	return flags;
+}
 function sdkSpanToOtlpSpan(span, encoder) {
 	const ctx = span.spanContext();
 	const status = span.status;
@@ -407,6 +416,7 @@ function sdkSpanToOtlpSpan(span, encoder) {
 		},
 		links: span.links.map(link => toOtlpLink(link, encoder)),
 		droppedLinksCount: span.droppedLinksCount,
+		flags: buildSpanFlagsFrom(ctx.traceFlags, span.parentSpanContext?.isRemote),
 	};
 }
 function toOtlpLink(link, encoder) {
@@ -416,6 +426,7 @@ function toOtlpLink(link, encoder) {
 		traceId: encoder.encodeSpanContext(link.context.traceId),
 		traceState: link.context.traceState?.serialize(),
 		droppedAttributesCount: link.droppedAttributesCount || 0,
+		flags: buildSpanFlagsFrom(link.context.traceFlags, link.context.isRemote),
 	};
 }
 function toOtlpSpanEvent(timedEvent, encoder) {

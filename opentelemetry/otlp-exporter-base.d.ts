@@ -103,6 +103,34 @@ interface OTLPExporterConfigBase {
  */
 interface OTLPExporterNodeConfigBase extends OTLPExporterConfigBase {
 	compression?: CompressionAlgorithm;
+	/**
+	* Custom HTTP agent options or a factory function for creating agents.
+	*
+	* @remarks
+	* Prefer using `http.AgentOptions` or `https.AgentOptions` over a factory function wherever possible.
+	* If using a factory function (`HttpAgentFactory`), **do not import `http.Agent` or `https.Agent`
+	* statically at the top of the file**.
+	* Instead, use dynamic `import()` or `require()` to load the module. This ensures that the `http` or `https`
+	* module is not loaded before `@opentelemetry/instrumentation-http` can instrument it.
+	*
+	* @example <caption> Using agent options directly: </caption>
+//    * httpAgentOptions: {
+//    *   keepAlive: true,
+	*   maxSockets: 10
+	* }
+	*
+	* @example <caption> Using a factory with dynamic import: </caption>
+//    * httpAgentOptions: async (protocol) => {
+	*   const module = protocol === 'http:' ? await import('http') : await import('https');
+//    *   return new module.Agent({ keepAlive: true });
+	* }
+	*/
+	/**
+	* User agent header string to be prepended to the exporter's default value.
+	* Availablie since v1.49.0 of the spec.
+	* Ref: https://opentelemetry.io/docs/specs/otel/protocol/exporter/#user-agent
+	*/
+	userAgent?: string;
 }
 declare enum CompressionAlgorithm {
 	NONE = "none",
@@ -116,9 +144,10 @@ interface OtlpHttpConfiguration extends OtlpSharedConfiguration {
 	headers: () => Record<string, string>;
 }
 
-type HttpAgentFactory = () => any;
+type HttpAgentFactory = (_protocol?: string) => any;
 interface OtlpNodeHttpConfiguration extends OtlpHttpConfiguration {
 	agentFactory: HttpAgentFactory;
+	userAgent?: string;
 }
 declare function httpAgentFactoryFromOptions(options: any): HttpAgentFactory;
 

@@ -105,7 +105,7 @@ async function buildModuleWithRollup(directory: string, modName: string, externa
     text = text.replace("OS_VERSION]: release(),", "OS_VERSION]: Deno.osRelease?.(),");
     text = text.replace("fs.readFile(", "Deno.readTextFile(");
     text = text.replace("http.AgentOptions | https.AgentOptions", "never"); // TODO: replace this functionality with Deno.HttpClient arg
-    text = text.replace("'User-Agent': `OTel-", "'User-Agent': `Deno/${Deno.version.deno} OTel-");
+    text = text.replace("DEFAULT_USER_AGENT = `OTel-", "DEFAULT_USER_AGENT = `Deno/${Deno.version.deno} OTel-");
     text = text.replaceAll(/^  +/gm, x => '\t\t\t\t\t\t\t\t'.slice(0, Math.floor(x.length / 4)));
 
     await Deno.writeTextFile('opentelemetry/'+chunk.fileName, text);
@@ -135,13 +135,6 @@ await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-core/src/
 
 await Deno.writeTextFile('hack/opentelemetry-js/packages/sdk-metrics/test/index-webpack.ts', '');
 await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/test/browser/index-webpack.ts', '');
-
-await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-core/src/platform/node/timer-util.ts',
-`// Typescript seems to think that setTimeout will return a "Timeout" like in NodeJS
-export function unrefTimer(timer: any): void {
-  // @ts-expect-error TODO: Deno types in tsc
-  Deno.unrefTimer?.(timer);
-}`);
 
 await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/platform/node/utils.ts',
 `export const normalizeArch = (archString: string) => ({
@@ -335,16 +328,18 @@ import {
 } from './otlp-http-configuration';
 
 export type HttpAgentFactory = (
+  _protocol?: string
 ) => any/*Deno.HttpClient | Promise<Deno.HttpClient>*/;
 
 export interface OtlpNodeHttpConfiguration extends OtlpHttpConfiguration {
   agentFactory: HttpAgentFactory;
+  userAgent?: string;
 }
 
 export function httpAgentFactoryFromOptions(
   options: any/*Deno.CreateHttpClientOptions*/
 ): HttpAgentFactory {
-  return () => {
+  return (_protocol) => {
     return (globalThis as any).Deno.createHttpClient(options);
   };
 }

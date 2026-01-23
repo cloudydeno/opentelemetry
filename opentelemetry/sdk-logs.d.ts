@@ -257,6 +257,7 @@ declare abstract class BatchLogRecordProcessorBase<T extends BufferConfig> imple
 	private readonly _maxQueueSize;
 	private readonly _scheduledDelayMillis;
 	private readonly _exportTimeoutMillis;
+	private _isExporting;
 	private _finishedLogRecords;
 	private _timer;
 	private _shutdownOnce;

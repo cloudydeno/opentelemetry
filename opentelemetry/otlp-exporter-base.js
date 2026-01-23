@@ -15,8 +15,10 @@
  */
 /// <reference types="./otlp-exporter-base.d.ts" />
 
-import { ExportResultCode, getStringFromEnv, parseKeyPairsIntoRecord } from './core.js';
+import { ExportResultCode, getStringFromEnv, getNumberFromEnv, parseKeyPairsIntoRecord } from './core.js';
 import { diag } from './api.js';
+
+
 
 class OTLPExporterBase {
 	_delegate;
@@ -283,7 +285,7 @@ function getHttpConfigurationDefaults(requiredHeaders, signalResourcePath) {
 }
 
 function httpAgentFactoryFromOptions(options ) {
-	return () => {
+	return (_protocol) => {
 		return globalThis.Deno.createHttpClient(options);
 	};
 }
@@ -413,11 +415,10 @@ function createOtlpHttpExportDelegate(options, serializer) {
 }
 
 function parseAndValidateTimeoutFromEnv(timeoutEnvVar) {
-	const envTimeout = Deno.env.get(timeoutEnvVar)?.trim();
-	if (envTimeout != null && envTimeout !== '') {
-		const definedTimeout = Number(envTimeout);
-		if (Number.isFinite(definedTimeout) && definedTimeout > 0) {
-			return definedTimeout;
+	const envTimeout = getNumberFromEnv(timeoutEnvVar);
+	if (envTimeout != null) {
+		if (Number.isFinite(envTimeout) && envTimeout > 0) {
+			return envTimeout;
 		}
 		diag.warn(`Configuration: ${timeoutEnvVar} is invalid, expected number greater than 0 (actual: ${envTimeout})`);
 	}
@@ -429,10 +430,7 @@ function getTimeoutFromEnv(signalIdentifier) {
 	return specificTimeout ?? nonSpecificTimeout;
 }
 function parseAndValidateCompressionFromEnv(compressionEnvVar) {
-	const compression = Deno.env.get(compressionEnvVar)?.trim();
-	if (compression === '') {
-		return undefined;
-	}
+	const compression = getStringFromEnv(compressionEnvVar)?.trim();
 	if (compression == null || compression === 'none' || compression === 'gzip') {
 		return compression;
 	}
@@ -507,12 +505,44 @@ function getSpecificUrlFromEnv(signalIdentifier) {
 	}
 	return appendRootPathToUrlIfNeeded(envUrl);
 }
+function readFileFromEnv(signalSpecificEnvVar, nonSignalSpecificEnvVar, warningMessage) {
+	const signalSpecificPath = getStringFromEnv(signalSpecificEnvVar);
+	const nonSignalSpecificPath = getStringFromEnv(nonSignalSpecificEnvVar);
+	const filePath = signalSpecificPath ?? nonSignalSpecificPath;
+	if (filePath != null) {
+		try {
+			return fs.readFileSync(path.resolve(process.cwd(), filePath));
+		}
+		catch {
+			diag.warn(warningMessage);
+			return undefined;
+		}
+	}
+	else {
+		return undefined;
+	}
+}
+function getClientCertificateFromEnv(signalIdentifier) {
+	return readFileFromEnv(`OTEL_EXPORTER_OTLP_${signalIdentifier}_CLIENT_CERTIFICATE`, 'OTEL_EXPORTER_OTLP_CLIENT_CERTIFICATE', 'Failed to read client certificate chain file');
+}
+function getClientKeyFromEnv(signalIdentifier) {
+	return readFileFromEnv(`OTEL_EXPORTER_OTLP_${signalIdentifier}_CLIENT_KEY`, 'OTEL_EXPORTER_OTLP_CLIENT_KEY', 'Failed to read client certificate private key file');
+}
+function getRootCertificateFromEnv(signalIdentifier) {
+	return readFileFromEnv(`OTEL_EXPORTER_OTLP_${signalIdentifier}_CERTIFICATE`, 'OTEL_EXPORTER_OTLP_CERTIFICATE', 'Failed to read root certificate file');
+}
 function getNodeHttpConfigurationFromEnvironment(signalIdentifier, signalResourcePath) {
 	return {
 		...getSharedConfigurationFromEnvironment(signalIdentifier),
 		url: getSpecificUrlFromEnv(signalIdentifier) ??
 			getNonSpecificUrlFromEnv(signalResourcePath),
 		headers: wrapStaticHeadersInFunction(getStaticHeadersFromEnv(signalIdentifier)),
+		agentFactory: httpAgentFactoryFromOptions({
+			keepAlive: true,
+			ca: getRootCertificateFromEnv(signalIdentifier),
+			cert: getClientCertificateFromEnv(signalIdentifier),
+			key: getClientKeyFromEnv(signalIdentifier),
+		}),
 	};
 }
 
