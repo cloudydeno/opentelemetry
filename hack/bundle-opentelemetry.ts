@@ -424,6 +424,9 @@ declare class Deno {
 declare interface RequestInit {
   agent?: Deno.HttpClient;
 }
+declare class CompressionStream extends TransformStream {
+  constructor(algorithm: string);
+}
 `);
 
 // A mix of experimental/packages/otlp-exporter-base/src/transport/http-exporter-transport.ts
@@ -451,7 +454,6 @@ class HttpExporterTransport implements IExporterTransport {
     let body = ReadableStream.from([data]);
     if (this._parameters.compression == 'gzip') {
       headers.set('content-encoding', 'gzip');
-      //@ts-ignore TODO: Remove after typescript is happy with CompressionStream
       body = body.pipeThrough(new CompressionStream('gzip'));
     }
     return await fetch(this._parameters.url, {
