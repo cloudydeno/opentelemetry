@@ -104,15 +104,9 @@ class OTLPMetricExporterBase extends OTLPExporterBase {
 	}
 }
 
-const VERSION = "0.205.0";
-
-const USER_AGENT = {
-	'User-Agent': `Deno/${Deno.version.deno} OTel-OTLP-Exporter-JavaScript/${VERSION}`,
-};
 class OTLPMetricExporter extends OTLPMetricExporterBase {
 	constructor(config) {
 		super(createOtlpHttpExportDelegate(convertLegacyHttpOptions(config ?? {}, 'METRICS', 'v1/metrics', {
-			...USER_AGENT,
 			'Content-Type': 'application/json',
 		}), JsonMetricsSerializer), config);
 	}

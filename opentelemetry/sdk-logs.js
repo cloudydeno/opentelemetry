@@ -16,10 +16,42 @@
 /// <reference types="./sdk-logs.d.ts" />
 
 import * as api from './api.js';
-import { context, diag } from './api.js';
-import { NOOP_LOGGER } from './api-logs.js';
+import { context, trace, isSpanContextValid, TraceFlags, diag } from './api.js';
+import { SeverityNumber, NOOP_LOGGER } from './api-logs.js';
 import { defaultResource } from './resources.js';
-import { timeInputToHrTime, isAttributeValue, getNumberFromEnv, callWithTimeout, merge, BindOnceFuture, hrTimeToMicroseconds, ExportResultCode, internal, globalErrorHandler, unrefTimer } from './core.js';
+import { timeInputToHrTime, getNumberFromEnv, callWithTimeout, merge, BindOnceFuture, hrTimeToMicroseconds, ExportResultCode, internal, globalErrorHandler } from './core.js';
+
+function isLogAttributeValue(val) {
+	return isLogAttributeValueInternal(val, new WeakSet());
+}
+function isLogAttributeValueInternal(val, visited) {
+	if (val == null) {
+		return true;
+	}
+	if (typeof val === 'string' ||
+		typeof val === 'number' ||
+		typeof val === 'boolean') {
+		return true;
+	}
+	if (val instanceof Uint8Array) {
+		return true;
+	}
+	if (typeof val === 'object') {
+		if (visited.has(val)) {
+			return false;
+		}
+		visited.add(val);
+		if (Array.isArray(val)) {
+			return val.every(item => isLogAttributeValueInternal(item, visited));
+		}
+		const obj = val;
+		if (obj.constructor !== Object && obj.constructor !== undefined) {
+			return false;
+		}
+		return Object.values(obj).every(item => isLogAttributeValueInternal(item, visited));
+	}
+	return false;
+}
 
 class LogRecordImpl {
 	hrTime;
@@ -98,17 +130,11 @@ class LogRecordImpl {
 		if (this._isLogRecordReadonly()) {
 			return this;
 		}
-		if (value === null) {
-			return this;
-		}
 		if (key.length === 0) {
 			api.diag.warn(`Invalid attribute key: ${key}`);
 			return this;
 		}
-		if (!isAttributeValue(value) &&
-			!(typeof value === 'object' &&
-				!Array.isArray(value) &&
-				Object.keys(value).length > 0)) {
+		if (!isLogAttributeValue(value)) {
 			api.diag.warn(`Invalid attribute value set for key: ${key}`);
 			return this;
 		}
@@ -121,12 +147,7 @@ class LogRecordImpl {
 			}
 			return this;
 		}
-		if (isAttributeValue(value)) {
-			this.attributes[key] = this._truncateToSize(value);
-		}
-		else {
-			this.attributes[key] = value;
-		}
+		this.attributes[key] = this._truncateToSize(value);
 		return this;
 	}
 	setAttributes(attributes) {
@@ -160,11 +181,24 @@ class LogRecordImpl {
 			api.diag.warn(`Attribute value limit must be positive, got ${limit}`);
 			return value;
 		}
+		if (value == null) {
+			return value;
+		}
 		if (typeof value === 'string') {
 			return this._truncateToLimitUtil(value, limit);
 		}
+		if (value instanceof Uint8Array) {
+			return value;
+		}
 		if (Array.isArray(value)) {
-			return value.map(val => typeof val === 'string' ? this._truncateToLimitUtil(val, limit) : val);
+			return value.map(val => this._truncateToSize(val));
+		}
+		if (typeof value === 'object') {
+			const truncatedObj = {};
+			for (const [k, v] of Object.entries(value)) {
+				truncatedObj[k] = this._truncateToSize(v);
+			}
+			return truncatedObj;
 		}
 		return value;
 	}
@@ -185,12 +219,29 @@ class LogRecordImpl {
 class Logger {
 	instrumentationScope;
 	_sharedState;
-	constructor(instrumentationScope, _sharedState) {
+	_loggerConfig;
+	constructor(instrumentationScope, sharedState) {
 		this.instrumentationScope = instrumentationScope;
-		this._sharedState = _sharedState;
+		this._sharedState = sharedState;
+		this._loggerConfig = this._sharedState.getLoggerConfig(this.instrumentationScope);
 	}
 	emit(logRecord) {
+		const loggerConfig = this._loggerConfig;
 		const currentContext = logRecord.context || context.active();
+		const recordSeverity = logRecord.severityNumber ?? SeverityNumber.UNSPECIFIED;
+		if (recordSeverity !== SeverityNumber.UNSPECIFIED &&
+			recordSeverity < loggerConfig.minimumSeverity) {
+			return;
+		}
+		if (loggerConfig.traceBased) {
+			const spanContext = trace.getSpanContext(currentContext);
+			if (spanContext && isSpanContextValid(spanContext)) {
+				const isSampled = (spanContext.traceFlags & TraceFlags.SAMPLED) === TraceFlags.SAMPLED;
+				if (!isSampled) {
+					return;
+				}
+			}
+		}
 		const logRecordInstance = new LogRecordImpl(this._sharedState, this.instrumentationScope, {
 			context: currentContext,
 			...logRecord,
@@ -253,15 +304,29 @@ class MultiLogRecordProcessor {
 	}
 }
 
+function getInstrumentationScopeKey(scope) {
+	return `${scope.name}@${scope.version || ''}:${scope.schemaUrl || ''}`;
+}
+
+const DEFAULT_LOGGER_CONFIG$1 = {
+	disabled: false,
+	minimumSeverity: SeverityNumber.UNSPECIFIED,
+	traceBased: false,
+};
+const DEFAULT_LOGGER_CONFIGURATOR = () => ({
+	...DEFAULT_LOGGER_CONFIG$1,
+});
 class LoggerProviderSharedState {
+	loggers = new Map();
+	activeProcessor;
+	registeredLogRecordProcessors = [];
 	resource;
 	forceFlushTimeoutMillis;
 	logRecordLimits;
 	processors;
-	loggers = new Map();
-	activeProcessor;
-	registeredLogRecordProcessors = [];
-	constructor(resource, forceFlushTimeoutMillis, logRecordLimits, processors) {
+	_loggerConfigurator;
+	_loggerConfigs = new Map();
+	constructor(resource, forceFlushTimeoutMillis, logRecordLimits, processors, loggerConfigurator) {
 		this.resource = resource;
 		this.forceFlushTimeoutMillis = forceFlushTimeoutMillis;
 		this.logRecordLimits = logRecordLimits;
@@ -273,6 +338,18 @@ class LoggerProviderSharedState {
 		else {
 			this.activeProcessor = new NoopLogRecordProcessor();
 		}
+		this._loggerConfigurator =
+			loggerConfigurator ?? DEFAULT_LOGGER_CONFIGURATOR;
+	}
+	getLoggerConfig(instrumentationScope) {
+		const key = getInstrumentationScopeKey(instrumentationScope);
+		let config = this._loggerConfigs.get(key);
+		if (config) {
+			return config;
+		}
+		config = this._loggerConfigurator(instrumentationScope);
+		this._loggerConfigs.set(key, config);
+		return config;
 	}
 }
 
@@ -283,7 +360,7 @@ class LoggerProvider {
 	constructor(config = {}) {
 		const mergedConfig = merge({}, loadDefaultConfig(), config);
 		const resource = config.resource ?? defaultResource();
-		this._sharedState = new LoggerProviderSharedState(resource, mergedConfig.forceFlushTimeoutMillis, reconfigureLimits(mergedConfig.logRecordLimits), config?.processors ?? []);
+		this._sharedState = new LoggerProviderSharedState(resource, mergedConfig.forceFlushTimeoutMillis, reconfigureLimits(mergedConfig.logRecordLimits), config?.processors ?? [], config?.loggerConfigurator);
 		this._shutdownOnce = new BindOnceFuture(this._shutdown, this);
 	}
 	getLogger(name, version, options) {
@@ -339,6 +416,7 @@ class ConsoleLogRecordExporter {
 			traceFlags: logRecord.spanContext?.traceFlags,
 			severityText: logRecord.severityText,
 			severityNumber: logRecord.severityNumber,
+			eventName: logRecord.eventName,
 			body: logRecord.body,
 			attributes: logRecord.attributes,
 		};
@@ -355,8 +433,8 @@ class SimpleLogRecordProcessor {
 	_exporter;
 	_shutdownOnce;
 	_unresolvedExports;
-	constructor(_exporter) {
-		this._exporter = _exporter;
+	constructor(exporter) {
+		this._exporter = exporter;
 		this._shutdownOnce = new BindOnceFuture(this._shutdown, this);
 		this._unresolvedExports = new Set();
 	}
@@ -426,16 +504,17 @@ class InMemoryLogRecordExporter {
 }
 
 class BatchLogRecordProcessorBase {
-	_exporter;
 	_maxExportBatchSize;
 	_maxQueueSize;
 	_scheduledDelayMillis;
 	_exportTimeoutMillis;
+	_exporter;
+	_isExporting = false;
 	_finishedLogRecords = [];
 	_timer;
 	_shutdownOnce;
-	constructor(_exporter, config) {
-		this._exporter = _exporter;
+	constructor(exporter, config) {
+		this._exporter = exporter;
 		this._maxExportBatchSize =
 			config?.maxExportBatchSize ??
 				getNumberFromEnv('OTEL_BLRP_MAX_EXPORT_BATCH_SIZE') ??
@@ -504,29 +583,33 @@ class BatchLogRecordProcessorBase {
 		if (this._finishedLogRecords.length === 0) {
 			return Promise.resolve();
 		}
-		return new Promise((resolve, reject) => {
-			callWithTimeout(this._export(this._finishedLogRecords.splice(0, this._maxExportBatchSize)), this._exportTimeoutMillis)
-				.then(() => resolve())
-				.catch(reject);
-		});
+		return callWithTimeout(this._export(this._finishedLogRecords.splice(0, this._maxExportBatchSize)), this._exportTimeoutMillis);
 	}
 	_maybeStartTimer() {
-		if (this._timer !== undefined) {
+		if (this._isExporting)
 			return;
-		}
-		this._timer = setTimeout(() => {
+		const flush = () => {
+			this._isExporting = true;
 			this._flushOneBatch()
 				.then(() => {
+				this._isExporting = false;
 				if (this._finishedLogRecords.length > 0) {
 					this._clearTimer();
 					this._maybeStartTimer();
 				}
 			})
 				.catch(e => {
+				this._isExporting = false;
 				globalErrorHandler(e);
 			});
-		}, this._scheduledDelayMillis);
-		unrefTimer(this._timer);
+		};
+		if (this._finishedLogRecords.length >= this._maxExportBatchSize) {
+			return flush();
+		}
+		if (this._timer !== undefined)
+			return;
+		this._timer = setTimeout(() => flush(), this._scheduledDelayMillis);
+		Deno.unrefTimer(this._timer);
 	}
 	_clearTimer() {
 		if (this._timer !== undefined) {
@@ -544,14 +627,19 @@ class BatchLogRecordProcessorBase {
 			}
 		})
 			.catch(globalErrorHandler);
-		const pendingResources = logRecords
-			.map(logRecord => logRecord.resource)
-			.filter(resource => resource.asyncAttributesPending);
+		const pendingResources = [];
+		for (let i = 0; i < logRecords.length; i++) {
+			const resource = logRecords[i].resource;
+			if (resource.asyncAttributesPending &&
+				typeof resource.waitForAsyncAttributes === 'function') {
+				pendingResources.push(resource.waitForAsyncAttributes());
+			}
+		}
 		if (pendingResources.length === 0) {
 			return doExport();
 		}
 		else {
-			return Promise.all(pendingResources.map(resource => resource.waitForAsyncAttributes?.())).then(doExport, globalErrorHandler);
+			return Promise.all(pendingResources).then(doExport, globalErrorHandler);
 		}
 	}
 }
@@ -560,4 +648,39 @@ class BatchLogRecordProcessor extends BatchLogRecordProcessorBase {
 	onShutdown() { }
 }
 
-export { BatchLogRecordProcessor, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LoggerProvider, NoopLogRecordProcessor, SimpleLogRecordProcessor };
+const DEFAULT_LOGGER_CONFIG = {
+	disabled: false,
+	minimumSeverity: SeverityNumber.UNSPECIFIED,
+	traceBased: false,
+};
+function createLoggerConfigurator(patterns) {
+	return (loggerScope) => {
+		const loggerName = loggerScope.name;
+		for (const { pattern, config } of patterns) {
+			if (matchesPattern(loggerName, pattern)) {
+				return {
+					disabled: config.disabled ?? DEFAULT_LOGGER_CONFIG.disabled,
+					minimumSeverity: config.minimumSeverity ?? DEFAULT_LOGGER_CONFIG.minimumSeverity,
+					traceBased: config.traceBased ?? DEFAULT_LOGGER_CONFIG.traceBased,
+				};
+			}
+		}
+		return { ...DEFAULT_LOGGER_CONFIG };
+	};
+}
+function matchesPattern(name, pattern) {
+	if (pattern === name) {
+		return true;
+	}
+	if (pattern.includes('*')) {
+		const regexPattern = pattern
+			.split('*')
+			.map(part => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+			.join('.*');
+		const regex = new RegExp(`^${regexPattern}$`);
+		return regex.test(name);
+	}
+	return false;
+}
+
+export { BatchLogRecordProcessor, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LoggerProvider, SimpleLogRecordProcessor, createLoggerConfigurator };

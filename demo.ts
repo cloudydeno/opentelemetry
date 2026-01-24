@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run --watch --allow-read --allow-sys=hostname,osRelease --allow-env --allow-net --allow-run=uptime,sleep,ping,nonextant
 import { metrics, trace, ValueType } from "@cloudydeno/opentelemetry/pkg/api";
 import { logs } from "@cloudydeno/opentelemetry/pkg/api-logs";
-import { ATTR_HTTP_METHOD } from "@cloudydeno/opentelemetry/pkg/semantic-conventions";
+import { ATTR_HTTP_REQUEST_METHOD } from "@cloudydeno/opentelemetry/pkg/semantic-conventions";
 
 import { DenoTelemetrySdk } from '@cloudydeno/opentelemetry/sdk'
 import { httpTracer } from "@cloudydeno/opentelemetry/instrumentation/http-server.ts";
@@ -33,8 +33,8 @@ async function handler(req: Request): Promise<Response> {
     body: `${req.method} ${url.pathname}`,
   });
 
-  test3.add(1, {[ATTR_HTTP_METHOD]: req.method});
-  test2.record(50+Math.round(Math.random()*25), {[ATTR_HTTP_METHOD]: req.method});
+  test3.add(1, {[ATTR_HTTP_REQUEST_METHOD]: req.method});
+  test2.record(50+Math.round(Math.random()*25), {[ATTR_HTTP_REQUEST_METHOD]: req.method});
 
   if (url.pathname == '/log') {
     logger.emit({

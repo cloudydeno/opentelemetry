@@ -49,6 +49,13 @@ class NoopLogger {
 }
 const NOOP_LOGGER = new NoopLogger();
 
+const GLOBAL_LOGS_API_KEY = Symbol.for('io.opentelemetry.js.api.logs');
+const _global = globalThis;
+function makeGetter(requiredVersion, instance, fallback) {
+	return (version) => version === requiredVersion ? instance : fallback;
+}
+const API_BACKWARDS_COMPATIBILITY_VERSION = 1;
+
 class NoopLoggerProvider {
 	getLogger(_name, _version, _options) {
 		return new NoopLogger();
@@ -57,8 +64,8 @@ class NoopLoggerProvider {
 const NOOP_LOGGER_PROVIDER = new NoopLoggerProvider();
 
 class ProxyLogger {
-	constructor(_provider, name, version, options) {
-		this._provider = _provider;
+	constructor(provider, name, version, options) {
+		this._provider = provider;
 		this.name = name;
 		this.version = version;
 		this.options = options;
@@ -95,15 +102,6 @@ class ProxyLoggerProvider {
 	}
 }
 
-const _globalThis = typeof globalThis === 'object' ? globalThis : global;
-
-const GLOBAL_LOGS_API_KEY = Symbol.for('io.opentelemetry.js.api.logs');
-const _global = _globalThis;
-function makeGetter(requiredVersion, instance, fallback) {
-	return (version) => version === requiredVersion ? instance : fallback;
-}
-const API_BACKWARDS_COMPATIBILITY_VERSION = 1;
-
 class LogsAPI {
 	constructor() {
 		this._proxyLoggerProvider = new ProxyLoggerProvider();
@@ -137,4 +135,4 @@ class LogsAPI {
 
 const logs = LogsAPI.getInstance();
 
-export { NOOP_LOGGER, NOOP_LOGGER_PROVIDER, NoopLogger, NoopLoggerProvider, ProxyLogger, ProxyLoggerProvider, SeverityNumber, logs };
+export { NOOP_LOGGER, NoopLogger, SeverityNumber, logs };

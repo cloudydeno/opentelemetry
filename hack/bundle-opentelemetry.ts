@@ -104,12 +104,29 @@ async function buildModuleWithRollup(directory: string, modName: string, externa
     text = text.replace("HOST_NAME]: hostname(),", "HOST_NAME]: Deno.hostname?.(),");
     text = text.replace("OS_VERSION]: release(),", "OS_VERSION]: Deno.osRelease?.(),");
     text = text.replace("fs.readFile(", "Deno.readTextFile(");
+    text = text.replace(/^ +if \(typeof (this\._[a-z]+) !== 'number'\) {\n +this._[a-z]+.unref\(\);\n +}$/m, (_, x) => `        Deno.unrefTimer(${x});`);
     text = text.replace("http.AgentOptions | https.AgentOptions", "never"); // TODO: replace this functionality with Deno.HttpClient arg
-    text = text.replace("'User-Agent': `OTel-", "'User-Agent': `Deno/${Deno.version.deno} OTel-");
+    text = text.replace("DEFAULT_USER_AGENT = `OTel-", "DEFAULT_USER_AGENT = `Deno/${Deno.version.deno} OTel-");
     text = text.replaceAll(/^  +/gm, x => '\t\t\t\t\t\t\t\t'.slice(0, Math.floor(x.length / 4)));
 
     await Deno.writeTextFile('opentelemetry/'+chunk.fileName, text);
   }
+}
+
+if (Deno.args[0] == '--switch') {
+  console.error(`Resetting opentelemetry-js...`);
+  const git = new Deno.Command('sh', {
+    args: [ '-euxc', [
+      `git reset --hard`,
+      `git clean -f`,
+      `git switch --detach ${Deno.args[1]}`,
+    ].join('; ')],
+    cwd: 'hack/opentelemetry-js',
+    stdout: 'inherit',
+    stderr: 'inherit',
+  });
+  const gitOut = await git.output();
+  if (!gitOut.success) throw new Error(`git switch failed :(`);
 }
 
 console.error(`Patching opentelemetry-js installation to remove NodeJSisms...`);
@@ -120,19 +137,21 @@ await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-core/src/
 await Deno.writeTextFile('hack/opentelemetry-js/packages/sdk-metrics/test/index-webpack.ts', '');
 await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/test/browser/index-webpack.ts', '');
 
-await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-core/src/platform/node/timer-util.ts',
-`// Typescript seems to think that setTimeout will return a "Timeout" like in NodeJS
-export function unrefTimer(timer: any): void {
-  // @ts-expect-error TODO: Deno types in tsc
-  Deno.unrefTimer?.(timer);
-}`);
+await Deno.readTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/default-service-name.ts');
+await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/default-service-name.ts',
+`export function defaultServiceName(): string {
+  return 'unknown_service:deno';
+}
+/** @internal For testing purposes only */
+export function _clearDefaultServiceNameCache(): void {}
+`);
 
-await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/platform/node/utils.ts',
-`export const normalizeArch = (archString: string) => ({
-  'x64_64': 'amd64',
-  'aarch64': 'arm64',
-})[archString] ?? archString;
-export const normalizeType = (os: string) => os;`);
+// await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/platform/node/utils.ts',
+// `export const normalizeArch = (archString: string) => ({
+//   'x64_64': 'amd64',
+//   'aarch64': 'arm64',
+// })[archString] ?? archString;
+// export const normalizeType = (os: string) => os;`);
 
 await Deno.writeTextFile('hack/opentelemetry-js/packages/opentelemetry-resources/src/detectors/platform/node/machine-id/getMachineId.ts',
 `import { getMachineId as bsdGetId } from './getMachineId-bsd';
@@ -141,7 +160,6 @@ import { getMachineId as linuxGetId } from './getMachineId-linux';
 import { getMachineId as unsupportedGetId } from './getMachineId-unsupported';
 import { getMachineId as winGetId } from './getMachineId-win';
 
-// @ts-expect-error TODO: Deno types in tsc
 export const getMachineId = {
   'freebsd': bsdGetId,
   'netbsd': bsdGetId,
@@ -209,7 +227,7 @@ await Deno.readTextFile('hack/opentelemetry-js/experimental/packages/otlp-export
 await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/configuration/convert-legacy-node-http-options.ts', `
 import { OTLPExporterNodeConfigBase } from './legacy-node-configuration';
 import { diag } from '@opentelemetry/api';
-import { wrapStaticHeadersInFunction } from './shared-configuration';
+import { convertLegacyHeaders } from './convert-legacy-http-options';
 import {
   getNodeHttpConfigurationDefaults,
   mergeOtlpNodeHttpConfigurationWithDefaults,
@@ -238,7 +256,7 @@ export function convertLegacyHttpOptions(
   return mergeOtlpNodeHttpConfigurationWithDefaults(
     {
       url: config.url,
-      headers: wrapStaticHeadersInFunction(config.headers),
+      headers: convertLegacyHeaders(config),
       concurrencyLimit: config.concurrencyLimit,
       timeoutMillis: config.timeoutMillis,
       compression: config.compression,
@@ -319,16 +337,21 @@ import {
 } from './otlp-http-configuration';
 
 export type HttpAgentFactory = (
-) => any/*Deno.HttpClient | Promise<Deno.HttpClient>*/;
+  _protocol?: string
+) => Deno.HttpClient | Promise<Deno.HttpClient>;
 
 export interface OtlpNodeHttpConfiguration extends OtlpHttpConfiguration {
   agentFactory: HttpAgentFactory;
+  userAgent?: string;
 }
 
 export function httpAgentFactoryFromOptions(
-  options: any/*Deno.CreateHttpClientOptions*/
+  options: Deno.CreateHttpClientOptions
 ): HttpAgentFactory {
-  return () => {
+  return (_protocol) => {
+    // Avoid unnecsary Deno.HttpClient instances,
+    // as opentelemetry-js isn't generally set up to dispose them.
+    if (!options.caCerts && !options.key)
     return (globalThis as any).Deno.createHttpClient(options);
   };
 }
@@ -368,6 +391,44 @@ export function getNodeHttpConfigurationDefaults(
 
 `);
 
+await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/configuration/otlp-node-http-env-configuration.ts',
+  await Deno.readTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/configuration/otlp-node-http-env-configuration.ts').then(text => text
+    .replaceAll(/^ +.+keepAlive.+$/gm, x => `// ${x}`)
+    .replaceAll(/^import \* as (path|fs) from.+$/gm, x => `// ${x}`)
+    .replace("ca: getRootCertificateFromEnv(signalIdentifier)", "caCerts: [getRootCertificateFromEnv(signalIdentifier)].flatMap(x => x ? [x] : [])")
+    .replaceAll("fs.readFileSync(path.resolve(process.cwd(), filePath))", "Deno.readTextFileSync(filePath)")
+    .replaceAll("): Buffer | undefined {", "): string | undefined {"))); // actually different as far as types go!
+
+await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/Deno.d.ts',
+`declare namespace Deno {
+  interface HttpClient {
+    close(): void;
+  }
+  interface CreateHttpClientOptions {
+    caCerts?: string[];
+    proxy?: Proxy;
+    poolMaxIdlePerHost?: number;
+    poolIdleTimeout?: number | false;
+    http1?: boolean;
+    http2?: boolean;
+    allowHost?: boolean;
+    localAddress?: string;
+    // TlsCertifiedKeyPem
+    key?: string;
+    cert?: string;
+  }
+}
+declare class Deno {
+  static readTextFileSync(path: string | URL): string;
+}
+declare interface RequestInit {
+  agent?: Deno.HttpClient;
+}
+declare class CompressionStream extends TransformStream {
+  constructor(algorithm: string);
+}
+`);
+
 // A mix of experimental/packages/otlp-exporter-base/src/transport/http-exporter-transport.ts
 // and experimental/packages/otlp-exporter-base/src/transport/http-transport-utils.ts
 // but implemented with standard fetch() instead.
@@ -375,34 +436,37 @@ export function getNodeHttpConfigurationDefaults(
 // And that gzip support, wowie
 await Deno.writeTextFile('hack/opentelemetry-js/experimental/packages/otlp-exporter-base/src/transport/http-exporter-transport.ts', `
 import { OtlpHttpConfiguration } from '../configuration/otlp-http-configuration';
+import { OtlpNodeHttpConfiguration } from '../configuration/otlp-node-http-configuration';
 import { ExportResponse } from '../export-response';
 import { IExporterTransport } from '../exporter-transport';
-import { isExportRetryable, parseRetryAfterToMills } from '../is-export-retryable';
+import { isExportHTTPErrorRetryable, parseRetryAfterToMills } from '../is-export-retryable';
 import { OTLPExporterError } from '../types';
 
 class HttpExporterTransport implements IExporterTransport {
-  constructor(private _parameters: OtlpHttpConfiguration) {}
+  constructor(private _parameters: OtlpHttpConfiguration) {
+    this.httpClient = (_parameters as OtlpNodeHttpConfiguration).agentFactory?.() ?? undefined;
+  }
+  private readonly httpClient: Deno.HttpClient | Promise<Deno.HttpClient> | undefined;
 
   async send(data: Uint8Array, timeoutMillis: number): Promise<ExportResponse> {
-    const headers = new Headers(this._parameters.headers());
+    const headers = new Headers(await this._parameters.headers());
     //@ts-ignore TODO: Remove after experimental/v0.58.0 upgrades typescript to >=4.9.5
     let body = ReadableStream.from([data]);
     if (this._parameters.compression == 'gzip') {
       headers.set('content-encoding', 'gzip');
-      //@ts-ignore TODO: Remove after typescript is happy with CompressionStream
       body = body.pipeThrough(new CompressionStream('gzip'));
     }
     return await fetch(this._parameters.url, {
       method: 'POST',
       body, headers,
-      //@ts-ignore TODO: Remove after experimental/v0.58.0 upgrades typescript to >=4.9.5
+      agent: await this.httpClient,
       signal: AbortSignal.timeout(timeoutMillis),
     }).then<ExportResponse>(async res => {
       if (res.ok) {
         const data = new Uint8Array(await res.arrayBuffer());
         return { status: 'success', data };
       }
-      if (isExportRetryable(res.status)) {
+      if (isExportHTTPErrorRetryable(res.status)) {
         const retryInMillis = parseRetryAfterToMills(res.headers.get('retry-after'));
         return { status: 'retryable', retryInMillis };
       }
@@ -410,7 +474,11 @@ class HttpExporterTransport implements IExporterTransport {
       return { status: 'failure', error };
     }).catch(error => ({ status: 'failure', error }));
   }
-  shutdown() {}
+  shutdown() {
+    if (this.httpClient) {
+      Promise.resolve(this.httpClient).then(x => x.close());
+    }
+  }
 }
 export function createHttpExporterTransport(parameters: OtlpHttpConfiguration): IExporterTransport {
   return new HttpExporterTransport(parameters);

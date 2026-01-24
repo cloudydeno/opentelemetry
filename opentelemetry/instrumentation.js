@@ -144,13 +144,13 @@ const massUnwrap = (nodules, names) => {
 };
 
 class InstrumentationAbstract {
-	instrumentationName;
-	instrumentationVersion;
 	_config = {};
 	_tracer;
 	_meter;
 	_logger;
 	_diag;
+	instrumentationName;
+	instrumentationVersion;
 	constructor(instrumentationName, instrumentationVersion, config) {
 		this.instrumentationName = instrumentationName;
 		this.instrumentationVersion = instrumentationVersion;
@@ -233,34 +233,34 @@ function normalize(path) {
 }
 
 class InstrumentationNodeModuleDefinition {
+	files;
 	name;
 	supportedVersions;
 	patch;
 	unpatch;
-	files;
 	constructor(name, supportedVersions,
 	patch,
 	unpatch, files) {
+		this.files = files || [];
 		this.name = name;
 		this.supportedVersions = supportedVersions;
 		this.patch = patch;
 		this.unpatch = unpatch;
-		this.files = files || [];
 	}
 }
 
 class InstrumentationNodeModuleFile {
+	name;
 	supportedVersions;
 	patch;
 	unpatch;
-	name;
 	constructor(name, supportedVersions,
 	patch,
 	unpatch) {
+		this.name = normalize(name);
 		this.supportedVersions = supportedVersions;
 		this.patch = patch;
 		this.unpatch = unpatch;
-		this.name = normalize(name);
 	}
 }
 
@@ -291,7 +291,7 @@ async function safeExecuteInTheMiddleAsync(execute, onFinish, preventThrowingErr
 		error = e;
 	}
 	finally {
-		onFinish(error, result);
+		await onFinish(error, result);
 		if (error && !preventThrowingError) {
 			throw error;
 		}

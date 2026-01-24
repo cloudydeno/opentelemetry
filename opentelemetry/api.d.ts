@@ -1515,12 +1515,12 @@ declare function createNoopMeter(): Meter;
  * @since 1.0.0
  */
 declare class ProxyTracer implements Tracer {
+	private _delegate?;
 	private _provider;
 	readonly name: string;
-	readonly version?: string | undefined;
-	readonly options?: TracerOptions | undefined;
-	private _delegate?;
-	constructor(_provider: TracerDelegator, name: string, version?: string | undefined, options?: TracerOptions | undefined);
+	readonly version?: string;
+	readonly options?: TracerOptions;
+	constructor(provider: TracerDelegator, name: string, version?: string, options?: TracerOptions);
 	startSpan(name: string, options?: SpanOptions, context?: Context): Span;
 	startActiveSpan<F extends (span: Span) => unknown>(_name: string, _options: F | SpanOptions, _context?: F | Context, _fn?: F): ReturnType<F>;
 	/**

@@ -153,13 +153,13 @@ declare function registerInstrumentations(options: AutoLoaderOptions): () => voi
  * Base abstract internal class for instrumenting node and web plugins
  */
 declare abstract class InstrumentationAbstract<ConfigType extends InstrumentationConfig = InstrumentationConfig> implements Instrumentation<ConfigType> {
-	readonly instrumentationName: string;
-	readonly instrumentationVersion: string;
 	protected _config: ConfigType;
 	private _tracer;
 	private _meter;
 	private _logger;
 	protected _diag: DiagLogger;
+	readonly instrumentationName: string;
+	readonly instrumentationVersion: string;
 	constructor(instrumentationName: string, instrumentationVersion: string, config: ConfigType);
 	protected _wrap: <Nodule extends object, FieldName extends keyof Nodule>(nodule: Nodule, name: FieldName, wrapper: (original: Nodule[FieldName], name: FieldName) => Nodule[FieldName]) => ShimWrapped | undefined;
 	protected _unwrap: <Nodule extends object>(nodule: Nodule, name: keyof Nodule) => void;
@@ -228,19 +228,19 @@ declare abstract class InstrumentationBase<ConfigType extends InstrumentationCon
 }
 
 declare class InstrumentationNodeModuleDefinition implements InstrumentationModuleDefinition {
+	files: InstrumentationModuleFile[];
 	name: string;
 	supportedVersions: string[];
-	patch?: ((exports: any, moduleVersion?: string) => any) | undefined;
-	unpatch?: ((exports: any, moduleVersion?: string) => void) | undefined;
-	files: InstrumentationModuleFile[];
-	constructor(name: string, supportedVersions: string[], patch?: ((exports: any, moduleVersion?: string) => any) | undefined, unpatch?: ((exports: any, moduleVersion?: string) => void) | undefined, files?: InstrumentationModuleFile[]);
+	patch: ((exports: any, moduleVersion?: string) => any) | undefined;
+	unpatch: ((exports: any, moduleVersion?: string) => void) | undefined;
+	constructor(name: string, supportedVersions: string[], patch?: (exports: any, moduleVersion?: string) => any, unpatch?: (exports: any, moduleVersion?: string) => void, files?: InstrumentationModuleFile[]);
 }
 
 declare class InstrumentationNodeModuleFile implements InstrumentationModuleFile {
+	name: string;
 	supportedVersions: string[];
 	patch: (moduleExports: any, moduleVersion?: string) => any;
 	unpatch: (moduleExports?: any, moduleVersion?: string) => void;
-	name: string;
 	constructor(name: string, supportedVersions: string[], patch: (moduleExports: any, moduleVersion?: string) => any, unpatch: (moduleExports?: any, moduleVersion?: string) => void);
 }
 
@@ -255,7 +255,7 @@ declare function safeExecuteInTheMiddle<T>(execute: () => T, onFinish: (e: Error
  * @param execute - function to be executed
  * @param onFinish - callback to run when execute finishes
  */
-declare function safeExecuteInTheMiddleAsync<T>(execute: () => T, onFinish: (e: Error | undefined, result: T | undefined) => void, preventThrowingError?: boolean): Promise<T>;
+declare function safeExecuteInTheMiddleAsync<T>(execute: () => T, onFinish: (e: Error | undefined, result: T | undefined) => Promise<void> | void, preventThrowingError?: boolean): Promise<T>;
 /**
  * Checks if certain function has been already wrapped
  * @param func

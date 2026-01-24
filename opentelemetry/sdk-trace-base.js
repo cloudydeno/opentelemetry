@@ -15,7 +15,7 @@
  */
 /// <reference types="./sdk-trace-base.d.ts" />
 
-import { otperformance, getTimeOrigin, isAttributeValue, isTimeInput, sanitizeAttributes, hrTimeDuration, hrTime, millisToHrTime, isTimeInputHrTime, addHrTimes, globalErrorHandler, getNumberFromEnv, getStringFromEnv, BindOnceFuture, suppressTracing, unrefTimer, ExportResultCode, isTracingSuppressed, merge, hrTimeToMicroseconds, internal } from './core.js';
+import { otperformance, isAttributeValue, isTimeInput, sanitizeAttributes, hrTimeDuration, hrTime, millisToHrTime, isTimeInputHrTime, addHrTimes, globalErrorHandler, getNumberFromEnv, getStringFromEnv, BindOnceFuture, suppressTracing, ExportResultCode, isTracingSuppressed, merge, hrTimeToMicroseconds, internal } from './core.js';
 import { defaultResource } from './resources.js';
 import * as api from './api.js';
 import { SpanStatusCode, diag, trace, isSpanContextValid, TraceFlags, isValidTraceId, context } from './api.js';
@@ -54,7 +54,7 @@ class SpanImpl {
 		this._spanContext = opts.spanContext;
 		this._performanceStartTime = otperformance.now();
 		this._performanceOffset =
-			now - (this._performanceStartTime + getTimeOrigin());
+			now - (this._performanceStartTime + otperformance.timeOrigin);
 		this._startTimeProvided = opts.startTime != null;
 		this._spanLimits = opts.spanLimits;
 		this._attributeValueLengthLimit =
@@ -163,7 +163,6 @@ class SpanImpl {
 			diag.error(`${this.name} ${this._spanContext.traceId}-${this._spanContext.spanId} - You can only call end() on a span once.`);
 			return;
 		}
-		this._ended = true;
 		this.endTime = this._getTime(endTime);
 		this._duration = hrTimeDuration(this.startTime, this.endTime);
 		if (this._duration[0] < 0) {
@@ -174,6 +173,10 @@ class SpanImpl {
 		if (this._droppedEventsCount > 0) {
 			diag.warn(`Dropped ${this._droppedEventsCount} events because eventCountLimit reached`);
 		}
+		if (this._spanProcessor.onEnding) {
+			this._spanProcessor.onEnding(this);
+		}
+		this._ended = true;
 		this._spanProcessor.onEnd(this);
 	}
 	_getTime(inp) {
@@ -342,9 +345,8 @@ class ParentBasedSampler {
 class TraceIdRatioBasedSampler {
 	_ratio;
 	_upperBound;
-	constructor(_ratio = 0) {
-		this._ratio = _ratio;
-		this._ratio = this._normalize(_ratio);
+	constructor(ratio = 0) {
+		this._ratio = this._normalize(ratio);
 		this._upperBound = Math.floor(this._ratio * 0xffffffff);
 	}
 	shouldSample(context, traceId) {
@@ -473,18 +475,18 @@ function reconfigureLimits(userConfig) {
 }
 
 class BatchSpanProcessorBase {
-	_exporter;
 	_maxExportBatchSize;
 	_maxQueueSize;
 	_scheduledDelayMillis;
 	_exportTimeoutMillis;
+	_exporter;
 	_isExporting = false;
 	_finishedSpans = [];
 	_timer;
 	_shutdownOnce;
 	_droppedSpansCount = 0;
-	constructor(_exporter, config) {
-		this._exporter = _exporter;
+	constructor(exporter, config) {
+		this._exporter = exporter;
 		this._maxExportBatchSize =
 			typeof config?.maxExportBatchSize === 'number'
 				? config.maxExportBatchSize
@@ -640,7 +642,7 @@ class BatchSpanProcessorBase {
 		if (this._timer !== undefined)
 			return;
 		this._timer = setTimeout(() => flush(), this._scheduledDelayMillis);
-		unrefTimer(this._timer);
+		Deno.unrefTimer(this._timer);
 	}
 	_clearTimer() {
 		if (this._timer !== undefined) {
@@ -654,23 +656,37 @@ class BatchSpanProcessor extends BatchSpanProcessorBase {
 	onShutdown() { }
 }
 
-const SPAN_ID_BYTES = 8;
 const TRACE_ID_BYTES = 16;
-class RandomIdGenerator {
-	generateTraceId = getIdGenerator(TRACE_ID_BYTES);
-	generateSpanId = getIdGenerator(SPAN_ID_BYTES);
+const SPAN_ID_BYTES = 8;
+const TRACE_BUFFER = new Uint8Array(TRACE_ID_BYTES);
+const SPAN_BUFFER = new Uint8Array(SPAN_ID_BYTES);
+const HEX = Array.from({ length: 256 }, (_, i) => i.toString(16).padStart(2, '0'));
+function randomFill(buf) {
+	for (let i = 0; i < buf.length; i++) {
+		buf[i] = (Math.random() * 256) >>> 0;
+	}
+	for (let i = 0; i < buf.length; i++) {
+		if (buf[i] > 0)
+			return;
+	}
+	buf[buf.length - 1] = 1;
 }
-const SHARED_CHAR_CODES_ARRAY = Array(32);
-function getIdGenerator(bytes) {
-	return function generateId() {
-		for (let i = 0; i < bytes * 2; i++) {
-			SHARED_CHAR_CODES_ARRAY[i] = Math.floor(Math.random() * 16) + 48;
-			if (SHARED_CHAR_CODES_ARRAY[i] >= 58) {
-				SHARED_CHAR_CODES_ARRAY[i] += 39;
-			}
-		}
-		return String.fromCharCode.apply(null, SHARED_CHAR_CODES_ARRAY.slice(0, bytes * 2));
-	};
+function toHex(buf) {
+	let hex = '';
+	for (let i = 0; i < buf.length; i++) {
+		hex += HEX[buf[i]];
+	}
+	return hex;
+}
+class RandomIdGenerator {
+	generateTraceId() {
+		randomFill(TRACE_BUFFER);
+		return toHex(TRACE_BUFFER);
+	}
+	generateSpanId() {
+		randomFill(SPAN_BUFFER);
+		return toHex(SPAN_BUFFER);
+	}
 }
 
 class Tracer {
@@ -785,8 +801,8 @@ class Tracer {
 
 class MultiSpanProcessor {
 	_spanProcessors;
-	constructor(_spanProcessors) {
-		this._spanProcessors = _spanProcessors;
+	constructor(spanProcessors) {
+		this._spanProcessors = spanProcessors;
 	}
 	forceFlush() {
 		const promises = [];
@@ -807,6 +823,13 @@ class MultiSpanProcessor {
 	onStart(span, context) {
 		for (const spanProcessor of this._spanProcessors) {
 			spanProcessor.onStart(span, context);
+		}
+	}
+	onEnding(span) {
+		for (const spanProcessor of this._spanProcessors) {
+			if (spanProcessor.onEnding) {
+				spanProcessor.onEnding(span);
+			}
 		}
 	}
 	onEnd(span) {
@@ -975,8 +998,8 @@ class SimpleSpanProcessor {
 	_exporter;
 	_shutdownOnce;
 	_pendingExports;
-	constructor(_exporter) {
-		this._exporter = _exporter;
+	constructor(exporter) {
+		this._exporter = exporter;
 		this._shutdownOnce = new BindOnceFuture(this._shutdown, this);
 		this._pendingExports = new Set();
 	}

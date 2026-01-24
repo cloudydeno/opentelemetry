@@ -145,54 +145,6 @@ declare class NoopLogger implements Logger {
 }
 declare const NOOP_LOGGER: NoopLogger;
 
-declare class NoopLoggerProvider implements LoggerProvider {
-	getLogger(_name: string, _version?: string | undefined, _options?: LoggerOptions | undefined): Logger;
-}
-declare const NOOP_LOGGER_PROVIDER: NoopLoggerProvider;
-
-declare class ProxyLogger implements Logger {
-	private _provider;
-	readonly name: string;
-	readonly version?: string | undefined;
-	readonly options?: LoggerOptions | undefined;
-	private _delegate?;
-	constructor(_provider: LoggerDelegator, name: string, version?: string | undefined, options?: LoggerOptions | undefined);
-	/**
-	* Emit a log record. This method should only be used by log appenders.
-	*
-	* @param logRecord
-	*/
-	emit(logRecord: LogRecord): void;
-	/**
-	* Try to get a logger from the proxy logger provider.
-	* If the proxy logger provider has no delegate, return a noop logger.
-	*/
-	private _getLogger;
-}
-interface LoggerDelegator {
-	_getDelegateLogger(name: string, version?: string, options?: LoggerOptions): Logger | undefined;
-}
-
-declare class ProxyLoggerProvider implements LoggerProvider {
-	private _delegate?;
-	getLogger(name: string, version?: string | undefined, options?: LoggerOptions | undefined): Logger;
-	/**
-	* Get the delegate logger provider.
-	* Used by tests only.
-	* @internal
-	*/
-	_getDelegate(): LoggerProvider;
-	/**
-	* Set the delegate logger provider
-	* @internal
-	*/
-	_setDelegate(delegate: LoggerProvider): void;
-	/**
-	* @internal
-	*/
-	_getDelegateLogger(name: string, version?: string | undefined, options?: LoggerOptions | undefined): Logger | undefined;
-}
-
 declare class LogsAPI {
 	private static _instance?;
 	private _proxyLoggerProvider;
@@ -217,4 +169,4 @@ declare class LogsAPI {
 
 declare const logs: LogsAPI;
 
-export { AnyValue, AnyValueMap, LogAttributes, LogBody, LogRecord, Logger, LoggerOptions, LoggerProvider, NOOP_LOGGER, NOOP_LOGGER_PROVIDER, NoopLogger, NoopLoggerProvider, ProxyLogger, ProxyLoggerProvider, SeverityNumber, logs };
+export { AnyValue, AnyValueMap, LogAttributes, LogBody, LogRecord, Logger, LoggerOptions, LoggerProvider, NOOP_LOGGER, NoopLogger, SeverityNumber, logs };

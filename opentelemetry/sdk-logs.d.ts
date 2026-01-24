@@ -15,10 +15,10 @@
  */
 
 import { Resource } from './resources.d.ts';
-import { HrTime, SpanContext, Context } from './api.d.ts';
-import { InstrumentationScope, ExportResult } from './core.d.ts';
 import * as logsAPI from './api-logs.d.ts';
 import { LogAttributes, SeverityNumber, LogBody, AnyValue } from './api-logs.d.ts';
+import { InstrumentationScope, ExportResult } from './core.d.ts';
+import { HrTime, SpanContext, Context } from './api.d.ts';
 
 /**
  * A recording of a event. Typically the record includes a timestamp indicating when the
@@ -98,6 +98,52 @@ interface LogRecordProcessor {
 	shutdown(): Promise<void>;
 }
 
+/**
+ * A LoggerConfig defines various configurable aspects of a Logger's behavior.
+ *
+ * @experimental This feature is in development as per the OpenTelemetry specification.
+ */
+interface LoggerConfig {
+	/**
+	* A boolean indication of whether the logger is enabled.
+	* If a Logger is disabled, it behaves equivalently to a No-op Logger.
+	* Defaults to false (loggers are enabled by default).
+	*
+	* @experimental This feature is in development as per the OpenTelemetry specification.
+	*/
+	disabled?: boolean;
+	/**
+	* A SeverityNumber indicating the minimum severity level for log records to be processed.
+	* If not explicitly set, defaults to 0 (UNSPECIFIED).
+	* Log records with a specified severity (i.e. not 0) that is less than this value will be dropped.
+	* Log records with unspecified severity (0) bypass this filter.
+	*
+	* @experimental This feature is in development as per the OpenTelemetry specification.
+	*/
+	minimumSeverity?: SeverityNumber;
+	/**
+	* A boolean indication of whether the logger should only process log records
+	* associated with sampled traces.
+	* If not explicitly set, defaults to false.
+	* If true, log records associated with unsampled traces will be dropped.
+	*
+	* @experimental This feature is in development as per the OpenTelemetry specification.
+	*/
+	traceBased?: boolean;
+}
+/**
+ * A LoggerConfigurator is a function which computes the LoggerConfig for a Logger.
+ * It is called when a Logger is first created, and for each outstanding Logger
+ * when a LoggerProvider's LoggerConfigurator is updated (if updating is supported).
+ *
+ * The function must return the complete LoggerConfig for the given logger scope.
+ * All config properties should have their values computed and set to appropriate defaults.
+ *
+ * @param loggerScope - The InstrumentationScope of the Logger
+ * @returns The computed LoggerConfig with all properties set
+ * @experimental This feature is in development as per the OpenTelemetry specification.
+ */
+type LoggerConfigurator = (loggerScope: InstrumentationScope) => Required<LoggerConfig>;
 interface LoggerProviderConfig {
 	/** Resource associated with trace telemetry  */
 	resource?: Resource;
@@ -110,6 +156,13 @@ interface LoggerProviderConfig {
 	logRecordLimits?: LogRecordLimits;
 	/** Log Record Processors */
 	processors?: LogRecordProcessor[];
+	/**
+	* A function that computes the LoggerConfig for a given logger.
+	* This is called when a Logger is first created.
+	*
+	* @experimental This feature is in development as per the OpenTelemetry specification.
+	*/
+	loggerConfigurator?: LoggerConfigurator;
 }
 interface LogRecordLimits {
 	/** attributeValueLengthLimit is maximum allowed attribute value size */
@@ -176,12 +229,6 @@ interface ReadableLogRecord {
 	readonly droppedAttributesCount: number;
 }
 
-declare class NoopLogRecordProcessor implements LogRecordProcessor {
-	forceFlush(): Promise<void>;
-	onEmit(_logRecord: ReadableLogRecord, _context: Context): void;
-	shutdown(): Promise<void>;
-}
-
 interface LogRecordExporter {
 	/**
 	* Called to export {@link ReadableLogRecord}s.
@@ -222,11 +269,20 @@ declare class ConsoleLogRecordExporter implements LogRecordExporter {
 	private _sendLogRecords;
 }
 
+/**
+ * An implementation of the {@link LogRecordProcessor} interface that exports
+ * each {@link LogRecord} as it is emitted.
+ *
+ * NOTE: This {@link LogRecordProcessor} exports every {@link LogRecord}
+ * individually instead of batching them together, which can cause significant
+ * performance overhead with most exporters. For production use, please consider
+ * using the {@link BatchLogRecordProcessor} instead.
+ */
 declare class SimpleLogRecordProcessor implements LogRecordProcessor {
 	private readonly _exporter;
 	private _shutdownOnce;
 	private _unresolvedExports;
-	constructor(_exporter: LogRecordExporter);
+	constructor(exporter: LogRecordExporter);
 	onEmit(logRecord: SdkLogRecord): void;
 	forceFlush(): Promise<void>;
 	shutdown(): Promise<void>;
@@ -252,15 +308,16 @@ declare class InMemoryLogRecordExporter implements LogRecordExporter {
 }
 
 declare abstract class BatchLogRecordProcessorBase<T extends BufferConfig> implements LogRecordProcessor {
-	private readonly _exporter;
 	private readonly _maxExportBatchSize;
 	private readonly _maxQueueSize;
 	private readonly _scheduledDelayMillis;
 	private readonly _exportTimeoutMillis;
+	private readonly _exporter;
+	private _isExporting;
 	private _finishedLogRecords;
 	private _timer;
 	private _shutdownOnce;
-	constructor(_exporter: LogRecordExporter, config?: T);
+	constructor(exporter: LogRecordExporter, config?: T);
 	onEmit(logRecord: SdkLogRecord): void;
 	forceFlush(): Promise<void>;
 	shutdown(): Promise<void>;
@@ -284,4 +341,48 @@ declare class BatchLogRecordProcessor extends BatchLogRecordProcessorBase<Buffer
 	protected onShutdown(): void;
 }
 
-export { BatchLogRecordProcessor, BatchLogRecordProcessorBrowserConfig, BufferConfig, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LogRecordExporter, LogRecordLimits, LogRecordProcessor, LoggerProvider, LoggerProviderConfig, NoopLogRecordProcessor, ReadableLogRecord, SdkLogRecord, SimpleLogRecordProcessor };
+/**
+ * Configuration for a specific logger pattern
+ *
+ * @experimental This feature is in development as per the OpenTelemetry specification.
+ */
+interface LoggerPattern {
+	/**
+	* The logger name or pattern to match.
+	* Use '*' for wildcard matching.
+	*
+	* @experimental This feature is in development as per the OpenTelemetry specification.
+	*/
+	pattern: string;
+	/**
+	* The configuration to apply to matching loggers.
+	* Partial config is allowed; unspecified properties will use defaults.
+	*
+	* @experimental This feature is in development as per the OpenTelemetry specification.
+	*/
+	config: LoggerConfig;
+}
+/**
+ * Creates a LoggerConfigurator from an array of logger patterns.
+ * Patterns are evaluated in order, and the first matching pattern's config is used.
+ * Supports exact matching and simple wildcard patterns with '*'.
+ *
+ * The returned configurator computes a complete LoggerConfig by merging the matched
+ * pattern's config with default values for any unspecified properties.
+ *
+ * @param patterns - Array of logger patterns with their configurations
+ * @returns A LoggerConfigurator function that computes complete LoggerConfig
+ * @experimental This feature is in development as per the OpenTelemetry specification.
+ *
+ * @example
+ * ```typescript
+ * const configurator = createLoggerConfigurator([
+ *   { pattern: 'debug-logger', config: { minimumSeverity: SeverityNumber.DEBUG } },
+ *   { pattern: 'prod-*', config: { minimumSeverity: SeverityNumber.WARN } },
+ *   { pattern: '*', config: { minimumSeverity: SeverityNumber.INFO } },
+ * ]);
+ * ```
+ */
+declare function createLoggerConfigurator(patterns: LoggerPattern[]): LoggerConfigurator;
+
+export { BatchLogRecordProcessor, BatchLogRecordProcessorBrowserConfig, BufferConfig, ConsoleLogRecordExporter, InMemoryLogRecordExporter, LogRecordExporter, LogRecordLimits, LogRecordProcessor, LoggerConfig, LoggerConfigurator, LoggerPattern, LoggerProvider, LoggerProviderConfig, ReadableLogRecord, SdkLogRecord, SimpleLogRecordProcessor, createLoggerConfigurator };

@@ -108,6 +108,9 @@ declare function loggingErrorHandler(): ErrorHandler;
  * @param epochMillis
  */
 declare function millisToHrTime(epochMillis: number): api.HrTime;
+/**
+ * @deprecated Use `performance.timeOrigin` directly.
+ */
 declare function getTimeOrigin(): number;
 /**
  * Returns an hrtime calculated via performance component.
@@ -160,6 +163,14 @@ declare function isTimeInput(value: unknown): value is api.HrTime | number | Dat
  * Given 2 HrTime formatted times, return their sum as an HrTime.
  */
 declare function addHrTimes(time1: api.HrTime, time2: api.HrTime): api.HrTime;
+
+/**
+ * @deprecated please copy this code to your implementation instead, this function will be removed in the next major version of this package.
+ * @param timer
+ */
+declare function unrefTimer(timer: {
+	unref(): unknown;
+} | number): void;
 
 interface ExportResult {
 	code: ExportResultCode;
@@ -216,10 +227,10 @@ declare function getBooleanFromEnv(key: string): boolean;
  */
 declare function getStringListFromEnv(key: string): string[] | undefined;
 
-/** only globals that common to node and browsers are allowed */
+/**
+ * @deprecated Use globalThis directly instead.
+ */
 declare const _globalThis: typeof globalThis;
-
-declare const otperformance: Performance;
 
 /** Constants describing the SDK in use */
 declare const SDK_INFO: {
@@ -229,7 +240,13 @@ declare const SDK_INFO: {
 	"telemetry.sdk.version": string;
 };
 
-declare function unrefTimer(timer: any): void;
+/**
+ * @deprecated Use performance directly.
+ */
+declare const otperformance: {
+	now(): number;
+	readonly timeOrigin: number;
+};
 
 /** Configuration object for composite propagator */
 interface CompositePropagatorConfig {
@@ -374,11 +391,11 @@ declare function isUrlIgnored(url: string, ignoredUrls?: Array<string | RegExp>)
  * Bind the callback and only invoke the callback once regardless how many times `BindOnceFuture.call` is invoked.
  */
 declare class BindOnceFuture<R, This = unknown, T extends (this: This, ...args: unknown[]) => R = () => R> {
-	private _callback;
-	private _that;
 	private _isCalled;
 	private _deferred;
-	constructor(_callback: T, _that: This);
+	private _callback;
+	private _that;
+	constructor(callback: T, that: This);
 	get isCalled(): boolean;
 	get promise(): Promise<R>;
 	call(...args: Parameters<T>): Promise<R>;

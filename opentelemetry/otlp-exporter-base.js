@@ -15,13 +15,13 @@
  */
 /// <reference types="./otlp-exporter-base.d.ts" />
 
-import { ExportResultCode, getStringFromEnv, parseKeyPairsIntoRecord } from './core.js';
+import { ExportResultCode, getStringFromEnv, getNumberFromEnv, parseKeyPairsIntoRecord } from './core.js';
 import { diag } from './api.js';
 
 class OTLPExporterBase {
 	_delegate;
-	constructor(_delegate) {
-		this._delegate = _delegate;
+	constructor(delegate) {
+		this._delegate = delegate;
 	}
 	export(items, resultCallback) {
 		this._delegate.export(items, resultCallback);
@@ -55,7 +55,7 @@ function wrapStaticHeadersInFunction(headers) {
 	if (headers == null) {
 		return undefined;
 	}
-	return () => headers;
+	return async () => headers;
 }
 function mergeOtlpSharedConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration) {
 	return {
@@ -130,18 +130,18 @@ function createLoggingPartialSuccessResponseHandler() {
 }
 
 class OTLPExportDelegate {
+	_diagLogger;
 	_transport;
 	_serializer;
 	_responseHandler;
 	_promiseQueue;
 	_timeout;
-	_diagLogger;
-	constructor(_transport, _serializer, _responseHandler, _promiseQueue, _timeout) {
-		this._transport = _transport;
-		this._serializer = _serializer;
-		this._responseHandler = _responseHandler;
-		this._promiseQueue = _promiseQueue;
-		this._timeout = _timeout;
+	constructor(transport, serializer, responseHandler, promiseQueue, timeout) {
+		this._transport = transport;
+		this._serializer = serializer;
+		this._responseHandler = responseHandler;
+		this._promiseQueue = promiseQueue;
+		this._timeout = timeout;
 		this._diagLogger = diag.createComponentLogger({
 			namespace: 'OTLPExportDelegate',
 		});
@@ -188,7 +188,8 @@ class OTLPExportDelegate {
 			else if (response.status === 'retryable') {
 				resultCallback({
 					code: ExportResultCode.FAILED,
-					error: new OTLPExporterError('Export failed with retryable status'),
+					error: response.error ??
+						new OTLPExporterError('Export failed with retryable status'),
 				});
 			}
 			else {
@@ -224,31 +225,29 @@ function createOtlpNetworkExportDelegate(options, serializer, transport) {
 }
 
 function validateAndNormalizeHeaders(partialHeaders) {
-	return () => {
-		const headers = {};
-		Object.entries(partialHeaders?.() ?? {}).forEach(([key, value]) => {
-			if (typeof value !== 'undefined') {
-				headers[key] = String(value);
-			}
-			else {
-				diag.warn(`Header "${key}" has invalid value (${value}) and will be ignored`);
-			}
-		});
-		return headers;
-	};
+	const headers = {};
+	Object.entries(partialHeaders ?? {}).forEach(([key, value]) => {
+		if (typeof value !== 'undefined') {
+			headers[key] = String(value);
+		}
+		else {
+			diag.warn(`Header "${key}" has invalid value (${value}) and will be ignored`);
+		}
+	});
+	return headers;
 }
 
 function mergeHeaders(userProvidedHeaders, fallbackHeaders, defaultHeaders) {
-	const requiredHeaders = {
-		...defaultHeaders(),
-	};
-	const headers = {};
-	return () => {
+	return async () => {
+		const requiredHeaders = {
+			...(await defaultHeaders()),
+		};
+		const headers = {};
 		if (fallbackHeaders != null) {
-			Object.assign(headers, fallbackHeaders());
+			Object.assign(headers, await fallbackHeaders());
 		}
 		if (userProvidedHeaders != null) {
-			Object.assign(headers, userProvidedHeaders());
+			Object.assign(headers, validateAndNormalizeHeaders(await userProvidedHeaders()));
 		}
 		return Object.assign(headers, requiredHeaders);
 	};
@@ -268,7 +267,7 @@ function validateUserProvidedUrl(url) {
 function mergeOtlpHttpConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration) {
 	return {
 		...mergeOtlpSharedConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration),
-		headers: mergeHeaders(validateAndNormalizeHeaders(userProvidedConfiguration.headers), fallbackConfiguration.headers, defaultConfiguration.headers),
+		headers: mergeHeaders(userProvidedConfiguration.headers, fallbackConfiguration.headers, defaultConfiguration.headers),
 		url: validateUserProvidedUrl(userProvidedConfiguration.url) ??
 			fallbackConfiguration.url ??
 			defaultConfiguration.url,
@@ -277,14 +276,15 @@ function mergeOtlpHttpConfigurationWithDefaults(userProvidedConfiguration, fallb
 function getHttpConfigurationDefaults(requiredHeaders, signalResourcePath) {
 	return {
 		...getSharedConfigurationDefaults(),
-		headers: () => requiredHeaders,
+		headers: async () => requiredHeaders,
 		url: 'http://localhost:4318/' + signalResourcePath,
 	};
 }
 
-function httpAgentFactoryFromOptions(options ) {
-	return () => {
-		return globalThis.Deno.createHttpClient(options);
+function httpAgentFactoryFromOptions(options) {
+	return (_protocol) => {
+		if (!options.caCerts && !options.key)
+			return globalThis.Deno.createHttpClient(options);
 	};
 }
 function mergeOtlpNodeHttpConfigurationWithDefaults(userProvidedConfiguration, fallbackConfiguration, defaultConfiguration) {
@@ -302,9 +302,11 @@ function getNodeHttpConfigurationDefaults(requiredHeaders, signalResourcePath) {
 	};
 }
 
-function isExportRetryable(statusCode) {
-	const retryCodes = [429, 502, 503, 504];
-	return retryCodes.includes(statusCode);
+function isExportHTTPErrorRetryable(statusCode) {
+	return (statusCode === 429 ||
+		statusCode === 502 ||
+		statusCode === 503 ||
+		statusCode === 504);
 }
 function parseRetryAfterToMills(retryAfter) {
 	if (retryAfter == null) {
@@ -325,9 +327,11 @@ class HttpExporterTransport {
 	_parameters;
 	constructor(_parameters) {
 		this._parameters = _parameters;
+		this.httpClient = _parameters.agentFactory?.() ?? undefined;
 	}
+	httpClient;
 	async send(data, timeoutMillis) {
-		const headers = new Headers(this._parameters.headers());
+		const headers = new Headers(await this._parameters.headers());
 		let body = ReadableStream.from([data]);
 		if (this._parameters.compression == 'gzip') {
 			headers.set('content-encoding', 'gzip');
@@ -336,13 +340,14 @@ class HttpExporterTransport {
 		return await fetch(this._parameters.url, {
 			method: 'POST',
 			body, headers,
+			agent: await this.httpClient,
 			signal: AbortSignal.timeout(timeoutMillis),
 		}).then(async (res) => {
 			if (res.ok) {
 				const data = new Uint8Array(await res.arrayBuffer());
 				return { status: 'success', data };
 			}
-			if (isExportRetryable(res.status)) {
+			if (isExportHTTPErrorRetryable(res.status)) {
 				const retryInMillis = parseRetryAfterToMills(res.headers.get('retry-after'));
 				return { status: 'retryable', retryInMillis };
 			}
@@ -350,7 +355,11 @@ class HttpExporterTransport {
 			return { status: 'failure', error };
 		}).catch(error => ({ status: 'failure', error }));
 	}
-	shutdown() { }
+	shutdown() {
+		if (this.httpClient) {
+			Promise.resolve(this.httpClient).then(x => x.close());
+		}
+	}
 }
 function createHttpExporterTransport(parameters) {
 	return new HttpExporterTransport(parameters);
@@ -366,8 +375,8 @@ function getJitter() {
 }
 class RetryingTransport {
 	_transport;
-	constructor(_transport) {
-		this._transport = _transport;
+	constructor(transport) {
+		this._transport = transport;
 	}
 	retry(data, timeoutMillis, inMillis) {
 		return new Promise((resolve, reject) => {
@@ -377,20 +386,31 @@ class RetryingTransport {
 		});
 	}
 	async send(data, timeoutMillis) {
-		const deadline = Date.now() + timeoutMillis;
-		let result = await this._transport.send(data, timeoutMillis);
 		let attempts = MAX_ATTEMPTS;
 		let nextBackoff = INITIAL_BACKOFF;
+		const deadline = Date.now() + timeoutMillis;
+		let result = await this._transport.send(data, timeoutMillis);
 		while (result.status === 'retryable' && attempts > 0) {
 			attempts--;
-			const backoff = Math.max(Math.min(nextBackoff, MAX_BACKOFF) + getJitter(), 0);
+			const backoff = Math.max(Math.min(nextBackoff * (1 + getJitter()), MAX_BACKOFF), 0);
 			nextBackoff = nextBackoff * BACKOFF_MULTIPLIER;
 			const retryInMillis = result.retryInMillis ?? backoff;
 			const remainingTimeoutMillis = deadline - Date.now();
 			if (retryInMillis > remainingTimeoutMillis) {
+				diag.info(`Export retry time ${Math.round(retryInMillis)}ms exceeds remaining timeout ${Math.round(remainingTimeoutMillis)}ms, not retrying further.`);
 				return result;
 			}
+			diag.verbose(`Scheduling export retry in ${Math.round(retryInMillis)}ms`);
 			result = await this.retry(data, remainingTimeoutMillis, retryInMillis);
+		}
+		if (result.status === 'success') {
+			diag.verbose(`Export succeeded after ${MAX_ATTEMPTS - attempts} retry attempts.`);
+		}
+		else if (result.status === 'retryable') {
+			diag.info(`Export failed after maximum retry attempts (${MAX_ATTEMPTS}).`);
+		}
+		else {
+			diag.info(`Export failed with non-retryable error: ${result.error}`);
 		}
 		return result;
 	}
@@ -413,11 +433,10 @@ function createOtlpHttpExportDelegate(options, serializer) {
 }
 
 function parseAndValidateTimeoutFromEnv(timeoutEnvVar) {
-	const envTimeout = Deno.env.get(timeoutEnvVar)?.trim();
-	if (envTimeout != null && envTimeout !== '') {
-		const definedTimeout = Number(envTimeout);
-		if (Number.isFinite(definedTimeout) && definedTimeout > 0) {
-			return definedTimeout;
+	const envTimeout = getNumberFromEnv(timeoutEnvVar);
+	if (envTimeout != null) {
+		if (Number.isFinite(envTimeout) && envTimeout > 0) {
+			return envTimeout;
 		}
 		diag.warn(`Configuration: ${timeoutEnvVar} is invalid, expected number greater than 0 (actual: ${envTimeout})`);
 	}
@@ -429,10 +448,7 @@ function getTimeoutFromEnv(signalIdentifier) {
 	return specificTimeout ?? nonSpecificTimeout;
 }
 function parseAndValidateCompressionFromEnv(compressionEnvVar) {
-	const compression = Deno.env.get(compressionEnvVar)?.trim();
-	if (compression === '') {
-		return undefined;
-	}
+	const compression = getStringFromEnv(compressionEnvVar)?.trim();
 	if (compression == null || compression === 'none' || compression === 'gzip') {
 		return compression;
 	}
@@ -449,6 +465,13 @@ function getSharedConfigurationFromEnvironment(signalIdentifier) {
 		timeoutMillis: getTimeoutFromEnv(signalIdentifier),
 		compression: getCompressionFromEnv(signalIdentifier),
 	};
+}
+
+function convertLegacyHeaders(config) {
+	if (typeof config.headers === 'function') {
+		return config.headers;
+	}
+	return wrapStaticHeadersInFunction(config.headers);
 }
 
 function getStaticHeadersFromEnv(signalIdentifier) {
@@ -507,12 +530,43 @@ function getSpecificUrlFromEnv(signalIdentifier) {
 	}
 	return appendRootPathToUrlIfNeeded(envUrl);
 }
+function readFileFromEnv(signalSpecificEnvVar, nonSignalSpecificEnvVar, warningMessage) {
+	const signalSpecificPath = getStringFromEnv(signalSpecificEnvVar);
+	const nonSignalSpecificPath = getStringFromEnv(nonSignalSpecificEnvVar);
+	const filePath = signalSpecificPath ?? nonSignalSpecificPath;
+	if (filePath != null) {
+		try {
+			return Deno.readTextFileSync(filePath);
+		}
+		catch {
+			diag.warn(warningMessage);
+			return undefined;
+		}
+	}
+	else {
+		return undefined;
+	}
+}
+function getClientCertificateFromEnv(signalIdentifier) {
+	return readFileFromEnv(`OTEL_EXPORTER_OTLP_${signalIdentifier}_CLIENT_CERTIFICATE`, 'OTEL_EXPORTER_OTLP_CLIENT_CERTIFICATE', 'Failed to read client certificate chain file');
+}
+function getClientKeyFromEnv(signalIdentifier) {
+	return readFileFromEnv(`OTEL_EXPORTER_OTLP_${signalIdentifier}_CLIENT_KEY`, 'OTEL_EXPORTER_OTLP_CLIENT_KEY', 'Failed to read client certificate private key file');
+}
+function getRootCertificateFromEnv(signalIdentifier) {
+	return readFileFromEnv(`OTEL_EXPORTER_OTLP_${signalIdentifier}_CERTIFICATE`, 'OTEL_EXPORTER_OTLP_CERTIFICATE', 'Failed to read root certificate file');
+}
 function getNodeHttpConfigurationFromEnvironment(signalIdentifier, signalResourcePath) {
 	return {
 		...getSharedConfigurationFromEnvironment(signalIdentifier),
 		url: getSpecificUrlFromEnv(signalIdentifier) ??
 			getNonSpecificUrlFromEnv(signalResourcePath),
 		headers: wrapStaticHeadersInFunction(getStaticHeadersFromEnv(signalIdentifier)),
+		agentFactory: httpAgentFactoryFromOptions({
+			caCerts: [getRootCertificateFromEnv(signalIdentifier)].flatMap(x => x ? [x] : []),
+			cert: getClientCertificateFromEnv(signalIdentifier),
+			key: getClientKeyFromEnv(signalIdentifier),
+		}),
 	};
 }
 
@@ -522,7 +576,7 @@ function convertLegacyHttpOptions(config, signalIdentifier, signalResourcePath, 
 	}
 	return mergeOtlpNodeHttpConfigurationWithDefaults({
 		url: config.url,
-		headers: wrapStaticHeadersInFunction(config.headers),
+		headers: convertLegacyHeaders(config),
 		concurrencyLimit: config.concurrencyLimit,
 		timeoutMillis: config.timeoutMillis,
 		compression: config.compression,

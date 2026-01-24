@@ -28,6 +28,7 @@ interface ExportResponseFailure {
 interface ExportResponseRetryable {
 	status: 'retryable';
 	retryInMillis?: number;
+	error?: Error;
 }
 type ExportResponse = ExportResponseSuccess | ExportResponseFailure | ExportResponseRetryable;
 
@@ -47,7 +48,7 @@ interface IOtlpExportDelegate<Internal> {
 
 declare class OTLPExporterBase<Internal> {
 	private _delegate;
-	constructor(_delegate: IOtlpExportDelegate<Internal>);
+	constructor(delegate: IOtlpExportDelegate<Internal>);
 	/**
 	* Export items.
 	* @param items
@@ -66,6 +67,12 @@ declare class OTLPExporterError extends Error {
 	readonly name: string;
 	readonly data?: string;
 	constructor(message?: string, code?: number, data?: string);
+}
+
+type HeadersFactory = () => Promise<Record<string, string>>;
+interface OtlpHttpConfiguration extends OtlpSharedConfiguration {
+	url: string;
+	headers: HeadersFactory;
 }
 
 /**
@@ -90,7 +97,31 @@ declare function mergeOtlpSharedConfigurationWithDefaults(userProvidedConfigurat
 declare function getSharedConfigurationDefaults(): OtlpSharedConfiguration;
 
 interface OTLPExporterConfigBase {
-	headers?: Record<string, string>;
+	/**
+	* Custom headers that will be attached to the HTTP request that's sent to the endpoint.
+	*
+	* @remarks
+	* Prefer using a plain object over a factory function wherever possible.
+	* If using a factory function (`HttpAgentFactory`), **do not import `http` or `https` at the top of the file**
+	* Instead, use dynamic `import()` or `require()` to load the module. This ensures that the `http` or `https`
+	* module is not loaded before `@opentelemetry/instrumentation-http` can instrument it.
+	*
+	* Functions passed to the exporter MUST NOT throw errors.
+	*
+	* @example <caption> Using headers options directly: </caption>
+	* headers: {
+	*  Authorization: "Api-Token my-secret-token",
+	* }
+	*
+	* @example <caption> Using a custom factory function </caption>
+	* headers: async () => {
+	*   // ... do whatever you need to obtain the headers, ensuring you `await import('your-library')` to avoid breaking instrumentations ...
+	*   return {
+	*     Authorization: `Bearer ${token}`,
+	*   };
+	* };
+	*/
+	headers?: Record<string, string> | HeadersFactory;
 	url?: string;
 	concurrencyLimit?: number;
 	/** Maximum time the OTLP exporter will wait for each batch export.
@@ -103,6 +134,34 @@ interface OTLPExporterConfigBase {
  */
 interface OTLPExporterNodeConfigBase extends OTLPExporterConfigBase {
 	compression?: CompressionAlgorithm;
+	/**
+	* Custom HTTP agent options or a factory function for creating agents.
+	*
+	* @remarks
+	* Prefer using `http.AgentOptions` or `https.AgentOptions` over a factory function wherever possible.
+	* If using a factory function (`HttpAgentFactory`), **do not import `http.Agent` or `https.Agent`
+	* statically at the top of the file**.
+	* Instead, use dynamic `import()` or `require()` to load the module. This ensures that the `http` or `https`
+	* module is not loaded before `@opentelemetry/instrumentation-http` can instrument it.
+	*
+	* @example <caption> Using agent options directly: </caption>
+//    * httpAgentOptions: {
+//    *   keepAlive: true,
+	*   maxSockets: 10
+	* }
+	*
+	* @example <caption> Using a factory with dynamic import: </caption>
+//    * httpAgentOptions: async (protocol) => {
+	*   const module = protocol === 'http:' ? await import('http') : await import('https');
+//    *   return new module.Agent({ keepAlive: true });
+	* }
+	*/
+	/**
+	* User agent header string to be prepended to the exporter's default value.
+	* Availablie since v1.49.0 of the spec.
+	* Ref: https://opentelemetry.io/docs/specs/otel/protocol/exporter/#user-agent
+	*/
+	userAgent?: string;
 }
 declare enum CompressionAlgorithm {
 	NONE = "none",
@@ -111,16 +170,12 @@ declare enum CompressionAlgorithm {
 
 declare function createOtlpNetworkExportDelegate<Internal, Response>(options: OtlpSharedConfiguration, serializer: ISerializer<Internal, Response>, transport: IExporterTransport): IOtlpExportDelegate<Internal>;
 
-interface OtlpHttpConfiguration extends OtlpSharedConfiguration {
-	url: string;
-	headers: () => Record<string, string>;
-}
-
-type HttpAgentFactory = () => any;
+type HttpAgentFactory = (_protocol?: string) => Deno.HttpClient | Promise<Deno.HttpClient>;
 interface OtlpNodeHttpConfiguration extends OtlpHttpConfiguration {
 	agentFactory: HttpAgentFactory;
+	userAgent?: string;
 }
-declare function httpAgentFactoryFromOptions(options: any): HttpAgentFactory;
+declare function httpAgentFactoryFromOptions(options: Deno.CreateHttpClientOptions): HttpAgentFactory;
 
 declare function createOtlpHttpExportDelegate<Internal, Response>(options: OtlpNodeHttpConfiguration, serializer: ISerializer<Internal, Response>): IOtlpExportDelegate<Internal>;
 
